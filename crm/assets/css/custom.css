@@ -1,0 +1,23 @@
+.bg-soft-green {
+    background-color: #edfef0;
+}
+.card-animate {
+    box-shadow: none;
+}.card-animate {
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}.card {
+    margin-bottom: 1.5rem;
+    -webkit-box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+    box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+}.waves {
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+.btn {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
