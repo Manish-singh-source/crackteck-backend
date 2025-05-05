@@ -86,7 +86,7 @@
                                             <div class="saprator my-4"><span>or continue with email</span></div>
 
                                             <div class="pt-0">
-                                                <form action="#" class="my-4">
+                                                <form action="./crm/index.php" class="my-4">
                                                     <div class="form-group mb-3">
                                                         <label for="emailaddress" class="form-label">Email address</label>
                                                         <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
@@ -95,6 +95,15 @@
                                                     <div class="form-group mb-3">
                                                         <label for="password" class="form-label">Password</label>
                                                         <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
+                                                    </div>
+
+                                                    <div class="otp from-group mb-3">
+                                                        <label for="otp" class="form-label"><strong> We need to verify you </strong> </label>
+                                                        <p>code has been send to ****@gmail.com</p>
+                                                        <input style="width: 25px;" type="text">
+                                                        <input style="width: 25px;" type="text">
+                                                        <input style="width: 25px;" type="text">
+                                                        <input style="width: 25px;" type="text">
                                                     </div>
 
                                                     <div class="form-group d-flex mb-3">
