@@ -1,10 +1,25 @@
-<?php include('layouts/header.php') ?>
+<?php 
+$contain = "Add Product";
+include('layouts/header.php') ?>
 
 <div class="content">
 
     <!-- Start Content-->
     <div class="container-fluid">
-        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+
+        <div class="bradcrumb pt-3 ps-2 bg-light">
+            <div class="row ">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Product</li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="py-1 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0"></h4>
             </div>
@@ -20,7 +35,7 @@
                                 <div class="row g-4 align-items-center">
                                     <div class="col-sm">
                                         <h5 class="card-title mb-0">
-                                            Product Basic Information
+                                            Basic Product Information
                                         </h5>
                                     </div>
                                 </div>
@@ -31,74 +46,62 @@
                                     <div class="col-xl-6 col-lg-12">
                                         <div>
                                             <label class="form-label" for="name">
-                                                Product title <span class="text-danger">*</span>
+                                                Product Name <span class="text-danger">*</span>
                                             </label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product title" required="">
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
                                             <label class="form-label" for="price">
-                                                Regular price <span class="text-danger">*</span>
+                                                SKU <span class="text-danger">*</span>
                                             </label>
-                                            <input step="any" type="number" class="form-control" id="price" name="price" required="" value="" placeholder="Product price">
+                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="" placeholder="Product sku code">
                                         </div>
                                     </div>
 
-
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="brand" class="form-label">Brand <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="brand" name="brand" required="">
+                                                <option value="">TP-Link</option>
+                                                <option value="">Cisco</option>
+                                                <option value=""> D-Link</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            <label class="form-label" for="discount_percentage">
-                                                Discount Percentage(%)
+                                            <label class="form-label" for="model">
+                                                Model No <span class="text-danger">*</span>
                                             </label>
+                                            <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Model no">
+                                        </div>
+                                    </div>
 
-                                            <input type="number" class="form-control discount_percentage" id="discount_percentage" name="discount_percentage" value="0" placeholder="Discount Percentage">
-
-                                            <div class="text-danger" id="dicountAmount">
-                                            </div>
-
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="status" class="form-label">Category <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="category" name="category" required="">
+                                                <option value="">TP-Link</option>
+                                                <option value="">Cisco</option>
+                                                <option value=""> D-Link</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            <label for="minimum_purchase_qty" class="form-label">Purchase Quantity (Min) <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="minimum_purchase_qty" id="minimum_purchase_qty" value="1" placeholder="Min qty should be 1" required="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label for="maximum_purchase_qty" class="form-label">Purchase Quantity (Max) <span class="text-danger">*</span></label>
-                                            <input type="number" value="0" class="form-control" name="maximum_purchase_qty" id="maximum_purchase_qty" placeholder="Max qty unlimited number" required="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 text-editor-area">
-
-                                        <div class="text-editor-area">
-                                            <div class="text-editor-area">
-                                                <label for="mail-composer" class="form-label"> Short Description
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <textarea id="mail-composer" class="form-control text-editor" name="details" rows="5" placeholder="Enter Description"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row mt-3">
-                                    <div class="text-editor-area">
-                                        <div class="text-editor-area">
-                                            <label for="mail-composer" class="form-label"> Product Description
+                                            <label for="mail-composer" class="form-label"> Subcategory
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" rows="5" placeholder="Enter Description"></textarea>
+                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -106,32 +109,199 @@
                         <div class="card pb-4">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Product Gallery
+                                    Product Details
                                 </h5>
                             </div>
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-xl-6 mb-2">
+                                    <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Thumbnail Image <span class="text-danger">*</span></label>
-                                            <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
-                                            <div id="emailHelp" class="text-danger">Image Size Should Be
-                                                800x650
-                                            </div>
-                                        </div>
-                                        <div class="featured_img thumbnail">
-
+                                            <label for="featured_image" class="form-label">Short Description <span class="text-danger">*</span></label>
+                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-xl-6 mb-2">
+                                    <div class="col-6 mb-2">
                                         <div>
-                                            <label for="product_gallery_image" class="form-label">Gallery Image <span class="text-danger">*</span></label>
-                                            <input type="file" name="gallery_image[]" id="product_gallery_image" class="form-control" multiple="" required="">
-                                            <div class="text-danger">Image Size Should Be
-                                                800x650
-                                            </div>
-                                            <div class="d-flex flex-wrap gap-2 gallery_img"></div>
+                                            <label for="featured_image" class="form-label">Full Description<span class="text-danger">*</span></label>
+                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Technical Specifications<span class="text-danger">*</span></label>
+                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="warranty" class="form-label">Warranty <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="warranty" name="warranty" required="">
+                                                <option value="">1 Year</option>
+                                                <option value="">2 Years</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Pricing
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Cost Price <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Selling Price <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Discount Price <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Tax (%) <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Final Price (after discount) <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Inventory
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Stock <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Stock Status <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="warranty" name="warranty" required="">
+                                                <option value="">In Stock</option>
+                                                <option value="">Out of Stock</option>
+                                                <option value="">Pre-order</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Minimum Order Qty<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="number" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Maximum Order Qty<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="number" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                SEO
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Meta Title <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Meta Description <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Meta Keywords<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Product URL Slug <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                SEO Details
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Category Meta Title<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Category Meta Description<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Category Meta Keywords<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div>
+                                            <label for="featured_image" class="form-label">Category URL Slug<span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
                                         </div>
                                     </div>
                                 </div>
@@ -150,27 +320,33 @@
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Status Section
+                                    Images and Media:
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Product Status <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="status" name="status" required="">
-                                        <option value="">Select One</option>
-                                        <option selected="" value="0">New</option>
-                                        <option value="1">Published</option>
-                                        <option value="2">Inactive</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="form-check form-switch">
-                                        <input type="checkbox" class="form-check-input" name="featured_status" value="2" id="status-switch">
-                                        <label class="form-check-label" for="status-switch"> Todays Deal</label>
+                                    <label for="status" class="form-label">Main Product Image<span class="text-danger">*</span></label>
+                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <div id="emailHelp" class="text-danger">Image Size Should Be
+                                        800x650
                                     </div>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Additional Product Images<span class="text-danger">*</span></label>
+                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <div id="emailHelp" class="text-danger">Image Size Should Be
+                                        800x650
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Product Datasheet or Manual <span class="text-danger">*</span></label>
+                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <div id="emailHelp" class="text-danger">Image Size Should Be
+                                        800x650
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -178,29 +354,31 @@
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Product Categories
+                                    Product Variations
                                 </h5>
                             </div>
 
                             <div class="card-body">
 
                                 <div>
-                                    <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
+                                    <label for="category_id" class="form-label">Color Options <span class="text-danger">*</span></label>
                                     <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                        <option value="" data-select2-id="select2-data-7-j3bj">Select One</option>
+                                        <option value="" data-select2-id="select2-data-7-j3bj">Black</option>
                                         <option value="2" data-subcategory="[]">
-                                            Laptops</option>
+                                            White</option>
                                         <option value="4" data-subcategory="[]">
-                                            Computers</option>
-                                        <option value="5" data-subcategory="[]">
-                                            AC</option>
+                                            Grey</option>
                                     </select>
                                 </div>
 
-                                <div class="mt-2">
-                                    <label for="subcategory_id" class="form-label">Sub Category</label>
-                                    <select name="subcategory_id" id="subcategory_id" class="form-select">
-                                        <option value="" data-select2-id="select2-data-5-gcfe">Select One</option>
+                                <div class="mt-3">
+                                    <label for="category_id" class="form-label">Size/Length Options <span class="text-danger">*</span></label>
+                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
+                                        <option value="" data-select2-id="select2-data-7-j3bj">Black</option>
+                                        <option value="2" data-subcategory="[]">
+                                            White</option>
+                                        <option value="4" data-subcategory="[]">
+                                            Grey</option>
                                     </select>
                                 </div>
                             </div>
@@ -210,15 +388,29 @@
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Product Brand
+                                    Status
                                 </h5>
                             </div>
+
                             <div class="card-body">
+
                                 <div>
-                                    <label for="brand_id" class="form-label">Brand </label>
-                                    <select name="brand_id" id="brand_id" class="form-select">
-                                        <option value="">Select One</option>
-                                        <option value="1">HP</option>
+                                    <label for="category_id" class="form-label">Product Status <span class="text-danger">*</span></label>
+                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
+                                        <option value="" data-select2-id="select2-data-7-j3bj">Active</option>
+                                        <option value="2" data-subcategory="[]">
+                                            Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="category_id" class="form-label">Created Date <span class="text-danger">*</span></label>
+                                    <input type="date" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Start Date">
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="category_id" class="form-label">Updated Date<span class="text-danger">*</span></label>
+                                    <input type="date" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Start Date">
                                 </div>
                             </div>
 
@@ -227,17 +419,52 @@
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Product Warranty Policy
+                                    Shipping Details
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <p class="text-muted mb-2">
-                                    Add Warranty Policy of Product
-                                </p>
-
-                                <textarea required="" class="form-control" name="warranty_policy" rows="5" placeholder="Enter warranty policy"></textarea>
+                                <div class="mb-3">
+                                    <label for="featured_image" class="form-label">Product Weight (kg/gms) <span class="text-danger">*</span></label>
+                                    <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                </div>
+                                <div class="mt-3 mb-3">
+                                    <label for="featured_image" class="form-label">Product Dimensions (L × W × H cm/mm)<span class="text-danger">*</span></label>
+                                    <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                </div>
+                                <div class="mt-3 mb-3">
+                                    <label for="featured_image" class="form-label">Shipping Class<span class="text-danger">*</span></label>
+                                    <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option value="">Light</option>
+                                        <option value="">Heavy</option>
+                                        <option value="">Fragile</option>
+                                    </select>
+                                </div>
                             </div>
 
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Other Information:
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="featured_image" class="form-label">Featured Product?<span class="text-danger">*</span></label>
+                                    <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="featured_image" class="form-label">Tags<span class="text-danger">*</span></label>
+                                    <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option value="">Best Seller</option>
+                                        <option value="">High-Speed</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
