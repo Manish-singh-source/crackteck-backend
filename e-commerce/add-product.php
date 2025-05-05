@@ -28,7 +28,7 @@
 
                             <div class="card-body">
                                 <div class="row g-3">
-                                    <div class="col-xl-6 col-lg-12">
+                                    <div class="col-xl-6 col-lg-6">
                                         <div>
                                             <label class="form-label" for="name">
                                                 Product title <span class="text-danger">*</span>
