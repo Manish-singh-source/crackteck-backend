@@ -38,7 +38,7 @@
                         <i data-feather="sun" class="align-middle light-mode"></i>
                     </button>
                 </li>
-
+    
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">

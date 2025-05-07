@@ -29,15 +29,15 @@
 
                 <li>
                     <a class='tp-link' href='index.php'>
-                        <i data-feather="columns"></i>
-                        <span> E-commerce Dashboard </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce"/>
+                        <span class="ps-1"> E-commerce Dashboard </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='../crm/index.php'>
-                        <i data-feather="columns"></i>
-                        <span> CRM Dashboard </span>
+                    <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle"/>
+                        <span class="ps-1"> CRM Dashboard </span>
                     </a>
                 </li>
 
@@ -52,8 +52,8 @@
 
                 <li>
                     <a href="#accesscontrol" data-bs-toggle="collapse">
-                        <i data-feather="home"></i>
-                        <span> Access Control </span>
+                    <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials"/>
+                        <span class="ps-1"> Access Control </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="accesscontrol">
@@ -74,30 +74,30 @@
 
                 <li>
                     <a class='tp-link' href='customers.php'>
-                        <i data-feather="columns"></i>
-                        <span> Customers </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1"/>
+                        <span class="ps-1"> Customers </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='orders.php'>
-                        <i data-feather="map-pin"></i>
-                        <span> Orders </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/purchase-order.png" alt="purchase-order"/>
+                        <span class="ps-1"> Orders </span>
                     </a>
                 </li>
 
                 <li class="menu-title mt-2">PRODUCTS</li>
                 <li>
                     <a class='tp-link' href='products.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Products </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/shopping-cart.png" alt="shopping-cart"/>
+                        <span class="ps-1"> Products </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='categories.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Categories </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/categorize.png" alt="categorize"/>
+                        <span class="ps-1"> Categories </span>
                     </a>
                 </li>
                 <!-- <li>
@@ -108,14 +108,14 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='brands.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Brands </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/company.png" alt="company"/>
+                        <span class="ps-1"> Brands </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='product-variants.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Product Variants </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/open-box.png" alt="open-box"/>
+                        <span class="ps-1"> Product Variants </span>
                     </a>
                 </li>
 
@@ -123,30 +123,30 @@
 
                 <li>
                     <a class='tp-link' href='coupons.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Coupons </span>
+                    <img width="" height="20" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/1A1A1A/external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018.png" alt="external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018"/>
+                        <span class="ps-1"> Coupons </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='subscribers.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Subscribers </span>
+                    <img width="" height="20" src="https://img.icons8.com/external-smashingstocks-mixed-smashing-stocks/68/1A1A1A/external-Subscribers-online-streaming-smashingstocks-mixed-smashing-stocks.png" alt="external-Subscribers-online-streaming-smashingstocks-mixed-smashing-stocks"/>
+                        <span class="ps-1"> Subscribers </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='contacts.php'>
-                        <i data-feather="calendar"></i>
-                        <span> Contacts </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/apple-contacts.png" alt="apple-contacts"/>
+                        <span class="ps-1"> Contacts </span>
                     </a>
                 </li>
 
 
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">
-                        <i data-feather="package"></i>
-                        <span> Reports </span>
+                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="graph-report"/>
+                        <span class="ps-1"> Reports </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarBaseui">
@@ -174,8 +174,8 @@
 
                 <li>
                     <a class='tp-link' href='banner.php'>
-                        <i data-feather="columns"></i>
-                        <span> Banner </span>
+                    <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/document-footer.png" alt="document-footer"/>
+                        <span class="ps-1"> Banner </span>
                     </a>
                 </li>
             </ul>
