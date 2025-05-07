@@ -40,6 +40,13 @@
                         <span class="ps-1"> CRM Dashboard </span>
                     </a>
                 </li>
+                
+                <li>
+                    <a class='tp-link' href='../warehouse/index.php'>
+                        <i data-feather="columns"></i>
+                        <span> Warehouse Dashboard </span>
+                    </a>
+                </li>
 
                 <li class="menu-title">Access Control</li>
 
