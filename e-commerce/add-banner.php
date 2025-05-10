@@ -29,11 +29,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="en-input">
+                                                            <label class="form-label" for="banner_title">
                                                                 Title
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input id="en-input" type="text" name="title[en]" class="form-control" placeholder="Enter title" value="" required="">
+                                                            <input id="banner_title" type="text" name="banner_title" class="form-control" placeholder="Enter title" value="" required="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="col-12">
                                 <div>
                                     <div class="tab-content">
@@ -51,11 +51,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="en-input">
+                                                            <label class="form-label" for="banner_description">
                                                                 Description
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input id="en-input" type="text" name="title[en]" class="form-control" placeholder="Enter description" value="" required="">
+                                                            <input id="banner_description" type="text" name="banner_description" class="form-control" placeholder="Enter description" value="" required="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,8 +64,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="col-12">
                                 <div class="row g-3">

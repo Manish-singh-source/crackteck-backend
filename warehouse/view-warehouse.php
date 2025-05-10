@@ -256,7 +256,7 @@
 
                     <div class="card-body">
                         <div>
-                            <select required="" name="status" id="status" class="form-select w-100">
+                            <select required="" name="default_warehouse" class="form-select w-100">
                                 <option value="0" selected disabled>---- Select ----</option>
                                 <option value="0">Yes</option>
                                 <option value="0">No</option>
@@ -276,9 +276,9 @@
 
                     <div class="card-body">
                         <div>
-                            <select required="" name="status" id="status" class="form-select w-100">
+                            <select required="" name="status" class="form-select w-100">
                                 <option value="0" selected disabled>---- Select ----</option>
-                                <option value="0" selected>Unverified</option>
+                                <option value="0">Unverified</option>
                                 <option value="0">Verified</option>
                             </select>
                         </div>

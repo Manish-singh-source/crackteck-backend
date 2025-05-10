@@ -205,16 +205,19 @@
                     </a>
                 </li> -->
 
+                <!-- 
                 <li>
                     <a class='tp-link' href='warehouse-rack.php'>
                         <i data-feather="columns"></i>
                         <span> Warehouse rack </span>
                     </a>
-                </li>
+                </li> 
+                -->
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 
-                <!-- <li>
+                <!-- 
+                <li>
                     <a class='tp-link' href='service-list.php'>
                         <i data-feather="columns"></i>
                         <span> Services List </span>
@@ -247,13 +250,13 @@
 
                 <li class="menu-title mt-2">Remote Support Engineers</li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='service-request.php'>
                         <i data-feather="columns"></i>
                         <span> Service Requests </span>
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='track-request.php'>
                         <i data-feather="columns"></i>
                         <span> Track Requests </span>
                     </a>

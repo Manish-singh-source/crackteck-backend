@@ -45,28 +45,28 @@ include('layouts/header.php') ?>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-12 mb-2">
                                         <div>
-                                            <label class="form-label" for="name">
+                                            <label class="form-label" for="coupon_code">
                                                 Coupon Code <span class="text-danger">*</span>
                                             </label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter Coupon Code " required="">
+                                            <input name="coupon_code" id="coupon_code" type="text" class="form-control" value="" placeholder="Enter Coupon Code" required="">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label class="form-label" for="title">
+                                            <label class="form-label" for="coupon_title">
                                                 Coupon Title<span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="title" name="title" required="" value="" placeholder='e.g., "Summer Sale 20% OFF"'>
+                                            <input type="text" class="form-control" id="coupon_title" name="coupon_title" required="" value="" placeholder='e.g., "Summer Sale 20% OFF"'>
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label for="mail-composer" class="form-label"> Coupon Description
+                                            <label for="coupon_description" class="form-label"> Coupon Description
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Coupon Description"></textarea>
+                                            <textarea id="coupon_description" class="form-control text-editor" name="coupon_description" placeholder="Enter Coupon Description"></textarea>
                                         </div>
                                     </div>
 
@@ -85,36 +85,36 @@ include('layouts/header.php') ?>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label for="category_id" class="form-label">Discount Type<span class="text-danger">*</span></label>
-                                            <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                                <option value="" data-select2-id="select2-data-7-j3bj">Percentage</option>
-                                                <option value="2" data-subcategory="[]">
-                                                    Fixed Amount</option>
+                                            <label for="discount_type" class="form-label">Discount Type<span class="text-danger">*</span></label>
+                                            <select required="" name="discount_type" id="discount_type" class="form-select w-100">
+                                                <option selected disabled value="">-- Select --</option>
+                                                <option value="">Percentage</option>
+                                                <option value="2">Fixed Amount</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label class="form-label" for="text">
+                                            <label class="form-label" for="discount_value">
                                                 Discount Value <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="text" name="text" required="" value="" placeholder="e.g., 20% or ₹500">
+                                            <input type="text" class="form-control" id="discount_value" name="discount_value" required="" value="" placeholder="e.g., 20% or ₹500">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label class="form-label" for="text">
+                                            <label class="form-label" for="max_discount_value">
                                                 Maximum Discount Amount <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="text" name="text" required="" value="" placeholder="Maximum Discount Amount">
+                                            <input type="text" class="form-control" id="max_discount_value" name="max_discount_value" required="" value="" placeholder="Maximum Discount Amount">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <div>
-                                            <label class="form-label" for="price">
+                                            <label class="form-label" for="cost_price">
                                                 Purchase Price (Cost Price) <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="price" name="price" required="" value="" placeholder="Product Purchase Price (Cost Price)">
+                                            <input type="text" class="form-control" id="cost_price" name="cost_price" required="" value="" placeholder="Product Purchase Price (Cost Price)">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
@@ -140,40 +140,37 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="min" class="form-label">Minimum Purchase Amount<span class="text-danger">*</span></label>
-                                        <input name="min" id="min" type="text" class="form-control" value="" placeholder="Enter e.g., ₹2000 minimum order" required="">
+                                        <label for="min_purchase_amount" class="form-label">Minimum Purchase Amount<span class="text-danger">*</span></label>
+                                        <input name="min_purchase_amount" id="min_purchase_amount" type="text" class="form-control" value="" placeholder="Enter e.g., ₹2000 minimum order" required="">
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="category_id" class="form-label">Applicable Products<span class="text-danger">*</span></label>
-                                        <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                            <option value="" data-select2-id="select2-data-7-j3bj">A</option>
-                                            <option value="2" data-subcategory="[]">
-                                                B</option>
-                                            <option value="4" data-subcategory="[]">
-                                                C</option>
+                                        <label for="products_list" class="form-label">Applicable Products<span class="text-danger">*</span></label>
+                                        <select required="" name="products_list" id="products_list" class="form-select w-100">
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="1">Keyboard</option>
+                                            <option value="2">CPU</option>
+                                            <option value="3">SSD</option>
                                         </select>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="category_id" class="form-label">Applicable Categories<span class="text-danger">*</span></label>
-                                        <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                            <option value="" data-select2-id="select2-data-7-j3bj">A</option>
-                                            <option value="2" data-subcategory="[]">
-                                                B</option>
-                                            <option value="4" data-subcategory="[]">
-                                                C</option>
+                                        <label for="apply_categories" class="form-label">Applicable Categories<span class="text-danger">*</span></label>
+                                        <select required="" name="apply_categories" id="apply_categories" class="form-select w-100">
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="1">Category 1</option>
+                                            <option value="2">Category 2</option>
+                                            <option value="3">Category 3</option>
                                         </select>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="category_id" class="form-label">Customer Eligibility<span class="text-danger">*</span></label>
-                                        <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                            <option value="" data-select2-id="select2-data-7-j3bj">All Customers</option>
-                                            <option value="2" data-subcategory="[]">
-                                            New Customers</option>
-                                            <option value="4" data-subcategory="[]">
-                                            Existing Customers</option>
+                                        <label for="customer_eligibility" class="form-label">Customer Eligibility<span class="text-danger">*</span></label>
+                                        <select required="" name="customer_eligibility" id="customer_eligibility" class="form-select w-100" ->
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="1">All Customers</option>
+                                            <option value="2">New Customers</option>
+                                            <option value="3">Existing Customers</option>
                                         </select>
                                     </div>
                                 </div>
@@ -181,11 +178,11 @@ include('layouts/header.php') ?>
 
                         </div>
 
-                        <div class="text-start mb-3">
+                        <!-- <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
@@ -197,12 +194,12 @@ include('layouts/header.php') ?>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="date" class="form-label">Start Date<span class="text-danger">*</span></label>
-                                    <input name="date" id="name" type="date" class="form-control" value="" placeholder="Enter Start Date" required="">
+                                    <label for="start_date" class="form-label">Start Date<span class="text-danger">*</span></label>
+                                    <input name="start_date" id="start_date" type="date" class="form-control" value="" placeholder="Enter Start Date" required="">
                                 </div>
                                 <div class="mt-3 mb-3">
-                                    <label for="date" class="form-label">End Date<span class="text-danger">*</span></label>
-                                    <input name="date" id="name" type="date" class="form-control" value="" placeholder="Enter End Date" required="">
+                                    <label for="end_date" class="form-label">End Date<span class="text-danger">*</span></label>
+                                    <input name="end_date" id="end_date" type="date" class="form-control" value="" placeholder="Enter End Date" required="">
                                 </div>
                             </div>
 
@@ -217,15 +214,14 @@ include('layouts/header.php') ?>
 
                             <div class="card-body">
                                 <div class=" mb-3">
-                                    <label for="use" class="form-label">Total Usage Limit<span class="text-danger">*</span></label>
-                                    <input name="use" id="use" type="text" class="form-control" value="" placeholder="e.g., first 100 users only" required="">
+                                    <label for="total_usage" class="form-label">Total Usage Limit<span class="text-danger">*</span></label>
+                                    <input name="total_usage" id="total_usage" type="text" class="form-control" value="" placeholder="e.g., first 100 users only" required="">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="limit" class="form-label">Usage Limit Per Customer<span class="text-danger">*</span></label>
-                                    <input name="limit" id="limit" type="text" class="form-control" value="" placeholder="e.g., 1 time per customer" required="">
+                                    <label for="per_customer_usage" class="form-label">Usage Limit Per Customer<span class="text-danger">*</span></label>
+                                    <input name="per_customer_usage" id="per_customer_usage" type="text" class="form-control" value="" placeholder="e.g., 1 time per customer" required="">
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="card">
@@ -236,18 +232,25 @@ include('layouts/header.php') ?>
                             </div>
 
                             <div class="card-body">
-
                                 <div>
-                                    <label for="category_id" class="form-label">Stock Status<span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                        <option value="" data-select2-id="select2-data-7-j3bj">Active</option>
-                                        <option value="2" data-subcategory="[]">Inactive</option>
+                                    <label for="stock_status" class="form-label">Stock Status<span class="text-danger">*</span></label>
+                                    <select required="" name="stock_status" id="stock_status" class="form-select w-100" >
+                                        <option selected disabled value="">-- Select --</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="col-lg-12">
+                        <div class="text-start mb-3">
+                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

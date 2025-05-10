@@ -6,9 +6,10 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Recover Password | Hando - Responsive Admin Dashboard Template</title>
+    <title>Recover Password</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
+    <!-- <meta name="description" content="" /> -->
+     
     <meta name="author" content="Technofra" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -43,7 +44,7 @@
 
                                         <div class="mb-0 border-0 p-md-4 p-lg-0">
                                             <div class="mb-4 p-0">
-                                                <div class="auth-brand">
+                                                <!-- <div class="auth-brand">
                                                     <a class='logo logo-light' href='index.html'>
                                                         <span class="logo-lg">
                                                             <img src="assets/images/logo-light-3.png" alt="" height="24">
@@ -54,7 +55,7 @@
                                                             <img src="assets/images/logo-dark-3.png" alt="" height="24">
                                                         </span>
                                                     </a>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="auth-title-section mb-4 text-lg-start text-center">

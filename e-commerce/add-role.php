@@ -24,7 +24,7 @@
                                 Name <span class="text-danger">*</span>
                             </label>
 
-                            <input placeholder="Enter Name" name="name" value="" id="name" required="" class="form-control" type="text">
+                            <input placeholder="Enter Role Name" name="name" value="" id="name" required="" class="form-control" type="text">
                         </div>
 
                         <div class="mt-3">

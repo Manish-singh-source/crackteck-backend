@@ -381,8 +381,6 @@
                                             <div>
                                                 <h6 class="d-block fw-medium mb-1 text-dark fs-15">Update
                                                     User Database</h6>
-                                                <p class="text-muted mb-0 fs-13">Hando project s2 to amazon
-                                                    cloud database setup</p>
                                             </div>
                                             <div class="d-flex gap-1">
                                                 <a aria-label="anchor"
@@ -413,8 +411,6 @@
                                             <div>
                                                 <h6 class="d-block fw-medium mb-1 text-dark fs-15">Update
                                                     Front-end project UI</h6>
-                                                <p class="text-muted mb-0 fs-13">For the handover of the
-                                                    project, update the new UI design</p>
                                             </div>
                                             <div class="d-flex gap-1">
                                                 <a aria-label="anchor"

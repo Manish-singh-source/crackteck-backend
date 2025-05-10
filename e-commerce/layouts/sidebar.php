@@ -184,6 +184,13 @@
                         <span> Banner </span>
                     </a>
                 </li>
+
+                <li>
+                    <a class='tp-link' href='collection.php'>
+                        <i data-feather="columns"></i>
+                        <span> Collection </span>
+                    </a>
+                </li>
             </ul>
 
         </div>

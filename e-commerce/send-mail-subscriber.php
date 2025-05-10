@@ -36,7 +36,10 @@
                                             <label for="mail-composer" class="form-label"> Body
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" rows="5" placeholder="Enter Description"></textarea>
+                                            <!-- <textarea id="mail-composer" class="form-control text-editor" name="details" rows="5" placeholder="Enter Description"></textarea> -->
+                                            <div id="quill-editor1" style="height: 300px;">
+                                                <h1>Hello World</h1>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $contain = "Add Product";
 include('layouts/header.php') ?>
 
@@ -45,19 +45,19 @@ include('layouts/header.php') ?>
                                 <div class="row g-3">
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            <label class="form-label" for="name">
+                                            <label class="form-label" for="product_name">
                                                 Product Name <span class="text-danger">*</span>
                                             </label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <input name="product_name" id="product_name" type="text" class="form-control" value="" placeholder="Enter Product Name" required="">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            <label class="form-label" for="price">
+                                            <label class="form-label" for="sku">
                                                 SKU <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="" placeholder="Product sku code">
+                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="" placeholder="Product SKU Code">
                                         </div>
                                     </div>
 
@@ -65,6 +65,7 @@ include('layouts/header.php') ?>
                                         <div class="mb-3">
                                             <label for="brand" class="form-label">Brand <span class="text-danger">*</span></label>
                                             <select class="form-select" id="brand" name="brand" required="">
+                                                <option selected disabled value="">-- Select --</option>
                                                 <option value="">TP-Link</option>
                                                 <option value="">Cisco</option>
                                                 <option value=""> D-Link</option>
@@ -77,14 +78,15 @@ include('layouts/header.php') ?>
                                             <label class="form-label" for="model">
                                                 Model No <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Model no">
+                                            <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Model No.">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div class="mb-3">
-                                            <label for="status" class="form-label">Category <span class="text-danger">*</span></label>
+                                            <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                                             <select class="form-select" id="category" name="category" required="">
+                                                <option selected disabled value="">-- Select --</option>
                                                 <option value="">TP-Link</option>
                                                 <option value="">Cisco</option>
                                                 <option value=""> D-Link</option>
@@ -93,15 +95,16 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label for="mail-composer" class="form-label"> Subcategory
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                        <div class="mb-3">
+                                            <label for="subcategory" class="form-label">Subcategory <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="subcategory" name="subcategory" required="">
+                                                <option selected disabled value="">-- Select --</option>
+                                                <option value="">TP-Link</option>
+                                                <option value="">Cisco</option>
+                                                <option value=""> D-Link</option>
+                                            </select>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -115,28 +118,53 @@ include('layouts/header.php') ?>
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Short Description <span class="text-danger">*</span></label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                            <label for="short_details" class="form-label">Short Description <span class="text-danger">*</span></label>
+                                            <!-- <textarea id="short_details" class="form-control text-editor" name="short_details" placeholder="Enter Description"></textarea> -->
+                                            <div id="quill-editor" style="height: 300px;">
+                                                <h1>Hello World</h1>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Full Description<span class="text-danger">*</span></label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                            <label for="full_details" class="form-label">Full Description<span class="text-danger">*</span></label>
+                                            <!-- <textarea id="full_details" class="form-control text-editor" name="full_details" placeholder="Enter Full Description"></textarea> -->
+                                            <div id="quill-editor1" style="height: 300px;">
+                                                <h1>Hello World</h1>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Technical Specifications<span class="text-danger">*</span></label>
-                                            <textarea id="mail-composer" class="form-control text-editor" name="details" placeholder="Enter Description"></textarea>
+                                            <label for="tech_specs" class="form-label">Technical Specifications<span class="text-danger">*</span></label>
+                                            <!-- 
+                                            <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea>
+                                            -->
+                                        </div>
+                                        <div id="quill-editor2" style="height: 300px;">
+                                            <h1>Hello World</h1>
+                                            <p><br></p>
+                                            <h4>This is an simple editable area</h4>
+                                            <p><br></p>
+                                            <ol>
+                                                <li>
+                                                    Select a text to reveal the toolbar.
+                                                </li>
+                                                <li>
+                                                    Edit rich document on-the-fly, so elastic!
+                                                </li>
+                                            </ol>
+                                            <br>
+                                            <p>Preset build with <code>snow</code> theme, and some common formats.</p>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6">
+                                    <div class="col-xl-12 col-lg-6">
                                         <div class="mb-3">
                                             <label for="warranty" class="form-label">Warranty <span class="text-danger">*</span></label>
                                             <select class="form-select" id="warranty" name="warranty" required="">
+                                                <option selected disabled value="">-- Select --</option>
                                                 <option value="">1 Year</option>
                                                 <option value="">2 Years</option>
                                             </select>
@@ -158,32 +186,32 @@ include('layouts/header.php') ?>
                                 <div class="row">
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Cost Price <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="cost_price" class="form-label">Cost Price <span class="text-danger">*</span></label>
+                                            <input name="cost_price" id="cost_price" type="text" class="form-control" value="" placeholder="Enter Cost Price" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Selling Price <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="selling_price" class="form-label">Selling Price <span class="text-danger">*</span></label>
+                                            <input name="selling_price" id="selling_price" type="text" class="form-control" value="" placeholder="Enter Selling Price" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Discount Price <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="discount_price" class="form-label">Discount Price <span class="text-danger">*</span></label>
+                                            <input name="discount_price" id="discount_price" type="text" class="form-control" value="" placeholder="Enter Discount Price" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Tax (%) <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="tax" class="form-label">Tax (%) <span class="text-danger">*</span></label>
+                                            <input name="tax" id="tax" type="text" class="form-control" value="" placeholder="Enter Tax" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Final Price (after discount) <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="final_price" class="form-label">Final Price (after discount) </label>
+                                            <input name="final_price" id="final_price" type="text" class="form-control" value="" placeholder="Enter Final Price" required="">
                                         </div>
                                     </div>
                                 </div>
@@ -202,14 +230,15 @@ include('layouts/header.php') ?>
                                 <div class="row">
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Stock <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
+                                            <input name="stock" id="stock" type="text" class="form-control" value="" placeholder="Enter Stock" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Stock Status <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="warranty" name="warranty" required="">
+                                            <label for="stock_status" class="form-label">Stock Status <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="stock_status" name="stock_status" required="">
+                                                <option selected disabled value="">-- Select --</option>
                                                 <option value="">In Stock</option>
                                                 <option value="">Out of Stock</option>
                                                 <option value="">Pre-order</option>
@@ -218,14 +247,14 @@ include('layouts/header.php') ?>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Minimum Order Qty<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="number" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="min_order_qty" class="form-label">Minimum Order Qty<span class="text-danger">*</span></label>
+                                            <input name="min_order_qty" id="min_order_qty" type="number" class="form-control" value="" placeholder="Enter Minimum Order Quantity" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Maximum Order Qty<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="number" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="max_order_qty" class="form-label">Maximum Order Qty<span class="text-danger">*</span></label>
+                                            <input name="max_order_qty" id="max_order_qty" type="number" class="form-control" value="" placeholder="Enter Maximum Order Quantity" required="">
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +265,7 @@ include('layouts/header.php') ?>
                         <div class="card pb-4">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                SEO
+                                    SEO
                                 </h5>
                             </div>
 
@@ -244,26 +273,26 @@ include('layouts/header.php') ?>
                                 <div class="row">
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Meta Title <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="meta_title" class="form-label">Meta Title <span class="text-danger">*</span></label>
+                                            <input name="meta_title" id="meta_title" type="text" class="form-control" value="" placeholder="Enter Meta Title" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Meta Description <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="meta_description" class="form-label">Meta Description <span class="text-danger">*</span></label>
+                                            <input name="meta_description" id="meta_description" type="text" class="form-control" value="" placeholder="Enter Meta Description" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Meta Keywords<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="meta_keywords" class="form-label">Meta Keywords<span class="text-danger">*</span></label>
+                                            <input name="meta_keywords" id="meta_keywords" type="text" class="form-control" value="" placeholder="Enter Meta Keywords" required="">
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div>
-                                            <label for="featured_image" class="form-label">Product URL Slug <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                            <label for="url_slug" class="form-label">Product URL Slug <span class="text-danger">*</span></label>
+                                            <input name="url_slug" id="url_slug" type="text" class="form-control" value="" placeholder="Enter Product URL Slug" required="">
                                         </div>
                                     </div>
                                 </div>
@@ -271,49 +300,11 @@ include('layouts/header.php') ?>
 
                         </div>
 
-                        <div class="card pb-4">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                SEO Details
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="featured_image" class="form-label">Category Meta Title<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="featured_image" class="form-label">Category Meta Description<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="featured_image" class="form-label">Category Meta Keywords<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="featured_image" class="form-label">Category URL Slug<span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="text-start mb-3">
+                        <!-- <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
@@ -325,24 +316,24 @@ include('layouts/header.php') ?>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Main Product Image<span class="text-danger">*</span></label>
-                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <label for="main_image" class="form-label">Main Product Image<span class="text-danger">*</span></label>
+                                    <input type="file" name="main_image" id="main_image" class="form-control" required="">
                                     <div id="emailHelp" class="text-danger">Image Size Should Be
                                         800x650
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Additional Product Images<span class="text-danger">*</span></label>
-                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <label for="additional_images" class="form-label">Additional Product Images<span class="text-danger">*</span></label>
+                                    <input type="file" name="additional_images" id="additional_images" class="form-control" required="" multiple>
                                     <div id="emailHelp" class="text-danger">Image Size Should Be
                                         800x650
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Product Datasheet or Manual <span class="text-danger">*</span></label>
-                                    <input type="file" name="featured_image" id="featured_image" class="form-control" required="">
+                                    <label for="datasheet_doc" class="form-label">Product Datasheet or Manual <span class="text-danger">*</span></label>
+                                    <input type="file" name="datasheet_doc" id="datasheet_doc" class="form-control" required="">
                                     <div id="emailHelp" class="text-danger">Image Size Should Be
                                         800x650
                                     </div>
@@ -361,24 +352,22 @@ include('layouts/header.php') ?>
                             <div class="card-body">
 
                                 <div>
-                                    <label for="category_id" class="form-label">Color Options <span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                        <option value="" data-select2-id="select2-data-7-j3bj">Black</option>
-                                        <option value="2" data-subcategory="[]">
-                                            White</option>
-                                        <option value="4" data-subcategory="[]">
-                                            Grey</option>
+                                    <label for="color_options" class="form-label">Color Options <span class="text-danger">*</span></label>
+                                    <select required="" name="color_options" id="color_options" class="form-select w-100">
+                                        <option selected disabled value="">-- Select --</option>
+                                        <option value="1">Black</option>
+                                        <option value="2">White</option>
+                                        <option value="3">Grey</option>
                                     </select>
                                 </div>
 
                                 <div class="mt-3">
-                                    <label for="category_id" class="form-label">Size/Length Options <span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                        <option value="" data-select2-id="select2-data-7-j3bj">Black</option>
-                                        <option value="2" data-subcategory="[]">
-                                            White</option>
-                                        <option value="4" data-subcategory="[]">
-                                            Grey</option>
+                                    <label for="size_options" class="form-label">Size/Length Options <span class="text-danger">*</span></label>
+                                    <select required="" name="size_options" id="size_options" class="form-select w-100">
+                                        <option selected disabled value="">-- Select --</option>
+                                        <option value="1">Black</option>
+                                        <option value="2">White</option>
+                                        <option value="3">Grey</option>
                                     </select>
                                 </div>
                             </div>
@@ -395,23 +384,14 @@ include('layouts/header.php') ?>
                             <div class="card-body">
 
                                 <div>
-                                    <label for="category_id" class="form-label">Product Status <span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100" ->
-                                        <option value="" data-select2-id="select2-data-7-j3bj">Active</option>
-                                        <option value="2" data-subcategory="[]">
-                                            Inactive</option>
+                                    <label for="product_status" class="form-label">Product Status <span class="text-danger">*</span></label>
+                                    <select required="" name="product_status" id="product_status" class="form-select w-100">
+                                        <option selected disabled value="">-- Select --</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
                                     </select>
                                 </div>
 
-                                <div class="mt-3">
-                                    <label for="category_id" class="form-label">Created Date <span class="text-danger">*</span></label>
-                                    <input type="date" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Start Date">
-                                </div>
-
-                                <div class="mt-3">
-                                    <label for="category_id" class="form-label">Updated Date<span class="text-danger">*</span></label>
-                                    <input type="date" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Start Date">
-                                </div>
                             </div>
 
                         </div>
@@ -424,16 +404,17 @@ include('layouts/header.php') ?>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="featured_image" class="form-label">Product Weight (kg/gms) <span class="text-danger">*</span></label>
-                                    <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                    <label for="weight" class="form-label">Product Weight (kg/gms) <span class="text-danger">*</span></label>
+                                    <input name="weight" id="weight" type="text" class="form-control" value="" placeholder="Enter Weight" required="">
                                 </div>
                                 <div class="mt-3 mb-3">
-                                    <label for="featured_image" class="form-label">Product Dimensions (L × W × H cm/mm)<span class="text-danger">*</span></label>
-                                    <input name="name" id="name" type="text" class="form-control" value="" placeholder="Enter product name" required="">
+                                    <label for="dimensions" class="form-label">Product Dimensions (L × W × H cm/mm)<span class="text-danger">*</span></label>
+                                    <input name="dimensions" id="dimensions" type="text" class="form-control" value="" placeholder="Enter Dimension" required="">
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="featured_image" class="form-label">Shipping Class<span class="text-danger">*</span></label>
                                     <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option selected disabled value="">-- Select --</option>
                                         <option value="">Light</option>
                                         <option value="">Heavy</option>
                                         <option value="">Fragile</option>
@@ -453,6 +434,7 @@ include('layouts/header.php') ?>
                                 <div class="mb-3">
                                     <label for="featured_image" class="form-label">Featured Product?<span class="text-danger">*</span></label>
                                     <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option selected disabled value="">-- Select --</option>
                                         <option value="">Yes</option>
                                         <option value="">No</option>
                                     </select>
@@ -460,11 +442,20 @@ include('layouts/header.php') ?>
                                 <div class="mb-3">
                                     <label for="featured_image" class="form-label">Tags<span class="text-danger">*</span></label>
                                     <select class="form-select" id="warranty" name="warranty" required="">
+                                        <option selected disabled value="">-- Select --</option>
                                         <option value="">Best Seller</option>
                                         <option value="">High-Speed</option>
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="text-start mb-3">
+                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                Submit
+                            </button>
                         </div>
                     </div>
                 </div>

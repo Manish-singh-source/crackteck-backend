@@ -22,64 +22,64 @@
                             <div class="row g-3 pb-3">
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="product_name" class="form-label">
                                             Product Name <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Basic, Standard, etc." id="name">
+                                        <input required="" type="text" name="product_name" value="" class="form-control" placeholder="Enter Product Name" id="product_name">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="product_type" class="form-label">
                                             Product Type <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="text" name="product_type" value="" class="form-control" placeholder="Enter Product Type" id="product_type">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="brand" class="form-label">
                                             Brand <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="text" name="brand" value="" class="form-control" placeholder="Enter Brand" id="brand">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="module_no" class="form-label">
                                             Module Number <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="text" name="module_no" value="" class="form-control" placeholder="Enter Module Number" id="module_no">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="serial_no" class="form-label">
                                             Serial Number <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="text" name="serial_no" value="" class="form-control" placeholder="Enter Serial Number" id="serial_no">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="product_image" class="form-label">
                                             Image <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="file" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="file" name="product_image" value="" class="form-control" id="product_image">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="price" class="form-label">
+                                        <label for="quantity" class="form-label">
                                             Quantity <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="price" value="" class="form-control" placeholder="Enter Price" id="price">
+                                        <input required="" type="text" name="quantity" value="" class="form-control" placeholder="Enter Quantity" id="quantity">
                                     </div>
                                 </div>
 
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-xl-6 col-lg-6">
                                     <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                     <select required="" name="status" id="status" class="form-select w-100">
                                         <option value="0">Active</option>
