@@ -29,14 +29,14 @@
 
                 <li>
                     <a class='tp-link' href='../e-commerce/index.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
                         <span class="ps-1"> E-commerce Dashboard </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='./index.php'>
-                    <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle"/>
+                        <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
                         <span class="ps-1"> CRM Dashboard </span>
                     </a>
                 </li>
@@ -59,7 +59,7 @@
 
                 <li>
                     <a href="#accesscontrol" data-bs-toggle="collapse">
-                    <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials"/>
+                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials" />
                         <span class="ps-1"> Access Control </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -77,7 +77,7 @@
 
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="graph-report"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="graph-report" />
                         <span class="ps-1"> Reports </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -103,7 +103,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='customers.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
                         <span class="ps-1"> Customers </span>
                     </a>
                 </li>
@@ -128,16 +128,12 @@
 
                 <li class="menu-title mt-2">Operation Managers</li>
 
-<<<<<<< HEAD
                 <li>
                     <a class='tp-link' href='service-request.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
                         <span class="ps-1"> Service Requests </span>
                     </a>
                 </li>
-=======
-
->>>>>>> c11db07701298b03e97c8e64823fa212aeb9779e
                 <!-- <li>
                     <a class='tp-link' href='service-list-1.php'>
                         <i data-feather="columns"></i>
@@ -152,27 +148,21 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='amc-plans.php'>
-                    <img width="" height="20" src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/1A1A1A/external-amc-video-file-extension-line-creatype-outline-colourcreatype.png" alt="external-amc-video-file-extension-line-creatype-outline-colourcreatype"/>
+                        <img width="" height="20" src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/1A1A1A/external-amc-video-file-extension-line-creatype-outline-colourcreatype.png" alt="external-amc-video-file-extension-line-creatype-outline-colourcreatype" />
                         <span class="ps-1"> AMC Plans </span>
                     </a>
                 </li>
 
                 <li>
-<<<<<<< HEAD
                     <a class='tp-link' href='case-transfer.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/back-sorting.png" alt="back-sorting"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/back-sorting.png" alt="back-sorting" />
                         <span class="ps-1"> Case Transfer </span>
-=======
-                    <a class='tp-link' href='service-request.php'>
-                        <i data-feather="columns"></i>
-                        <span> Service Requests </span>
->>>>>>> c11db07701298b03e97c8e64823fa212aeb9779e
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='track-request.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/tracks.png" alt="tracks"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/tracks.png" alt="tracks" />
                         <span class="ps-1"> Track Request </span>
                     </a>
                 </li>
@@ -195,7 +185,7 @@
 
                 <li>
                     <a class='tp-link' href='inventory.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
                         <span class="ps-1">Inventory </span>
                     </a>
                 </li>
@@ -209,14 +199,14 @@
 
                 <li>
                     <a class='tp-link' href='spare-parts-requests.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1" />
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='scrap-items.php'>
-                    <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer"/>
+                        <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer" />
                         <span class="ps-1"> Scrap items </span>
                     </a>
                 </li>
@@ -242,60 +232,43 @@
                     </a>
                 </li> -->
 
-<<<<<<< HEAD
                 <li>
                     <a class='tp-link' href='warehouse-rack.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ink/48/1A1A1A/rack.png" alt="rack"/>
+                        <img width="" height="20" src="https://img.icons8.com/ink/48/1A1A1A/rack.png" alt="rack" />
                         <span class="ps-1"> Warehouse rack </span>
                     </a>
                 </li>
-=======
->>>>>>> c11db07701298b03e97c8e64823fa212aeb9779e
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 
                 <li>
                     <a class='tp-link' href='#'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/documents.png" alt="documents"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/documents.png" alt="documents" />
                         <span class="ps-1"> Customer Complaints </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='support-ticket.php'>
-                    <img width="" height="20" src="https://img.icons8.com/wired/64/1A1A1A/two-tickets.png" alt="two-tickets"/>
+                        <img width="" height="20" src="https://img.icons8.com/wired/64/1A1A1A/two-tickets.png" alt="two-tickets" />
                         <span class="ps-1"> Tickets </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='feedbacks.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/thumbs-up-down.png" alt="thumbs-up-down"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/thumbs-up-down.png" alt="thumbs-up-down" />
                         <span class="ps-1"> Feedbacks </span>
                     </a>
                 </li>
-<<<<<<< HEAD
+
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
                         <span class="ps-1"> Call Logs </span>
                     </a>
                 </li>
-=======
-                
->>>>>>> c11db07701298b03e97c8e64823fa212aeb9779e
 
                 <!-- <li class="menu-title mt-2">Remote Support Engineers</li>
                 <li>
-<<<<<<< HEAD
-                    <a class='tp-link' href='#'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1"/>
-                        <span class="ps-1"> Service Requests </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='#'>
-                    <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/tracks.png" alt="tracks"/>
-                        <span class="ps-1"> Track Requests </span>
-=======
                     <a class='tp-link' href='service-request.php'>
                         <i data-feather="columns"></i>
                         <span> Service Requests </span>
@@ -305,7 +278,6 @@
                     <a class='tp-link' href='track-request.php'>
                         <i data-feather="columns"></i>
                         <span> Track Requests </span>
->>>>>>> c11db07701298b03e97c8e64823fa212aeb9779e
                     </a>
                 </li> -->
 
