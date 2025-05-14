@@ -129,24 +129,6 @@
                 <li class="menu-title mt-2">Operation Managers</li>
 
                 <li>
-                    <a class='tp-link' href='service-request.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
-                        <span class="ps-1"> Service Requests </span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a class='tp-link' href='service-list-1.php'>
-                        <i data-feather="columns"></i>
-                        <span> Services List </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='amc-list.php'>
-                        <i data-feather="columns"></i>
-                        <span> AMC list </span>
-                    </a>
-                </li> -->
-                <li>
                     <a class='tp-link' href='amc-plans.php'>
                         <img width="" height="20" src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/1A1A1A/external-amc-video-file-extension-line-creatype-outline-colourcreatype.png" alt="external-amc-video-file-extension-line-creatype-outline-colourcreatype" />
                         <span class="ps-1"> AMC Plans </span>
@@ -154,9 +136,9 @@
                 </li>
 
                 <li>
-                    <a class='tp-link' href='case-transfer.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/back-sorting.png" alt="back-sorting" />
-                        <span class="ps-1"> Case Transfer </span>
+                    <a class='tp-link' href='service-request.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Service Requests </span>
                     </a>
                 </li>
 
@@ -169,17 +151,18 @@
 
                 <li>
                     <a class='tp-link' href='case-transfer.php'>
-                        <i data-feather="columns"></i>
-                        <span> Case Transfer </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/back-sorting.png" alt="back-sorting" />
+                        <span class="ps-1"> Case Transfer </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                        <i data-feather="columns"></i>
-                        <span> Call Logs </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
+                        <span class="ps-1"> Call Logs </span>
                     </a>
                 </li>
+
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
@@ -211,34 +194,6 @@
                     </a>
                 </li>
 
-                <!-- <li>
-                    <a class='tp-link' href='delivery-man.php'>
-                    <img width="" height="20" src="https://img.icons8.com/external-becris-lineal-becris/64/1A1A1A/external-delivery-man-global-business-becris-lineal-becris.png" alt="external-delivery-man-global-business-becris-lineal-becris"/>
-                        <span class="ps-1"> Delivery Man</span>
-                    </a>
-                </li> -->
-                <!--                 
-                <li>
-                    <a class='tp-link' href='delivery-job.php'>
-                        <i data-feather="columns"></i>
-                        <span> Delivery Job</span>
-                    </a>
-                </li> -->
-
-                <!-- <li>
-                    <a class='tp-link' href='apps-todolist.php'>
-                        <i data-feather="columns"></i>
-                        <span> Warranty </span>
-                    </a>
-                </li> -->
-
-                <li>
-                    <a class='tp-link' href='warehouse-rack.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ink/48/1A1A1A/rack.png" alt="rack" />
-                        <span class="ps-1"> Warehouse rack </span>
-                    </a>
-                </li>
-
                 <li class="menu-title mt-2">Customer Care Executives</li>
 
                 <li>
@@ -257,13 +212,6 @@
                     <a class='tp-link' href='feedbacks.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/thumbs-up-down.png" alt="thumbs-up-down" />
                         <span class="ps-1"> Feedbacks </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a class='tp-link' href='call-logs.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
-                        <span class="ps-1"> Call Logs </span>
                     </a>
                 </li>
 
