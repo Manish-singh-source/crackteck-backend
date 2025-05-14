@@ -6,11 +6,11 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Customers List</h4>
+                <h4 class="fs-18 fw-semibold m-0">Engineers List</h4>
             </div>
             <div>
-                <a href="add-customer.php" class="btn btn-primary">Add New Customer</a>
-                <!-- <button class="btn btn-primary">Add New Customer</button> -->
+                <a href="add-engineer.php" class="btn btn-primary">Add New Engineer</a>
+                <!-- <button class="btn btn-primary">Add New engineer</button> -->
             </div>
         </div>
 
@@ -21,34 +21,34 @@
                     <div class="card-body pt-0">
                         <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active p-2" id="all_customer_tab" data-bs-toggle="tab"
-                                    href="#all_customer" role="tab">
+                                <a class="nav-link active p-2" id="all_engineer_tab" data-bs-toggle="tab"
+                                    href="#all_engineer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Customer</span>
+                                    <span class="d-none d-sm-block">All Engineer</span>
                                 </a>
                             </li>
                             <!-- <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
+                                <a class="nav-link p-2" id="active_engineer_tab" data-bs-toggle="tab" href="#active_engineer"
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Active Customer</span>
+                                    <span class="d-none d-sm-block">Active Engineer</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
+                                <a class="nav-link p-2" id="banned_engineers_tab" data-bs-toggle="tab"
+                                    href="#banned_engineers" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Banned Customer</span>
+                                    <span class="d-none d-sm-block">Banned Engineer</span>
                                 </a>
                             </li> -->
                         </ul>
 
                         <div class="tab-content text-muted">
 
-                            <div class="tab-pane active show pt-4" id="all_customer" role="tabpanel">
+                            <div class="tab-pane active show pt-4" id="all_engineer" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card shadow-none">
@@ -57,91 +57,37 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Username</th>
+                                                            <th>Profile</th>
+                                                            <th>Full Name</th>
                                                             <th>Email</th>
                                                             <th>Contact Number</th>
-                                                            <th>Number of Orders</th>
+                                                            <th>No. of Request</th>
+                                                            <th>Speciality</th>
+                                                            <th>KYC Status</th>
                                                             <th>Status</th>
-                                                            <th>Joined At</th>
+                                                            <th>Ratings</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="align-middle">
                                                         <tr>
-                                                            <td>Sarah Wilson</td>
-                                                            <td>sarah</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-space-between align-items-center gap-2">
+                                                                    <span>
+                                                                        <img src="./assets/images/person.jpg" alt="Headphone" width="50px" height="50px" class="d-block rounded-circle">
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                John Doe
+                                                            </td>
                                                             <td>sarah@gmail.com</td>
                                                             <td>9876543211</td>
-                                                            <td>2</td>
                                                             <td>
-                                                                <div class="form-check form-switch mb-2">
-                                                                    <input class="form-check-input"
-                                                                        type="checkbox" role="switch"
-                                                                        id="flexSwitchCheckChecked" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="flexSwitchCheckChecked"></label>
-                                                                </div>
+                                                                <a href="engineer-tasks.php">3</a>
                                                             </td>
-                                                            <td>2022-09-15</td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-customer.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Michael Brown</td>
-                                                            <td>michael</td>
-                                                            <td>michael@gmail.com</td>
-                                                            <td>9876543210</td>
-                                                            <td>1</td>
-                                                            <td>
-                                                                <div class="form-check form-switch mb-2">
-                                                                    <input class="form-check-input"
-                                                                        type="checkbox" role="switch"
-                                                                        id="flexSwitchCheckChecked" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="flexSwitchCheckChecked"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>2022-09-15</td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-customer.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Emily Davis</td>
-                                                            <td>emily</td>
-                                                            <td>emily@gmail.com</td>
-                                                            <td>9876543210</td>
-                                                            <td>3</td>
+                                                            <td>Networking</td>
+                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Unverified</span></td>
                                                             <td>
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"
@@ -151,9 +97,15 @@
                                                                         for="flexSwitchCheckChecked"></label>
                                                                 </div>
                                                             </td>
-                                                            <td>2022-09-15</td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-customer.php"
+                                                                <span>5</span>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle">
+                                                                    <i class="mdi mdi-star fs-14 text-warning"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-engineer.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -171,11 +123,75 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>John Smith</td>
-                                                            <td>john</td>
-                                                            <td>john@gmail.com</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-space-between align-items-center gap-2">
+                                                                    <span>
+                                                                        <img src="./assets/images/p2.jpeg" alt="Headphone" width="50px" height="50px" class="d-block rounded-circle">
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                Michael Brown
+                                                            </td>
+                                                            <td>michael@gmail.com</td>
                                                             <td>9876543210</td>
-                                                            <td>2</td>
+                                                            <td>
+                                                                <a href="engineer-tasks.php">1</a>
+                                                            </td>
+                                                            <td>Hardware Maintenance</td>
+                                                            <td><span class="badge bg-success-subtle text-success fw-semibold">Verified</span></td>
+                                                            <td>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked">
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span>5</span>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle">
+                                                                    <i class="mdi mdi-star fs-14 text-warning"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-engineer.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex justify-content-space-between align-items-center gap-2">
+                                                                    <span>
+                                                                        <img src="./assets/images/p3.jpeg" alt="Headphone" width="50px" height="50px" class="d-block rounded-circle">
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                Emily Davis
+                                                            </td>
+                                                            <td>emily@gmail.com</td>
+                                                            <td>9876543210</td>
+                                                            <td>
+                                                                <a href="engineer-tasks.php">3</a>
+                                                            </td>
+                                                            <td>OS Support</td>
+                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Unverified</span></td>
                                                             <td>
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"
@@ -185,9 +201,65 @@
                                                                         for="flexSwitchCheckChecked"></label>
                                                                 </div>
                                                             </td>
-                                                            <td>2023-10-30</td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-customer.php"
+                                                                <span>5</span>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle">
+                                                                    <i class="mdi mdi-star fs-14 text-warning"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-engineer.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex justify-content-space-between align-items-center gap-2">
+                                                                    <span>
+                                                                        <img src="./assets/images/p4.jpeg" alt="Headphone" width="50px" height="50px" class="d-block rounded-circle">
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td>John Smith</td>
+                                                            <td>john@gmail.com</td>
+                                                            <td>9876543210</td>
+                                                            <td>
+                                                                <a href="engineer-tasks.php">2</a>
+                                                            </td>
+                                                            <td>Networking</td>
+                                                            <td><span class="badge bg-success-subtle text-success fw-semibold">Verified</span></td>
+                                                            <td>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked" checked>
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span>5</span>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle">
+                                                                    <i class="mdi mdi-star fs-14 text-warning"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-engineer.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -214,7 +286,7 @@
 
                             </div><!-- end Experience -->
 
-                            <div class="tab-pane pt-4" id="active_customer" role="tabpanel">
+                            <div class="tab-pane pt-4" id="active_engineer" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card shadow-none">
@@ -284,7 +356,7 @@
                                 </div>
                             </div> <!-- end Experience -->
 
-                            <div class="tab-pane pt-4" id="banned_customers" role="tabpanel">
+                            <div class="tab-pane pt-4" id="banned_engineers" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card shadow-none">

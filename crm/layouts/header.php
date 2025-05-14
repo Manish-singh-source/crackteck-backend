@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title><?php echo $contain ?? "Dashboard" ?></title>
+    <title>CRM | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta name="description" content="" /> -->
 
@@ -16,6 +16,7 @@
 
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="#"> -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
 
 
     <!-- Datatables css -->
@@ -32,6 +33,7 @@
     <!-- App css -->
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
     <!-- <link href="assets/css/custom.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
     <!-- Icons -->
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -39,7 +41,7 @@
 
     <!-- jQuery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    
+
     <script src="assets/js/head.js"></script>
     <style>
         .logo img {

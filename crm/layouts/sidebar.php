@@ -40,7 +40,7 @@
                         <span> CRM Dashboard </span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a class='tp-link' href='../warehouse/index.php'>
                         <i data-feather="columns"></i>
@@ -107,6 +107,12 @@
                         <span> Customers </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='engineers.php'>
+                        <i data-feather="columns"></i>
+                        <span> Engineers </span>
+                    </a>
+                </li>
                 <!-- <li>
                     <a class='tp-link' href='apps-todolist.php'>
                         <i data-feather="columns"></i>
@@ -122,12 +128,7 @@
 
                 <li class="menu-title mt-2">Operation Managers</li>
 
-                <li>
-                    <a class='tp-link' href='service-request.php'>
-                        <i data-feather="columns"></i>
-                        <span> Service Requests </span>
-                    </a>
-                </li>
+
                 <!-- <li>
                     <a class='tp-link' href='service-list-1.php'>
                         <i data-feather="columns"></i>
@@ -148,9 +149,9 @@
                 </li>
 
                 <li>
-                    <a class='tp-link' href='case-transfer.php'>
+                    <a class='tp-link' href='service-request.php'>
                         <i data-feather="columns"></i>
-                        <span> Case Transfer </span>
+                        <span> Service Requests </span>
                     </a>
                 </li>
 
@@ -161,12 +162,33 @@
                     </a>
                 </li>
 
+                <li>
+                    <a class='tp-link' href='case-transfer.php'>
+                        <i data-feather="columns"></i>
+                        <span> Case Transfer </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class='tp-link' href='call-logs.php'>
+                        <i data-feather="columns"></i>
+                        <span> Call Logs </span>
+                    </a>
+                </li>
+
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
                 <li>
                     <a class='tp-link' href='inventory.php'>
                         <i data-feather="columns"></i>
                         <span>Inventory </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class='tp-link' href='in-hand-products.php'>
+                        <i data-feather="columns"></i>
+                        <span>In Hand Products </span>
                     </a>
                 </li>
 
@@ -184,12 +206,12 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a class='tp-link' href='delivery-man.php'>
                         <i data-feather="columns"></i>
                         <span> Delivery Man</span>
                     </a>
-                </li>
+                </li> -->
                 <!--                 
                 <li>
                     <a class='tp-link' href='delivery-job.php'>
@@ -205,24 +227,9 @@
                     </a>
                 </li> -->
 
-                <!-- 
-                <li>
-                    <a class='tp-link' href='warehouse-rack.php'>
-                        <i data-feather="columns"></i>
-                        <span> Warehouse rack </span>
-                    </a>
-                </li> 
-                -->
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 
-                <!-- 
-                <li>
-                    <a class='tp-link' href='service-list.php'>
-                        <i data-feather="columns"></i>
-                        <span> Services List </span>
-                    </a>
-                </li> -->
                 <li>
                     <a class='tp-link' href='#'>
                         <i data-feather="columns"></i>
@@ -241,14 +248,9 @@
                         <span> Feedbacks </span>
                     </a>
                 </li>
-                <li>
-                    <a class='tp-link' href='call-logs.php'>
-                        <i data-feather="columns"></i>
-                        <span> Call Logs </span>
-                    </a>
-                </li>
+                
 
-                <li class="menu-title mt-2">Remote Support Engineers</li>
+                <!-- <li class="menu-title mt-2">Remote Support Engineers</li>
                 <li>
                     <a class='tp-link' href='service-request.php'>
                         <i data-feather="columns"></i>
@@ -260,7 +262,7 @@
                         <i data-feather="columns"></i>
                         <span> Track Requests </span>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </div>

@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard</title>
+    <title>Warehouse | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta name="description" content="" /> -->
     <meta name="author" content="Technofra" />
@@ -15,6 +15,7 @@
 
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="#"> -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
 
     <!-- Datatables css -->
     <link href="assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />

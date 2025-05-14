@@ -63,12 +63,12 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="dob" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                        <label for="dob" class="form-label">Date of Birth</label>
                                         <input type="date" name="dob" id="dob" class="form-control" value="" placeholder="Enter Date of Birth" required="">
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                        <label for="gender" class="form-label">Gender</label>
                                         <select class="form-control" name="gender" id="gender">
                                             <option selected disabled>-- Select --</option>
                                             <option value="">Male</option>
@@ -94,7 +94,7 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="address2" class="form-label">Address Line 2 (optional) <span class="text-danger">*</span></label>
+                                        <label for="address2" class="form-label">Address Line 2</label>
                                         <input type="text" name="address2" id="address2" class="form-control" value="" required="" placeholder="Enter Address 2">
                                     </div>
 
