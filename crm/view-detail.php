@@ -1,5 +1,39 @@
 <?php include('layouts/header.php') ?>
+<style>
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
 
+    #popupOverlay img {
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 0 10px #fff;
+    }
+
+    #popupOverlay .closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
 <div class="content">
     <div class="container-fluid">
 
@@ -176,7 +210,7 @@
                                         </span>
                                         <div>satuap all cctv carma in my office</div>
                                     </li>
- <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Status :
 
                                         </span>
@@ -336,7 +370,7 @@
 
             <div class="col-xl-4">
 
-                <div class="card">
+                <div class="card" id="mySection1">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -357,7 +391,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="mySection">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex pb-3">
                             <h5 class="card-title flex-grow-1 mb-0">Assign Engineer</h5>
@@ -437,11 +471,38 @@
 
 
                 <div class="text-end pb-3">
-                    <a href="#" class="btn btn-primary">
+                    <button href="#" class="btn btn-primary" onclick="hideSection()">
                         Assign
-                    </a>
+                    </button>
                 </div>
 
+                <div class="card" id="mySection3">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex pb-3">
+                            <h5 class="card-title flex-grow-1 mb-0">Assign Individual Engineer :-</h5>
+                            <h6><b>Engineer 1</b></h6>
+                        </div>
+                        <div class="d-flex pb-3">
+                            <h5 class="card-title flex-grow-1 mb-0">Assign Group Engineer :-</h5>
+
+                            <ul>
+                                <li>Engineer 1</li>
+                                <li>Engineer 2 <b>- Admin</b> </li>
+                                <li>Engineer 3</li>
+                                <li>Enfineer 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function hideSection() {
+                        document.getElementById("mySection").style.display = "none";
+                        document.getElementById("mySection1").style.display = "none";
+                        document.getElementById("mySection3").style.display = "block";
+
+                    }
+                    document.getElementById("mySection3").style.display = "none";
+                </script>
                 <div class="card">
                     <div class="card-body p-4">
                         <ul class="simple-timeline mb-0">
@@ -482,13 +543,51 @@
                         </ul>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between timeline-header-section mb-2">
+                            <h5 class="mb-0">Before Service</h5>
+                            <button onclick="showPopup()" class="btn btn-primary">View</button>
 
+                            <div id="popupOverlay">
+                                <span class="closeBtn" onclick="hidePopup()">&times;</span>
+                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5 class="mb-0">After Service</h5>
+                            <button onclick="showPopup()" class="btn btn-primary">View</button>
+
+                            <div id="popupOverlay">
+                                <span class="closeBtn" onclick="hidePopup()">&times;</span>
+                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5 class="mb-0">Service Report</h5>
+                            <button onclick="showPopup()" class="btn btn-primary">View</button>
+
+                            <div id="popupOverlay">
+                                <span class="closeBtn" onclick="hidePopup()">&times;</span>
+                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 </div> <!-- content -->
+<script>
+    function showPopup() {
+        document.getElementById("popupOverlay").style.display = "flex";
+    }
 
+    function hidePopup() {
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+</script>
 <script>
     function addToTable() {
         // Get selected values from the dropdown
