@@ -4,7 +4,6 @@ include('layouts/header.php') ?>
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
 
         <div class="bradcrumb pt-3 ps-2 bg-light">
@@ -44,8 +43,8 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="col-6">
-                                        <label for="name" class="form-label">First Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" value="" required="" placeholder="Enter First Name">
+                                        <label for="firstname" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="firstname" id="firstname" class="form-control" value="" required="" placeholder="Enter First Name">
                                     </div>
 
                                     <div class="col-6">
@@ -72,8 +71,10 @@ include('layouts/header.php') ?>
                                     <div class="col-6">
                                         <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
                                         <select class="form-control" name="gender" id="gender">
-                                            <option selected value="India">Male</option>
-                                            <option value="India">Female</option>
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="">Male</option>
+                                            <option value="">Female</option>
+                                            <option value="">Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@ include('layouts/header.php') ?>
                                 <div class="row g-3">
                                     <div class="col-6">
                                         <label for="current-address" class="form-label">Current Address <span class="text-danger">*</span></label>
-                                        <textarea name="current-address" id="current-address" class="form-control" value="" required="" placeholder="Enter Current Address" form="usrform">Enter Current Address...</textarea>
+                                        <textarea name="current-address" id="current-address" class="form-control" value="" required="" placeholder="Enter Current Address"></textarea>
                                     </div>
 
                                     <div class="col-6">
@@ -99,10 +100,14 @@ include('layouts/header.php') ?>
                                         <input type="text" required="" name="city" id="city" class="form-control" value="" placeholder="Enter City">
                                     </div>
 
-
                                     <div class="col-6">
                                         <label for="state" class="form-label">State <span class="text-danger">*</span></label>
                                         <input type="text" name="state" id="state" class="form-control" value="" placeholder="Enter State" required="">
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                                        <input type="text" name="country" id="country" class="form-control" value="" required="" placeholder="Enter Country">
                                     </div>
 
                                     <div class="col-6">
@@ -113,7 +118,7 @@ include('layouts/header.php') ?>
                             </div>
                         </div>
 
-                   
+
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
@@ -126,28 +131,31 @@ include('layouts/header.php') ?>
                                     <div class="col-6">
                                         <label for="employment-type" class="form-label">Employment Type <span class="text-danger">*</span></label>
                                         <select class="form-control" name="employment-type" id="employment-type">
-                                            <option selected value="">Full-time</option>
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="">Full-time</option>
                                             <option value="">Part-time</option>
                                         </select>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="name" class="form-label">Joining Date <span class="text-danger">*</span></label>
-                                        <input type="date" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Joining Date">
+                                        <label for="joining_date" class="form-label">Joining Date <span class="text-danger">*</span></label>
+                                        <input type="date" name="joining_date" id="joining_date" class="form-control" value="" required="" placeholder="Enter Joining Date">
                                     </div>
 
                                     <div class="col-6">
                                         <label for="assigned-area" class="form-label">Assigned Area/Zone <span class="text-danger">*</span></label>
                                         <select class="form-control" name="assigned-area" id="assigned-area">
-                                            <option selected value="ABC">ABC</option>
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="ABC">ABC</option>
                                             <option value="DEF">DEF</option>
                                         </select>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="Department" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="Department" id="Department">
-                                            <option selected value="Walking">Walking</option>
+                                        <label for="delivery_mode" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="delivery_mode" id="delivery_mode">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Walking">Walking</option>
                                             <option value="Bike">Bike</option>
                                             <option value="Van">Van</option>
                                             <option value="Truck">Truck</option>
@@ -169,28 +177,29 @@ include('layouts/header.php') ?>
                                 <div class="row g-3">
 
                                     <div class="col-6">
-                                        <label for="vehicle-type" class="form-label">Vehicle Type <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="vehicle-type" id="vehicle-type">
-                                            <option selected value="Bike">Bike</option>
-                                            <option selected value="Scooter">Scooter</option>
-                                            <option selected value="Car">Car</option>
-                                            <option selected value="Van">Van</option>
+                                        <label for="vehicle_type" class="form-label">Vehicle Type <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="vehicle_type" id="vehicle_type">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Bike">Bike</option>
+                                            <option value="Scooter">Scooter</option>
+                                            <option value="Car">Car</option>
+                                            <option value="Van">Van</option>
                                         </select>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="vehical-no" class="form-label">Vehicle Number <span class="text-danger">*</span></label>
-                                        <input type="text" name="vehical-no" id="vehical-no" class="form-control" value="" required="" placeholder="Enter Vehicle Number">
+                                        <label for="vehical_no" class="form-label">Vehicle Number <span class="text-danger">*</span></label>
+                                        <input type="text" name="vehical_no" id="vehical_no" class="form-control" value="" required="" placeholder="Enter Vehicle Number">
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="driving-license-no" class="form-label">Driving License Number <span class="text-danger">*</span></label>
-                                        <input type="text" name="driving-license-no" id="driving-license-no" class="form-control" value="" required="" placeholder="Enter Driving License Number">
+                                        <label for="driving_license_no" class="form-label">Driving License Number <span class="text-danger">*</span></label>
+                                        <input type="text" name="driving_license_no" id="driving_license_no" class="form-control" value="" required="" placeholder="Enter Driving License Number">
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="pic" class="form-label">Upload Driving License (Image/PDF) <span class="text-danger">*</span></label>
-                                        <input type="file" name="pic" id="pic" class="form-control" value="" required="" placeholder="Upload Driving License">
+                                        <label for="driving_license" class="form-label">Upload Driving License (Image/PDF) <span class="text-danger">*</span></label>
+                                        <input type="file" name="driving_license" id="driving_license" class="form-control" value="" required="" placeholder="Upload Driving License">
                                     </div>
 
                                 </div>
@@ -198,11 +207,11 @@ include('layouts/header.php') ?>
 
                         </div>
 
-                        <div class="text-start mb-3">
+                        <!-- <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
@@ -225,8 +234,8 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="">
-                                        <label for="pic" class="form-label">Upload ID Document (Image/PDF) <span class="text-danger">*</span></label>
-                                        <input type="file" name="pic" id="pic" class="form-control" value="" required="" placeholder="Upload ID Document">
+                                        <label for="adhar-pic" class="form-label">Upload ID Document (Image/PDF) <span class="text-danger">*</span></label>
+                                        <input type="file" name="adhar-pic" id="adhar-pic" class="form-control" value="" required="" placeholder="Upload ID Document">
                                     </div>
 
                                 </div>
@@ -244,36 +253,44 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="">
-                                        <label for="name" class="form-label">Bank Account Number <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Bank Account Number">
+                                        <label for="bank_acc_no" class="form-label">Bank Account Number <span class="text-danger">*</span></label>
+                                        <input type="text" name="bank_acc_no" id="bank_acc_no" class="form-control" value="" required="" placeholder="Enter Bank Account Number">
                                     </div>
 
                                     <div class="">
-                                        <label for="name" class="form-label">Bank Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" value="" required="" placeholder="Enter Bank Name">
+                                        <label for="bank_name" class="form-label">Bank Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="bank_name" id="bank_name" class="form-control" value="" required="" placeholder="Enter Bank Name">
                                     </div>
 
                                     <div class="">
-                                        <label for="name" class="form-label">IFSC Code <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" value="" required="" placeholder="Enter IFSC Code">
+                                        <label for="ifsc_code" class="form-label">IFSC Code <span class="text-danger">*</span></label>
+                                        <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" value="" required="" placeholder="Enter IFSC Code">
                                     </div>
 
                                     <div class="">
-                                        <label for="pic" class="form-label">Upload Document Photo <span class="text-danger">*</span></label>
-                                        <input type="file" name="pic" id="pic" class="form-control" value="" required="" placeholder="Upload Document Photo">
+                                        <label for="passbook-pic" class="form-label">Upload Document Photo <span class="text-danger">*</span></label>
+                                        <input type="file" name="passbook-pic" id="passbook-pic" class="form-control" value="" required="" placeholder="Upload Document Photo">
                                     </div>
 
                                     <div class="">
                                         <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                         <select class="form-control" name="status" id="status">
-                                            <option selected value=""> Active</option>
+                                            <option selected disabled>-- Select --</option>
+                                            <option value=""> Active</option>
                                             <option value="">Inactive</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="col-lg-12">
+                        <div class="text-start mb-3">
+                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -281,7 +298,6 @@ include('layouts/header.php') ?>
         </div>
     </div>
 
-</div> <!-- container-fluid -->
-</div> <!-- content -->
+</div>
 
 <?php include('layouts/footer.php') ?>

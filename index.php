@@ -8,12 +8,12 @@
     <meta charset="utf-8" />
     <title>Log In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
+    <!-- <meta name="description" content="" /> -->
     <meta name="author" content="Technofra" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
 
     <!-- App css -->
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
@@ -97,6 +97,7 @@
                                                         <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
                                                     </div>
 
+                                                    <!-- 
                                                     <div class="otp from-group mb-3">
                                                         <label for="otp" class="form-label"><strong> We need to verify you </strong> </label>
                                                         <p>code has been send to ****@gmail.com</p>
@@ -104,7 +105,8 @@
                                                         <input style="width: 25px;" type="text">
                                                         <input style="width: 25px;" type="text">
                                                         <input style="width: 25px;" type="text">
-                                                    </div>
+                                                    </div> 
+                                                    -->
 
                                                     <div class="form-group d-flex mb-3">
                                                         <div class="col-sm-6">

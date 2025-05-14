@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
+    <!-- <meta name="description" content="" /> -->
     <meta name="author" content="Technofra" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -74,7 +74,6 @@
 
                                             <div class="auth-title-section mb-4 text-center">
                                                 <h3 class="text-dark fw-semibold mb-3">You are Logged Out</h3>
-                                                <p class="text-muted fs-14 mb-0">Thank you for using Hando admin template</p>
                                             </div>
 
                                             <div class="text-center">

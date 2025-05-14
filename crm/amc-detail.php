@@ -59,7 +59,6 @@
 
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-
                             <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                 <span class="fw-semibold text-break">
                                     Service Id :
@@ -68,7 +67,6 @@
                                     <span class="fw-bold text-dark">#1001</span><br>
                                 </span>
                             </li>
-
                             <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                 <span class="fw-semibold text-break">Date :
                                 </span>
@@ -79,15 +77,10 @@
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                 <span class="fw-semibold text-break">Status :
-
                                 </span>
                                 <span class="badge bg-primary-subtle text-primary fw-semibold">Assigned</span>
                             </li>
-
                         </ul>
-
-
-
                     </div>
                 </div>
 
@@ -128,8 +121,6 @@
                             </li>
                         </ul>
                     </div>
-
-
                 </div>
 
 

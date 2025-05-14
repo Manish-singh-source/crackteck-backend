@@ -2,9 +2,7 @@
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
-
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Create AMC</h4>
@@ -16,21 +14,28 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Customer Details</h5>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <form action="#" method="POST" enctype="multipart/form-data">
                             <div class="row g-3 pb-3">
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
-                                            Full Name <span class="text-danger">*</span>
+                                        <label for="firstname" class="form-label">
+                                            First Name <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Your Name" id="name">
+                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your Name" id="firstname">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="firstname" class="form-label">
+                                            List Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your Name" id="firstname">
                                     </div>
                                 </div>
 
-
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="phone" class="form-label">
                                             Phone Number
@@ -39,7 +44,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="email" class="form-label">
                                             Email <span class="text-danger">*</span>
@@ -48,16 +53,127 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="address" class="form-label">
-                                            Address
+                                            Address Line 1
                                         </label>
                                         <input type="text" name="address" value="" class="form-control" placeholder="Enter your address" id="address">
                                     </div>
                                 </div>
-
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Address Line 2
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your address" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Country
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Country" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            State
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your State" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            City
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your City" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Pin Code
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Pin Code" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            DOB
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Pin Code" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Gender
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Gender" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Customer Type
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Gender" id="address">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                          Priority Level
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Priority Level" id="address">
+                                    </div>
+                                </div> -->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Company Name
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your  Company Name" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Company Address
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Company Address" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            GST Number
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your GST Number" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            PAN Number
+                                        </label>
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your PAN Number" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="address" class="form-label">
+                                            Profile Image
+                                        </label>
+                                        <input type="file" name="address" value="" class="form-control" placeholder="Enter your PAN Number" id="address">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="image" class="form-label">
                                             Image <span class="text-danger">
@@ -70,14 +186,6 @@
 
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-12">
-                                    <div class="text-start">
-                                        <button type="submit" class="btn btn-success">
-                                            Add
-                                        </button>
-                                    </div>
-                                </div> -->
                             </div>
                         </form>
                     </div>
@@ -86,74 +194,66 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Product Details</h5>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <form action="#" method="POST" enctype="multipart/form-data">
                             <div class="row g-3 pb-3">
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="product_name" class="form-label">
                                             Product Name <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Dell Inspiron 15 Laptop Windows 11" id="name">
+                                        <input required="" type="text" name="product_name" value="" class="form-control" placeholder="Dell Inspiron 15 Laptop Windows 11" id="product_name">
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-6">
+                                <div class="col-4">
                                     <label for="product_type" class="form-label">Product Type <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="product_type" id="product_type">
-                                        <option selected value="Computer">Computer</option>
-                                        <option selected value="Laptop">Laptop</option>
-                                        <option selected value="Accessories">Accessories</option>
-                                    </select>
-                                </div> -->
-
-                                <div class="col-6">
-                                    <label for="category_id" class="form-label">Product Type <span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100">
-                                        <option data-subcategory="[]" value="Computer" selected>Computer</option>
-                                        <option data-subcategory="[]" value="Laptop">Laptop</option>
-                                        <option data-subcategory="[]" value="Accessories">Accessories</option>
+                                    <select required="" name="product_type" id="product_type" class="form-select w-100">
+                                        <option selected disabled>-- Select --</option>
+                                        <option value="Computer">Computer</option>
+                                        <option value="Laptop">Laptop</option>
+                                        <option value="Accessories">Accessories</option>
                                     </select>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="brand" class="form-label">
                                             Product Brand <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Dell, HP, Asus" id="name">
+                                        <input required="" type="text" name="brand" value="" class="form-control" placeholder="Dell, HP, Asus" id="brand">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="phone" class="form-label">
+                                        <label for="model_no" class="form-label">
                                             Model Number
                                         </label>
-                                        <input type="text" name="phone" value="" class="form-control" placeholder="Inspiron 3511" id="phone">
+                                        <input type="text" name="model_no" value="" class="form-control" placeholder="Inspiron 3511" id="model_no">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="phone" class="form-label">
+                                        <label for="serial_no" class="form-label">
                                             Serial Number
                                         </label>
-                                        <input type="text" name="phone" value="" class="form-control" placeholder="B0BB7FQBBS" id="phone">
+                                        <input type="text" name="serial_no" value="" class="form-control" placeholder="B0BB7FQBBS" id="serial_no">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="phone" class="form-label">
+                                        <label for="purchase_date" class="form-label">
                                             Purchase Date
                                         </label>
-                                        <input type="date" name="phone" value="" class="form-control" placeholder="Enter Purchase Date" id="phone">
+                                        <input type="date" name="purchase_date" value="" class="form-control" placeholder="Enter Purchase Date" id="purchase_date">
                                     </div>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="image" class="form-label">
                                             Image
@@ -239,43 +339,57 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">AMC Details</h5>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <form action="amc-list.php" method="POST" enctype="multipart/form-data">
                             <div class="row g-3 pb-3">
-                                <div class="col-6">
-                                    <label for="category_id" class="form-label">Select Plan<span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100">
-                                        <option data-subcategory="[]" value="Basic" selected>Basic</option>
-                                        <option data-subcategory="[]" value="Standard">Standard</option>
-                                        <option data-subcategory="[]" value="Premium">Premium</option>
+                                <div class="col-4">
+                                    <label for="amc_plan" class="form-label">Select Plan<span class="text-danger">*</span></label>
+                                    <select required="" name="amc_plan" id="amc_plan" class="form-select w-100">
+                                        <option selected disabled>-- Select --</option>
+                                        <option value="Basic">Basic</option>
+                                        <option value="Standard">Standard</option>
+                                        <option value="Premium">Premium</option>
                                     </select>
                                 </div>
 
-                                <div class="col-6">
-                                    <label for="category_id" class="form-label">Plan Duration <span class="text-danger">*</span></label>
-                                    <select required="" name="category_id" id="category_id" class="form-select w-100">
-                                        <option data-subcategory="[]" value="6" selected>6 Months</option>
-                                        <option data-subcategory="[]" value="12">1 Year</option>
-                                        <option data-subcategory="[]" value="24">2 Years</option>
+                                <div class="col-4">
+                                    <label for="plan_duration" class="form-label">Plan Duration <span class="text-danger">*</span></label>
+                                    <select required="" name="plan_duration" id="plan_duration" class="form-select w-100">
+                                        <option selected disabled>-- Select --</option>
+                                        <option value="6">6 Months</option>
+                                        <option value="12">1 Year</option>
+                                        <option value="24">2 Years</option>
                                     </select>
                                 </div>
 
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="phone" class="form-label">
+                                        <label for="plan_start_date" class="form-label">
                                             Preffered Start Date
                                         </label>
-                                        <input type="date" name="phone" value="" class="form-control" placeholder="Enter Purchase Date" id="phone">
+                                        <input type="date" name="plan_start_date" value="" class="form-control" placeholder="Enter Purchase Date" id="plan_start_date">
                                     </div>
                                 </div>
-
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="address" class="form-label">
+                                        <label for="additional_notes" class="form-label">
+                                           Priority Level
+                                        </label>
+                                        <select name="priority_level" id="priority_level" class="form-select w-100">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="additional_notes" class="form-label">
                                             Additional Notes
                                         </label>
-                                        <input type="text" name="address" value="" class="form-control" placeholder="Additional Notes" id="address">
+                                        <input type="text" name="additional_notes" value="" class="form-control" placeholder="Additional Notes" id="additional_notes">
                                     </div>
                                 </div>
 
@@ -293,7 +407,7 @@
 
             </div>
         </div>
-    </div> <!-- container-fluid -->
-</div> <!-- content -->
+    </div>
+</div>
 
 <?php include('layouts/footer.php') ?>

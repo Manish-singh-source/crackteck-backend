@@ -2,7 +2,6 @@
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -17,7 +16,7 @@
 
                     <div class="card-header">
                         <h5 class="card-title mb-0">Create Brand</h5>
-                    </div><!-- end card header -->
+                    </div>
 
                     <div class="card-body">
                         <div class="row g-3">
@@ -29,11 +28,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="en-input">
+                                                            <label class="form-label" for="brand_title">
                                                                 Title
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input id="en-input" type="text" name="title[en]" class="form-control" placeholder="Enter title" value="" required="">
+                                                            <input id="brand_title" type="text" name="brand_title" class="form-control" placeholder="Enter title" value="" required="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -42,8 +41,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="col-12">
                                 <div class="row g-3">
@@ -59,6 +56,7 @@
                                     <div class="col-lg-6">
                                         <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                         <select class="form-select" name="status" id="status" required="">
+                                            <option selected disabled>-- Select --</option>
                                             <option value="1">Active</option>
                                             <option value="2">Inactive</option>
                                         </select>

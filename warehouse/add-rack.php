@@ -22,8 +22,8 @@
                             <div class="row g-3 pb-3">
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="status" class="form-label">Warehouse Id <span class="text-danger">*</span></label>
-                                        <select required="" name="status" id="status" class="form-select w-100">
+                                        <label for="warehouse" class="form-label">Warehouse Id <span class="text-danger">*</span></label>
+                                        <select required="" name="warehouse" id="warehouse" class="form-select w-100">
                                             <option value="" selected disabled>-- Select Warehouse --</option>
                                             <option value="0">ABC-1234</option>
                                             <option value="1">ABC-1235</option>
@@ -32,58 +32,58 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="rack_name" class="form-label">
                                             Rack Name <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Rack Name" id="name">
+                                        <input required="" type="text" name="rack_name" value="" class="form-control" placeholder="Enter Rack Name" id="rack_name">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="zone_area" class="form-label">
                                             Zone Area <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Zone Area" id="name">
+                                        <input required="" type="text" name="zone_area" value="" class="form-control" placeholder="Enter Zone Area" id="zone_area">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="rack_no" class="form-label">
                                             Rack No <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Rack No" id="name">
+                                        <input required="" type="text" name="rack_no" value="" class="form-control" placeholder="Enter Rack No" id="rack_no">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="level_no" class="form-label">
                                             Level No <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Level No" id="name">
+                                        <input required="" type="text" name="level_no" value="" class="form-control" placeholder="Enter Level No" id="level_no">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="position_no" class="form-label">
                                             Position No <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Position No" id="name">
+                                        <input required="" type="text" name="position_no" value="" class="form-control" placeholder="Enter Position No" id="position_no">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="floor" class="form-label">
                                             Floor <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Floor No" id="name">
+                                        <input required="" type="text" name="floor" value="" class="form-control" placeholder="Enter Floor No" id="floor">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="name" class="form-label">
+                                        <label for="quantity" class="form-label">
                                             Quantity<span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="name" value="" class="form-control" placeholder="Enter Quantity" id="name">
+                                        <input required="" type="text" name="quantity" value="" class="form-control" placeholder="Enter Quantity" id="quantity">
                                     </div>
                                 </div>
 
@@ -141,8 +141,8 @@
                                             data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                             <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                         </a>
-                                        <a aria-label="anchor"
-                                            class="btn btn-icon btn-sm bg-danger-subtle"
+                                        <a aria-label="anchor" 
+                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                             data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                         </a>
@@ -166,7 +166,7 @@
                                             <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                         </a>
                                         <a aria-label="anchor"
-                                            class="btn btn-icon btn-sm bg-danger-subtle"
+                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                             data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                         </a>

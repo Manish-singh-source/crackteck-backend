@@ -21,7 +21,7 @@
                                 <img src="./assets/images/users/user.jpg" alt="Customer Profile Image" style="width: 150px; height:150px" class="img-thumbnail">
                             </div>
                             <div class="mt-3">
-                                <h6 class="mb-0">Technofra</h6>
+                                <h6 class="mb-0">John Doe</h6>
                                 <p>Joining Date 26 Mar, 2025 04:24 PM</p>
                             </div>
                         </div>
@@ -30,6 +30,13 @@
                             <h6 class="mb-3 fw-bold">Customer Information</h6>
 
                             <ul class="list-group">
+                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
+                                    <span class="fw-semibold">
+                                        Full Name
+                                    </span>
+                                    <span class="font-weight-bold">John Doe</span>
+                                </li>
+                                
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Username
@@ -63,24 +70,36 @@
                             <ul class="mt-4 list-group">
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
-                                        Number of Orders
+                                        Address
                                     </span>
-                                    <span>1</span>
+                                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur.</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
-                                        Total Item Wishlist
+                                        City
                                     </span>
-                                    <span>0</span>
+                                    <span>Kandivali</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
-                                        Total Products reviewed
+                                        State
                                     </span>
-
-                                    <span>0</span>
+                                    <span>Maharashtra</span>
+                                </li>
+                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
+                                    <span class="fw-semibold">
+                                        Country
+                                    </span>
+                                    <span>India</span>
+                                </li>
+                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
+                                    <span class="fw-semibold">
+                                        Pincode
+                                    </span>
+                                    <span>400 067</span>
                                 </li>
                             </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -91,7 +110,7 @@
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex align-items-center">
                             <h5 class="card-title mb-0 flex-grow-1">
-                                Latest Orders
+                                Current AMC
                             </h5>
                         </div>
                     </div>
@@ -101,7 +120,9 @@
                             <table class="table table-hover table-nowrap align-middle">
                                 <thead class="text-muted table-light">
                                     <tr class="text-uppercase">
-                                        <th>Order Number - Time</th>
+                                        <th>AMC ID</th>
+                                        <th>Products</th>
+                                        <th>Products</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -109,10 +130,15 @@
                                 <tbody class="list form-check-all">
                                     <tr>
                                         <td data-label="Order Number - Time">
-                                            cartuser1541946 -
-                                            4 weeks ago
+                                            crackteck1001
                                         </td>
 
+                                        <td data-label="Status">
+                                            <span class="badge badge-soft-warning">Shipped</span>
+                                        </td>
+                                        <td data-label="Status">
+                                            <span class="badge badge-soft-warning">Shipped</span>
+                                        </td>
                                         <td data-label="Status">
                                             <span class="badge badge-soft-warning">Shipped</span>
                                         </td>
@@ -122,102 +148,6 @@
                             </table>
                         </div>
 
-                        <div>
-                            <h6 class="fw-bold mb-3">Order &amp; Transaction</h6>
-                            <div class="row">
-                                <div class="col-xxl-4 col-xl-6">
-                                    <div class="card card-animate bg-soft-gray">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-start justify-content-between">
-                                                <div class="flex-shrink-0">
-                                                    <span class="overview-icon">
-                                                        <i class="ri-disc-line text-primary"></i>
-                                                    </span>
-                                                </div>
-
-                                                <div class="text-end">
-                                                    <h4 class="fs-22 fw-bold ff-secondary mb-2">
-                                                        <span data-target="0" class="counter-value">0</span>
-                                                    </h4>
-
-
-                                                    <p class="text-uppercase fw-medium text-muted mb-3">
-                                                        Total transaction
-                                                    </p>
-
-                                                    <a href="#" class="d-flex align-items-center justify-content-end gap-1">
-                                                        View All
-                                                        <i class="ri-arrow-right-line"></i>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xxl-4 col-xl-6">
-                                    <div class="card card-animate bg-soft-green">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-start justify-content-between">
-                                                <div class="flex-shrink-0">
-                                                    <span class="overview-icon">
-                                                        <i class="las la-shopping-cart text-success"></i>
-                                                    </span>
-                                                </div>
-
-                                                <div class="text-end">
-                                                    <h4 class="fs-22 fw-bold ff-secondary mb-2">
-                                                        <span data-target="1" class="counter-value">1</span>
-                                                    </h4>
-
-
-                                                    <p class="text-uppercase fw-medium text-muted mb-3">
-                                                        Physical Product
-                                                    </p>
-
-                                                    <a href="#" class="d-flex align-items-center justify-content-end gap-1">
-                                                        View All
-                                                        <i class="ri-arrow-right-line"></i>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xxl-4 col-xl-6">
-                                    <div class="card card-animate bg-soft-orange">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-start justify-content-between">
-                                                <div class="flex-shrink-0">
-                                                    <span class="overview-icon">
-                                                        <i class="las la-wallet text-warning"></i>
-                                                    </span>
-                                                </div>
-
-                                                <div class="text-end">
-                                                    <h4 class="fs-22 fw-bold ff-secondary mb-2">
-                                                        <span class="counter-value" data-target="0">0</span>
-                                                    </h4>
-
-                                                    <p class="text-uppercase fw-medium text-muted mb-3">
-                                                        Digital Product
-                                                    </p>
-
-                                                    <a href="#" class="d-flex align-items-center justify-content-end gap-1">
-                                                        View All
-                                                        <i class="ri-arrow-right-line"></i>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="mt-3">
                             <h6 class="fw-bold mb-3">Customer Information Update</h6>

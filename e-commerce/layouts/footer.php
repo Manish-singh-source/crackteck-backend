@@ -64,6 +64,12 @@
 <!-- Datatable Demo App Js -->
 <script src="assets/js/pages/datatable.init.js"></script>
 
+<!-- Quill Editor Js -->
+<script src="assets/libs/quill/quill.core.js"></script>
+<script src="assets/libs/quill/quill.min.js"></script>
+
+<!-- Quill Demo Js -->
+<script src="assets/js/pages/quilljs.init.js"></script>
 
 <!-- Apexcharts JS -->
 <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
