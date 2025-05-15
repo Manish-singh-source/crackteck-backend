@@ -36,6 +36,8 @@
 
 
             </div>
+
+
             <div class="col-xl-7">
                 <div class="card service-info">
                     <div class="card-header border-bottom-dashed">
@@ -50,32 +52,178 @@
                     </div>
 
                     <div class="card-body">
-                        <ul class="list-group list-group-flush ">
+                        <div class="row">
 
-                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Customer Name :
-                                </span>
-                                <span>
-                                    Shyam Jaiswal
-                                </span>
-                            </li>
 
-                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Contact no :
-                                </span>
-                                <span>
-                                    9004086582
-                                </span>
-                            </li>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
 
-                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Feedback :
-                                </span>
-                                <span>
-                                    Need a AMC Service for my PC
-                                </span>
-                            </li>
-                        </ul>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Customer Name :
+                                        </span>
+                                        <span>
+                                            Shyam Jaiswal
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Contact no :
+                                        </span>
+                                        <span>
+                                            9004086582
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Feedback :
+                                        </span>
+                                        <span>
+                                            Need a AMC Service for my PC
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Company Name :
+                                        </span>
+                                        <span>
+                                            Technofra
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">GST No :
+                                        </span>
+                                        <span>
+                                            988498
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Email :
+                                        </span>
+                                        <span>
+                                            shyam@gmail.com
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address :
+                                        </span>
+                                        <span>
+                                            Lalji Pada , Kandivali West, Mumbai, Maharashtra 400067
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Customer Type :
+                                        </span>
+                                        <span>
+                                            Retailer
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Company Address :
+                                        </span>
+                                        <span>
+                                            Lalji Pada , Maharashtra 400067
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">PAN No :
+                                        </span>
+                                        <span>
+                                            789MTUO
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card service-info">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Service Details
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">
+                                            Service Id :
+                                        </span>
+                                        <span>
+                                            <span class="fw-bold text-dark">#1001</span><br>
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Date :
+                                        </span>
+                                        <span>
+                                            <div>2 weeks ago</div>
+                                            <div>2025-04-04 06:09 PM</div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Images :
+
+                                        </span>
+                                        <span>
+                                            <a class="btn btn-sm btn-primary" href="#">View</a>
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">
+                                            Priority Level :
+                                        </span>
+                                        <span>
+                                            <span class="fw-bold text-dark">High</span><br>
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Type :
+                                        </span>
+                                        <span>
+                                            <div>Server level</div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Description :
+
+                                        </span>
+                                        <div>satuap all cctv carma in my office</div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Status :
+
+                                        </span>
+                                        <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
                 </div>
                 <div class="card service-info">
@@ -88,36 +236,78 @@
                     </div>
 
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
 
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">AMC Plan :
-                                </span>
-                                <span>
-                                    Standard
-                                </span>
-                            </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Plan Name:
+                                        </span>
+                                        <span>
+                                            Software Updates
+                                        </span>
+                                    </li>
 
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Duration (Months) :
-                                </span>
-                                <span>
-                                    12
-                                </span>
-                            </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Duration (Months) :
+                                        </span>
+                                        <span>
+                                            12
+                                        </span>
+                                    </li>
 
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Start From :
-                                </span>
-                                <span>
-                                    2025-04-04 06:09 PM
-                                </span>
-                            </li>
-                        </ul>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Start From :
+                                        </span>
+                                        <span>
+                                            2025-04-04 06:09 PM
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Total Vistor :
+                                        </span>
+                                        <span>
+                                            50
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Plan Type :
+                                        </span>
+                                        <span>
+                                            Standard
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Description :
+                                        </span>
+                                        <span>
+                                            AMC Service for 1 year
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">End From :
+                                        </span>
+                                        <span>
+                                            2025-04-04 06:09 PM
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
 
 
                 </div>
+
+
                 <div class="card service-info">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
@@ -127,7 +317,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="responsive-datatable"
+                        <table
                             class="table table-striped table-borderless dt-responsive nowrap">
                             <thead>
                                 <tr>
@@ -146,7 +336,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
