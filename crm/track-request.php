@@ -1,5 +1,41 @@
 <?php include('layouts/header.php') ?>
 
+<style>
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #popupOverlay img {
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 0 10px #fff;
+    }
+
+    #popupOverlay .closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+
 <div class="content">
 
     <!-- Start Content-->
@@ -36,10 +72,12 @@
 
 
             </div>
+        </div>
 
+        <div class="row pt-3">
+            <div class="col-xl-8 mx-auto">
 
-            <div class="col-xl-7">
-                <div class="card service-info">
+                <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -143,7 +181,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card service-info">
+
+                <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -175,7 +214,7 @@
                                         </span>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Issue Images :
+                                        <span class="fw-semibold text-break">Images :
 
                                         </span>
                                         <span>
@@ -221,12 +260,9 @@
                             </div>
                         </div>
 
-
-
-
                     </div>
                 </div>
-                <div class="card service-info">
+                <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -308,7 +344,7 @@
                 </div>
 
 
-                <div class="card service-info">
+                <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -366,8 +402,112 @@
 
                 </div>
             </div>
-            <div class="col-xl-5">
-                <div class="card service-info">
+
+
+            <div class="col-xl-4">
+
+                <!-- <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Engineer Location
+                            </h5>
+                            <div>
+                                Mumbai
+                            </div>
+                        </div>
+                    </div>
+
+                </div> -->
+
+                <div class="card hide-selected-engineers-section">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex  ">
+                            <h5 class="card-title flex-grow-1 mb-0">Assigned Engineer List</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 1:
+                                        </span>
+                                        <span>
+                                            Supervisor
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 2 :
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 3 :
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card hide-report-section">
+
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Engineer Report Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Before Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">After Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Service Report:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
                     <div class="card-body p-4">
                         <ul class="simple-timeline mb-0">
                             <li class="timeline-item timeline-item-transparent">
@@ -396,20 +536,21 @@
                                 </div>
                             </li>
 
-                            <!-- <li>
+                            <li>
                                 <div class="timeline-time mt-3">
                                     <div class="timeline-header-section mb-2">
                                         <a href="#" class="mb-0 btn btn-sm btn-primary">View All History</a>
                                     </div>
                                 </div>
-                            </li> -->
+                            </li>
 
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- container-fluid -->
+    </div>
+</div> <!-- container-fluid -->
 </div> <!-- content -->
 
 <script>

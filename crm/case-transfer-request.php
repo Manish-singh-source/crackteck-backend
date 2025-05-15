@@ -1,5 +1,41 @@
 <?php include('layouts/header.php') ?>
 
+<style>
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #popupOverlay img {
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 0 10px #fff;
+    }
+
+    #popupOverlay .closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+
 <div class="content">
     <div class="container-fluid">
 
@@ -33,7 +69,7 @@
                                 <span class="fw-semibold text-break">Request Transfer Status:
                                 </span>
                                 <span>
-                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                    <span class="badge bg-danger-subtle text-danger request-status fw-semibold">Pending</span>
                                 </span>
                             </li>
 
@@ -146,7 +182,7 @@
                     </div>
                 </div>
 
-                 <div class="card">
+                <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -181,7 +217,9 @@
                                         <span class="fw-semibold text-break">Images :
 
                                         </span>
-                                        <span><input type="file"></span>
+                                        <span>
+                                            <a class="btn btn-sm btn-primary" href="#">View</a>
+                                        </span>
                                     </li>
 
                                 </ul>
@@ -222,12 +260,8 @@
                             </div>
                         </div>
 
-
-
-
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
@@ -308,6 +342,8 @@
 
 
                 </div>
+
+
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
@@ -368,10 +404,10 @@
             </div>
 
 
+
             <div class="col-xl-4">
 
-
- <div class="card delivery-form" id="mySection1">
+                <div class="card engineer-details">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
@@ -382,7 +418,7 @@
 
                     <div class="card-body">
                         <div>
-                            <select required="" name="status" id="status" class="form-select w-100">
+                            <select required="" name="eng-location" id="eng-location" class="form-select w-100">
                                 <option value="0" selected disabled>---- Select Location ----</option>
                                 <option value="0">Mumbai</option>
                                 <option value="0">Delhi</option>
@@ -392,20 +428,20 @@
                     </div>
                 </div>
 
-                <div class="card delivery-form" id="mySection">
+                <div class="card hide-assign-eng-section" id="mySection">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex pb-3">
                             <h5 class="card-title flex-grow-1 mb-0">Assign Engineer</h5>
                         </div>
                         <div class="col-sm-10 d-flex gap-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="individualRadio" value="individual" checked>
+                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="individualRadio" value="individual" checked>
                                 <label class="form-check-label" for="individualRadio">
                                     Individual Engineer
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="groupRadio" value="group">
+                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="groupRadio" value="group">
                                 <label class="form-check-label" for="groupRadio">
                                     Group Engineer
                                 </label>
@@ -426,14 +462,14 @@
 
                         <!-- Group Engineer Dropdown -->
                         <div id="groupDropdown" style="display: none;">
-                            <select id="groupDropdown1" class="form-select w-100" multiple>
+                            <select id="groupDropdown1" class="form-select w-100">
                                 <option value="" selected disabled>---- Select Group Engineer ----</option>
                                 <option value="group2">Engineer 1</option>
                                 <option value="group3">Engineer 2</option>
                                 <option value="group3">Engineer 3</option>
                             </select>
                             <!-- Button to display selected options -->
-                            <button class="btn btn-primary mt-2" onclick="addToTable()">Add Engineer</button>
+                            <button class="btn btn-primary mt-2 add-engineer">Add Engineer</button>
 
                             <!-- Table to display selected values with checkboxes -->
                             <table class="table mt-4" id="selectedTable">
@@ -452,61 +488,99 @@
                     </div>
                 </div>
 
-                <!-- JavaScript -->
-                <script>
-                    const individualRadio = document.getElementById('individualRadio');
-                    const groupRadio = document.getElementById('groupRadio');
-                    const individualDropdown = document.getElementById('individualDropdown');
-                    const groupDropdown = document.getElementById('groupDropdown');
-
-                    individualRadio.addEventListener('change', () => {
-                        individualDropdown.style.display = 'block';
-                        groupDropdown.style.display = 'none';
-                    });
-
-                    groupRadio.addEventListener('change', () => {
-                        individualDropdown.style.display = 'none';
-                        groupDropdown.style.display = 'block';
-                    });
-                </script>
-
-
-                <div class="text-end pb-3 delivery-form">
-                    <button href="#" class="btn btn-primary" onclick="hideSection()">
+                <div class="text-end pb-3 hide-section">
+                    <button href="#" class="btn btn-primary assign-eng-btn">
                         Assign
                     </button>
                 </div>
 
-                <div class="card" id="mySection3">
+                <div class="card hide-selected-engineers-section">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex pb-3">
-                            <h5 class="card-title flex-grow-1 mb-0">Assign Individual Engineer :-</h5>
-                            <h6><b>Engineer 1</b></h6>
+                        <div class="d-flex  ">
+                            <h5 class="card-title flex-grow-1 mb-0">Assigned Engineer List</h5>
                         </div>
-                        <div class="d-flex pb-3">
-                            <h5 class="card-title flex-grow-1 mb-0">Assign Group Engineer :-</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
 
-                            <ul>
-                                <li>Engineer 1</li>
-                                <li>Engineer 2 <b>- Admin</b> </li>
-                                <li>Engineer 3</li>
-                                <li>Enfineer 4</li>
-                            </ul>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 1:
+                                        </span>
+                                        <span>
+                                            Supervisor
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 2 :
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 3 :
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <script>
-                    function hideSection() {
-                        document.getElementById("mySection").style.display = "none";
-                        document.getElementById("mySection1").style.display = "none";
-                        document.getElementById("mySection3").style.display = "block";
 
-                    }
-                    document.getElementById("mySection3").style.display = "none";
-                </script>
+                <div class="card hide-report-section">
 
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Engineer Report Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
 
-                
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Before Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">After Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Service Report:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body p-4">
                         <ul class="simple-timeline mb-0">
@@ -547,47 +621,83 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
+
         </div>
 
     </div>
-</div> <!-- content -->
-<script>
-    function addToTable() {
-        // Get selected values from the dropdown
-        const selectedOptions = document.getElementById("groupDropdown1").selectedOptions;
-        const tableBody = document.querySelector("#selectedTable tbody");
-        console.log(selectedOptions);
-        // Loop through the selected options
-        for (let option of selectedOptions) {
-            // Create a new row and insert the selected group name with a checkbox
-            const newRow = document.createElement("tr");
-            newRow.innerHTML = `
-        <td>${option.text}</td>
-        <td><input type="checkbox" class="form-check-input" /></td>
-      `;
-            tableBody.appendChild(newRow);
-        }
-    }
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</div>
 <script>
     $(document).ready(function() {
-        $(".delivery-form").hide();
 
         $("#approve-request").on('click', function() {
             $(this).parent().hide();
             $(".request-status").html("Approved");
             $(".request-status").removeClass("bg-danger-subtle text-danger");
             $(".request-status").addClass("bg-success-subtle text-success");
-            $(".delivery-form").show();
+            $(".engineer-details").show();
         });
 
         $("#reject-request").on('click', function() {
             $(this).parent().hide();
             $(".request-status").html("Rejected");
         });
+
+        $(".engineer-details").hide();
+        $(".hide-section").hide();
+        $(".hide-report-section").hide();
+        $(".hide-assign-eng-section").hide();
+        $(".hide-selected-engineers-section").hide();
+
+        $("#eng-location").on("change", function() {
+            $(".hide-assign-eng-section").show();
+            $(".hide-section").show();
+        });
+
+        $(".eng-assign").on("change", function() {
+            $(".hide-assign-eng-section").show();
+            $(".hide-section").show();
+            $("#groupDropdown").fadeToggle();
+            $("#individualDropdown").fadeToggle();
+        });
+
+        $(".assign-eng-btn").on("click", function() {
+            $(".hide-section").hide();
+            $(".hide-assign-eng-section").hide();
+            $(".hide-selected-engineers-section").show();
+            $(".hide-report-section").show();
+
+        });
+
+        $(".show-report").on("click", function() {
+            $("#popupOverlay").css("display", "flex");
+        });
+
+        $(".hide-report").on("click", function() {
+            $("#popupOverlay").hide();
+        });
+
+        $(".add-engineer").on("click", function() {
+            const $selectedOptions = $('#groupDropdown1 option:selected');
+            const $tableBody = $('#selectedTable tbody');
+
+            $selectedOptions.each(function() {
+                const optionText = $(this).text();
+
+                // Append row to table
+                const newRow = `
+                    <tr>
+                        <td>${optionText}</td>
+                        <td><input type="checkbox" class="form-check-input" /></td>
+                    </tr>
+                `;
+                $tableBody.append(newRow);
+
+                // Remove option from the select dropdown
+                $(this).remove();
+            });
+        });
+
     });
 </script>
 <?php include('layouts/footer.php') ?>
