@@ -284,3 +284,62 @@
 
                                     </div>
                                 </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+    const individualRadio = document.getElementById('individualRadio');
+    const groupRadio = document.getElementById('groupRadio');
+    const individualDropdown = document.getElementById('individualDropdown');
+    const groupDropdown = document.getElementById('groupDropdown');
+
+    individualRadio.addEventListener('change', () => {
+        individualDropdown.style.display = 'block';
+        groupDropdown.style.display = 'none';
+    });
+
+    groupRadio.addEventListener('change', () => {
+        individualDropdown.style.display = 'none';
+        groupDropdown.style.display = 'block';
+    });
+
+    function hideSection() {
+        document.getElementById("mySection").style.display = "none";
+        document.getElementById("mySection1").style.display = "none";
+        document.getElementById("mySection3").style.display = "block";
+    }
+
+    document.getElementById("mySection3").style.display = "none";
+
+    function showPopup() {
+        document.getElementById("popupOverlay").style.display = "flex";
+    }
+
+    function hidePopup() {
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    function addToTable() {
+        // Get selected values from the dropdown
+        const selectedOptions = document.getElementById("groupDropdown1").selectedOptions;
+        const tableBody = document.querySelector("#selectedTable tbody");
+        console.log(selectedOptions);
+        // Loop through the selected options
+        for (let option of selectedOptions) {
+            // Create a new row and insert the selected group name with a checkbox
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+        <td>${option.text}</td>
+        <td><input type="checkbox" class="form-check-input" /></td>
+      `;
+            tableBody.appendChild(newRow);
+        }
+    }
