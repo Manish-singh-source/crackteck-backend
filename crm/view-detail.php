@@ -180,7 +180,9 @@
                                         <span class="fw-semibold text-break">Images :
 
                                         </span>
-                                        <span><input type="file"></span>
+                                        <span>
+                                            <a class="btn btn-sm btn-primary" href="#">View</a>
+                                        </span>
                                     </li>
 
                                 </ul>
