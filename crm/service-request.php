@@ -8,10 +8,7 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Service Request</h4>
             </div>
-            <div>
-                <a href="create-amc.php" class="btn btn-primary">Create AMC</a>
-                <!-- <button class="btn btn-primary">Add New Role</button> -->
-            </div>
+
         </div>
 
 
@@ -19,26 +16,46 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body pt-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active p-2" onclick="showSection()" id="all_services_tab" data-bs-toggle="tab"
+                                        href="#all_services" role="tab">
+                                        <span class="d-block d-sm-none"><i
+                                                class="mdi mdi-information"></i></span>
+                                        <span class="d-none d-sm-block">AMC Services</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-2" onclick="hideSection()" id="pending_services_tab" data-bs-toggle="tab" href="#pending_services"
+                                        role="tab">
+                                        <span class="d-block d-sm-none"><i
+                                                class="mdi mdi-sitemap-outline"></i></span>
+                                        <span class="d-none d-sm-block">NON AMC Call Services</span>
+                                    </a>
+                                </li>
 
-                        <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active p-2" id="all_services_tab" data-bs-toggle="tab"
-                                    href="#all_services" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">AMC Services</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="pending_services_tab" data-bs-toggle="tab" href="#pending_services"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">NON AMC Call Services</span>
-                                </a>
-                            </li>
-                           
-                        </ul>
+                            </ul>
+                            <div>
+                                <a href="create-amc.php" id="mySection" class="btn btn-primary">Create AMC</a>
+                                <a href="create-servies.php" id="mySection1" class="btn btn-primary">Create Service</a>
+                                <!-- <button class="btn btn-primary">Add New Role</button> -->
+                            </div>
+                        </div>
+                        <script>
+                            function hideSection() {
+                                document.getElementById("mySection1").style.display = "block";
+                                document.getElementById("mySection").style.display = "none";
+
+                            }
+                             function showSection() {
+                                document.getElementById("mySection").style.display = "block";
+                                document.getElementById("mySection1").style.display = "none";
+
+                            }
+                            document.getElementById("mySection1").style.display = "none";
+                        </script>
+
 
                         <div class="tab-content text-muted">
                             <div class="tab-pane active show pt-4" id="all_services" role="tabpanel">

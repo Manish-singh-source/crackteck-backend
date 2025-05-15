@@ -28,30 +28,7 @@
                                     <span class="d-none d-sm-block">All</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="approved_case_tab" data-bs-toggle="tab" href="#approved_case"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Approved</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="pending_case_tab" data-bs-toggle="tab"
-                                    href="#pending_case" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Pending</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="rejected_case_tab" data-bs-toggle="tab"
-                                    href="#rejected_case" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Rejected</span>
-                                </a>
-                            </li>
+                           
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -66,10 +43,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Service Id</th>
-                                                            <th>Engineer</th>
                                                             <th>Time</th>
                                                             <th>Transfer From</th>
-                                                            <th>Transfer To</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -81,10 +56,9 @@
                                                                     #1001
                                                                 </a>
                                                             </td>
-                                                            <td>sarah</td>
                                                             <td>2022-09-15</td>
                                                             <td>Engineer 1</td>
-                                                            <td>Engineer 2</td>
+                                                            
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
@@ -113,10 +87,9 @@
                                                                     #1002
                                                                 </a>
                                                             </td>
-                                                            <td>michael</td>
                                                             <td>2022-09-15</td>
                                                             <td>Engineer 1</td>
-                                                            <td>Engineer 2</td>
+                                                            
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
@@ -145,10 +118,9 @@
                                                                     #1003
                                                                 </a>
                                                             </td>
-                                                            <td>emily</td>
                                                             <td>2022-09-15</td>
                                                             <td>Engineer 1</td>
-                                                            <td>Engineer 2</td>
+                                                            
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
                                                             </td>
@@ -176,10 +148,9 @@
                                                                     #1004
                                                                 </a>
                                                             </td>
-                                                            <td>john</td>
                                                             <td>2022-09-15</td>
                                                             <td>Engineer 1</td>
-                                                            <td>Engineer 2</td>
+                                                            
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
                                                             </td>
