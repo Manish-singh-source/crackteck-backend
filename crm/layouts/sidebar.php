@@ -43,8 +43,8 @@
 
                 <li>
                     <a class='tp-link' href='../warehouse/index.php'>
-                        <i data-feather="columns"></i>
-                        <span> Warehouse Dashboard </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Warehouse Dashboard </span>
                     </a>
                 </li>
 
@@ -109,8 +109,9 @@
                 </li>
                 <li>
                     <a class='tp-link' href='engineers.php'>
-                        <i data-feather="columns"></i>
-                        <span> Engineers </span>
+                        <!-- <i data-feather="columns"></i> -->
+                        <img width="" height="20" src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="gender-neutral-user--v1" />
+                        <span class="ps-1"> Engineers </span>
                     </a>
                 </li>
                 <!-- <li>
