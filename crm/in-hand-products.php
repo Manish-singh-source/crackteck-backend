@@ -74,30 +74,6 @@
                                     <span class="d-none d-sm-block">All Parts</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Approved</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Pending</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Rejected</span>
-                                </a>
-                            </li>
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -110,13 +86,10 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Type</th>
-                                                            <th>Brand</th>
-                                                            <th>Module Number</th>
-                                                            <th>Serial Number</th>
-                                                            <th>Requested By</th>
-                                                            <th>Status</th>
+                                                            <th>Engineer Name</th>
+                                                            <th>Total Qty</th>
+                                                            <th>In Hand Qty</th>
+                                                            <th>Used Qty</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -124,19 +97,14 @@
                                                         <tr>
                                                             <td>
                                                                 <div>
-                                                                    Dell Inspiron 3370
+                                                                    	Engineer 1
                                                                 </div>
                                                             </td>
-                                                            <td>Laptop</td>
-                                                            <td>Dell</td>
-                                                            <td>9879877</td>
-                                                            <td>CDB-0987</td>
-                                                            <td>Engineer 1</td>
+                                                            <td>12</td>
+                                                            <td>10</td>
+                                                            <td>2</td>
                                                             <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-spare-part-request.php"
+                                                                <a aria-label="anchor" href="view-engineer-bag.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -146,19 +114,14 @@
                                                         <tr>
                                                             <td>
                                                                 <div>
-                                                                    Kingston SSD 256 GB
+                                                                    	Engineer 2
                                                                 </div>
                                                             </td>
-                                                            <td>Accessories</td>
-                                                            <td>Kingston</td>
-                                                            <td>9879877</td>
-                                                            <td>KING-1987</td>
-                                                            <td>Engineer 2</td>
+                                                            <td>12</td>
+                                                            <td>10</td>
+                                                            <td>2</td>
                                                             <td>
-                                                                <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-spare-part-request.php"
+                                                                <a aria-label="anchor" href="view-engineer-bag.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -168,19 +131,14 @@
                                                         <tr>
                                                             <td>
                                                                 <div>
-                                                                    Kingston SSD 256 GB
+                                                                    	Engineer 3
                                                                 </div>
                                                             </td>
-                                                            <td>Accessories</td>
-                                                            <td>Kingston</td>
-                                                            <td>9879877</td>
-                                                            <td>KING-1987</td>
-                                                            <td>Engineer 3</td>
+                                                            <td>12</td>
+                                                            <td>10</td>
+                                                            <td>2</td>
                                                             <td>
-                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">Rejected</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-spare-part-request.php"
+                                                                <a aria-label="anchor" href="view-engineer-bag.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>

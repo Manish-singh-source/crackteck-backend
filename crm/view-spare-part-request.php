@@ -114,35 +114,9 @@
 
 
             <div class="col-xl-4">
-                <div class="card delivery-form">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Delivery Man
-                            </h5>
-                        </div>
-                    </div>
+               
 
-                    <div class="card-body">
-                        <div>
-                            <select required="" name="status" id="status" class="form-select w-100">
-                                <option value="0" selected disabled>---- Select Delivery Man ----</option>
-                                <option value="0">John Doe</option>
-                                <option value="0">Rahul Sharma</option>
-                                <option value="0">Priya Verma</option>
-                                <option value="0">Arjun Mehta</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="text-end pb-3 delivery-form">
-                    <a href="#" class="btn btn-primary">
-                        Assign
-                    </a>
-                </div>
-
+               
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">

@@ -144,7 +144,90 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Address/Branch Details
+                            </h5>
+                            
+                        </div>
+                    </div>
 
+                    <div class="card-body">
+                        <div class="row">
+
+
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Branch Name :
+                                        </span>
+                                        <span>
+                                            KD
+                                        </span>
+                                    </li>
+                                   
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address Line 2 :
+                                        </span>
+                                        <span>
+                                            Sanjay Gandhi National Park, Borivali East,
+                                        </span>
+                                    </li>
+
+                                    
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">State :
+                                        </span>
+                                        <span>
+                                            Maharashtra
+                                        </span>
+                                    </li>
+                                    
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Pincode :
+                                        </span>
+                                        <span>
+                                            400067
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+
+                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address Line 1 :
+                                        </span>
+                                        <span>
+                                            Sanjay Gandhi National Park, Borivali East,
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">City :
+                                        </span>
+                                        <span>
+                                           Mumbai
+                                        </span>
+                                    </li>
+
+                                   <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Country :
+                                        </span>
+                                        <span>
+                                            India
+                                        </span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
