@@ -175,6 +175,12 @@
                                         <span class="d-none d-sm-block">Employment History</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-2" id="logsdetiles_tab" data-bs-toggle="tab" href="#logsdetiles" role="tab">
+                                        <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
+                                        <span class="d-none d-sm-block">Login Logs</span>
+                                    </a>
+                                </li>
                             </ul>
 
                             <div class="tab-content text-muted">
@@ -425,7 +431,86 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane pt-4" id="logsdetiles" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-md-12 mb-4">
 
+                                            <div class="card shadow-none p-lg-3">
+                                               
+
+                                                <div class="tab-content text-muted">
+                                                    <div class="tab-pane active show pt-4" id="all_customer" role="tabpanel">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="card shadow-none">
+                                                                    <div class="card-body">
+                                                                        <table id="responsive-datatable"
+                                                                            class="table table-striped table-borderless dt-responsive nowrap">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Date</th>
+                                                                                    <th>Login Time</th>
+                                                                                    <th>Logout Time</th>
+                                                                                    <th>Total Hours</th>
+                                                                                    <th>Remarks</th>
+                                                                                    <th>Status</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div>
+                                                                                            2 weeks ago
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            2025-04-04 06:09 PM
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>09:15 AM</td>
+
+                                                                                    <td>06:00 PM</td>
+                                                                                    <td>8.75</td>
+
+                                                                                    
+                                                                                    <td>Late login by 15 mins</td>
+                                                                                   <td>
+                                                                                        Present
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div>
+                                                                                            2 weeks ago
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            2025-04-04 06:09 PM
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>09:15 AM</td>
+
+                                                                                    <td>06:00 PM</td>
+                                                                                    <td>8.75</td>
+
+                                                                                   
+                                                                                    <td>Late login by 15 mins</td>
+                                                                                    <td>
+                                                                                        Present
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

@@ -82,7 +82,7 @@ include('layouts/header.php') ?>
                         <div class="card pb-4">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Address Information
+                                    Address/Branch Information
                                 </h5>
                             </div>
 
@@ -117,10 +117,98 @@ include('layouts/header.php') ?>
                                         <label for="pincode" class="form-label">Pincode<span class="text-danger">*</span></label>
                                         <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Enter Pincode">
                                     </div>
+                                    <div class="col-6">
+                                        <label for="pincode" class="form-label">Branch Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Name of Branch">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-success">
+                                                Add
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Branch Information
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped table-borderless dt-responsive nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <th>Address Line 1</th>
+                                            <th>Address Line 2</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Country</th>
+                                            <th>Pincode</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                        <tr class="align-middle">
+                                            <td>BO</td>
+                                            <td>
+                                                <div>
+                                                    Sanjay Nagar Jalji Pada Kandivali West
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Ganesh Nagar
+                                            </td>
+                                            <td>
+                                                Mumbai
+                                            </td>
+                                            <td>
+                                                Maharashtra
+                                            </td>
+                                            <td>
+                                                India
+                                            </td>
+                                            <td>400067</td>
+                                            <td>
+                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <td>KD</td>
+                                            <td>
+                                                <div>
+                                                    Sanjay Nagar Jalji Pada Kandivali West
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Ganesh Nagar
+                                            </td>
+                                            <td>
+                                                Mumbai
+                                            </td>
+                                            <td>
+                                                Maharashtra
+                                            </td>
+                                            <td>
+                                                India
+                                            </td>
+                                            <td>400067</td>
+                                            <td>
+                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <!-- <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
@@ -205,6 +293,6 @@ include('layouts/header.php') ?>
                 </div>
             </div>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 <?php include('layouts/footer.php') ?>

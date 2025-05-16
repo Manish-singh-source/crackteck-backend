@@ -22,15 +22,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">User Transactions</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Seller Transactions</span>
+                                    <span class="d-none d-sm-block">Transactions</span>
                                 </a>
                             </li>
                         </ul>
@@ -46,10 +38,13 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Date</th>
-                                                            <th>Customer</th>
+                                                            <th>Engineer Name</th>
+                                                            <th>Customer Name</th>
                                                             <th>Transaction ID</th>
+                                                            <th>Order ID</th>
                                                             <th>Amount</th>
-                                                            <th>Details</th>
+                                                            <th>Mode</th>
+                                                            <th>Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -62,41 +57,47 @@
                                                                     2025-04-04 06:09 PM
                                                                 </div>
                                                             </td>
+                                                            <td>E1</td>
                                                             <td>John Doe</td>
-                                                            <td>CGSYOUGOG4XHTM</td>
-                                                            <td>
-                                                                <div class="text-success">
-                                                                    +2890 INR
-                                                                </div>
-                                                            </td>
+
+                                                            <td>TXN8901</td>
+                                                            <td>#ORD123 </td>
+                                                            
                                                             <td>
                                                                 <div class="text-success">
                                                                     +2890 INR
                                                                 </div>
                                                                 Order balance added for order number cartuser7658831
+                                                            </td>
+                                                            <td>UPI</td>
+                                                            <td>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                         </tr>
-                                                        <tr>
+                                                       <tr>
                                                             <td>
                                                                 <div>
-                                                                    1 week ago
+                                                                    2 weeks ago
                                                                 </div>
                                                                 <div>
-                                                                    2025-04-14 06:09 PM
+                                                                    2025-04-04 06:09 PM
                                                                 </div>
                                                             </td>
+                                                            <td>E2</td>
                                                             <td>John Doe</td>
-                                                            <td>CGSYOUGOG4XHTM</td>
+
+                                                            <td>TXN8901</td>
+                                                            <td>#ORD123 </td>
+                                                            
                                                             <td>
-                                                                <div class="text-danger">
-                                                                    -2890 INR
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="text-danger">
-                                                                    -2890 INR
+                                                                <div class="text-success">
+                                                                    +2890 INR
                                                                 </div>
                                                                 Order balance added for order number cartuser7658831
+                                                            </td>
+                                                            <td>Cash</td>
+                                                            <td>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                         </tr>
 

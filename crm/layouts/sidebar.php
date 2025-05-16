@@ -160,7 +160,7 @@
                 <li>
                     <a class='tp-link' href='call-logs.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
-                        <span class="ps-1"> Call Logs </span>
+                        <span class="ps-1"> Chat Logs </span>
                     </a>
                 </li>
 
@@ -177,7 +177,7 @@
                 <li>
                     <a class='tp-link' href='in-hand-products.php'>
                         <i data-feather="columns"></i>
-                        <span>In Hand Products </span>
+                        <span>Assign Products </span>
                     </a>
                 </li>
 
@@ -210,9 +210,9 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='feedbacks.php'>
+                    <a class='tp-link' href='invoice.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/thumbs-up-down.png" alt="thumbs-up-down" />
-                        <span class="ps-1"> Feedbacks </span>
+                        <span class="ps-1"> Invoice </span>
                     </a>
                 </li>
 
