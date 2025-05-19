@@ -11,10 +11,11 @@
 
         </div>
 
- <!-- Start Main Widgets -->
+        <!-- Start Main Widgets -->
         <div class="row">
             <div class="col-lg-4">
                 <div class="card">
+
                     <div class="card-body">
                         <div class="widget-first">
 
@@ -48,6 +49,7 @@
 
             <div class="col-lg-4">
                 <div class="card">
+
                     <div class="card-body">
                         <div class="widget-first">
 
@@ -229,6 +231,55 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-body border border-dashed border-end-0 border-start-0">
+                        <form action="#" method="get">
+                            <div class="row g-3">
+                                <div class="col-xl-6 col-sm-6">
+                                    <div class="search-box">
+                                        <input type="text" name="search" value="" class="form-control search" placeholder="Search by name, type, brand, module number or serial number">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-sm-3 col-6">
+                                    <div>
+                                        <select class="form-select" name="type" id="">
+
+                                            <option selected="" value="0">
+                                                All
+                                            </option>
+                                            <option value="1">
+                                                Laptops
+                                            </option>
+                                            <option value="2">
+                                                Computers
+                                            </option>
+                                            <option value="3">
+                                                Accessories
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-sm-3 col-6">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-sm-3 col-6">
+                                    <div>
+                                        <a href="#" class="btn btn-danger w-100 waves ripple-light"> <i class="ri-refresh-line me-1 align-bottom"></i>
+                                            Reset
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
                     <div class="card-body pt-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
@@ -262,7 +313,8 @@
                                 document.getElementById("mySection").style.display = "none";
 
                             }
-                             function showSection() {
+
+                            function showSection() {
                                 document.getElementById("mySection").style.display = "block";
                                 document.getElementById("mySection1").style.display = "none";
 

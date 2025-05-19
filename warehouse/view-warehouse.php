@@ -121,7 +121,7 @@
                                     Contact Person Name :
                                 </span>
                                 <span>
-                                    <span>John Doe</span><br>
+                                    <span>Aakash Kumar</span><br>
                                 </span>
                             </li>
 

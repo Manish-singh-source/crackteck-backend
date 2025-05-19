@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body h-100">
                         <div class="widget-first">
 
                             <div class="d-flex align-items-center mb-2">
@@ -27,16 +27,11 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total Customers</p>
+                                <p class="mb-0 text-dark fs-15">Total Warehouses</p>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">3,456</h3>
-                                <div class="text-center">
-                                    <span class="text-primary fs-14"><i
-                                            class="mdi mdi-trending-up fs-14"></i> 12.5%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
-                                </div>
+                                <h3 class="mb-0 fs-22 text-dark me-3">6</h3>
                             </div>
 
                         </div>
@@ -60,7 +55,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Task Orders</p>
+                                <p class="mb-0 text-dark fs-15">Total Staffs</p>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
@@ -131,7 +126,7 @@
 
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">₹4,578</h3>
+                                <h3 class="mb-0 fs-22 text-dark me-3">₹4,57,815</h3>
 
                                 <div class="text-muted">
                                     <span class="text-danger fs-14 me-2"><i

@@ -96,7 +96,7 @@
                             <div class="row g-3 pb-3">
                                 <div class="col-xl-6 col-lg-6">
                                     <div>
-                                        <label for="status" class="form-label">Warehouse Id <span class="text-danger">*</span></label>
+                                        <label for="status" class="form-label">Warehouse Name <span class="text-danger">*</span></label>
                                         <select required="" name="status" id="status" class="form-select w-100">
                                             <option value="" selected disabled>-- Select Warehouse --</option>
                                             <option value="0">ABC-1234</option>

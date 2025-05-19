@@ -8,43 +8,163 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Products List</h4>
             </div>
+            <div>
+                <a href="add-product.php" class="btn btn-primary">Add New Product</a>
+                <!-- <button class="btn btn-primary">Add New Product</button> -->
+            </div>
         </div>
 
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product</h5>
-                    </div><!-- end card header -->
-                    <div class="card-body">
-                        <div>
-                            <form action="#" method="POST" id="service-form" enctype="multipart/form-data">
-                                <div class="row g-3 align-items-end">
-                                    <div class="col-6">
-                                            <label for="service_id" class="form-label">Product Id <span class="text-danger">*</span></label>
+                    <div class="card-body pt-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active p-2" id="all_customer_tab" data-bs-toggle="tab"
+                                        href="#all_customer" role="tab">
+                                        <span class="d-block d-sm-none"><i
+                                                class="mdi mdi-information"></i></span>
+                                        <span class="d-none d-sm-block">All Products</span>
+                                    </a>
+                                </li>
+                                <!-- 
+                            <li class="nav-item">
+                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
+                                    role="tab">
+                                    <span class="d-block d-sm-none"><i
+                                            class="mdi mdi-sitemap-outline"></i></span>
+                                    <span class="d-none d-sm-block">Trashed Products</span>
+                                </a>
+                            </li> 
+                            -->
+                            </ul>
+                            <div>
+                                <form action="#" method="POST" id="service-form" enctype="multipart/form-data">
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-12">
                                             <input type="text" id="product-search" class="form-control" placeholder="Enter Product Id">
                                             <div class="list-group suggestions" id="suggestions-list"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="tab-content text-muted">
+
+                            <div class="tab-pane active show pt-4" id="all_customer" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card shadow-none">
+                                            <div class="card-body">
+                                                <table id="responsive-datatable"
+                                                    class="table table-striped table-borderless dt-responsive nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Categories - Sold Item</th>
+                                                            <th>Info</th>
+                                                            <th>Top Item - Todays Deal</th>
+                                                            <th>Time - Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr class="align-middle">
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div>
+                                                                        <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                                    </div>
+                                                                    <div>
+                                                                        <div>
+                                                                            Headphone
+                                                                        </div>
+                                                                        <div>
+                                                                            Brand: Sony
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge bg-primary-subtle text-primary fw-semibold">Electronics</span>
+                                                                <div>
+                                                                    Total Sold: 2
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    Regular price : ₹100.0
+                                                                </div>
+                                                                <div>
+                                                                    Discount Price : ₹97.0
+                                                                </div>
+                                                                <div>
+                                                                    <a href="#" class="text-primary">
+                                                                        Best Selling Item - Yes
+                                                                    </a>
+                                                                </div>
+                                                                <div>
+                                                                    <a href="#" class="text-danger">
+                                                                        Suggested Item - No
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="text-success">
+                                                                    Yes
+                                                                </a>
+                                                                <span>|</span>
+                                                                <a href="#" class="text-danger">
+                                                                    No
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    17 Apr 2025
+                                                                </div>
+                                                                <span
+                                                                    class="badge bg-success-subtle text-success fw-semibold">Published</span>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+
+                            </div><!-- end Experience -->
+
+                        </div> <!-- Tab panes -->
                     </div>
                 </div>
-                <!-- <div class="container mt-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 position-relative">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="product-search" placeholder="Search products...">
-                            </div>
-                            <div class="list-group suggestions" id="suggestions-list"></div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div> <!-- container-fluid -->
 </div> <!-- content -->
+
 
 <script>
     $(document).ready(function() {
@@ -83,6 +203,7 @@
 
             filteredProducts.forEach(product => {
                 const div = document.createElement('a');
+                div.setAttribute("href", "./add-product.php");
                 div.classList.add('list-group-item', 'list-group-item-action', 'suggestion-item');
                 div.textContent = product;
 
@@ -103,4 +224,5 @@
         }
     });
 </script>
+
 <?php include('layouts/footer.php') ?>
