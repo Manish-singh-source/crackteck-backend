@@ -51,6 +51,10 @@
         #responsive-datatable {
             width: 100% !important;
         }
+
+        .suggestions {
+            position: absolute;
+        }
     </style>
 
 </head>

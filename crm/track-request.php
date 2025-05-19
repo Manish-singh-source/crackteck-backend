@@ -52,7 +52,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Track Request</h5>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div>
                             <form action="#" method="POST" id="service-form" enctype="multipart/form-data">
@@ -69,12 +69,10 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
-        <div class="row pt-3">
+        <div class="row service-info pt-3">
             <div class="col-xl-8 mx-auto">
 
                 <div class="card">

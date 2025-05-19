@@ -150,7 +150,7 @@
                             <h5 class="card-title flex-grow-1 mb-0">
                                 Address/Branch Details
                             </h5>
-                            
+
                         </div>
                     </div>
 
@@ -167,7 +167,7 @@
                                             KD
                                         </span>
                                     </li>
-                                   
+
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Address Line 2 :
@@ -177,7 +177,7 @@
                                         </span>
                                     </li>
 
-                                    
+
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">State :
                                         </span>
@@ -185,7 +185,7 @@
                                             Maharashtra
                                         </span>
                                     </li>
-                                    
+
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Pincode :
                                         </span>
@@ -199,7 +199,7 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
 
-                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Address Line 1 :
                                         </span>
                                         <span>
@@ -211,18 +211,18 @@
                                         <span class="fw-semibold text-break">City :
                                         </span>
                                         <span>
-                                           Mumbai
+                                            Mumbai
                                         </span>
                                     </li>
 
-                                   <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Country :
                                         </span>
                                         <span>
                                             India
                                         </span>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -232,79 +232,76 @@
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
-                                Service Details
+                                Service History Details
                             </h5>
+                            <div>
+                                <span>
+                                    Next Visit Date:
+                                </span>
+                                <span class="p-1 rounded bg-warning-subtle text-warning fw-semibold">2025-07-16</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="list-group list-group-flush">
+                        <table
+                            class="table table-striped table-borderless dt-responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Engineer Name</th>
+                                    <th>Visit Date</th>
+                                    <th>Issue Type</th>
+                                    <th>Report</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">
-                                            Service Id :
-                                        </span>
-                                        <span>
-                                            <span class="fw-bold text-dark">#1001</span><br>
-                                        </span>
-                                    </li>
+                                <tr class="align-middle">
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        Chris Doe
+                                    </td>
+                                    <td>2025-07-16 12:09 PM</td>
+                                    <td>
+                                        Maintanance
+                                    </td>
+                                    <td>
+                                        NA
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning-subtle text-warning fw-semibold">Upcoming</span>
+                                    </td>
+                                </tr>
 
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Date :
-                                        </span>
-                                        <span>
-                                            <div>2 weeks ago</div>
-                                            <div>2025-04-04 06:09 PM</div>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Images :
+                                <tr class="align-middle">
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        John Doe
+                                    </td>
+                                    <td>2025-04-04 06:09 PM</td>
+                                    <td>
+                                        Maintanance
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary show-report">View Report</button>
+                                        <div id="popupOverlay">
+                                            <span class="closeBtn hide-report">&times;</span>
+                                            <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                    </td>
+                                </tr>
 
-                                        </span>
-                                        <span>
-                                            <a class="btn btn-sm btn-primary" href="#">View</a>
-                                        </span>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul class="list-group list-group-flush">
-
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">
-                                            Priority Level :
-                                        </span>
-                                        <span>
-                                            <span class="fw-bold text-dark">High</span><br>
-                                        </span>
-                                    </li>
-
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Issue Type :
-                                        </span>
-                                        <span>
-                                            <div>Server level</div>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Issue Description :
-
-                                        </span>
-                                        <div>satuap all cctv carma in my office</div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Status :
-
-                                        </span>
-                                        <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
@@ -346,10 +343,10 @@
                                         </span>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Total Vistor :
+                                        <span class="fw-semibold text-break">Total Visits :
                                         </span>
                                         <span>
-                                            50
+                                            5 Per Year
                                         </span>
                                     </li>
                                 </ul>

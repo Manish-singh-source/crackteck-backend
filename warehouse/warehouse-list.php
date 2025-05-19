@@ -45,7 +45,7 @@
                                                             <th>Rack No</th>
                                                             <th>Level No</th>
                                                             <th>Position No</th>
-                                                            <th>Quantity</th>
+                                                            <th>Storage Quantity</th>
                                                             <th>Stored Date</th>
                                                             <th>Status</th>
                                                             <th>Action</th>

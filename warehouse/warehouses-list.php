@@ -44,6 +44,7 @@
                                                             <th>Name</th>
                                                             <th>Type</th>
                                                             <th>Address</th>
+                                                            <th>Contact Person</th>
                                                             <th>Contact Detail</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
@@ -57,6 +58,7 @@
                                                             <td>Main Warehouse</td>
                                                             <td>Storage Hub</td>
                                                             <td>Office No. 501, 5th Floor, Ghanshyam Enclave, Next To Laljipada Police Station, <br />Laljipada, Link Road, Kandivali (West), Mumbai - 400067. Maharashtra - India</td>
+                                                            <td>Aakash</td>
                                                             <td>9988778855</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Unverified</span>
@@ -87,6 +89,7 @@
                                                             <td>Delhi Hub</td>
                                                             <td>Return Center</td>
                                                             <td>Office No. 501, 5th Floor, Ghanshyam Enclave, Next To Laljipada Police Station, <br />Laljipada, Link Road, Kandivali (West), Mumbai - 400067. Maharashtra - India</td>
+                                                            <td>Sneha</td>
                                                             <td>9988778855</td>
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Verified</span>

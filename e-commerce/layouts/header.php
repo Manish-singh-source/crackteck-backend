@@ -49,6 +49,10 @@
         .logo img {
             width: 80%;
         }
+
+        .suggestions {
+            position: absolute;
+        }
     </style>
 
 </head>

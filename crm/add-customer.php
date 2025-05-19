@@ -87,51 +87,54 @@ include('layouts/header.php') ?>
                             </div>
 
                             <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <label for="address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
-                                        <input type="text" name="address" id="address" class="form-control" value="" required="" placeholder="Enter Address 1">
-                                    </div>
+                                <form method="post" id="branch-form">
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <label for="pincode" class="form-label">Branch Name<span class="text-danger">*</span></label>
+                                            <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Name of Branch">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                            <input type="text" name="address" id="address" class="form-control" value="" required="" placeholder="Enter Address 1">
+                                        </div>
 
-                                    <div class="col-6">
-                                        <label for="address2" class="form-label">Address Line 2</label>
-                                        <input type="text" name="address2" id="address2" class="form-control" value="" required="" placeholder="Enter Address 2">
-                                    </div>
+                                        <div class="col-6">
+                                            <label for="address2" class="form-label">Address Line 2</label>
+                                            <input type="text" name="address2" id="address2" class="form-control" value="" placeholder="Enter Address 2">
+                                        </div>
 
-                                    <div class="col-6">
-                                        <label for="city" class="form-label">City<span class="text-danger">*</span></label>
-                                        <input type="text" required="" name="city" id="city" class="form-control" value="" placeholder="Enter City">
-                                    </div>
+                                        <div class="col-6">
+                                            <label for="city" class="form-label">City<span class="text-danger">*</span></label>
+                                            <input type="text" required="" name="city" id="city" class="form-control" value="" placeholder="Enter City">
+                                        </div>
 
-                                    <div class="col-6">
-                                        <label for="state" class="form-label">State <span class="text-danger">*</span></label>
-                                        <input type="text" name="state" id="state" class="form-control" value="" placeholder="Enter State" required="">
-                                    </div>
+                                        <div class="col-6">
+                                            <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+                                            <input type="text" name="state" id="state" class="form-control" value="" placeholder="Enter State" required="">
+                                        </div>
 
-                                    <div class="col-6">
-                                        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
-                                        <input type="text" name="country" id="country" class="form-control" value="" required="" placeholder="Enter Country">
-                                    </div>
+                                        <div class="col-6">
+                                            <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                                            <input type="text" name="country" id="country" class="form-control" value="" required="" placeholder="Enter Country">
+                                        </div>
 
-                                    <div class="col-6">
-                                        <label for="pincode" class="form-label">Pincode<span class="text-danger">*</span></label>
-                                        <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Enter Pincode">
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="pincode" class="form-label">Branch Name<span class="text-danger">*</span></label>
-                                        <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Name of Branch">
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="text-end">
-                                            <button type="submit" class="btn btn-success">
-                                                Add
-                                            </button>
+                                        <div class="col-6">
+                                            <label for="pincode" class="form-label">Pincode<span class="text-danger">*</span></label>
+                                            <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Enter Pincode">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-success">
+                                                    Add
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card branch-section">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
                                     Branch Information
@@ -295,4 +298,16 @@ include('layouts/header.php') ?>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(".branch-section").hide();
+
+        $("#branch-form").on("submit", function(e) {
+            e.preventdefault();
+            let formData = e.serialize();
+            console.log(formData);
+        });
+    });
+</script>
 <?php include('layouts/footer.php') ?>
