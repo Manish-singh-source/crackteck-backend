@@ -24,6 +24,7 @@
 <!-- END wrapper -->
 
 <!-- Vendor -->
+
 <script src="assets/libs/jquery/jquery.min.js"></script>
 <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/libs/simplebar/simplebar.min.js"></script>
@@ -31,7 +32,12 @@
 <script src="assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
 <script src="assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
 <script src="assets/libs/feather-icons/feather.min.js"></script>
+<!-- Quill Editor Js -->
+<script src="assets/libs/quill/quill.core.js"></script>
+<script src="assets/libs/quill/quill.min.js"></script>
 
+<!-- Quill Demo Js -->
+<script src="assets/js/pages/quilljs.init.js"></script>
 
 <!-- Datatables js -->
 <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>

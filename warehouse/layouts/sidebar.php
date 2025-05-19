@@ -49,13 +49,18 @@
 
                 <li class="menu-title mt-2">Manage Products</li>
 
-                <li>
+                <!-- <li>
                     <a class='tp-link' href='add-product.php'>
                         <i data-feather="columns"></i>
                         <span>Add Product</span>
                     </a>
+                </li> -->
+                <li>
+                    <a class='tp-link' href='product-list.php'>
+                        <i data-feather="columns"></i>
+                        <span>Product List</span>
+                    </a>
                 </li>
-
                 <li>
                     <a class='tp-link' href='track-product.php'>
                         <i data-feather="columns"></i>
