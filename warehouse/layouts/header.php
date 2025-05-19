@@ -27,7 +27,10 @@
         type="text/css" />
     <link href="assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 
-
+    <!-- Quill css -->
+    <link href="assets/libs/quill/quill.core.js" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
     <!-- App css -->
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
