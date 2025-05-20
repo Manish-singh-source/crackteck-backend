@@ -196,7 +196,7 @@
                                                                     class="badge bg-success-subtle text-success fw-semibold">Placed</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a href="order-detail.php" aria-label="anchor"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>

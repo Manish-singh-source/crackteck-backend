@@ -162,12 +162,14 @@ include('layouts/header.php') ?>
                                     </div>
                                     <div class="col-xl-12 col-lg-6">
                                         <div class="mb-3">
-                                            <label for="warranty" class="form-label">Warranty <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="warranty" name="warranty" required="">
-                                                <option selected disabled value="">-- Select --</option>
-                                                <option value="">1 Year</option>
-                                                <option value="">2 Years</option>
-                                            </select>
+                                            <label for="warranty" class="form-label">With Installation<span class="text-danger">*</span></label>
+                                            <input type="checkbox" id="warranty" name="warranty" value="yes">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12  col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="warranty" class="form-label">Warranty</label>
+                                            <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Warranty">
                                         </div>
                                     </div>
                                 </div>

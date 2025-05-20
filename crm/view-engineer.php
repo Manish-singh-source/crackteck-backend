@@ -150,6 +150,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-6 col-xl">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="widget-first">
+
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="p-2 border border-warning border-opacity-10 bg-warning-subtle rounded-2 me-2">
+                                        <div class="bg-warning rounded-circle widget-size text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                <path fill="#ffffff" d="M7 15h2c0 1.08 1.37 2 3 2s3-.92 3-2c0-1.1-1.04-1.5-3.24-2.03C9.64 12.44 7 11.78 7 9c0-1.79 1.47-3.31 3.5-3.82V3h3v2.18C15.53 5.69 17 7.21 17 9h-2c0-1.08-1.37-2-3-2s-3 .92-3 2c0 1.1 1.04 1.5 3.24 2.03C14.36 11.56 17 12.22 17 15c0 1.79-1.47 3.31-3.5 3.82V21h-3v-2.18C8.47 18.31 7 16.79 7 15"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 text-dark fs-15">Balance Amount</p>
+                                </div>
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="mb-0 fs-22 text-dark me-3">₹4500</h3>
+
+                                    <div class="text-muted">
+                                        <a href="engineer-tasks.php" class="btn btn-primary btn-sm">View</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

@@ -346,6 +346,21 @@
 
                                     </div>
                                 </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="image" class="form-label">
+                                       Select Branch
+                                        </label>
+                                        <select name="branch" id="branch" class="form-select w-100">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="BO">BO</option>
+                                            <option value="KD">KD</option>
+                                        </select>
+                                    </div>
+                                    <div id="image-preview-section">
+
+                                    </div>
+                                </div>
 
                                 <div class="col-12">
                                     <div class="text-end">
