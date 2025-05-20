@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Call Logs</h4>
+                <h4 class="fs-18 fw-semibold m-0">Chat Logs</h4>
             </div>
         </div>
 
@@ -38,9 +38,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Sr. No.</th>
-                                                            <th>Time</th>
-                                                            <th>User</th>
-                                                            <th>Contact No.</th>
+                                                            <th>Engineer Name</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Last Update</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -49,23 +50,38 @@
                                                                 1
                                                             </td>
                                                             <td>
-                                                                <div>2 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
+                                                               Manish
                                                             </td>
                                                             <td>John Doe</td>
-                                                            <td>9999888855</td>
+                                                            <td>22-jan-25 12:25AM</td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="chat-logs.php" class="btn btn-icon btn-sm bg-primary-subtle me-1" data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                               
+                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 2
                                                             </td>
                                                             <td>
-                                                                <div>2 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
+                                                               Saurbh
                                                             </td>
                                                             <td>John Doe</td>
-                                                            <td>9999888855</td>
-                                                            
+                                                            <td>22-jan-25 12:25AM</td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="chat-logs.php" class="btn btn-icon btn-sm bg-primary-subtle me-1" data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                
+                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
 
                                                     </tbody>
