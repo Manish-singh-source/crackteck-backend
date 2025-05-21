@@ -40,91 +40,91 @@
         <div class="row pt-3">
             <div class="col-xl-8 mx-auto">
 
-               <div class="card">
-    <div class="card-header border-bottom-dashed">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">Customer Details</h5>
-            <div class="fw-bold text-dark">Order ID: #1001</div>
-        </div>
-    </div>
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Customer Details</h5>
+                            <div class="fw-bold text-dark">Order ID: #1001</div>
+                        </div>
+                    </div>
 
-    <div class="card-body">
-        <div class="row">
+                    <div class="card-body">
+                        <div class="row">
 
-            <!-- Left Column -->
-            <div class="col-lg-6">
-                <ul class="list-group list-group-flush">
+                            <!-- Left Column -->
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Customer Name:</span>
-                        <span>Shyam Jaiswal</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Customer Name:</span>
+                                        <span>Shyam Jaiswal</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Contact No:</span>
-                        <span>9004086582</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Contact No:</span>
+                                        <span>9004086582</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Email:</span>
-                        <span>shyam@gmail.com</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Email:</span>
+                                        <span>shyam@gmail.com</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Customer Type:</span>
-                        <span>Retailer</span>
-                    </li>
-<li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Order Date:</span>
-                        <span>2025-04-04 06:09 PM</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Customer Type:</span>
+                                        <span>Retailer</span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Order Date:</span>
+                                        <span>2025-04-04 06:09 PM</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Payment Method:</span>
-                        <span>Online - UPI</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Payment Method:</span>
+                                        <span>Online - UPI</span>
+                                    </li>
 
-                   
 
-                </ul>
-            </div>
 
-            <!-- Right Column -->
-            <div class="col-lg-6">
-                <ul class="list-group list-group-flush">
+                                </ul>
+                            </div>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Company Name:</span>
-                        <span>Technofra</span>
-                    </li>
+                            <!-- Right Column -->
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Shipping Address:</span>
-                        <span>Lalji Pada, Maharashtra 400067</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Company Name:</span>
+                                        <span>Technofra</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">Billing Address:</span>
-                        <span>Lalji Pada, Kandivali West, Mumbai, Maharashtra 400067</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Shipping Address:</span>
+                                        <span>Lalji Pada, Maharashtra 400067</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">GST No:</span>
-                        <span>988498</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">Billing Address:</span>
+                                        <span>Lalji Pada, Kandivali West, Mumbai, Maharashtra 400067</span>
+                                    </li>
 
-                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                        <span class="fw-semibold">PAN No:</span>
-                        <span>789MTUO</span>
-                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">GST No:</span>
+                                        <span>988498</span>
+                                    </li>
 
-                    
-                </ul>
-            </div>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">PAN No:</span>
+                                        <span>789MTUO</span>
+                                    </li>
 
-        </div>
-    </div>
-</div>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
 
 
