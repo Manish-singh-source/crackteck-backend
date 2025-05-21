@@ -147,7 +147,7 @@
                                                                                                     <td>
                                                                                                         <div class="d-flex align-items-center">
                                                                                                             <div class="avatar-sm bg-light rounded p-1 me-2">
-                                                                                                                <img src="./assets/images/products/headphone.png" alt="Headphone" class="img-fluid d-block">
+                                                                                                                <img src="https://placehold.co/80x80" alt="Headphone" class="img-fluid d-block">
                                                                                                             </div>
                                                                                                             <div>
                                                                                                                 <h5 class="fs-14 mb-0"><a href="#" class="text-reset">demo product1</a></h5>

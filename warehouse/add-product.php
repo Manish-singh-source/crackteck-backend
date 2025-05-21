@@ -41,6 +41,14 @@
 
                                         <div class="col-xl-6 col-lg-6">
                                             <div>
+                                                <label class="form-label" for="hsn_code">
+                                                    HSN Code <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="hsn_code" name="hsn_code" required="" value="" placeholder="Product SKU Code">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
                                                 <label class="form-label" for="sku">
                                                     SKU <span class="text-danger">*</span>
                                                 </label>
@@ -129,38 +137,38 @@
                                                 <!-- 
                                             <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea>
                                             -->
+                                            </div>
+                                            <div id="quill-editor2" style="height: 300px;">
+                                                <h1>Hello World</h1>
+                                                <p><br></p>
+                                                <h4>This is an simple editable area</h4>
+                                                <p><br></p>
+                                                <ol>
+                                                    <li>
+                                                        Select a text to reveal the toolbar.
+                                                    </li>
+                                                    <li>
+                                                        Edit rich document on-the-fly, so elastic!
+                                                    </li>
+                                                </ol>
+                                                <br>
+                                                <p>Preset build with <code>snow</code> theme, and some common formats.</p>
+                                            </div>
                                         </div>
-                                        <div id="quill-editor2" style="height: 300px;">
-                                            <h1>Hello World</h1>
-                                            <p><br></p>
-                                            <h4>This is an simple editable area</h4>
-                                            <p><br></p>
-                                            <ol>
-                                                <li>
-                                                    Select a text to reveal the toolbar.
-                                                </li>
-                                                <li>
-                                                    Edit rich document on-the-fly, so elastic!
-                                                </li>
-                                            </ol>
-                                            <br>
-                                            <p>Preset build with <code>snow</code> theme, and some common formats.</p>
+                                        <div class="col-xl-12 col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="warranty" class="form-label">With Installation<span class="text-danger">*</span></label>
+                                                <input type="checkbox" id="warranty" name="warranty" value="yes">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="warranty" class="form-label">With Installation<span class="text-danger">*</span></label>
-                                            <input type="checkbox" id="warranty" name="warranty" value="yes">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12  col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="warranty" class="form-label">Warranty</label>
-                                            <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Warranty">
+                                        <div class="col-xl-12  col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="warranty" class="form-label">Warranty</label>
+                                                <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Warranty">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
                             </div>
 

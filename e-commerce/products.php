@@ -77,7 +77,7 @@
                                                             <td>
                                                                 <div class="d-flex align-items-center">
                                                                     <div>
-                                                                        <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                                        <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
                                                                     </div>
                                                                     <div>
                                                                         <div>
