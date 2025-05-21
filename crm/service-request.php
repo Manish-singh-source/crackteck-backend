@@ -339,7 +339,7 @@
                                                             <th>AMC Plan</th>
                                                             <th>Duration (Months)</th>
                                                             <th>Start Date</th>
-                                                            <!-- <th>Created By</th> -->
+                                                            <th>Created By</th>
                                                             <!-- <th>Status</th> -->
                                                             <th>Action</th>
                                                         </tr>
@@ -360,7 +360,7 @@
                                                             <td>6</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>Operation Manager - username</td> -->
+                                                            <td>Operation Manager - username</td>
                                                             <!-- <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
                                                             </td> -->
@@ -397,9 +397,9 @@
                                                             <td>12</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>
+                                                            <td>
                                                                 Super Admin - username
-                                                            </td> -->
+                                                            </td>
                                                             <!-- <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td> -->
@@ -436,9 +436,9 @@
                                                             <td>12</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>
+                                                            <td>
                                                                 Customer - John Doe
-                                                            </td> -->
+                                                            </td>
                                                             <!-- <td>
                                                                 <span class="badge bg-warning-subtle text-warning fw-semibold">Rejected</span>
                                                             </td> -->
@@ -482,8 +482,8 @@
                                                             <th>AMC Plan</th>
                                                             <th>Duration (Months)</th>
                                                             <th>Start Date</th>
-                                                            <th>Product Info</th>
-                                                            <!-- <th>Created By</th> -->
+                                                            <!-- <th>Product Info</th> -->
+                                                            <th>Created By</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -504,10 +504,10 @@
                                                             <td>6</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>Operation Manager - username</td> -->
-                                                            <!-- <td>
+                                                            <td>Operation Manager - username</td>
+                                                            <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
-                                                            </td> -->
+                                                            </td>
                                                             <td>
                                                                 <a aria-label="anchor" href="view-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -541,12 +541,12 @@
                                                             <td>12</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>
+                                                            <td>
                                                                 Super Admin - username
-                                                            </td> -->
-                                                            <!-- <td>
+                                                            </td>
+                                                            <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td> -->
+                                                            </td>
                                                             <td>
                                                                 <a aria-label="anchor" href="view-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -580,9 +580,9 @@
                                                             <td>12</td>
                                                             <td>2025-04-04 06:09 PM</td>
                                                             
-                                                            <!-- <td>
+                                                            <td>
                                                                 Customer - John Doe
-                                                            </td> -->
+                                                            </td>
                                                             <td>
                                                                 <span class="badge bg-warning-subtle text-warning fw-semibold">Rejected</span>
                                                             </td>

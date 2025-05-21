@@ -28,7 +28,7 @@
                                     <span class="d-none d-sm-block">All</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link p-2" id="admins_tab" data-bs-toggle="tab" href="#admins"
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
@@ -50,7 +50,7 @@
                                     <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
                                     <span class="d-none d-sm-block">Technicians</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -161,7 +161,7 @@
                                                             <td>michael</td>
                                                             <td>michael@gmail.com</td>
                                                             <td>9876543210</td>
-                                                            <td>Admin</td>
+                                                            <td>Manager</td>
                                                             <td>
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"
@@ -197,7 +197,7 @@
                                                             <td>sarah</td>
                                                             <td>sarah@gmail.com</td>
                                                             <td>9876543211</td>
-                                                            <td>Admin</td>
+                                                            <td>Technitian</td>
                                                             <td>
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"

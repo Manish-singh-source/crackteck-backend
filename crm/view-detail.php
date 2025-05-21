@@ -321,11 +321,11 @@
                                         Maintanance
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary show-report">View Report</button>
-                                        <div id="popupOverlay">
+                                        <a class="btn btn-sm btn-primary show-report" href="./assets/files/CRM _ Dashboard.pdf" target="_blank">View Report</a>
+                                        <!-- <div id="popupOverlay">
                                             <span class="closeBtn hide-report">&times;</span>
                                             <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                        </div>
+                                        </div> -->
                                     </td>
                                     <td>
                                         <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
