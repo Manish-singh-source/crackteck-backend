@@ -75,6 +75,7 @@
                                     <span class="d-none d-sm-block">All Tickets</span>
                                 </a>
                             </li>
+                            <!-- 
                             <li class="nav-item">
                                 <a class="nav-link p-2" id="running_tickets_tab" data-bs-toggle="tab" href="#running_tickets"
                                     role="tab">
@@ -82,7 +83,7 @@
                                             class="mdi mdi-sitemap-outline"></i></span>
                                     <span class="d-none d-sm-block">Running Tickets</span>
                                 </a>
-                            </li>
+                            </li> 
                             <li class="nav-item">
                                 <a class="nav-link p-2" id="answered_tickets_tab" data-bs-toggle="tab"
                                     href="#answered_tickets" role="tab">
@@ -104,7 +105,7 @@
                                     <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
                                     <span class="d-none d-sm-block">Closed Tickets</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                         <div class="tab-content text-muted">

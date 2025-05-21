@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="simplebar-mask">
                                     <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;">
+                                        <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; ">
                                             <div class="simplebar-content" style="padding: 16px;">
                                                 <div class="mb-2 fs-4">
                                                     <span class="badge badge-soft-danger">Closed</span>

@@ -73,7 +73,7 @@
                                     <span class="d-none d-sm-block">All Products</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
@@ -96,7 +96,7 @@
                                             class="mdi mdi-sitemap-outline"></i></span>
                                     <span class="d-none d-sm-block">Accessories</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -145,7 +145,7 @@
                                                                 </div>
                                                             </td> -->
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="inventory.php"
                                                                     class="btn btn-icon btn-sm bg-success-subtle"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Restore">
                                                                     <i class="mdi mdi-restore fs-14 text-success"></i>
@@ -179,7 +179,7 @@
                                                                 </div>
                                                             </td> -->
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="inventory.php"
                                                                     class="btn btn-icon btn-sm bg-success-subtle"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Restore">
                                                                     <i class="mdi mdi-restore fs-14 text-success"></i>

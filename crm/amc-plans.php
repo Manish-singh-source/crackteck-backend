@@ -28,14 +28,14 @@
                                     <span class="d-none d-sm-block">All Plans</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link p-2" id="trashed_tab" data-bs-toggle="tab" href="#trashed"
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
                                     <span class="d-none d-sm-block">Trashed Plans</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                         <div class="tab-content text-muted">

@@ -286,20 +286,21 @@
                                         <div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
+                                                    <form action="#">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
 
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
+                                                        <div class="modal-body p-2">
+                                                            <p>Please enter new schedule date:</p>
+                                                            <input type="date" id="newSchedule" class="form-control" placeholder="Enter new date/time">
+                                                        </div>
 
-                                                    <div class="modal-body p-2">
-                                                        <p>Please enter new schedule date:</p>
-                                                        <input type="date" id="newSchedule" class="form-control" placeholder="Enter new date/time">
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success" onclick="submitReschedule()">Submit</button>
-                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-success">Submit</button>
+                                                        </div>
+                                                    </form>
 
                                                 </div>
                                             </div>
@@ -321,7 +322,7 @@
                                         Maintanance
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary show-report" href="./assets/files/CRM _ Dashboard.pdf" target="_blank">View Report</a>
+                                        <a class="btn btn-sm btn-primary" href="./assets/files/CRM _ Dashboard.pdf" target="_blank">View Report</a>
                                         <!-- <div id="popupOverlay">
                                             <span class="closeBtn hide-report">&times;</span>
                                             <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
@@ -331,11 +332,8 @@
                                         <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary show-report disabled">Re-Scheduled</button>
-                                        <div id="popupOverlay">
-                                            <span class="closeBtn hide-report">&times;</span>
-                                            <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                        </div>
+                                        <button class="btn btn-sm btn-primary disabled">Re-Scheduled</button>
+
                                     </td>
                                 </tr>
 

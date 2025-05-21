@@ -167,12 +167,12 @@
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
-                <li>
+                <!-- <li>
                     <a class='tp-link' href='inventory.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
                         <span class="ps-1">Inventory </span>
                     </a>
-                </li>
+                </li> -->
 
                 <li>
                     <a class='tp-link' href='in-hand-products.php'>
@@ -197,12 +197,12 @@
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 
-                <li>
+                <!-- <li>
                     <a class='tp-link' href='#'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/documents.png" alt="documents" />
                         <span class="ps-1"> Customer Complaints </span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a class='tp-link' href='support-ticket.php'>
                         <img width="" height="20" src="https://img.icons8.com/wired/64/1A1A1A/two-tickets.png" alt="two-tickets" />

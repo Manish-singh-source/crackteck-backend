@@ -82,7 +82,7 @@ include('layouts/header.php') ?>
                         <div class="card pb-4">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Address Details
+                                    Address Information
                                 </h5>
                             </div>
 
@@ -90,15 +90,15 @@ include('layouts/header.php') ?>
                                 <form method="post" id="branch-form">
                                     <div class="row g-3">
                                         <div class="col-6">
-                                            <label for="pincode" class="form-label">Current Address<span class="text-danger">*</span></label>
-                                            <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Name of Branch">
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="address" class="form-label">Parmanent Address<span class="text-danger">*</span></label>
+                                            <label for="address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
                                             <input type="text" name="address" id="address" class="form-control" value="" required="" placeholder="Enter Address 1">
                                         </div>
 
-                                
+                                        <div class="col-6">
+                                            <label for="address2" class="form-label">Address Line 2</label>
+                                            <input type="text" name="address2" id="address2" class="form-control" value="" placeholder="Enter Address 2">
+                                        </div>
+
                                         <div class="col-6">
                                             <label for="city" class="form-label">City<span class="text-danger">*</span></label>
                                             <input type="text" required="" name="city" id="city" class="form-control" value="" placeholder="Enter City">
@@ -119,139 +119,110 @@ include('layouts/header.php') ?>
                                             <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Enter Pincode">
                                         </div>
 
-                                        <div class="col-12">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn btn-success">
-                                                    Add
-                                                </button>
-                                            </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Bank Account Details
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="post" id="branch-form">
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <label for="bank_acc_holder_name" class="form-label">Bank Account Holder Name <span class="text-danger">*</span></label>
+                                            <input type="text" name="bank_acc_holder_name" id="bank_acc_holder_name" class="form-control" value="" required="" placeholder="Enter Bank Account Holder Name">
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="bank_acc_number" class="form-label">Bank Account Number<span class="text-danger">*</span></label>
+                                            <input type="text" name="bank_acc_number" id="bank_acc_number" class="form-control" value="" placeholder="Enter Bank Account Number">
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="bank_name" class="form-label">Bank Name<span class="text-danger">*</span></label>
+                                            <input type="text" required="" name="bank_name" id="bank_name" class="form-control" value="" placeholder="Enter Bank Name">
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="ifsc_code" class="form-label">IFSC Code <span class="text-danger">*</span></label>
+                                            <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" value="" placeholder="Enter IFSC Code" required="">
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="card branch-section">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Branch Information
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-striped table-borderless dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Branch Name</th>
-                                            <th>Address Line 1</th>
-                                            <th>Address Line 2</th>
-                                            <th>City</th>
-                                            <th>State</th>
-                                            <th>Country</th>
-                                            <th>Pincode</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr class="align-middle">
-                                            <td>BO</td>
-                                            <td>
-                                                <div>
-                                                    Sanjay Nagar Jalji Pada Kandivali West
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Ganesh Nagar
-                                            </td>
-                                            <td>
-                                                Mumbai
-                                            </td>
-                                            <td>
-                                                Maharashtra
-                                            </td>
-                                            <td>
-                                                India
-                                            </td>
-                                            <td>400067</td>
-                                            <td>
-                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>KD</td>
-                                            <td>
-                                                <div>
-                                                    Sanjay Nagar Jalji Pada Kandivali West
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Ganesh Nagar
-                                            </td>
-                                            <td>
-                                                Mumbai
-                                            </td>
-                                            <td>
-                                                Maharashtra
-                                            </td>
-                                            <td>
-                                                India
-                                            </td>
-                                            <td>400067</td>
-                                            <td>
-                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- <div class="text-start mb-3">
-                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                Submit
-                            </button>
-                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <h5 class="card-title mb-0">
-                                    Other Details:
+                                    Employment Details:
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="mb-3">
-                                        <label for="country_id" class="form-label">Customer Type <span class="text-danger">*</span></label>
+                                        <label for="country_id" class="form-label">Designation <span class="text-danger">*</span></label>
                                         <select class="form-control" name="country_id" id="country_id">
                                             <option selected disabled>-- Select --</option>
-                                            <option value="Retail">Retail</option>
-                                            <option value="Wholesale">Wholesale</option>
-                                            <option value="Corporate">Corporate</option>
+                                            <option value="Network Engineer">Network Engineer</option>
+                                            <option value="Hardware Technician">Hardware Technician</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="country_id" class="form-label">Department <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="country_id" id="country_id">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Installation">Installation</option>
+                                            <option value="Maintenance">Maintenance</option>
+                                            <option value="Support">Support</option>
                                         </select>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="company_name" class="form-label">Company Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="company_name" id="company_name" class="form-control" value="" required="" placeholder="Enter Company Name">
+                                        <label for="company_name" class="form-label">Joining Date <span class="text-danger">*</span></label>
+                                        <input type="date" name="company_name" id="company_name" class="form-control" value="" required="" placeholder="Enter Company Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Skill Details:
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="country_id" class="form-label">Primary Skills <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="country_id" id="country_id">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Network Engineer">Network Engineer</option>
+                                            <option value="Hardware Technician">Hardware Technician</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="country_id" class="form-label">Department <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="country_id" id="country_id">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Installation">Installation</option>
+                                            <option value="Maintenance">Maintenance</option>
+                                            <option value="Support">Support</option>
+                                        </select>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="company_addr" class="form-label">Company Address <span class="text-danger">*</span></label>
-                                        <input type="text" name="company_addr" id="company_addr" class="form-control" value="" required="" placeholder="Enter Company Address">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="gst" class="form-label">GST Number <span class="text-danger">*</span></label>
-                                        <input type="text" name="gst" id="gst" class="form-control" value="" required="" placeholder="Enter GST Number">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="pan" class="form-label">PAN Number <span class="text-danger">*</span></label>
-                                        <input type="text" required="" name="pan" id="pan" class="form-control" value="" placeholder="Enter PAN Number">
+                                        <label for="company_name" class="form-label">Joining Date <span class="text-danger">*</span></label>
+                                        <input type="date" name="company_name" id="company_name" class="form-control" value="" required="" placeholder="Enter Company Name">
                                     </div>
                                 </div>
                             </div>
