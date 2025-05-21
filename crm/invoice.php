@@ -56,6 +56,10 @@
                                                             <td>+91 9607 78 8836</td>
                                                           </tr>
                                                           <tr>
+                                                            <td class="pe-4">Billing Address:</td>
+                                                            <td>Borivali West Devidas Road</td>
+                                                          </tr>
+                                                          <tr>
                                                             <td class="pe-4">Shipping Address:</td>
                                                             <td>Borivali West Devidas Road</td>
                                                           </tr>
@@ -78,12 +82,12 @@
 
                                         <div class="col-xl-3">
                                             <p class="mb-1 fw-semibold">Date Issued :</p>
-                                            <p class="mb-1">10, Jan 2024</p>
+                                            <p class="mb-1">10, Apr 2025</p>
                                         </div>
 
                                         <div class="col-xl-3">
                                             <p class="mb-1 fw-semibold">Due Date :</p>
-                                            <p class="mb-1">17, Feb 2024</p>
+                                            <p class="mb-1">17, May 2025</p>
                                         </div>
 
                                         <div class="col-xl-3">

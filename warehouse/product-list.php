@@ -2,7 +2,6 @@
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -10,7 +9,6 @@
             </div>
             <div>
                 <a href="add-product.php" class="btn btn-primary">Add New Product</a>
-                <!-- <button class="btn btn-primary">Add New Product</button> -->
             </div>
         </div>
 
@@ -28,7 +26,7 @@
                                     <span class="d-none d-sm-block">All Products</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -111,7 +109,7 @@
                                                                     class="badge bg-success-subtle text-success fw-semibold">Published</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="./product-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -136,14 +134,14 @@
                                     </div>
                                 </div>
 
-                            </div><!-- end Experience -->
+                            </div>
 
-                        </div> <!-- Tab panes -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- container-fluid -->
-</div> <!-- content -->
+    </div>
+</div>
 
 <?php include('layouts/footer.php') ?>
