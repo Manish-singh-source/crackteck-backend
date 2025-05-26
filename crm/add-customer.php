@@ -90,8 +90,8 @@ include('layouts/header.php') ?>
                                 <form method="post" id="branch-form">
                                     <div class="row g-3">
                                         <div class="col-6">
-                                            <label for="pincode" class="form-label">Branch Name<span class="text-danger">*</span></label>
-                                            <input type="text" name="pincode" id="pincode" class="form-control" value="" required="" placeholder="Name of Branch">
+                                            <label for="branch_name" class="form-label">Branch Name<span class="text-danger">*</span></label>
+                                            <input type="text" name="branch_name" id="branch_name" class="form-control" value="" required="" placeholder="Name of Branch">
                                         </div>
                                         <div class="col-6">
                                             <label for="address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
@@ -125,9 +125,10 @@ include('layouts/header.php') ?>
 
                                         <div class="col-12">
                                             <div class="text-end">
-                                                <button type="submit" class="btn btn-success">
+                                                <input type="submit" value="Add" class="btn btn-success">
+                                                <!-- <button type="submit" class="btn btn-success">
                                                     Add
-                                                </button>
+                                                </button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +178,7 @@ include('layouts/header.php') ?>
                                             </td>
                                             <td>400067</td>
                                             <td>
-                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                 </a>
                                             </td>
@@ -203,7 +204,7 @@ include('layouts/header.php') ?>
                                             </td>
                                             <td>400067</td>
                                             <td>
-                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                 </a>
                                             </td>
@@ -301,7 +302,7 @@ include('layouts/header.php') ?>
 
 <script>
     $(document).ready(function() {
-        $(".branch-section").hide();
+        // $(".branch-section").hide();
 
         $("#branch-form").on("submit", function(e) {
             e.preventdefault();
