@@ -79,6 +79,13 @@
 
 <!-- App js-->
 <script src="assets/js/app.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".delete-row").on("click", function() {
+            $(this).parents("tr").hide();
+        });
+    });
+</script>
 
 </body>
 
