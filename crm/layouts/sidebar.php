@@ -108,6 +108,12 @@
                     </a>
                 </li>
                 <li>
+                    <a class='tp-link' href='leads.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1"> Leads </span>
+                    </a>
+                </li>
+                <li>
                     <a class='tp-link' href='engineers.php'>
                         <!-- <i data-feather="columns"></i> -->
                         <img width="" height="20" src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="gender-neutral-user--v1" />

@@ -56,18 +56,24 @@
                     </a>
                 </li> -->
                 <li>
-                    <a class='tp-link' href='product-list.php'>
+                    <a class='tp-link' href='product-list.php'> 
                         <i data-feather="columns"></i>
                         <span>Product List</span>
                     </a>
                 </li>
+
                 <li>
                     <a class='tp-link' href='track-product.php'>
                         <i data-feather="columns"></i>
                         <span>Track Product</span>
                     </a>
                 </li>
-
+                <li>
+                    <a class='tp-link' href='spare-parts-requests.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1" />
+                        <span class="ps-1">Spare Parts Request </span>
+                    </a>
+                </li>
                 <li class="menu-title mt-2">Manage Warehouse</li>
                 <li>
                     <a class='tp-link' href='warehouses-list.php'>
