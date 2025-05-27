@@ -94,7 +94,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -136,7 +136,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -179,7 +179,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -222,7 +222,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -292,7 +292,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -334,7 +334,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -377,7 +377,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>
@@ -420,7 +420,7 @@
                                                                         <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </a>

@@ -238,7 +238,7 @@
                                     </td>
                                     <td>400067</td>
                                     <td>
-                                        <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                        <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                         </a>
                                     </td>
@@ -264,7 +264,7 @@
                                     </td>
                                     <td>400067</td>
                                     <td>
-                                        <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                        <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                         </a>
                                     </td>
@@ -421,7 +421,7 @@
                                     <td>2025-04-04 06:09 PM</td>
                                     <td>
                                         <a aria-label="anchor"
-                                            class="btn btn-icon btn-sm bg-danger-subtle"
+                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                             data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                         </a>

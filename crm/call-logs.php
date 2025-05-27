@@ -59,7 +59,7 @@
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
                                                                
-                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                 </a>
                                                             </td>
@@ -78,7 +78,7 @@
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
                                                                 
-                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                 </a>
                                                             </td>
