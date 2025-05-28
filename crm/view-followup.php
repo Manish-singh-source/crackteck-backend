@@ -11,11 +11,8 @@
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
-                                Meeting Details
+                                Follow Up Details
                             </h5>
-                            <div>
-                                M001
-                            </div>
                         </div>
                     </div>
 
@@ -26,44 +23,44 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Title :
+                                        <span class="fw-semibold text-break">Client Name :
                                         </span>
                                         <span>
-                                            Product Demo
+                                            Amit Sharma
                                         </span>
                                     </li>
 
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Client/Lead :
+                                        <span class="fw-semibold text-break">Contact Number :
                                         </span>
                                         <span>
-                                            ABC Corp
+                                            9876543211
                                         </span>
                                     </li>
 
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Type :
+                                        <span class="fw-semibold text-break">Email :
                                         </span>
                                         <span>
-                                            Onsite Demo
+                                            amit@example.com
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Date & Time :
+                                        <span class="fw-semibold text-break">Follow Up Date :
                                         </span>
                                         <span>
-                                            May 30, 2025 – 11:00 AM
+                                            May 30, 2025
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Location :
+                                        <span class="fw-semibold text-break">Follow-Up Time :
                                         </span>
                                         <span>
-                                            ABC Corp HQ
+                                            11:00 AM
                                         </span>
                                     </li>
 
@@ -72,36 +69,29 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
 
-
+ 
+ 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Assigned Rep :
+                                        <span class="fw-semibold text-break">Remarks :
                                         </span>
                                         <span>
-                                            Sarah Johnson
+                                            Interested in Mac support service
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Engineer :
+                                        <span class="fw-semibold text-break">Created By :
                                         </span>
                                         <span>
-                                            NA
+                                            Admin
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Status :
                                         </span>
-                                        <span>
-                                            Scheduled
-                                        </span>
-                                    </li>
-
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Follow-up Task :
-                                        </span>
-                                        <span>
-                                            Send proposal after demo
+                                        <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                            Pending
                                         </span>
                                     </li>
 
@@ -117,65 +107,5 @@
     </div>
 </div> <!-- content -->
 
-
-<!-- JavaScript -->
-<script>
-    $(document).ready(function() {
-        $(".hide-section").hide();
-        $(".hide-report-section").hide();
-        $(".hide-assign-eng-section").hide();
-        $(".hide-selected-engineers-section").hide();
-
-        $("#eng-location").on("change", function() {
-            $(".hide-assign-eng-section").show();
-            $(".hide-section").show();
-        });
-
-        $(".eng-assign").on("change", function() {
-            $(".hide-assign-eng-section").show();
-            $(".hide-section").show();
-            $("#groupDropdown").fadeToggle();
-            $("#individualDropdown").fadeToggle();
-        });
-
-        $(".assign-eng-btn").on("click", function() {
-            $(".hide-section").hide();
-            $(".hide-assign-eng-section").hide();
-            $(".hide-selected-engineers-section").show();
-            $(".hide-report-section").show();
-
-        });
-
-        $(".show-report").on("click", function() {
-            $("#popupOverlay").css("display", "flex");
-        });
-
-        $(".hide-report").on("click", function() {
-            $("#popupOverlay").hide();
-        });
-
-        $(".add-engineer").on("click", function() {
-            const $selectedOptions = $('#groupDropdown1 option:selected');
-            const $tableBody = $('#selectedTable tbody');
-
-            $selectedOptions.each(function() {
-                const optionText = $(this).text();
-
-                // Append row to table
-                const newRow = `
-                    <tr>
-                        <td>${optionText}</td>
-                        <td><input type="checkbox" class="form-check-input" /></td>
-                    </tr>
-                `;
-                $tableBody.append(newRow);
-
-                // Remove option from the select dropdown
-                $(this).remove();
-            });
-        });
-
-    });
-</script>
 
 <?php include('layouts/footer.php') ?>
