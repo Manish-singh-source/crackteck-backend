@@ -141,7 +141,7 @@
                                                             <td>Scheduled</td>
                                                             <td>Send proposal after demo </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-detail.php"
+                                                                <a aria-label="anchor" href="view-meet.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>

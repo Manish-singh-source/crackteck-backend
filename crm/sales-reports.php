@@ -219,8 +219,9 @@
                 <div class="card overflow-hidden">
 
                     <div class="card-header">
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h5 class="card-title mb-0">Todays Follow-up</h5>
+                            <a href="follow-up.php" class="btn btn-sm btn-primary">View All</a>
                         </div>
                     </div>
 

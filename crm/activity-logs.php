@@ -6,11 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Follow-Up List</h4>
-            </div>
-            <div>
-                <a href="follow-up-form.php" class="btn btn-primary">Follow-Up Form</a>
-                <!-- <button class="btn btn-primary">Add New Customer</button> -->
+                <h4 class="fs-18 fw-semibold m-0">Activity Logs</h4>
             </div>
         </div>
 
@@ -25,7 +21,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Follow-Up</span>
+                                    <span class="d-none d-sm-block">All Logs</span>
                                 </a>
                             </li>
                             <!-- <li class="nav-item">
@@ -57,115 +53,39 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Client Name</th>
-                                                            <th>Contact Number</th>
-                                                            <th>Email</th>
-                                                            <th>Follow-Up Date</th>
-                                                            <th>Follow-Up Time</th>
-                                                            <th>Status</th>
-                                                            <th>Remarks</th>
-                                                            <th>Created By</th>
+                                                            <th>User</th>
+                                                            <th>Role</th>
                                                             <th>Action</th>
+                                                            <th>Module</th>
+                                                            <th>Date & Time</th>
+                                                            <th>IP Address</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>Amit Sharma</td>
-                                                            <td>9876543210</td>
-                                                            <td>amit@example.com</td>
-                                                            <td>2025-05-28</td>
-                                                            <td>11:00 AM</td>
-                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span></td>
-                                                            <td>Interested in Mac support service</td>
-                                                            <td>Admin</td>
-                                                            <td>
-                                                                <a href="view-followup.php" class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                            <td>John Doe</td>
+                                                            <td>Sales Executive</td>
+                                                            <td>Logged in</td>
+                                                            <td>Authentication</td>
+                                                            <td>2025-05-28 10:23 AM</td>
+                                                            <td>192.168.1.1</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Amit Sharma</td>
-                                                            <td>9876543210</td>
-                                                            <td>amit@example.com</td>
-                                                            <td>2025-05-28</td>
-                                                            <td>11:00 AM</td>
-                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span></td>
-                                                            <td>Interested in Mac support service</td>
-                                                            <td>Admin</td>
-                                                            <td>
-                                                                <a href="view-followup.php" class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                            <td>Lily Doe</td>
+                                                            <td>Customer</td>
+                                                            <td>Logged in</td>
+                                                            <td>Authentication</td>
+                                                            <td>2025-05-27 11:23 AM</td>
+                                                            <td>192.168.1.2</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Amit Sharma</td>
-                                                            <td>9876543210</td>
-                                                            <td>amit@example.com</td>
-                                                            <td>2025-05-28</td>
-                                                            <td>11:00 AM</td>
-                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span></td>
-                                                            <td>Interested in Mac support service</td>
-                                                            <td>Admin</td>
-                                                            <td>
-                                                                <a href="view-followup.php" class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                            <td>Rhitik</td>
+                                                            <td>Engineer</td>
+                                                            <td>Logged in</td>
+                                                            <td>Authentication</td>
+                                                            <td>2025-05-27 11:23 AM</td>
+                                                            <td>192.168.1.2</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Amit Sharma</td>
-                                                            <td>9876543210</td>
-                                                            <td>amit@example.com</td>
-                                                            <td>2025-05-28</td>
-                                                            <td>11:00 AM</td>
-                                                            <td><span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span></td>
-                                                            <td>Interested in Mac support service</td>
-                                                            <td>Admin</td>
-                                                            <td>
-                                                                <a href="view-followup.php" class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-
                                                     </tbody>
                                                 </table>
                                             </div>

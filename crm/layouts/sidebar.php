@@ -194,6 +194,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a class='tp-link' href='activity-logs.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
+                        <span class="ps-1"> Activity Logs </span>
+                    </a>
+                </li>
+
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
