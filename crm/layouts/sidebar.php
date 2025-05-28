@@ -155,6 +155,18 @@
                 </li>
 
                 <li>
+                    <a class='tp-link' href='quotation.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Quotations  </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='meets.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Meets  </span>
+                    </a>
+                </li>
+                <li>
                     <a class='tp-link' href='service-request.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
                         <span class="ps-1"> Service Requests </span>
