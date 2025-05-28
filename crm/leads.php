@@ -107,7 +107,7 @@
                                                             <td>CCTV</td>
                                                             <td>	50K</td>
                                                             <td>	High</td>
-                                                            <td>New</td>
+                                                            <td>Lost</td>
                                                             <td>Raj Patel</td>
                                                             
                                                             <td>
