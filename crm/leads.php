@@ -82,7 +82,7 @@
                                                             <td>Raj Patel</td>
                                                             
                                                             <td>
-                                                                <a aria-label="anchor" href="#"
+                                                                <a aria-label="anchor" href="view-leads.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -111,7 +111,7 @@
                                                             <td>Raj Patel</td>
                                                             
                                                             <td>
-                                                                <a aria-label="anchor" href="#"
+                                                                <a aria-label="anchor" href="view-leads.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
