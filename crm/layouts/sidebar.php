@@ -107,6 +107,12 @@
                         <span class="ps-1"> Sales Report </span>
                     </a>
                 </li>
+                 <li>
+                    <a class='tp-link' href='follow-up.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1">Follow-Up</span>
+                    </a>
+                </li>
                 <li>
                     <a class='tp-link' href='customers.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
