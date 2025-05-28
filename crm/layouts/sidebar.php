@@ -132,6 +132,13 @@
                         <span class="ps-1"> Engineers </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='delivery-man.php'>
+                        <!-- <i data-feather="columns"></i> -->
+                        <img width="" height="20" src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="gender-neutral-user--v1" />
+                        <span class="ps-1"> Delivery Man </span>
+                    </a>
+                </li>
                 <!-- <li>
                     <a class='tp-link' href='apps-todolist.php'>
                         <i data-feather="columns"></i>

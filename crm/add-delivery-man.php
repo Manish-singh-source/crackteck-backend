@@ -150,7 +150,7 @@ include('layouts/header.php') ?>
                                             <option value="DEF">DEF</option>
                                         </select>
                                     </div>
-
+<!-- 
                                     <div class="col-6">
                                         <label for="delivery_mode" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
                                         <select class="form-control" name="delivery_mode" id="delivery_mode">
@@ -160,7 +160,7 @@ include('layouts/header.php') ?>
                                             <option value="Van">Van</option>
                                             <option value="Truck">Truck</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 

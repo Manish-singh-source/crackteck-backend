@@ -83,11 +83,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -125,11 +125,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -168,11 +168,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -211,11 +211,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -281,11 +281,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -323,11 +323,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -366,11 +366,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -409,11 +409,11 @@
                                                             <td>Super Admin</td>
                                                             <td>
                                                                 <div class="d-flex gap-2">
-                                                                    <a aria-label="anchor"
+                                                                    <!-- <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                         <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a aria-label="anchor"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                         data-bs-toggle="tooltip" data-bs-original-title="Edit">

@@ -24,70 +24,6 @@
                                     <span class="d-none d-sm-block">All Orders</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Pending Orders</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Placed Orders</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Confirmed Orders</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Processing </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Shipped </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Delivered </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Cancelled Order </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                    href="#banned_customers" role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Return Order </span>
-                                </a>
-                            </li>
                         </ul>
 
                         <div class="tab-content text-muted">
@@ -119,7 +55,7 @@
                                                             <td>
                                                                 <div class="d-flex align-items-center">
                                                                     <div>
-                                                                        <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                                        <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -144,7 +80,7 @@
                                                                     class="badge bg-success-subtle text-success fw-semibold">Placed</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>

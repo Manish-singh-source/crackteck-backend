@@ -41,7 +41,7 @@
 
     <!-- jQuery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    <link href="https://unpkg.com/dragula@3.7.2/dist/dragula.min.css" rel="stylesheet">
     <script src="assets/js/head.js"></script>
     <style>
         .logo img {
