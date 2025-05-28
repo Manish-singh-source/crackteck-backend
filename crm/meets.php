@@ -125,6 +125,7 @@
                                                             <th>Engineer (if any)</th>
                                                             <th>Status</th>
                                                             <th>Follow-up Task</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -139,6 +140,23 @@
                                                             <td>-</td>
                                                             <td>Scheduled</td>
                                                             <td>Send proposal after demo </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-detail.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>M002</td>
@@ -149,8 +167,25 @@
                                                             <td>Zoom Link</td>
                                                             <td>Mike Green</td>
                                                             <td>-</td>
-                                                            <td>Scheduled</td>
+                                                            <td>Cancelled</td>
                                                             <td>Create solution brief </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-meet.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1 border-0 disabled"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1 border-0 disabled"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row border-0 disabled"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>M003</td>
@@ -163,6 +198,23 @@
                                                             <td>-</td>
                                                             <td>Scheduled</td>
                                                             <td>Collect feedback from client </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-meet.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>M004</td>
@@ -175,6 +227,23 @@
                                                             <td>-</td>
                                                             <td>Confirmed</td>
                                                             <td>Prepare Q2 report </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-meet.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>M005</td>
@@ -187,6 +256,23 @@
                                                             <td>Emily Rao</td>
                                                             <td>Pending</td>
                                                             <td>Finalize SLA document </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="view-meet.php"
+                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <a aria-label="anchor"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
