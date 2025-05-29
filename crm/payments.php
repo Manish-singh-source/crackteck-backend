@@ -61,54 +61,53 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Time</th>
-                                                            <th>User</th>
-                                                            <th>Method</th>
-                                                            <th>Amount</th>
-                                                            <th>Final Amount</th>
-                                                            <th>Status</th>
+
+                                                            <td>Payment ID</td>
+                                                            <td>Date</td>
+                                                            <td>Customer Name</td>
+                                                            <td>Service/Plan</td>
+                                                            <td>Amount</td>
+                                                            <td>Payment Mode</td>
+                                                            <td>Status</td>
+                                                            <td>Invoice ID </td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
+                                                            <td>PAY1122</td>
+                                                            <td>2025-05-27</td>
+                                                            <td>Alice Brown</td>
+                                                            <td>AMC Gold</td>
+                                                            <td>300 INR</td>
+                                                            <td>UPI</td>
                                                             <td>
-                                                                <div>
-                                                                    2 weeks ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-04 06:09 PM
-                                                                </div>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
                                                             </td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
-                                                            <td> 2126 INR</td>
-                                                            <td>
-                                                                2126 INR
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
+                                                            <td>INV77891</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>PAY1123</td>
+                                                            <td>2025-05-26</td>
+                                                            <td>Bob White</td>
+                                                            <td>Repair Visit</td>
+                                                            <td>120 INR</td>
+                                                            <td>Credit Card</td>
                                                             <td>
-                                                                <div>
-                                                                    1 week ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-14 06:09 PM
-                                                                </div>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Failed</span>
                                                             </td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
+                                                            <td>INV77892</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>PAY1124</td>
+                                                            <td>2025-05-25</td>
+                                                            <td>Clara Grey</td>
+                                                            <td>Subscription</td>
+                                                            <td>99 INR</td>
+                                                            <td>Net Banking</td>
                                                             <td>
-                                                                9874 INR
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
                                                             </td>
-                                                            <td>
-                                                                9874 INR
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
+                                                            <td>INV77893</td>
                                                         </tr>
 
                                                     </tbody>

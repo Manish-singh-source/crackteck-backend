@@ -155,12 +155,12 @@
                                                 <p>Preset build with <code>snow</code> theme, and some common formats.</p>
                                             </div>
                                         </div>
-                                        <div class="col-xl-12 col-lg-6">
+                                        <!-- <div class="col-xl-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label for="warranty" class="form-label">With Installation<span class="text-danger">*</span></label>
                                                 <input type="checkbox" id="warranty" name="warranty" value="yes">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-xl-12  col-lg-6">
                                             <div class="mb-3">
                                                 <label for="warranty" class="form-label">Warranty</label>
