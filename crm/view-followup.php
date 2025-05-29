@@ -13,6 +13,11 @@
                             <h5 class="card-title flex-grow-1 mb-0">
                                 Follow Up Details
                             </h5>
+                            <div>
+                                <b>
+                                    L-001
+                                </b>
+                            </div>
                         </div>
                     </div>
 

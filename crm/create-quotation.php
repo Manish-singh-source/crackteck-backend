@@ -43,12 +43,22 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div class="row g-3">
 
-                                    <div class="col-6">
+                                    <!-- <div class="col-6">
                                         <label for="clientName" class="form-label">Client Name</label>
                                         <select class="form-control" name="clientName" id="clientName">
                                             <option selected disabled>-- Select Client --</option>
                                             <option value="">Saurabh</option>
                                             <option value="">Manish</option>
+                                        </select>
+                                    </div> -->
+                                    <div class="col-6">
+                                        <label for="status" class="form-label">Lead Id</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option> -- Select Lead --</option>
+                                            <option>L-001</option>
+                                            <option>L-002</option>
+                                            <option>L-003</option>
+                                            <option>L-004</option>
                                         </select>
                                     </div>
 
@@ -132,7 +142,7 @@ include('layouts/header.php') ?>
                                 <table class="table table-striped table-borderless dt-responsive nowrap">
                                     <thead>
                                         <tr>
-                                            
+
                                             <th>Item Description</th>
                                             <th>HSN Code</th>
                                             <th>Quantity</th>
@@ -164,7 +174,7 @@ include('layouts/header.php') ?>
                                                 </a>
                                             </td>
                                         </tr>
-                                        
+
                                         <tr class="align-middle">
                                             <td>Software Support</td>
                                             <td>

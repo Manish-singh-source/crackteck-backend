@@ -57,6 +57,7 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
+                                                            <th>Lead Id</th>
                                                             <th>Company</th>
                                                             <th>Contact Person</th>
                                                             <th>Industry</th>
@@ -65,22 +66,23 @@
                                                             <th>Budget</th>
                                                             <th>Urgency</th>
                                                             <th>Status</th>
-                                                            <th>Assigned To</th>
+                                                            <th>Created By</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
+                                                            <td>L-001</td>
                                                             <td>ABC Ltd</td>
                                                             <td>sarah</td>
                                                             <td>Pharma</td>
                                                             <td>Website</td>
                                                             <td>CCTV</td>
-                                                            <td>	50K</td>
-                                                            <td>	High</td>
+                                                            <td> 50K</td>
+                                                            <td> High</td>
                                                             <td>New</td>
                                                             <td>Raj Patel</td>
-                                                            
+
                                                             <td>
                                                                 <a aria-label="anchor" href="view-leads.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -99,17 +101,18 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
-<tr>
+                                                        <tr>
+                                                            <td>L-002</td>
                                                             <td>ABC Ltd</td>
                                                             <td>sarah</td>
                                                             <td>Pharma</td>
                                                             <td>Website</td>
                                                             <td>CCTV</td>
-                                                            <td>	50K</td>
-                                                            <td>	High</td>
+                                                            <td>50K</td>
+                                                            <td>High</td>
                                                             <td>Lost</td>
                                                             <td>Raj Patel</td>
-                                                            
+
                                                             <td>
                                                                 <a aria-label="anchor" href="view-leads.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"

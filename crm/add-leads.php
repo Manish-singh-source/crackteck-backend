@@ -136,16 +136,16 @@ include('layouts/header.php') ?>
                                             <option value="High">High</option>
                                         </select>
                                     </div>
-
+<!-- 
                                     <div class="col-4">
                                         <label for="region" class="form-label">Region</label>
                                         <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-4">
+                                    <!-- <div class="col-4">
                                         <label for="assigned_to" class="form-label">Assigned To</label>
                                         <input type="text" name="assigned_to" id="assigned_to" class="form-control" placeholder="Enter Salesperson Name or ID">
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-4">
                                         <label for="status" class="form-label">Lead Status</label>

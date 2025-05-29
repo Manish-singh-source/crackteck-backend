@@ -42,8 +42,17 @@ include('layouts/header.php') ?>
 
                             <div class="card-body">
                                 <div class="row g-3">
-
-
+                                    <div class="col-6">
+                                        <label for="status" class="form-label">Lead Id</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option> -- Select Lead --</option>
+                                            <option>L-001</option>
+                                            <option>L-002</option>
+                                            <option>L-003</option>
+                                            <option>L-004</option>
+                                        </select>
+                                    </div>
+                                    
                                     <div class="col-6">
                                         <label for="meetTitle" class="form-label">Meeting Title<span class="text-danger">*</span></label>
                                         <input type="text" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Meeting Title">
@@ -77,7 +86,7 @@ include('layouts/header.php') ?>
                                         <label for="location" class="form-label">Location / Meeting Link <span class="text-danger">*</span></label>
                                         <input type="text" required="" name="location" id="location" class="form-control" value="" placeholder="Enter Location / Meeting Link">
                                     </div>
-                                    <div class="col-6">
+                                    <!-- <div class="col-6">
                                         <label for="assignedSalesRep" class="form-label">Assigned Sales Rep</label>
                                         <select class="form-control" name="assignedSalesRep" id="assignedSalesRep">
                                             <option selected disabled>-- Select Sales Rep --</option>
@@ -92,7 +101,7 @@ include('layouts/header.php') ?>
                                             <option value="">John Doe</option>
                                             <option value="">Mike Doe</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="col-6">
                                         <label for="meetAgenda" class="form-label">Meeting Agenda / Notes<span class="text-danger">*</span></label>
                                         <textarea name="meetAgenda" id="meetAgenda" class="form-control"></textarea>
