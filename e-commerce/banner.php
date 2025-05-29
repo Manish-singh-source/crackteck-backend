@@ -32,6 +32,7 @@
                                                         <th>Image</th>
                                                         <th>Title</th>
                                                         <th>Description</th>
+                                                        <th>Button URL</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -50,9 +51,11 @@
                                                         <td>
                                                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore at accusamus <br />perspiciatis officiis nemo voluptatibus reiciendis earum quae assumenda dicta.
                                                         </td>
+                                                        <td>#</td>
                                                         <td>
                                                             <span class="badge bg-success-subtle text-success fw-semibold">Active</span>
                                                         </td>
+                                                        
                                                         <td>
                                                             <a aria-label="anchor"
                                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
@@ -80,6 +83,7 @@
                                                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore <br />
                                                             at accusamus perspiciatis officiis nemo voluptatibus reiciendis earum quae assumenda dicta.
                                                         </td>
+                                                        <td>#</td>
                                                         <td>
                                                             <span class="badge bg-success-subtle text-success fw-semibold">Active</span>
                                                         </td>

@@ -8,10 +8,10 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Products List</h4>
             </div>
-            <div>
-                <a href="add-product.php" class="btn btn-primary">Add New Product</a>
+            <!-- <div>
+                <a href="add-product.php" class="btn btn-primary">Add New Product</a> -->
                 <!-- <button class="btn btn-primary">Add New Product</button> -->
-            </div>
+            <!-- </div> -->
         </div>
 
 
