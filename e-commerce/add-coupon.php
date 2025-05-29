@@ -117,14 +117,7 @@ include('layouts/header.php') ?>
                                             <input type="text" class="form-control" id="cost_price" name="cost_price" required="" value="" placeholder="Product Purchase Price (Cost Price)">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 mb-2">
-                                        <div>
-                                            <label class="form-label" for="invoiceno">
-                                                Invoice Number <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="invoiceno" name="invoiceno" required="" value="" placeholder="Product Invoice Number">
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -144,15 +137,7 @@ include('layouts/header.php') ?>
                                         <input name="min_purchase_amount" id="min_purchase_amount" type="text" class="form-control" value="" placeholder="Enter e.g., ₹2000 minimum order" required="">
                                     </div>
 
-                                    <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="products_list" class="form-label">Applicable Products<span class="text-danger">*</span></label>
-                                        <select required="" name="products_list" id="products_list" class="form-select w-100">
-                                            <option selected disabled value="">-- Select --</option>
-                                            <option value="1">Keyboard</option>
-                                            <option value="2">CPU</option>
-                                            <option value="3">SSD</option>
-                                        </select>
-                                    </div>
+
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
                                         <label for="apply_categories" class="form-label">Applicable Categories<span class="text-danger">*</span></label>
@@ -165,14 +150,17 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        <label for="customer_eligibility" class="form-label">Customer Eligibility<span class="text-danger">*</span></label>
-                                        <select required="" name="customer_eligibility" id="customer_eligibility" class="form-select w-100" ->
-                                            <option selected disabled value="">-- Select --</option>
-                                            <option value="1">All Customers</option>
-                                            <option value="2">New Customers</option>
-                                            <option value="3">Existing Customers</option>
-                                        </select>
+                                        <label for="product_search" class="form-label">
+                                            Product Search <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="text" name="product_search" id="product_search" class="form-control" placeholder="Search product name or SKU" required>
+                                            <button type="button" class="btn btn-outline-primary">
+                                                Browse Product
+                                            </button>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -234,7 +222,7 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div>
                                     <label for="stock_status" class="form-label">Stock Status<span class="text-danger">*</span></label>
-                                    <select required="" name="stock_status" id="stock_status" class="form-select w-100" >
+                                    <select required="" name="stock_status" id="stock_status" class="form-select w-100">
                                         <option selected disabled value="">-- Select --</option>
                                         <option value="1">Active</option>
                                         <option value="2">Inactive</option>

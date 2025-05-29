@@ -42,6 +42,26 @@
                                     </div>
                                 </div>
                             </div>
+<div class="col-12">
+                                <div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="lang-tab-content-en" role="tabpanel" aria-labelledby="lang-tab-en">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="banner_description">
+                                                               Button URL
+                                                            </label>
+                                                            <input id="banner_description" type="text" name="banner_description" class="form-control" placeholder="Enter URL" value="" required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-12">
                                 <div>

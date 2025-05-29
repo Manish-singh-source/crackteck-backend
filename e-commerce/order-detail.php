@@ -117,7 +117,10 @@
                                         <span class="fw-semibold">PAN No:</span>
                                         <span>789MTUO</span>
                                     </li>
-
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
+                                        <span class="fw-semibold">With Installation:</span>
+                                        <span>Yes/No</span>
+                                    </li>
 
                                 </ul>
                             </div>
