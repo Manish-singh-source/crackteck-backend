@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='in-hand-products.php'>
+                    <a class='tp-link' href='spare-parts-requests.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1" />
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
