@@ -61,92 +61,66 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Time</th>
-                                                            <th>Seller/Deliveryman/User</th>
-                                                            <th>Method</th>
-                                                            <th>Amount</th>
-                                                            <th>Charge</th>
-                                                            <th>Receivable</th>
-                                                            <th>Status</th>
-                                                            <!-- <th>Action</th> -->
+                                                            <th>Withdrawal ID
+                                                            </th>
+                                                            <th>Date
+                                                            </th>
+                                                            <th>Requester Name
+                                                            </th>
+                                                            <th>User Type
+                                                            </th>
+                                                            <th>Amount
+                                                            </th>
+                                                            <th>Method
+                                                            </th>
+                                                            <th>Status
+                                                            </th>
+                                                            <th>Approved By
+                                                            </th>
+                                                            <th>Notes
+                                                            </th>
                                                         </tr>
+
                                                     </thead>
                                                     <tbody>
+
                                                         <tr>
-                                                            <td>
-                                                                <div>
-                                                                    2 weeks ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-04 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
-                                                            <td> 2126 INR</td>
-                                                            <td>
-                                                                2126 INR
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td> -->
+
+                                                            <td>WDR001</td>
+                                                            <td>2025-05-27</td>
+                                                            <td>Engineer Arun</td>
+                                                            <td>Staff</td>
+                                                            <td>200 INR</td>
+                                                            <td>Bank Transfer</td>
+                                                            <td>Approved</td>
+                                                            <td>Admin A1</td>
+                                                            <td>Tool expense refund</td>
                                                         </tr>
+
                                                         <tr>
-                                                            <td>
-                                                                <div>
-                                                                    1 week ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-14 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
-                                                            <td>
-                                                                9874 INR
-                                                            </td>
-                                                            <td>
-                                                                9874 INR
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td> -->
+
+                                                            <td>WDR002</td>
+                                                            <td>2025-05-26</td>
+                                                            <td>John ABC</td>
+                                                            <td>Staff</td>
+                                                            <td>150 INR</td>
+                                                            <td>Wallet Refund</td>
+                                                            <td>Rejected</td>
+                                                            <td>Admin A2</td>
+                                                            <td>Invalid claim</td>
+                                                        </tr>
+
+                                                        <tr>
+
+                                                            <td>WDR003</td>
+                                                            <td>2025-05-25</td>
+                                                            <td>Vendor XYZ</td>
+                                                            <td>Vendor</td>
+                                                            <td>700 INR</td>
+                                                            <td>Cheque</td>
+                                                            <td>Pending</td>
+                                                            <td>-</td>
+                                                            <td>Monthly payout</td>
                                                         </tr>
 
                                                     </tbody>

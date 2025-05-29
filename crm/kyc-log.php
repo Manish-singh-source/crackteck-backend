@@ -61,68 +61,52 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Date</th>
-                                                            <th>Seller/Deliveryman</th>
+                                                            <th>KYC ID</th>
+                                                            <th>User Name</th>
+                                                            <th>Submitted On</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div>
-                                                                    2 weeks ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-04 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div>
-                                                                    John Doe -
-                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Deliveryman</span>
-                                                                </div>
-                                                                <div>example@gmail.com</div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div>
-                                                                    1 week ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-14 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div>
-                                                                    John Doe -
-                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Seller</span>
-                                                                </div>
-                                                                <div>example@gmail.com</div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                            </td>
+                                                            <th>Verified On</th>
+                                                            <th>Verified By</th>
+                                                            <th>Rejection Reason</th>
+                                                            <th>Document Links</th>
                                                         </tr>
 
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td>KYC123</td>
+                                                            <td>Priya Mehra</td>
+                                                            <td>2025-05-20</td>
+                                                            <td>Approved</td>
+                                                            <td>2025-05-21</td>
+                                                            <td>Admin KYC1</td>
+                                                            <td>-</td>
+                                                            <td>[Aadhar], [PAN]</td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>KYC124</td>
+                                                            <td>Rajat Sharma</td>
+                                                            <td>2025-05-22</td>
+                                                            <td>Rejected</td>
+                                                            <td>2025-05-23</td>
+                                                            <td>Admin KYC2</td>
+                                                            <td>Blurry document</td>
+                                                            <td>\[Aadhar], \[License]</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>KYC125</td>
+                                                            <td>Neha Kapoor</td>
+                                                            <td>2025-05-23</td>
+                                                            <td>Pending</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>\[Passport]</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

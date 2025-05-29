@@ -60,95 +60,60 @@
                                                 <table id="responsive-datatable"
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
+
                                                         <tr>
-                                                            <th>Time</th>
-                                                            <th>TRX Number</th>
-                                                            <th>User/Seller</th>
-                                                            <th>Method</th>
-                                                            <th>Amount</th>
-                                                            <th>Final Amount</th>
-                                                            <th>Status</th>
-                                                            <!-- <th>Action</th> -->
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div>
-                                                                    2 weeks ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-04 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
-                                                            <td> 2126 INR</td>
-                                                            <td>
-                                                                2126 INR
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td> -->
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div>
-                                                                    1 week ago
-                                                                </div>
-                                                                <div>
-                                                                    2025-04-14 06:09 PM
-                                                                </div>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>John Doe</td>
-                                                            <td>Razorpay</td>
-                                                            <td>
-                                                                9874 INR
-                                                            </td>
-                                                            <td>
-                                                                9874 INR
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td> -->
+                                                            <td>Deposit ID</td>
+                                                            <td>Date</td>
+                                                            <td>User Type</td>
+                                                            <td>Depositor Name</td>
+                                                            <td>Amount</td>
+                                                            <td>Method</td>
+                                                            <td>Status</td>
+                                                            <td>Reference Note</td>
                                                         </tr>
 
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+
+                                                            <td>DEP001</td>
+                                                            <td>2025-05-26</td>
+                                                            <td>Customer</td>
+                                                            <td>Ravi Kumar</td>
+                                                            <td>\$500</td>
+                                                            <td>Wallet Top-Up</td>
+                                                            <td>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                            </td>
+                                                            <td>Monthly advance</td>
+
+                                                        </tr>
+                                                        <tr>
+
+                                                            <td>DEP002</td>
+                                                            <td>2025-05-26</td>
+                                                            <td>Staff</td>
+                                                            <td>Admin User</td>
+                                                            <td>\$1,200</td>
+                                                            <td>Bank Transfer</td>
+                                                            <td>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                                            </td>
+                                                            <td>Inventory fund</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>DEP003</td>
+                                                            <td>2025-05-25</td>
+                                                            <td>Customer</td>
+                                                            <td>Sarah Khan</td>
+                                                            <td>\$300</td>
+                                                            <td>UPI</td>
+                                                            <td>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                            </td>
+                                                            <td>AMC deposit</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
