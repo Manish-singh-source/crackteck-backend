@@ -115,9 +115,9 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
+                                                            <th>Lead Id</th>
                                                             <th>Meeting ID</th>
                                                             <th>Title</th>
-                                                            <th>Client/Lead</th>
                                                             <th>Type</th>
                                                             <th>Date & Time</th>
                                                             <th>Location</th>
@@ -130,9 +130,13 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-001
+                                                                </a>
+                                                            </td>
                                                             <td>M001</td>
                                                             <td>Product Demo</td>
-                                                            <td>ABC Corp</td>
                                                             <td>Onsite Demo</td>
                                                             <td>May 30, 2025 – 11:00 AM</td>
                                                             <td>ABC Corp HQ</td>
@@ -159,9 +163,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td><a href="view-leads.php">
+                                                                    L-002
+                                                                </a></td>
                                                             <td>M002</td>
                                                             <td>Discovery Call</td>
-                                                            <td>XYZ Ltd</td>
                                                             <td>Virtual Meeting</td>
                                                             <td>May 31, 2025 – 2:00 PM</td>
                                                             <td>Zoom Link</td>
@@ -188,9 +194,13 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-003
+                                                                </a>
+                                                            </td>
                                                             <td>M003</td>
                                                             <td>POC Setup</td>
-                                                            <td>ABC Corp</td>
                                                             <td>Technical Visit</td>
                                                             <td>June 3, 2025 – 10:00 AM</td>
                                                             <td>ABC Corp Data Center</td>
@@ -217,9 +227,13 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-004
+                                                                </a>
+                                                            </td>
                                                             <td>M004</td>
                                                             <td>Quarterly Review</td>
-                                                            <td>FastTech</td>
                                                             <td>Business Meeting</td>
                                                             <td>June 5, 2025 – 1:00 PM</td>
                                                             <td>FastTech Office</td>
@@ -246,9 +260,13 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-005
+                                                                </a>
+                                                            </td>
                                                             <td>M005</td>
                                                             <td>Support Handover</td>
-                                                            <td>NetSecure</td>
                                                             <td>Virtual Meeting</td>
                                                             <td>June 7, 2025 – 3:00 PM</td>
                                                             <td>Microsoft Teams</td>

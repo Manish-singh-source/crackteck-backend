@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-2 col-sm-3 col-6">
+                                <!-- <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
                                         <select class="form-select" name="type" id="">
 
@@ -43,7 +43,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
@@ -57,6 +57,14 @@
                                     <div>
                                         <a href="#" class="btn btn-danger w-100 waves ripple-light"> <i class="ri-refresh-line me-1 align-bottom"></i>
                                             Reset
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-sm-3 col-6">
+                                    <div>
+                                        <a href="#" class="btn btn-primary w-50 waves ripple-light">
+                                            <i class="ri-refresh-line me-1 align-bottom"></i>
+                                            Sort
                                         </a>
                                     </div>
                                 </div>

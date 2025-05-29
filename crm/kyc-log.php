@@ -94,7 +94,7 @@
                                                             <td>2025-05-23</td>
                                                             <td>Admin KYC2</td>
                                                             <td>Blurry document</td>
-                                                            <td>\[Aadhar], \[License]</td>
+                                                            <td>[Aadhar], [License]</td>
                                                         </tr>
 
                                                         <tr>
@@ -105,7 +105,7 @@
                                                             <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>
-                                                            <td>\[Passport]</td>
+                                                            <td>[Passport]</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

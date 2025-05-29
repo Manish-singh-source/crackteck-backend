@@ -81,7 +81,7 @@
                                                             <td>2025-05-26</td>
                                                             <td>Customer</td>
                                                             <td>Ravi Kumar</td>
-                                                            <td>\$500</td>
+                                                            <td>500 INR</td>
                                                             <td>Wallet Top-Up</td>
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
@@ -95,7 +95,7 @@
                                                             <td>2025-05-26</td>
                                                             <td>Staff</td>
                                                             <td>Admin User</td>
-                                                            <td>\$1,200</td>
+                                                            <td>1,200 INR</td>
                                                             <td>Bank Transfer</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
@@ -107,7 +107,7 @@
                                                             <td>2025-05-25</td>
                                                             <td>Customer</td>
                                                             <td>Sarah Khan</td>
-                                                            <td>\$300</td>
+                                                            <td>300 INR</td>
                                                             <td>UPI</td>
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>

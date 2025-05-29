@@ -57,6 +57,7 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
+                                                            <th>Lead Id</th>
                                                             <th>Client Name</th>
                                                             <th>Contact Number</th>
                                                             <th>Email</th>
@@ -70,6 +71,11 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-001
+                                                                </a>
+                                                            </td>
                                                             <td>Amit Sharma</td>
                                                             <td>9876543210</td>
                                                             <td>amit@example.com</td>
@@ -94,6 +100,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-002
+                                                                </a>
+                                                            </td>
                                                             <td>Amit Sharma</td>
                                                             <td>9876543210</td>
                                                             <td>amit@example.com</td>
@@ -118,6 +129,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-003
+                                                                </a>
+                                                            </td>
                                                             <td>Amit Sharma</td>
                                                             <td>9876543210</td>
                                                             <td>amit@example.com</td>
@@ -142,6 +158,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-004
+                                                                </a>
+                                                            </td>
                                                             <td>Amit Sharma</td>
                                                             <td>9876543210</td>
                                                             <td>amit@example.com</td>

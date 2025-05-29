@@ -101,28 +101,11 @@
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a class='tp-link' href='sales-reports.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
-                        <span class="ps-1"> Sales Report </span>
-                    </a>
-                </li>
-                 <li>
-                    <a class='tp-link' href='follow-up.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
-                        <span class="ps-1">Follow-Up</span>
-                    </a>
-                </li>
+
                 <li>
                     <a class='tp-link' href='customers.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
                         <span class="ps-1"> Customers </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='leads.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
-                        <span class="ps-1"> Leads </span>
                     </a>
                 </li>
                 <li>
@@ -152,6 +135,38 @@
                     </a>
                 </li> -->
 
+                <li class="menu-title mt-2">Sales Person</li>
+                <li>
+                    <a class='tp-link' href='sales-reports.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1"> Sales Report </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='follow-up.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1">Follow-Up</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='leads.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1"> Leads </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class='tp-link' href='quotation.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Quotations </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='meets.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Meets </span>
+                    </a>
+                </li>
                 <li class="menu-title mt-2">Operation Managers</li>
 
                 <li>
@@ -161,18 +176,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a class='tp-link' href='quotation.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
-                        <span class="ps-1"> Quotations  </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='meets.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
-                        <span class="ps-1"> Meets  </span>
-                    </a>
-                </li>
                 <li>
                     <a class='tp-link' href='service-request.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />

@@ -41,6 +41,16 @@ include('layouts/header.php') ?>
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="col-6">
+                                        <label for="status" class="form-label">Lead Id</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option> -- Select Lead --</option>
+                                            <option>L-001</option>
+                                            <option>L-002</option>
+                                            <option>L-003</option>
+                                            <option>L-004</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
                                         <label for="client_name" class="form-label">Client Name <span class="text-danger">*</span></label>
                                         <input type="text" name="client_name" id="client_name" class="form-control" placeholder="Enter Client Name" required>
                                     </div>
@@ -84,7 +94,7 @@ include('layouts/header.php') ?>
                         </div>
 
 
-                       
+
                         <!-- <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
@@ -92,7 +102,7 @@ include('layouts/header.php') ?>
                         </div> -->
                     </div>
 
-                   
+
                     <div class="col-lg-12">
                         <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
