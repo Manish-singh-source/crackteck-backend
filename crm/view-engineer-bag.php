@@ -42,25 +42,26 @@
                                             </div>
                                         </div>
                                     </td>
+
                                     <td>
                                         <div>
-                                            Headphone
+                                            Network Switch
                                         </div>
                                     </td>
                                     <td>
-                                        Computer
+                                        Networking
                                     </td>
                                     <td>
-                                        Sony
+                                        Cisco
                                     </td>
                                     <td>
-                                        Inspiron 3511
+                                        SG250-26
                                     </td>
                                     <td>
-                                        B0BB7FQBBS
+                                        CNSW123456
                                     </td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>Unused</td>
+                                    <td>2023-11-10</td>
+                                    <td>Approved</td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td>
@@ -72,23 +73,81 @@
                                     </td>
                                     <td>
                                         <div>
-                                            Headphone
+                                            Wireless Router
                                         </div>
                                     </td>
                                     <td>
-                                        Computer
+                                        Networking
                                     </td>
                                     <td>
-                                        Sony
+                                        TP-Link
                                     </td>
                                     <td>
-                                        Inspiron 3511
+                                        Archer C6
                                     </td>
                                     <td>
-                                        B0BB7FQBBS
+                                        TPWR678901
                                     </td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>Used</td>
+                                    <td>2023-12-15</td>
+                                    <td>Pending</td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        <div>
+                                            External Hard Disk
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Storage Device
+                                    </td>
+                                    <td>
+                                        Seagate
+                                    </td>
+                                    <td>
+                                        STDR2000100
+                                    </td>
+                                    <td>
+                                        SGHD789012
+                                    </td>
+                                    <td>2024-02-05</td>
+                                    <td>Approved</td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <div>
+                                            Firewall Appliance
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Security Device
+                                    </td>
+                                    <td>
+                                        Fortinet
+                                    </td>
+                                    <td>
+                                        FG-60F
+                                    </td>
+                                    <td>
+                                        FTFW345678
+                                    </td>
+                                    <td>2023-09-21</td>
+                                    <td>Approved</td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td>
@@ -100,79 +159,23 @@
                                     </td>
                                     <td>
                                         <div>
-                                            Headphone
+                                            Ethernet Cable
                                         </div>
                                     </td>
                                     <td>
-                                        Computer
+                                        Accessories
                                     </td>
                                     <td>
-                                        Sony
+                                        D-Link
                                     </td>
                                     <td>
-                                        Inspiron 3511
+                                        CAT6-305M
                                     </td>
                                     <td>
-                                        B0BB7FQBBS
+                                        DLCB567890
                                     </td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>Unused</td>
-                                </tr>
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            Headphone
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Computer
-                                    </td>
-                                    <td>
-                                        Sony
-                                    </td>
-                                    <td>
-                                        Inspiron 3511
-                                    </td>
-                                    <td>
-                                        B0BB7FQBBS
-                                    </td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>Used</td>
-                                </tr>
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            Headphone
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Computer
-                                    </td>
-                                    <td>
-                                        Sony
-                                    </td>
-                                    <td>
-                                        Inspiron 3511
-                                    </td>
-                                    <td>
-                                        B0BB7FQBBS
-                                    </td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>Unused</td>
+                                    <td>2023-10-01</td>
+                                    <td>Rejected</td>
                                 </tr>
                             </tbody>
                         </table>

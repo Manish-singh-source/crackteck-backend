@@ -150,7 +150,7 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="create-meet.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -181,7 +181,7 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="create-meet.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1 border-0 disabled"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -214,7 +214,7 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="create-meet.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -247,7 +247,7 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="create-meet.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -279,8 +279,8 @@
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
+                                                                </a> 
+                                                                <a aria-label="anchor" href="create-meet.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -290,230 +290,6 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                 </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane show pt-4" id="pending_services" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card shadow-none">
-                                            <div class="card-body">
-                                                <table id="responsive-datatable"
-                                                    class="table table-striped table-borderless dt-responsive nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Time</th>
-                                                            <th>Service Id</th>
-                                                            <th>User</th>
-                                                            <th>AMC Plan</th>
-                                                            <th>Duration (Months)</th>
-                                                            <th>Start Date</th>
-                                                            <!-- <th>Product Info</th> -->
-                                                            <th>Created By</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div>2 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1001
-                                                                </a>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>6</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>Operation Manager - username</td>
-                                                            <td>
-                                                                <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-detail.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div>1 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1002
-                                                                </a>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>12</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>
-                                                                Super Admin - username
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-detail.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div>3 days ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1003
-                                                                </a>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>12</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>
-                                                                Customer - John Doe
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">Rejected</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="view-detail.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane show pt-4" id="approved_services" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card shadow-none">
-                                            <div class="card-body">
-                                                <table id="responsive-datatable"
-                                                    class="table table-striped table-borderless dt-responsive nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Time</th>
-                                                            <th>Seller/Deliveryman/User</th>
-                                                            <th>Method</th>
-                                                            <th>Amount</th>
-                                                            <th>Charge</th>
-                                                            <th>Receivable</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="list form-check-all">
-                                                        <tr>
-                                                            <td class="border-bottom-0" colspan="100">
-                                                                <div class="tab-pane" id="productnav-draft" role="tabpanel">
-                                                                    <div class="py-4 text-center">
-                                                                        <lord-icon src="" trigger="loop" colors="primary:#405189,secondary:#0ab39c" class="loader-icon">
-                                                                        </lord-icon>
-                                                                        <h5 class="mt-4">
-                                                                            Sorry! No Result Found
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane show pt-4" id="rejected_services" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card shadow-none">
-                                            <div class="card-body">
-                                                <table id="responsive-datatable"
-                                                    class="table table-striped table-borderless dt-responsive nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Time</th>
-                                                            <th>Seller/Deliveryman/User</th>
-                                                            <th>Method</th>
-                                                            <th>Amount</th>
-                                                            <th>Charge</th>
-                                                            <th>Receivable</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="list form-check-all">
-                                                        <tr>
-                                                            <td class="border-bottom-0" colspan="100">
-                                                                <div class="tab-pane" id="productnav-draft" role="tabpanel">
-                                                                    <div class="py-4 text-center">
-                                                                        <lord-icon src="" trigger="loop" colors="primary:#405189,secondary:#0ab39c" class="loader-icon">
-                                                                        </lord-icon>
-                                                                        <h5 class="mt-4">
-                                                                            Sorry! No Result Found
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>

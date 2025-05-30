@@ -397,7 +397,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -438,7 +438,7 @@
                         <h5 class="card-title mb-0">AMC Details</h5>
                     </div>
                     <div class="card-body">
-                        <form action="amc-list.php" method="POST" enctype="multipart/form-data">
+                        <form action="service-request.php" method="POST" enctype="multipart/form-data">
                             <div class="row g-3 pb-3">
                                 <div class="col-4">
                                     <label for="amc_plan" class="form-label">Select Plan<span class="text-danger">*</span></label>

@@ -70,11 +70,6 @@
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
                                                                 <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
                                                                     class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
@@ -99,11 +94,6 @@
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
                                                                 <a aria-label="anchor"
                                                                     class="btn btn-icon btn-sm bg-danger-subtle delete-row"
@@ -131,11 +121,6 @@
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
                                                                 <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
                                                                     class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
@@ -159,11 +144,6 @@
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
                                                                 <a aria-label="anchor"
                                                                     class="btn btn-icon btn-sm bg-danger-subtle delete-row"

@@ -265,7 +265,7 @@
                                         <input type="date" name="purchase_date" value="" class="form-control" placeholder="Enter Purchase Date" id="purchase_date">
                                     </div>
                                 </div>
-                                 <div class="col-xl-4 col-lg-6">
+                                <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="image" class="form-label">
                                             Image
@@ -292,7 +292,7 @@
                                         <textarea name="" class="form-control" id=""></textarea>
                                     </div>
                                 </div>
-                               
+
 
                                 <div class="col-12">
                                     <div class="text-end">
@@ -329,7 +329,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -365,8 +365,17 @@
                     </div>
                 </div>
 
-
-
+                
+            </div>
+            <div class="col-lg-12">
+                <div class="text-start mb-3">
+                    <a href="service-request.php" class="btn btn-success w-sm waves ripple-light">
+                        Submit
+                    </a>
+                    <!-- <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                            Submit
+                        </button> -->
+                </div>
             </div>
         </div>
     </div>

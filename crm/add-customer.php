@@ -288,9 +288,12 @@ include('layouts/header.php') ?>
                     </div>
                     <div class="col-lg-12">
                         <div class="text-start mb-3">
-                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                            <a href="customers.php" class="btn btn-success w-sm waves ripple-light">
                                 Submit
-                            </button>
+                            </a>
+                            <!-- <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                Submit
+                            </button> -->
                         </div>
                     </div>
 

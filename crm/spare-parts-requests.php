@@ -17,62 +17,44 @@
 
                     <div class="card-body border border-dashed border-end-0 border-start-0">
                         <form action="#" method="get">
-                            <div class="row g-3">
-                                <div class="col-xl-2 col-md-2 col-sm-6">
-                                    <div class="search-box">
-                                        <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
-                                        <i class="ri-search-line search-icon"></i>
+                            <div class="d-flex justify-content-between">
+                                <div class="row">
+                                    <div class="col-xl-10 col-md-10 col-sm-10">
+                                        <div class="search-box">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-md-2 col-sm-2 col-2">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <button type="submit" class="btn btn-primary waves ripple-light">
+                                                <!-- <span class="d-none d-md-inline-flex"> Search </span> -->
+                                                <i class="fa-solid fa-magnifying-glass "></i>
+
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-xl-2 col-sm-3 col-6">
-                                    <div>
-                                        <select class="form-select" name="type" id="">
-
-                                            <option selected="" value="0">
-                                                All
-                                            </option>
-                                            <option value="1">
-                                                Laptops
-                                            </option>
-                                            <option value="2">
-                                                Computers
-                                            </option>
-                                            <option value="3">
-                                                Accessories
-                                            </option>
-                                        </select>
+                                <div class="row g-3">
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <!-- <span class="d-none d-md-inline-flex"> Sort </span> -->
+                                            <i class="fa-solid fa-arrow-up-z-a "></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Ascending Order</a></li>
+                                            <li><a class="dropdown-item" href="#">Descending Order</a></li>
+                                        </ul>
                                     </div>
-                                </div> -->
 
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3">
-                                    <div>
-                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light">
-                                            <span class="d-none d-md-inline-flex"> Search </span>
-                                            <i class="fa-solid fa-magnifying-glass "></i>
-
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                            <!-- <span class="d-none d-md-inline-flex"> Filters </span> -->
+                                            <i class="fa-solid fa-filter "></i>
                                         </button>
                                     </div>
                                 </div>
-
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="d-none d-md-inline-flex"> Sort </span>
-                                        <i class="fa-solid fa-arrow-up-z-a "></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Ascending Order</a></li>
-                                        <li><a class="dropdown-item" href="#">Descending Order</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
-                                        <span class="d-none d-md-inline-flex"> Filters </span>
-                                        <i class="fa-solid fa-filter "></i>
-                                    </button>
-                                </div>
-
                                 <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -85,7 +67,7 @@
                                                 <h5>Checkboxes</h5>
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <!-- <h6 class="fs-15">Checkboxes</h6> -->
+                                                        <h6 class="fs-15">Checkboxes</h6>
                                                         <div class="mt-3">
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -103,7 +85,7 @@
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <!-- <h6 class="fs-15">Disabled</h6> -->
+                                                        <h6 class="fs-15">Disabled</h6>
                                                         <div class="mt-3">
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
@@ -172,12 +154,40 @@
 
                                 <!-- <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
+                                        <select class="form-select" name="type" id="">
+
+                                            <option selected="" value="0">
+                                                All
+                                            </option>
+                                            <option value="1">
+                                                Laptops
+                                            </option>
+                                            <option value="2">
+                                                Computers
+                                            </option>
+                                            <option value="3">
+                                                Accessories
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light">
+                                            <span class="d-none d-md-inline-flex"> Search </span>
+                                            <i class="fa-solid fa-magnifying-glass "></i>
+
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-sm-3 col-6">
+                                    <div>
                                         <a href="#" class="btn btn-primary w-50 waves ripple-light">
                                             <i class="ri-refresh-line me-1 align-bottom"></i>
                                             Sort
                                         </a>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="d-none d-md-inline-flex"> Brand </span>
@@ -188,7 +198,6 @@
                                         <li><a class="dropdown-item" href="#">Hp</a></li>
                                     </ul>
                                 </div>
-
                                 <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="d-none d-md-inline-flex"> Status </span>
@@ -199,7 +208,7 @@
                                         <li><a class="dropdown-item" href="#">Pending</a></li>
                                         <li><a class="dropdown-item" href="#">Rejected</a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
 
                         </form>

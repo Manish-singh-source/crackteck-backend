@@ -143,12 +143,6 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='follow-up.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/communication--v1.png" alt="communication--v1"/>
-                        <span class="ps-1">Follow-Up</span>
-                    </a>
-                </li>
-                <li>
                     <a class='tp-link' href='leads.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
                         <span class="ps-1"> Leads </span>
@@ -226,13 +220,6 @@
                         <span class="ps-1">Inventory </span>
                     </a>
                 </li> -->
-
-                <li>
-                    <a class='tp-link' href='in-hand-products.php'>
-                        <i data-feather="columns"></i>
-                        <span>Assign Products </span>
-                    </a>
-                </li>
 
                 <li>
                     <a class='tp-link' href='spare-parts-requests.php'>
