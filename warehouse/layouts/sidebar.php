@@ -29,21 +29,21 @@
 
                 <li>
                     <a class='tp-link' href='../e-commerce/index.php'>
-                        <i data-feather="columns"></i>
-                        <span> E-commerce Dashboard </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
+                        <span class="ps-1"> E-commerce Dashboard </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='../crm/index.php'>
-                        <i data-feather="columns"></i>
-                        <span> CRM Dashboard </span>
+                        <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
+                        <span class="ps-1"> CRM Dashboard </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='index.php'>
-                        <i data-feather="columns"></i>
-                        <span> Warehouse Dashboard </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Warehouse Dashboard </span>
                     </a>
                 </li>
 
@@ -57,8 +57,8 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='product-list.php'>
-                        <i data-feather="columns"></i>
-                        <span>Product List</span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/ingredients-list.png" alt="ingredients-list"/>
+                        <span class="ps-1">Product List</span>
                     </a>
                 </li>
                 <li>
@@ -69,8 +69,8 @@
                 </li>
                 <li>
                     <a class='tp-link' href='track-product.php'>
-                        <i data-feather="columns"></i>
-                        <span>Track Product</span>
+                        <img width="" height="20" src="https://img.icons8.com/ios-filled/50/1A1A1A/track-order.png" alt="track-order"/>
+                        <span class="ps-1">Track Product</span>
                     </a>
                 </li>
                 <li>
@@ -82,14 +82,14 @@
                 <li class="menu-title mt-2">Manage Warehouse</li>
                 <li>
                     <a class='tp-link' href='warehouses-list.php'>
-                        <i data-feather="columns"></i>
-                        <span>Warehouses</span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1">Warehouses</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='warehouse-list.php'>
-                        <i data-feather="columns"></i>
-                        <span>Warehouse Rack</span>
+                        <img width="" height="20" src="https://img.icons8.com/external-prettycons-lineal-prettycons/49/1A1A1A/external-warehouse-delivery-prettycons-lineal-prettycons-1.png" alt="external-warehouse-delivery-prettycons-lineal-prettycons-1"/>
+                        <span class="ps-1">Warehouse Rack</span>
                     </a>
                 </li>
 
