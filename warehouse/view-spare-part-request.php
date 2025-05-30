@@ -23,7 +23,7 @@
                                 <span class="fw-semibold text-break">From Engineer :
                                 </span>
                                 <span>
-                                    Shyam Jaiswal
+                                    User Name
                                 </span>
                             </li>
 
@@ -48,8 +48,6 @@
                         </ul>
                     </div>
                 </div>
-
-
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
