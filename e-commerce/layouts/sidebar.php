@@ -200,12 +200,12 @@
                         </ul>
                     </div>
                 </li>
-                <!-- <li>
-                    <a class='tp-link' href='banner.php'>
-                    <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/document-footer.png" alt="document-footer"/>
-                        <span class="ps-1"> Banner </span>
+                <li>
+                    <a class='tp-link' href='product-deals.php'>
+                    <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/1A1A1A/sale.png" alt="product-deal-offer"/>
+                        <span class="ps-1"> Product Deal Offer </span>
                     </a>
-                </li> -->
+                </li>
 
                 <li>
                     <a class='tp-link' href='collection.php'>
