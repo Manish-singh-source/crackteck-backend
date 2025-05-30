@@ -26,7 +26,7 @@
                                 </a>
                             </li>
                         </ul>
-
+`
                         <div class="tab-content text-muted">
                             <div class="tab-pane active show pt-4" id="all_customer" role="tabpanel">
                                 <div class="row">
@@ -38,7 +38,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Sr. No.</th>
-                                                            <th>Engineer Name</th>
+                                                            <th>Name</th>
+                                                            <th>Role</th>
                                                             <th>Customer Name</th>
                                                             <th>Last Update</th>
                                                             <th>Action</th>
@@ -51,6 +52,9 @@
                                                             </td>
                                                             <td>
                                                                Manish
+                                                            </td>
+                                                            <td>
+                                                               Engineer
                                                             </td>
                                                             <td>John Doe</td>
                                                             <td>22-jan-25 12:25AM</td>
@@ -70,6 +74,9 @@
                                                             </td>
                                                             <td>
                                                                Saurbh
+                                                            </td>
+                                                            <td>
+                                                               Delivery Man
                                                             </td>
                                                             <td>John Doe</td>
                                                             <td>22-jan-25 12:25AM</td>
