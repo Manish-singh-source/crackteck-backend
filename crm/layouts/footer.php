@@ -74,6 +74,11 @@
 <!-- Boxplot Charts Init Js -->
 <script src="assets/js/pages/apexcharts-heatmap.init.js"></script>
 
+<!-- for basic area chart -->
+<script src="../../../apexcharts.com/samples/assets/stock-prices.js"></script>
+
+<!-- Apexcharts Init Js -->
+<script src="assets/js/pages/apexcharts-line.init.js"></script>
 <!-- App js-->
 <script src="assets/js/app.js"></script>
 <script>

@@ -6,7 +6,7 @@
         <div class="row pt-3">
             <div class="col-xl-8 mx-auto">
 
-              
+
 
 
                 <div class="card">
@@ -38,7 +38,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -62,11 +62,11 @@
                                     <td>2025-04-04 06:09 PM</td>
                                     <td>Unused</td>
                                 </tr>
- <tr class="align-middle">
+                                <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -90,11 +90,11 @@
                                     <td>2025-04-04 06:09 PM</td>
                                     <td>Used</td>
                                 </tr>
-                                 <tr class="align-middle">
+                                <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -116,13 +116,13 @@
                                         B0BB7FQBBS
                                     </td>
                                     <td>2025-04-04 06:09 PM</td>
-                                     <td>Unused</td>
+                                    <td>Unused</td>
                                 </tr>
-                                 <tr class="align-middle">
+                                <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -144,13 +144,13 @@
                                         B0BB7FQBBS
                                     </td>
                                     <td>2025-04-04 06:09 PM</td>
-                                     <td>Used</td>
+                                    <td>Used</td>
                                 </tr>
-                                 <tr class="align-middle">
+                                <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
@@ -172,7 +172,7 @@
                                         B0BB7FQBBS
                                     </td>
                                     <td>2025-04-04 06:09 PM</td>
-                                     <td>Unused</td>
+                                    <td>Unused</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -183,9 +183,9 @@
 
 
             <div class="col-xl-4">
-               
 
-               
+
+
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
