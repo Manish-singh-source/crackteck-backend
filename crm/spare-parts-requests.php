@@ -18,9 +18,9 @@
                     <div class="card-body border border-dashed border-end-0 border-start-0">
                         <form action="#" method="get">
                             <div class="row g-3">
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-md-2 col-sm-6">
                                     <div class="search-box">
-                                        <input type="text" name="search" value="" class="form-control search" placeholder="Search by name, type, brand, module number or serial number">
+                                        <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
                                 </div>
@@ -45,28 +45,160 @@
                                     </div>
                                 </div> -->
 
-                                <div class="col-xl-2 col-sm-3 col-6">
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3">
                                     <div>
-                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
-                                            Search
+                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light">
+                                            <span class="d-none d-md-inline-flex"> Search </span>
+                                            <i class="fa-solid fa-magnifying-glass "></i>
+
                                         </button>
                                     </div>
                                 </div>
 
-                                <div class="col-xl-2 col-sm-3 col-6">
-                                    <div>
-                                        <a href="#" class="btn btn-danger w-100 waves ripple-light"> <i class="ri-refresh-line me-1 align-bottom"></i>
-                                            Reset
-                                        </a>
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="d-none d-md-inline-flex"> Sort </span>
+                                        <i class="fa-solid fa-arrow-up-z-a "></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Ascending Order</a></li>
+                                        <li><a class="dropdown-item" href="#">Descending Order</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                        <span class="d-none d-md-inline-flex"> Filters </span>
+                                        <i class="fa-solid fa-filter "></i>
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="standard-modalLabel">Filters</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body px-3 py-md-2">
+                                                <h5>Checkboxes</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- <h6 class="fs-15">Checkboxes</h6> -->
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    checkbox
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                                    checkbox 1
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <!-- <h6 class="fs-15">Disabled</h6> -->
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                                                <label class="form-check-label" for="flexCheckDefault2">
+                                                                    checkbox 2
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                                                                <label class="form-check-label" for="flexCheckDefault3">
+                                                                    checkbox 3
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <h5>Radio</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    Radio
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Radio 1
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled">
+                                                                <label class="form-check-label" for="flexRadioDisabled">
+                                                                    Radio 2
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled">
+                                                                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                                                                    Radio 3
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2 col-sm-3 col-6">
+
+                                <!-- <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
                                         <a href="#" class="btn btn-primary w-50 waves ripple-light">
                                             <i class="ri-refresh-line me-1 align-bottom"></i>
                                             Sort
                                         </a>
                                     </div>
+                                </div> -->
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="d-none d-md-inline-flex"> Brand </span>
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Dell</a></li>
+                                        <li><a class="dropdown-item" href="#">Hp</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="d-none d-md-inline-flex"> Status </span>
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Approved</a></li>
+                                        <li><a class="dropdown-item" href="#">Pending</a></li>
+                                        <li><a class="dropdown-item" href="#">Rejected</a></li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -82,7 +214,7 @@
                                     <span class="d-none d-sm-block">All Parts</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
 
                         <div class="tab-content text-muted">

@@ -150,7 +150,7 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="Department" class="form-label">Department <span class="text-danger">*</span></label>
+                                        <label for="Department" class="form-label">Department/Role <span class="text-danger">*</span></label>
                                         <select class="form-control" name="Department" id="Department">
                                             <option selected disabled value="">-- Select --</option>
                                             <option value="">Sales</option>
