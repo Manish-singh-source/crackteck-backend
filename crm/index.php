@@ -188,6 +188,93 @@
         <!-- End Main Widgets -->
 
 
+        <!-- start row -->
+        <div class="row">
+
+            <div class="col-md-12 col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Sales Overview</h5>
+
+                            <div class="ms-auto">
+                                <button class="btn btn-sm bg-light border dropdown-toggle fw-medium"
+                                    type="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">This Month<i
+                                        class="mdi mdi-chevron-down ms-1 fs-14"></i></button>
+                                <!-- <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                    <a class="dropdown-item" href="#">Last Month</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="sales-overview" class="apex-charts"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Sales Pipeline</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="top-session" class="apex-charts"></div>
+
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="d-flex justify-content-between align-items-center p-1">
+                                    <div>
+                                        <i class="mdi mdi-circle fs-12 align-middle me-1" style="color:#28C76F;"></i>
+                                        <span class="align-middle fw-semibold">Won</span>
+                                    </div>
+                                    <span class="fw-medium text-muted float-end"><i
+                                            class="mdi mdi-arrow-up text-success align-middle fs-14 me-1"></i>12.48%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center p-1">
+                                    <div>
+                                        <i class="mdi mdi-circle fs-12 align-middle me-1"
+                                            style="color:#EA5455;"></i>
+                                        <span class="align-middle fw-semibold">Lost</span>
+                                    </div>
+                                    <span class="fw-medium text-muted float-end"><i
+                                            class="mdi mdi-arrow-up text-success align-middle fs-14 me-1"></i>5.23%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center p-1">
+                                    <div>
+                                        <i class="mdi mdi-circle fs-12 align-middle me-1"
+                                            style="color: #FF9F43;"></i>
+                                        <span class="align-middle fw-semibold">Qualified</span>
+                                    </div>
+                                    <span class="fw-medium text-muted float-end"><i
+                                            class="mdi mdi-arrow-up text-success align-middle fs-14 me-1"></i>5.23%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center p-1">
+                                    <div>
+                                        <i class="mdi mdi-circle fs-12 align-middle me-1" style="color: #B8C2CC;"></i>
+                                        <span class="align-middle fw-semibold">Unqualified</span>
+                                    </div>
+                                    <span class="fw-medium text-muted float-end"><i
+                                            class="mdi mdi-arrow-up text-success align-middle fs-14 me-1"></i>15.58%</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end start -->
+
     </div> <!-- container-fluid -->
 </div> <!-- content -->
 
