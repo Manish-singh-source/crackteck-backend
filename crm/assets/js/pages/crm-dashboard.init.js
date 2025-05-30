@@ -91,7 +91,7 @@ var options = {
       min: 0,
       labels: {
         formatter: function (e) {
-          return "$".concat((e / 1e3).toFixed(0), "k");
+          return "₹".concat((e / 1e3).toFixed(0), "k");
         },
       },
     },

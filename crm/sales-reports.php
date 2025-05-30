@@ -305,7 +305,7 @@
         </div>
         <!-- end start -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xl-7">
                 <div class="card overflow-hidden">
 
@@ -442,7 +442,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="row">
             <div class="col-xl-12">
                 <div class="card overflow-hidden">
@@ -502,7 +502,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xl-12">
                 <div class="card overflow-hidden">
 
@@ -566,7 +566,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
