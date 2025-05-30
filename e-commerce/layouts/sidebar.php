@@ -47,7 +47,7 @@
                     </a>
                 </li>
 
-                <li class="menu-title">Access Control</li>
+                <!-- <li class="menu-title">Access Control</li> -->
 
                 <!-- <li>
                             <a class='tp-link' href='index.php'>
@@ -56,7 +56,7 @@
                             </a>
                         </li> -->
 
-                <li>
+                <!-- <li>
                     <a href="#accesscontrol" data-bs-toggle="collapse">
                         <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials" />
                         <span class="ps-1"> Access Control </span>
@@ -72,7 +72,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
 
 

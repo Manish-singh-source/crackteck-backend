@@ -154,11 +154,10 @@
                         <span class="ps-1"> Leads </span>
                     </a>
                 </li>
-
                 <li>
-                    <a class='tp-link' href='quotation.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
-                        <span class="ps-1"> Quotations </span>
+                    <a class='tp-link' href='follow-up.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1">Follow-Up</span>
                     </a>
                 </li>
                 <li>
@@ -167,6 +166,13 @@
                         <span class="ps-1"> Meets </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='quotation.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <span class="ps-1"> Quotations </span>
+                    </a>
+                </li>
+
                 <li class="menu-title mt-2">Operation Managers</li>
 
                 <li>
@@ -223,8 +229,8 @@
 
                 <li>
                     <a class='tp-link' href='in-hand-products.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-others-royyan-wijaya/24/1A1A1A/external-assign-revamp-4-others-royyan-wijaya.png" alt="external-assign-revamp-4-others-royyan-wijaya"/>
-                        <span class="ps-1">Assign Products </span>
+                        <i data-feather="columns"></i>
+                        <span>Assign Products </span>
                     </a>
                 </li>
 
@@ -236,11 +242,19 @@
                 </li>
 
                 <li>
+                    <a class='tp-link' href='in-hand-products.php'>
+                        <i data-feather="columns"></i>
+                        <span>Assign Products </span>
+                    </a>
+                </li>
+
+
+                <!-- <li>
                     <a class='tp-link' href='scrap-items.php'>
                         <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer" />
                         <span class="ps-1"> Scrap items </span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 

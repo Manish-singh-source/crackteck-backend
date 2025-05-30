@@ -124,6 +124,11 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                 </a>
+                                                                <a aria-label="scrap" href="scrap-items.php"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Scrap">
+                                                                    <i class="mdi mdi-recycle-variant fs-14 text-warning"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
 
