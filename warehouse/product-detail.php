@@ -207,7 +207,6 @@
                                     <th>Product Image</th>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Stock</th>
                                     <th>Price</th>
                                     <th>Modal Number</th>
                                     <th>Serial Number</th>
@@ -234,9 +233,6 @@
                                         Biometric
                                     </td>
                                     <td>
-                                        45
-                                    </td>
-                                    <td>
                                         ₹4,500
                                     </td>
                                     <td>
@@ -245,7 +241,7 @@
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBS">
                                     </td>
-                                    <td><img id="barcode1" width="150px" height="50px"/></td>
+                                    <td><img id="barcode1" width="150px" height="50px" /></td>
                                     <td>
                                         <button class="btn btn-sm btn-primary">Save</button>
                                     </td>
@@ -266,9 +262,6 @@
                                     </td>
                                     <td>
                                         Biometric
-                                    </td>
-                                    <td>
-                                        25
                                     </td>
                                     <td>
                                         ₹4,500
@@ -279,7 +272,7 @@
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBQ">
                                     </td>
-                                    <td><img id="barcode2" width="150px" height="50px"/></td>
+                                    <td><img id="barcode2" width="150px" height="50px" /></td>
                                     <td>
                                         <button class="btn btn-sm btn-primary">Save</button>
                                     </td>
@@ -302,9 +295,6 @@
                                         Biometric
                                     </td>
                                     <td>
-                                        12
-                                    </td>
-                                    <td>
                                         ₹4,500
                                     </td>
                                     <td>
@@ -313,7 +303,7 @@
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBR">
                                     </td>
-                                    <td><img id="barcode3" width="150px" height="50px"/></td>
+                                    <td><img id="barcode3" width="150px" height="50px" /></td>
                                     <td>
                                         <button class="btn btn-sm btn-primary">Save</button>
                                     </td>
@@ -519,7 +509,7 @@
         height: 100,
         displayValue: true
     });
-    
+
     JsBarcode("#barcode2", "B0BB7FQBBS", {
         format: "CODE128",
         lineColor: "#000",
@@ -527,7 +517,7 @@
         height: 100,
         displayValue: true
     });
-    
+
     JsBarcode("#barcode3", "B0BB7FQBBS", {
         format: "CODE128",
         lineColor: "#000",

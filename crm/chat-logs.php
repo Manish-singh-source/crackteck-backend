@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="simplebar-mask">
                                     <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;">
+                                        <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: scroll;">
                                             <div class="simplebar-content" style="padding: 16px;">
                                                 <div class="mb-2 fs-4">
                                                     Chat: Rahul (Engineer) ↔ Akshay (Client)
@@ -67,10 +67,20 @@
 
                                                             </div>
                                                             <p class="p-2 mb-0 bg-light rounded">test</p>
-
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-11 offset-1 col-lg-6 offset-lg-6 text-end">
+                                                        <div class="border p-lg-3 p-2 rounded mt-3 bg-soft-white">
+                                                            <div class="text-end">
+                                                                <h6 class="m-0">Admin</h6>
+                                                                <p>2025-04-04 04:39 PM</p>
 
+                                                            </div>
+                                                            <p class="bg-light p-2 mb-0 rounded">ok i ll check</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

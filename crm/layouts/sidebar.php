@@ -118,7 +118,7 @@
                 <li>
                     <a class='tp-link' href='delivery-man.php'>
                         <!-- <i data-feather="columns"></i> -->
-                        <img width="" height="20" src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="gender-neutral-user--v1" />
+                        <img width="" height="20" src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/1A1A1A/external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2.png" alt="external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2"/>
                         <span class="ps-1"> Delivery Man </span>
                     </a>
                 </li>
@@ -144,7 +144,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='follow-up.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/communication--v1.png" alt="communication--v1"/>
                         <span class="ps-1">Follow-Up</span>
                     </a>
                 </li>
@@ -154,19 +154,25 @@
                         <span class="ps-1"> Leads </span>
                     </a>
                 </li>
-
+                <li>
+                    <a class='tp-link' href='follow-up.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <span class="ps-1">Follow-Up</span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='meets.php'>
+                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/meeting.png" alt="meeting"/>
+                        <span class="ps-1"> Meets </span>
+                    </a>
+                </li>
                 <li>
                     <a class='tp-link' href='quotation.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
                         <span class="ps-1"> Quotations </span>
                     </a>
                 </li>
-                <li>
-                    <a class='tp-link' href='meets.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
-                        <span class="ps-1"> Meets </span>
-                    </a>
-                </li>
+
                 <li class="menu-title mt-2">Operation Managers</li>
 
                 <li>
@@ -199,7 +205,7 @@
 
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1"/>
                         <span class="ps-1"> Chat Logs </span>
                     </a>
                 </li>
@@ -236,11 +242,19 @@
                 </li>
 
                 <li>
+                    <a class='tp-link' href='in-hand-products.php'>
+                        <i data-feather="columns"></i>
+                        <span>Assign Products </span>
+                    </a>
+                </li>
+
+
+                <!-- <li>
                     <a class='tp-link' href='scrap-items.php'>
                         <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer" />
                         <span class="ps-1"> Scrap items </span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="menu-title mt-2">Customer Care Executives</li>
 

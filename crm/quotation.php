@@ -92,6 +92,7 @@
                                                     <thead>
 
                                                         <tr>
+                                                            <th>Lead ID</th>
                                                             <th>Quotation ID</th>
                                                             <th>Client Name</th>
                                                             <th>Status</th>
@@ -102,6 +103,11 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-001
+                                                                </a>
+                                                            </td>
                                                             <td>QTN-1001</td>
                                                             <td>John Doe Ltd.</td>
                                                             <td>Draft</td>
@@ -121,6 +127,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-002
+                                                                </a>
+                                                            </td>
                                                             <td>QTN-1002</td>
                                                             <td>Acme Corp.</td>
                                                             <td>Sent</td>
@@ -136,6 +147,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-003
+                                                                </a>
+                                                            </td>
                                                             <td>QTN-1003</td>
                                                             <td>XYZ Enterprises</td>
                                                             <td>Accepted</td>
@@ -150,6 +166,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-004
+                                                                </a>
+                                                            </td>
                                                             <td>QTN-1004</td>
                                                             <td>Tech Solutions</td>
                                                             <td>Viewed</td>
@@ -164,6 +185,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td>
+                                                                <a href="view-leads.php">
+                                                                    L-005
+                                                                </a>
+                                                            </td>
                                                             <td>QTN-1005</td>
                                                             <td>Global Ventures</td>
                                                             <td>Rejected</td>
