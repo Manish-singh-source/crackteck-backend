@@ -56,12 +56,17 @@
                     </a>
                 </li> -->
                 <li>
-                    <a class='tp-link' href='product-list.php'> 
+                    <a class='tp-link' href='product-list.php'>
                         <i data-feather="columns"></i>
                         <span>Product List</span>
                     </a>
                 </li>
-
+                <li>
+                    <a class='tp-link' href='scrap-items.php'>
+                        <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer" />
+                        <span class="ps-1"> Scrap items </span>
+                    </a>
+                </li>
                 <li>
                     <a class='tp-link' href='track-product.php'>
                         <i data-feather="columns"></i>
