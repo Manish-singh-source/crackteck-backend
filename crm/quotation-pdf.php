@@ -141,7 +141,7 @@
                             <div class="d-print-none">
                                 <div class="float-end">
                                     <a href="javascript:window.print()" class="btn btn-dark border-0"><i class="mdi mdi-printer me-1"></i>Print</a>
-                                    <a href="#" class="btn btn-primary">Submit</a>
+                                    <a href="quotation.php" class="btn btn-primary">Submit</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

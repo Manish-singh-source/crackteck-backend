@@ -12,7 +12,7 @@
                             <h5 class="card-title flex-grow-1 mb-0">
                                 Spare Part Request
                             </h5>
-                            
+
                         </div>
                     </div>
 
@@ -67,7 +67,8 @@
                                     <th>Brand</th>
                                     <th>Modal Number</th>
                                     <th>Serial Number</th>
-                                    <th>Purchase Date</th>
+                                    <th>Approve Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,28 +77,30 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="./assets/images/products/headphone.png" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
+
                                     <td>
                                         <div>
-                                            Headphone
+                                            External Hard Disk
                                         </div>
                                     </td>
                                     <td>
-                                        Computer
+                                        Storage Device
                                     </td>
                                     <td>
-                                        Sony
+                                        Seagate
                                     </td>
                                     <td>
-                                        Inspiron 3511
+                                        STDR2000100
                                     </td>
                                     <td>
-                                        B0BB7FQBBS
+                                        SGHD789012
                                     </td>
-                                    <td>2025-04-04 06:09 PM</td>
+                                    <td>2024-02-05</td>
+                                    <td>Approved</td>
                                 </tr>
 
                             </tbody>
@@ -109,9 +112,9 @@
 
 
             <div class="col-xl-4">
-               
 
-               
+
+
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">

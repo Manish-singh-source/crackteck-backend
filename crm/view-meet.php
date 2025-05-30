@@ -92,7 +92,7 @@
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Status :
                                         </span>
-                                        <span>
+                                        <span class="badge bg-primary-subtle text-primary fw-semibold">
                                             Scheduled
                                         </span>
                                     </li>

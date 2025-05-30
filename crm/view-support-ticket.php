@@ -111,7 +111,8 @@
                                     <div class="col-12 mt-4 mt-md-0">
                                         <div class="d-flex flex-row justify-content-between align-items-center">
                                             <button type="submit" class="btn btn-md btn-success fs-6 px-4 me-1">Reply</button>
-                                            <button type="submit" class="btn btn-md btn-primary fs-6 px-4 me-1">Close Ticket</button>
+                                            <!-- <button type="submit" class="btn btn-md btn-primary fs-6 px-4 me-1">Close Ticket</button> -->
+                                            <a href="support-ticket.php" class="btn btn-md btn-primary fs-6 px-4 me-1">Close Ticket</a>
                                         </div>
                                     </div>
                                 </div>
