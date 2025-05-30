@@ -42,8 +42,8 @@
                 </li>
                 <li>
                     <a class='tp-link' href='../warehouse/index.php'>
-                        <i data-feather="columns"></i>
-                        <span> Warehouse Dashboard </span>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Warehouse Dashboard </span>
                     </a>
                 </li>
 
@@ -135,7 +135,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='Shipping-rate.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/1A1A1A/external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018.png" alt="external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018" />
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/price-tag-usd--v1.png" alt="price-tag-usd--v1"/>
                         <span class="ps-1"> Shipping Rate </span>
                     </a>
                 </li>
@@ -209,7 +209,7 @@
 
                 <li>
                     <a class='tp-link' href='collection.php'>
-                        <i data-feather="columns"></i>
+                        <img width="" height="20" src="https://img.icons8.com/external-outline-lafs/64/1A1A1A/external-Collection-nft-and-gamefi-outline-lafs.png" alt="external-Collection-nft-and-gamefi-outline-lafs"/>
                         <span> Collection </span>
                     </a>
                 </li>
