@@ -89,7 +89,7 @@
                                             12:45PM
                                         </span>
                                     </li>
-                                   
+
 
                                 </ul>
                             </div>
@@ -131,110 +131,47 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-             <div class="col-xl-4 mx-auto">
+            <div class="col-xl-4 mx-auto">
                 <div class="card">
-              <div class="card-body">
-                                        <form class="row ">
+                    <div class="card-body">
+                        <form class="row g-3">
+                            <div class="col-12">
+                                <label for="status" class="form-label">Lead Status</label>
+                                <select class="form-control" name="status" id="status">
+                                    <option selected disabled>-- Select Status --</option>
+                                    <option value="New">New</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Quoted">Quoted</option>
+                                    <option value="Converted">Converted</option>
+                                    <option value="Lost">Lost</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="status" class="form-label">AMC Type</label>
+                                <select class="form-control" name="status" id="status">
+                                    <option selected disabled>-- Select AMC Type --</option>
+                                    <option value="New">AMC</option>
+                                    <option value="Contacted">Non AMC</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="region" class="form-label">Reasons</label>
+                                <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
+                            </div>
 
-                                          
-                                            <div class="col-12">
-                                                <label for="status" class="form-label">Lead Status</label>
-                                        <select class="form-control" name="status" id="status">
-                                            <option selected disabled>-- Select Status --</option>
-                                            <option value="New">New</option>
-                                            <option value="Contacted">Contacted</option>
-                                            <option value="Qualified">Qualified</option>
-                                            <option value="Quoted">Quoted</option>
-                                            <option value="Converted">Converted</option>
-                                            <option value="Lost">Lost</option>
-                                        </select>
-                                            </div>
-                                           <div class="col-12">
-                                        <label for="region" class="form-label">Reasons</label>
-                                        <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
-                                    </div>
-                                           
-                                          
-                                            <div class="col-12 mt-3">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                        
-                                        
 
-                                        
-                                    </div>
-                
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-</div>
-
-            
         </div>
-
     </div>
-</div> <!-- content -->
-
-
-<!-- JavaScript -->
-<script>
-    $(document).ready(function() {
-        $(".hide-section").hide();
-        $(".hide-report-section").hide();
-        $(".hide-assign-eng-section").hide();
-        $(".hide-selected-engineers-section").hide();
-
-        $("#eng-location").on("change", function() {
-            $(".hide-assign-eng-section").show();
-            $(".hide-section").show();
-        });
-
-        $(".eng-assign").on("change", function() {
-            $(".hide-assign-eng-section").show();
-            $(".hide-section").show();
-            $("#groupDropdown").fadeToggle();
-            $("#individualDropdown").fadeToggle();
-        });
-
-        $(".assign-eng-btn").on("click", function() {
-            $(".hide-section").hide();
-            $(".hide-assign-eng-section").hide();
-            $(".hide-selected-engineers-section").show();
-            $(".hide-report-section").show();
-
-        });
-
-        $(".show-report").on("click", function() {
-            $("#popupOverlay").css("display", "flex");
-        });
-
-        $(".hide-report").on("click", function() {
-            $("#popupOverlay").hide();
-        });
-
-        $(".add-engineer").on("click", function() {
-            const $selectedOptions = $('#groupDropdown1 option:selected');
-            const $tableBody = $('#selectedTable tbody');
-
-            $selectedOptions.each(function() {
-                const optionText = $(this).text();
-
-                // Append row to table
-                const newRow = `
-                    <tr>
-                        <td>${optionText}</td>
-                        <td><input type="checkbox" class="form-check-input" /></td>
-                    </tr>
-                `;
-                $tableBody.append(newRow);
-
-                // Remove option from the select dropdown
-                $(this).remove();
-            });
-        });
-
-    });
-</script>
+</div>
 
 <?php include('layouts/footer.php') ?>
