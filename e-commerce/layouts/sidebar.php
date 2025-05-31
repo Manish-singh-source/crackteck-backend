@@ -154,6 +154,7 @@
                 </li>
 
 
+                <!-- 
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="graph-report" />
@@ -179,7 +180,8 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> 
+                -->
 
                 <li class="menu-title">Website Setup</li>
                 <li>
