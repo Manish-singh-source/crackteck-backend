@@ -83,6 +83,15 @@ include('layouts/header.php') ?>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
+                                        <div>
+                                            <label class="form-label" for="serial">
+                                                Serial No <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="" placeholder="Product Serial No.">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6">
                                         <div class="mb-3">
                                             <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                                             <select class="form-select" id="category" name="category" required="">
@@ -161,15 +170,104 @@ include('layouts/header.php') ?>
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="warranty" class="form-label">With Installation<span class="text-danger">*</span></label>
-                                            <input type="checkbox" id="warranty" name="warranty" value="yes">
+                                        <div class="row justify-content-end align-items-end">
+                                            <div class="col-11">
+                                                <div class="mb-3">
+                                                    <label for="warranty" class="form-label">With Installation</label>
+                                                    <input type="text" class="form-control" id="warranty" name="warranty" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="mb-3">
+                                                    <button class="btn btn-primary w-100 add-warranty">Add</button>
+                                                </div>
+                                            </div>
+
+                                            <table class="table mt-4" id="warrantyTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Installation Included</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Selected values will appear here -->
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+
+                                    <!-- <div class="col-xl-12 col-lg-6 warranty-list">
+                                        <div class="row px-5">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="os_install" class="form-label">OS Installation</label>
+                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
+                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="os_install" class="form-label">OS Installation</label>
+                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
+                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <!--
+                                    <div class="col-xl-12 col-lg-6 warranty-list">
+                                        <div class="row px-5">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="os_install" class="form-label">OS Installation</label>
+                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
+                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="os_install" class="form-label">OS Installation</label>
+                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
+                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    -->
+
                                     <div class="col-xl-12  col-lg-6">
                                         <div class="mb-3">
-                                            <label for="warranty" class="form-label">Warranty</label>
-                                            <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Warranty">
+                                            <label for="brand_warranty_details" class="form-label">Brand Warranty</label>
+                                            <input type="text" class="form-control" id="brand_warranty_details" name="brand_warranty_details" required="" value="" placeholder="Enter Brand Warranty">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-12  col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="crackteck_warranty_details" class="form-label">Company Warranty</label>
+                                            <input type="text" class="form-control" id="crackteck_warranty_details" name="crackteck_warranty_details" required="" value="" placeholder="Enter Our Company Warranty">
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +332,7 @@ include('layouts/header.php') ?>
                                         <div>
                                             <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
                                             <input name="stock" id="stock" type="text" class="form-control" value="" placeholder="Enter Stock" required="">
+                                            <div id="emailHelp" class="text-danger">Stock Should Be Less Than 50</div>
                                         </div>
                                     </div>
                                     <div class="col-6 mb-2">
@@ -466,5 +565,51 @@ include('layouts/header.php') ?>
         </div>
     </div> <!-- container-fluid -->
 </div> <!-- content -->
+
+<script>
+    $(document).ready(function() {
+        // Add engineer to table
+        $('#warrantyTable').hide();
+        $(".add-warranty").on("click", function() {
+            $('#warrantyTable').show();
+            const warrantyValue = $('#warranty').val();
+            const tableBody = $('#warrantyTable tbody');
+            console.log(warrantyValue);
+            const newRow = `
+                            <tr>
+                                <td>${warrantyValue}</td>
+                                <td>
+                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-warning-subtle me-1" data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                        <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                    </a>
+                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        `;
+            console.log(warrantyValue);
+            tableBody.append(newRow);
+        });
+    });
+
+
+    $(document).ready(function() {
+        $(".warranty-list").hide();
+
+        $("#warranty").on('click', function() {
+            if ($(this)[0].checked) {
+                $(".warranty-list").show();
+            } else {
+                $(".warranty-list").hide();
+            }
+        });
+
+        $("#reject-request").on('click', function() {
+            $(this).parent().hide();
+            $(".request-status").html("Rejected");
+        });
+    });
+</script>
 
 <?php include('layouts/footer.php') ?>

@@ -209,6 +209,7 @@
                                     <th>Type</th>
                                     <th>Price</th>
                                     <th>Modal Number</th>
+                                    <th>Product Serial Number</th>
                                     <th>Serial Number</th>
                                     <th>Barcode</th>
                                     <th>Action</th>
@@ -238,6 +239,7 @@
                                     <td>
                                         Inspiron 3511
                                     </td>
+                                    <td>B0BB7FQBBS</td>
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBS">
                                     </td>
@@ -269,6 +271,7 @@
                                     <td>
                                         Inspiron 3511
                                     </td>
+                                    <td>B0BB7FQBBS</td>
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBQ">
                                     </td>
@@ -300,6 +303,7 @@
                                     <td>
                                         Inspiron 3511
                                     </td>
+                                    <td>B0BB7FQBBS</td>
                                     <td>
                                         <input type="text" class="form-control" value="B0BB7FQBBR">
                                     </td>

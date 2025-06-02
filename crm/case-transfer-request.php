@@ -48,12 +48,46 @@
                             <h5 class="card-title flex-grow-1 mb-0">
                                 Transfer Request
                             </h5>
-                            <div>
-                                <a href="#" id="approve-request" class="mb-0 btn btn-sm btn-success">Approve</a>
-                                <a href="#" id="reject-request" class="mb-0 btn btn-sm btn-danger">Reject</a>
+                            <div class="action-buttons">
+                                <!-- <a href="#" id="approve-request" class="mb-0 btn btn-sm btn-success">Approve</a> -->
+                                <!-- <a href="#" id="reject-request" class="mb-0 btn btn-sm btn-danger">Reject</a> -->
+                                <button type="button" class="mb-0 btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                    Approve
+                                </button>
+                                <button type="button" class="mb-0 btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                    Reject
+                                </button>
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="standard-modalLabel">Request</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body px-3 py-md-2">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label class="form-label" for="flexRadioDefault1">
+                                                Approve Reason
+                                            </label>
+                                            <input class="form-control" type="text" name="flexRadioDefault" id="flexRadioDefault1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="approve-request">Approve</button>
+                                    <button type="button" class="btn btn-danger" id="reject-request">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="card-body">
                         <ul class="list-group list-group-flush ">
@@ -70,6 +104,13 @@
                                 </span>
                                 <span>
                                     <span class="badge bg-danger-subtle text-danger request-status fw-semibold">Pending</span>
+                                </span>
+                            </li>
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Transfer Reason:
+                                </span>
+                                <span>
+                                    Not able to solve at this point.
                                 </span>
                             </li>
 
@@ -181,7 +222,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
@@ -342,8 +382,6 @@
 
 
                 </div>
-
-
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
@@ -476,7 +514,7 @@
                                 <thead>
                                     <tr>
                                         <th>Group Name</th>
-                                        <th>Admin</th>
+                                        <th>Supervisor</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -631,7 +669,8 @@
     $(document).ready(function() {
 
         $("#approve-request").on('click', function() {
-            $(this).parent().hide();
+            $(".action-buttons").hide();
+            $("#standard-modal").modal('hide');
             $(".request-status").html("Approved");
             $(".request-status").removeClass("bg-danger-subtle text-danger");
             $(".request-status").addClass("bg-success-subtle text-success");
@@ -639,8 +678,11 @@
         });
 
         $("#reject-request").on('click', function() {
-            $(this).parent().hide();
+            $(".action-buttons").hide();
+            $("#standard-modal").modal('hide');
             $(".request-status").html("Rejected");
+            $(".request-status").removeClass("bg-success-subtle text-success");
+            $(".request-status").addClass("bg-danger-subtle text-danger");
         });
 
         $(".engineer-details").hide();

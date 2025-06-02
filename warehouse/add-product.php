@@ -22,6 +22,41 @@
                                     <div class="row g-4 align-items-center">
                                         <div class="col-sm">
                                             <h5 class="card-title mb-0">
+                                                Vendor Information
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="po_number">
+                                                    PO Number <span class="text-danger">*</span>
+                                                </label>
+                                                <input name="po_number" id="po_number" type="text" class="form-control" value="" placeholder="Enter PO Number" required="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="vendor_name">
+                                                    Vendor Name <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="vendor_name" name="vendor_name" required="" value="" placeholder="Enter Vendor Name">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header border-bottom-dashed">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-sm">
+                                            <h5 class="card-title mb-0">
                                                 Basic Product Information
                                             </h5>
                                         </div>
@@ -74,6 +109,15 @@
                                                     Model No <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Model No.">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="model">
+                                                    Serial No <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Serial No.">
                                             </div>
                                         </div>
 

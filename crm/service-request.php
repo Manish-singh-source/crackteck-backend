@@ -283,28 +283,26 @@
                     <div class="card-body pt-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active p-2" onclick="showSection()" id="all_services_tab" data-bs-toggle="tab"
-                                        href="#all_services" role="tab">
-                                        <span class="d-block d-sm-none"><i
-                                                class="mdi mdi-information"></i></span>
-                                        <span class="d-none d-sm-block">AMC Services</span>
-                                    </a>
-                                </li>
                                 <li class="nav-item">
-                                    <a class="nav-link p-2" onclick="hideSection()" id="pending_services_tab" data-bs-toggle="tab" href="#pending_services"
+                                    <a class="nav-link active p-2" onclick="showSection()" id="pending_services_tab" data-bs-toggle="tab" href="#pending_services"
                                         role="tab">
                                         <span class="d-block d-sm-none"><i
                                                 class="mdi mdi-sitemap-outline"></i></span>
                                         <span class="d-none d-sm-block">NON AMC Call Services</span>
                                     </a>
                                 </li>
-
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link p-2" onclick="hideSection()" id="all_services_tab" data-bs-toggle="tab"
+                                        href="#all_services" role="tab">
+                                        <span class="d-block d-sm-none"><i
+                                                class="mdi mdi-information"></i></span>
+                                        <span class="d-none d-sm-block">AMC Services</span>
+                                    </a>
+                                </li>
                             </ul>
                             <div>
-                                <a href="create-amc.php" id="mySection" class="btn btn-primary">Create AMC</a>
-                                <a href="create-servies.php" id="mySection1" class="btn btn-primary">Create Service</a>
-                                <!-- <button class="btn btn-primary">Add New Role</button> -->
+                                <a href="create-servies.php" id="mySection" class="btn btn-primary">Create Service</a>
+                                <a href="create-amc.php" id="mySection1" class="btn btn-primary">Create AMC</a>
                             </div>
                         </div>
                         <script>
