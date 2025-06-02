@@ -157,6 +157,44 @@ include('layouts/header.php') ?>
                                 </form>
                             </div>
                         </div>
+
+                        <div class="card pb-4">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">
+                                    Police Verification Details
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="post" id="branch-form">
+                                    <div class="row g-3">
+
+                                        <div class="col-6">
+                                            <label for="policeVerification" class="form-label">Police Verification:</label>
+                                            <select id="policeVerification" class="form-control" name="police_verification" required>
+                                                <option value="">Select</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="policeVerificationStatus" class="form-label">Police Verification Status:</label>
+                                            <select id="policeVerificationStatus" class="form-control" name="police_verification_status" required>
+                                                <option value="">Select</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="policeCertificate" class="form-label">Upload Police Verification Document:</label>
+                                            <input type="file" id="policeCertificate" class="form-control" name="police_certificate" accept=".pdf,.jpg,.png" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-4">

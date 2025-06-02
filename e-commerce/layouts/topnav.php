@@ -2,14 +2,38 @@
 <div class="topbar-custom">
     <div class="container-fluid">
         <div class="d-flex justify-content-between">
-            <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center">
+            <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center gap-2">
                 <li>
                     <button class="button-toggle-menu nav-link">
                         <i data-feather="menu" class="noti-icon"></i>
                     </button>
                 </li>
-                <li class="d-none d-lg-block">
-                    <h5 class="mb-0">Good Morning, Alex</h5>
+
+                <li class="bg-light px-2 py-1 rounded-lg">
+                    <h5 class="mb-0">
+                        <a class='tp-link' href='../e-commerce/index.php'>
+                            <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
+                            <span class="ps-1"> E-commerce </span>
+                        </a>
+                    </h5>
+                </li>
+
+                <li class="bg-light px-2 py-1 rounded-lg">
+                    <h5 class="mb-0">
+                        <a class='tp-link' href='./index.php'>
+                            <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
+                            <span class="ps-1"> CRM </span>
+                        </a>
+                    </h5>
+                </li>
+
+                <li class="bg-light px-2 py-1 rounded-lg">
+                    <h5 class="mb-0">
+                        <a class='tp-link' href='../warehouse/index.php'>
+                            <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                            <span class="ps-1"> Warehouse </span>
+                        </a>
+                    </h5>
                 </li>
             </ul>
 

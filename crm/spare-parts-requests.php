@@ -152,7 +152,12 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-xl-2 col-sm-3 col-6">
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!-- <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
                                         <select class="form-select" name="type" id="">
 
@@ -209,10 +214,6 @@
                                         <li><a class="dropdown-item" href="#">Rejected</a></li>
                                     </ul>
                                 </div> -->
-                            </div>
-
-                        </form>
-                    </div>
                     <div class="card-body pt-0">
                         <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">

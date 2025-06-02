@@ -2,7 +2,7 @@
 
 <div class="content">
 
-    <!-- Start Content-->
+
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -125,7 +125,7 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- container-fluid -->
-    </div> <!-- content -->
+        </div> 
+    </div> 
 
     <?php include('layouts/footer.php') ?>
