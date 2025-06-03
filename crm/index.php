@@ -11,32 +11,38 @@
 
         <!-- Start Main Widgets -->
         <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl">
-                <div class="card">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
                     <div class="card-body">
                         <div class="widget-first">
 
-                            <div class="d-flex align-items-center mb-2">
-                                <div
-                                    class="p-2 border border-primary border-opacity-10 bg-primary-subtle rounded-2 me-2">
-                                    <div class="bg-primary rounded-circle widget-size text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="#ffffff"
-                                                d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-                                        </svg>
-                                    </div>
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Customers</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">456</h3>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total Customers</p>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">3,456</h3>
-                                <div class="text-center">
-                                    <span class="text-primary fs-14"><i
-                                            class="mdi mdi-trending-up fs-14"></i> 12.5%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
-                                </div>
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
                             </div>
 
                         </div>
@@ -44,32 +50,38 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl">
-                <div class="card">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
                     <div class="card-body">
                         <div class="widget-first">
 
-                            <div class="d-flex align-items-center mb-2">
-                                <div
-                                    class="p-2 border border-secondary border-opacity-10 bg-secondary-subtle rounded-2 me-2">
-                                    <div class="bg-secondary rounded-circle widget-size text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="#ffffff"
-                                                d="m10 17l-5-5l1.41-1.42L10 14.17l7.59-7.59L19 8m-7-6A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2" />
-                                        </svg>
-                                    </div>
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Engineers</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">65</h3>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total Services</p>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">2,839</h3>
-                                <div class="text-center">
-                                    <span class="text-danger fs-14 me-2"><i
-                                            class="mdi mdi-trending-down fs-14"></i> 1.5%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
-                                </div>
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
                             </div>
 
                         </div>
@@ -77,32 +89,38 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl">
-                <div class="card">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
                     <div class="card-body">
                         <div class="widget-first">
 
-                            <div class="d-flex align-items-center mb-2">
-                                <div
-                                    class="p-2 border border-danger border-opacity-10 bg-danger-subtle rounded-2 me-2">
-                                    <div class="bg-danger rounded-circle widget-size text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="#ffffff"
-                                                d="M22 19H2v2h20zM4 15c0 .5.2 1 .6 1.4s.9.6 1.4.6V6c-.5 0-1 .2-1.4.6S4 7.5 4 8zm9.5-9h-3c0-.4.1-.8.4-1.1s.6-.4 1.1-.4c.4 0 .8.1 1.1.4c.2.3.4.7.4 1.1M7 6v11h10V6h-2q0-1.2-.9-2.1C13.2 3 12.8 3 12 3q-1.2 0-2.1.9T9 6zm11 11c.5 0 1-.2 1.4-.6s.6-.9.6-1.4V8c0-.5-.2-1-.6-1.4S18.5 6 18 6z" />
-                                        </svg>
-                                    </div>
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Delivery Man</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">45</h3>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total AMC</p>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">2,254</h3>
-                                <div class="text-center">
-                                    <span class="text-primary fs-14 me-2"><i
-                                            class="mdi mdi-trending-up fs-14"></i> 12.8%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
-                                </div>
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
                             </div>
 
                         </div>
@@ -110,34 +128,38 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-6 col-xl">
-                <div class="card">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
                     <div class="card-body">
                         <div class="widget-first">
 
-                            <div class="d-flex align-items-center mb-2">
-                                <div
-                                    class="p-2 border border-warning border-opacity-10 bg-warning-subtle rounded-2 me-2">
-                                    <div class="bg-warning rounded-circle widget-size text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="#ffffff"
-                                                d="M7 15h2c0 1.08 1.37 2 3 2s3-.92 3-2c0-1.1-1.04-1.5-3.24-2.03C9.64 12.44 7 11.78 7 9c0-1.79 1.47-3.31 3.5-3.82V3h3v2.18C15.53 5.69 17 7.21 17 9h-2c0-1.08-1.37-2-3-2s-3 .92-3 2c0 1.1 1.04 1.5 3.24 2.03C14.36 11.56 17 12.22 17 15c0 1.79-1.47 3.31-3.5 3.82V21h-3v-2.18C8.47 18.31 7 16.79 7 15" />
-                                        </svg>
-                                    </div>
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Leads</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">124</h3>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total Revenue</p>
                             </div>
 
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">₹4,578</h3>
-
-                                <div class="text-muted">
-                                    <span class="text-danger fs-14 me-2"><i
-                                            class="mdi mdi-trending-down fs-14"></i> 18%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
-                                </div>
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">Leads This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
                             </div>
 
                         </div>
@@ -145,38 +167,116 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-lg-6 col-xl">
-                <div class="card">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
                     <div class="card-body">
                         <div class="widget-first">
 
-                            <div class="d-flex align-items-center mb-2">
-                                <div
-                                    class="p-2 border border-success border-opacity-10 bg-success-subtle rounded-2 me-2">
-                                    <div class="bg-success rounded-circle widget-size text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none" stroke="#ffffff" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2">
-                                                <path d="M5 19L19 5" />
-                                                <circle cx="7" cy="7" r="3" />
-                                                <circle cx="17" cy="17" r="3" />
-                                            </g>
-                                        </svg>
-                                    </div>
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Follow Ups</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">85</h3>
                                 </div>
-                                <p class="mb-0 text-dark fs-15">Total Scrap Items</p>
                             </div>
 
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">Follow Ups This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
+                            </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 fs-22 text-dark me-3">14</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                <div class="text-muted">
-                                    <span class="text-danger fs-14 me-2"><i
-                                            class="mdi mdi-trending-down fs-14"></i> 8%</span>
-                                    <p class="text-dark fs-13 mb-0">Last 7 days</p>
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
+                    <div class="card-body">
+                        <div class="widget-first">
+
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total Service Requests</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">122</h3>
                                 </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">Requests This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
+                    <div class="card-body">
+                        <div class="widget-first">
+
+                            <div class="d-flex align-items-center mb-1">
+                                <span
+                                    class="avatar-md rounded-circle bg-gray d-flex justify-content-center align-items-center me-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#108dff" fill-rule="evenodd"
+                                            d="M2.545 8.73C2 9.8 2 11.2 2 14s0 4.2.545 5.27a5 5 0 0 0 2.185 2.185C5.8 22 7.2 22 10 22h4c2.8 0 4.2 0 5.27-.545a5 5 0 0 0 2.185-2.185C22 18.2 22 16.8 22 14s0-4.2-.545-5.27a5 5 0 0 0-2.185-2.185C18.2 6 16.8 6 14 6h-4c-2.8 0-4.2 0-5.27.545A5 5 0 0 0 2.545 8.73M15.06 12.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"
+                                            clip-rule="evenodd" />
+                                        <path fill="#108dff"
+                                            d="M12 2c4.713 0 7.07 0 8.535 1.464c.757.758 1.123 1.754 1.3 3.192V10H2.164V6.656c.176-1.438.541-2.434 1.299-3.192C4.928 2 7.285 2 11.999 2"
+                                            opacity="0.5" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="mb-2 text-dark fs-15 fw-medium">Total AMC Requests</p>
+                                    <h3 class="mb-0 fs-22 text-dark me-3">144</h3>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mt-3 justify-content-between">
+                                <p class="mb-0 text-dark mt-1 fs-14 fw-medium">Requests This Month
+                                </p>
+                                <p class="text-muted mb-0 fs-13 d-flex flex-column">
+                                    <span
+                                        class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+9.5%</span>
+                                </p>
                             </div>
 
                         </div>
@@ -202,10 +302,10 @@
                                     type="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">This Month<i
                                         class="mdi mdi-chevron-down ms-1 fs-14"></i></button>
-                                <!-- <div class="dropdown-menu dropdown-menu-end">
+                                <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#">This Month</a>
                                     <a class="dropdown-item" href="#">Last Month</a>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -274,6 +374,489 @@
             </div>
         </div>
         <!-- end start -->
+
+        <div class="row">
+            <div class="col-md-6 col-xl-8">
+                <div class="col-md-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <h5 class="card-title mb-0">Top Leads</h5>
+                                <div class="ms-auto">
+                                    <button class="btn btn-sm bg-light border dropdown-toggle fw-medium" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by Created<i class="mdi mdi-chevron-down ms-1 fs-14"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="#">Created</a>
+                                        <a class="dropdown-item" href="#">Converted</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="totalleads" class="apex-charts mt-n3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Plans</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="mt-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-fill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="d-block ">Basic Plan</span>
+                                        <span class="d-block ">40%</span>
+                                    </div>
+                                    <div class="progress progress-md mt-2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-fill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="d-block ">Standard</span>
+                                        <span class="d-block ">80%</span>
+                                    </div>
+                                    <div class="progress progress-md mt-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-fill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="d-block ">Premium</span>
+                                        <span class="d-block ">45%</span>
+                                    </div>
+                                    <div class="progress progress-md mt-2" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-fill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="d-block ">Custom Plan</span>
+                                        <span class="d-block ">25%</span>
+                                    </div>
+                                    <div class="progress progress-md mt-2" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width: 25%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- start row -->
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="card overflow-hidden">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Leads Overview</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="deals-statistics" class="apex-charts"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-9">
+                <div class="card overflow-hidden">
+
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Leads Report</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-0">
+                        <div class="table-responsive table-card mt-0">
+
+                            <table
+                                class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                                <thead class="text-muted table-light">
+                                    <tr>
+                                        <th scope="col" class="cursor-pointer">Lead Id</th>
+                                        <th scope="col" class="cursor-pointer">Company</th>
+                                        <th scope="col" class="cursor-pointer">Contact Person</th>
+                                        <th scope="col" class="cursor-pointer">Industry</th>
+                                        <th scope="col" class="cursor-pointer">Source</th>
+                                        <th scope="col" class="cursor-pointer">Requirement</th>
+                                        <th scope="col" class="cursor-pointer">Budget</th>
+                                        <th scope="col" class="cursor-pointer">Urgency</th>
+                                        <th scope="col" class="cursor-pointer">Status</th>
+                                        <th scope="col" class="cursor-pointer">Created By</th>
+                                        <th scope="col" class="cursor-pointer">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>L-001</td>
+                                        <td>ABC Ltd</td>
+                                        <td>sarah</td>
+                                        <td>Pharma</td>
+                                        <td>Website</td>
+                                        <td>CCTV</td>
+                                        <td>50K</td>
+                                        <td>High</td>
+                                        <td><span
+                                                class="badge bg-primary-subtle text-primary fw-semibold">New</span>
+                                        </td>
+                                        <td>Raj Patel</td>
+
+                                        <td>
+                                            <a aria-label="anchor" href="view-leads.php"
+                                                class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                            </a>
+                                            <a aria-label="anchor" href="add-leads.php"
+                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                            </a>
+                                            <a aria-label="anchor"
+                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>L-001</td>
+                                        <td>ABC Ltd</td>
+                                        <td>sarah</td>
+                                        <td>Pharma</td>
+                                        <td>Website</td>
+                                        <td>CCTV</td>
+                                        <td>50K</td>
+                                        <td>High</td>
+                                        <td><span
+                                                class="badge bg-primary-subtle text-primary fw-semibold">New</span>
+                                        </td>
+                                        <td>Raj Patel</td>
+
+                                        <td>
+                                            <a aria-label="anchor" href="view-leads.php"
+                                                class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                            </a>
+                                            <a aria-label="anchor" href="add-leads.php"
+                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                            </a>
+                                            <a aria-label="anchor"
+                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>L-002</td>
+                                        <td>ABC Ltd</td>
+                                        <td>sarah</td>
+                                        <td>Pharma</td>
+                                        <td>Website</td>
+                                        <td>CCTV</td>
+                                        <td>50K</td>
+                                        <td>High</td>
+                                        <td><span
+                                                class="badge bg-danger-subtle text-danger fw-semibold">Lost</span></td>
+                                        <td>Raj Patel</td>
+
+                                        <td>
+                                            <a aria-label="anchor" href="view-leads.php"
+                                                class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                            </a>
+                                            <a aria-label="anchor" href="add-leads.php"
+                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                            </a>
+                                            <a aria-label="anchor"
+                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>L-002</td>
+                                        <td>ABC Ltd</td>
+                                        <td>sarah</td>
+                                        <td>Pharma</td>
+                                        <td>Website</td>
+                                        <td>CCTV</td>
+                                        <td>50K</td>
+                                        <td>High</td>
+                                        <td><span
+                                                class="badge bg-primary-subtle text-primary fw-semibold">New</span></td>
+                                        <td>Raj Patel</td>
+
+                                        <td>
+                                            <a aria-label="anchor" href="view-leads.php"
+                                                class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                            </a>
+                                            <a aria-label="anchor" href="add-leads.php"
+                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                            </a>
+                                            <a aria-label="anchor"
+                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>L-002</td>
+                                        <td>ABC Ltd</td>
+                                        <td>sarah</td>
+                                        <td>Pharma</td>
+                                        <td>Website</td>
+                                        <td>CCTV</td>
+                                        <td>50K</td>
+                                        <td>High</td>
+                                        <td><span
+                                                class="badge bg-danger-subtle text-danger fw-semibold">Lost</span></td>
+                                        <td>Raj Patel</td>
+
+                                        <td>
+                                            <a aria-label="anchor" href="view-leads.php"
+                                                class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                            </a>
+                                            <a aria-label="anchor" href="add-leads.php"
+                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                            </a>
+                                            <a aria-label="anchor"
+                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody><!-- end tbody -->
+                            </table><!-- end table -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- start row -->
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card overflow-hidden">
+
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Top Salesperson Performance</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-0">
+                        <div class="table-responsive table-card mt-0">
+
+                            <table
+                                class="table table-borderless table-centered align-middle table-nowrap mb-0">
+
+                                <thead class="text-muted table-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Target (₹)</th>
+                                        <th>Achieved (₹)</th>
+                                        <th>Deals Closed</th>
+                                        <th>Conversion Rate</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Amit Sharma</td>
+                                        <td>1,00,000</td>
+                                        <td>1,20,000</td>
+                                        <td>15</td>
+                                        <td>75%</td>
+                                        <td class="good">Excellent</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ravi Mehta</td>
+                                        <td>1,00,000</td>
+                                        <td>80,000</td>
+                                        <td>10</td>
+                                        <td>60%</td>
+                                        <td class="avg">Average</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Neha Singh</td>
+                                        <td>1,00,000</td>
+                                        <td>55,000</td>
+                                        <td>5</td>
+                                        <td>35%</td>
+                                        <td class="poor">Needs Improvement</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card overflow-hidden">
+
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Top Engineer Performance</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-0">
+                        <div class="table-responsive table-card mt-0">
+
+                            <table
+                                class="table table-borderless table-centered align-middle table-nowrap mb-0">
+
+                                <thead class="text-muted table-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Service Calls</th>
+                                        <th>Resolved</th>
+                                        <th>Response Time (avg)</th>
+                                        <th>Customer Rating</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Suresh Patil</td>
+                                        <td>50</td>
+                                        <td>48</td>
+                                        <td>2h</td>
+                                        <td>4.7 ★</td>
+                                        <td class="good">Excellent</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manish Jain</td>
+                                        <td>45</td>
+                                        <td>40</td>
+                                        <td>3h</td>
+                                        <td>4.1 ★</td>
+                                        <td class="avg">Good</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Priya Nair</td>
+                                        <td>40</td>
+                                        <td>30</td>
+                                        <td>5h</td>
+                                        <td>3.5 ★</td>
+                                        <td class="poor">Needs Training</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card overflow-hidden">
+
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">Top Delivery Men Performance</h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-0">
+                        <div class="table-responsive table-card mt-0">
+
+                            <table
+                                class="table table-borderless table-centered align-middle table-nowrap mb-0">
+
+                                <thead class="text-muted table-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Total Deliveries</th>
+                                        <th>On-Time Deliveries</th>
+                                        <th>Customer Complaints</th>
+                                        <th>Area</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rahul Desai</td>
+                                        <td>200</td>
+                                        <td>195</td>
+                                        <td>0</td>
+                                        <td>Mumbai South</td>
+                                        <td class="good">Outstanding</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Arjun Thakur</td>
+                                        <td>180</td>
+                                        <td>160</td>
+                                        <td>2</td>
+                                        <td>Navi Mumbai</td>
+                                        <td class="avg">Satisfactory</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jaydeep Yadav</td>
+                                        <td>170</td>
+                                        <td>130</td>
+                                        <td>5</td>
+                                        <td>Thane</td>
+                                        <td class="poor">Needs Review</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
     </div> <!-- container-fluid -->
 </div> <!-- content -->
