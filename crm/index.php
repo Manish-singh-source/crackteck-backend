@@ -376,7 +376,7 @@
         <!-- end start -->
 
         <div class="row">
-            <div class="col-md-6 col-xl-8">
+            <div class="col-md-12 col-xl-8">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
@@ -470,7 +470,7 @@
 
         <!-- start row -->
         <div class="row">
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-12 col-xl-3">
                 <div class="card overflow-hidden">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
