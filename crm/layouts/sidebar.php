@@ -50,13 +50,6 @@
 
                 <li class="menu-title">Access Control</li>
 
-                <!-- <li>
-                            <a class='tp-link' href='index.php'>
-                                <i data-feather="columns"></i>
-                                <span> Dashboard </span>
-                            </a>
-                        </li> -->
-
                 <li>
                     <a href="#accesscontrol" data-bs-toggle="collapse">
                         <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials" />
@@ -118,7 +111,7 @@
                 <li>
                     <a class='tp-link' href='delivery-man.php'>
                         <!-- <i data-feather="columns"></i> -->
-                        <img width="" height="20" src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/1A1A1A/external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2.png" alt="external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2"/>
+                        <img width="" height="20" src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/1A1A1A/external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2.png" alt="external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2" />
                         <span class="ps-1"> Delivery Man </span>
                     </a>
                 </li>
@@ -156,7 +149,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='meets.php'>
-                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/meeting.png" alt="meeting"/>
+                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/meeting.png" alt="meeting" />
                         <span class="ps-1"> Meets </span>
                     </a>
                 </li>
@@ -199,7 +192,7 @@
 
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1"/>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1" />
                         <span class="ps-1"> Chat Logs </span>
                     </a>
                 </li>
@@ -211,6 +204,12 @@
                     </a>
                 </li>
 
+                <li>
+                    <a class='tp-link' href='pincodes.php'>
+                        <i data-feather="columns"></i>
+                        <span> Manage Pincodes </span>
+                    </a>
+                </li>
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
