@@ -27,9 +27,36 @@ include('layouts/header.php') ?>
 
 
         <div class="row">
+
             <div class="col-12">
                 <div class="row">
                     <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="row g-4 align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="card-title mb-0">
+                                            Role Access
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label for="marital" class="form-label">Role
+                                            <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="marital" id="marital">
+                                            <option selected disabled value="">-- Select --</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Sales Person">Sales Person</option>
+                                            <option value="Operation Manager">Operation Manager</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="row g-4 align-items-center">
@@ -328,7 +355,7 @@ include('layouts/header.php') ?>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 <?php include('layouts/footer.php') ?>

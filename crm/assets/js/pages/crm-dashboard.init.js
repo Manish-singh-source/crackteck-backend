@@ -14,7 +14,7 @@ var options = {
         ],
       },
       {
-        name: "Total Revenue",
+        name: "Total Expence",
         data: [
           7400, 5900, 3200, 7300, 3400, 5800, 8900, 6540, 4100, 6380, 2300,
           6750,
@@ -163,10 +163,10 @@ options = {
 )).render();
 options = {
   series: [
-    { name: "Hot Leads", data: [80, 50, 30, 40, 100, 20] },
-    { name: "Normal Leads", data: [20, 100, 35, 78, 60, 30] },
-    { name: "Cold Leads", data: [20, 30, 40, 80, 20, 80] },
-    { name: "Qualified", data: [44, 76, 78, 13, 43, 10] },
+    { name: "New Leads", data: [80, 50, 30, 40, 100, 20] },
+    { name: "Qualified Leads", data: [20, 100, 35, 78, 60, 30] },
+    { name: "Unqualified Leads", data: [20, 30, 40, 80, 20, 80] },
+    { name: "Lost", data: [44, 76, 78, 13, 43, 10] },
   ],
   chart: {
     type: "radar",
@@ -223,5 +223,42 @@ options = {
 };
 (chart = new ApexCharts(
   document.querySelector("#deals-statistics"),
+  options
+)).render();
+options = {
+  series: [
+    { name: "Created", data: [48, 32, 42, 28, 15, 32, 20] },
+    { name: "Converted", data: [32, 33, 39, 42, 72, 55, 60] },
+  ],
+  chart: {
+    type: "bar",
+    height: 367,
+    stacked: !0,
+    foreColor: "#adb0bb",
+    parentHeightOffset: 0,
+    toolbar: { show: !1 },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: !1,
+      columnWidth: "20%",
+      endingShape: "rounded",
+      startingShape: "rounded",
+    },
+  },
+  dataLabels: { enabled: !1 },
+  xaxis: { categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"] },
+  grid: {
+    borderColor: "rgba(0,0,0,0.1)",
+    strokeDashArray: 3,
+    xaxis: { lines: { show: !1 } },
+    yaxis: { lines: { show: !0 } },
+  },
+  colors: ["#c26316", "#D49664"],
+  legend: { position: "bottom" },
+  fill: { opacity: 1 },
+};
+(chart = new ApexCharts(
+  document.querySelector("#totalleads"),
   options
 )).render();
