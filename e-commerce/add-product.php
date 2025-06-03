@@ -4,7 +4,6 @@ include('layouts/header.php') ?>
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
 
         <div class="bradcrumb pt-3 ps-2 bg-light">
@@ -48,7 +47,7 @@ include('layouts/header.php') ?>
                                             <label class="form-label" for="product_name">
                                                 Product Name <span class="text-danger">*</span>
                                             </label>
-                                            <input name="product_name" id="product_name" type="text" class="form-control" value="" placeholder="Enter Product Name" required="">
+                                            <input name="product_name" id="product_name" type="text" class="form-control" value="ZKTeco MB20 Biometric Attendance Device" placeholder="Enter Product Name" required="">
                                         </div>
                                     </div>
 
@@ -57,7 +56,7 @@ include('layouts/header.php') ?>
                                             <label class="form-label" for="sku">
                                                 SKU <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="" placeholder="Product SKU Code">
+                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="#SKU-001" placeholder="Product SKU Code">
                                         </div>
                                     </div>
 
@@ -65,7 +64,8 @@ include('layouts/header.php') ?>
                                         <div class="mb-3">
                                             <label for="brand" class="form-label">Brand <span class="text-danger">*</span></label>
                                             <select class="form-select" id="brand" name="brand" required="">
-                                                <option selected disabled value="">-- Select --</option>
+                                                <option disabled value="">-- Select --</option>
+                                                <option selected value="">ZKTeco</option>
                                                 <option value="">TP-Link</option>
                                                 <option value="">Cisco</option>
                                                 <option value=""> D-Link</option>
@@ -78,16 +78,25 @@ include('layouts/header.php') ?>
                                             <label class="form-label" for="model">
                                                 Model No <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="model" name="model" required="" value="" placeholder="Product Model No.">
+                                            <input type="text" class="form-control" id="model" name="model" required="" value="MB20" placeholder="Product Model No.">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
                                             <label class="form-label" for="serial">
-                                                Serial No <span class="text-danger">*</span>
+                                                Product Serial No <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="" placeholder="Product Serial No.">
+                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="B0BB7FQBBS" placeholder="Product Serial No.">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div>
+                                            <label class="form-label" for="serial">
+                                                Custom Serial No <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="B0BB7FQBBS" placeholder="Custom Product Serial No.">
                                         </div>
                                     </div>
 
@@ -95,8 +104,8 @@ include('layouts/header.php') ?>
                                         <div class="mb-3">
                                             <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                                             <select class="form-select" id="category" name="category" required="">
-                                                <option selected disabled value="">-- Select --</option>
-                                                <option value="">TP-Link</option>
+                                                <option disabled value="">-- Select --</option>
+                                                <option selected value="">Biometric Attendance & Access Control System</option>
                                                 <option value="">Cisco</option>
                                                 <option value=""> D-Link</option>
                                             </select>
@@ -107,10 +116,10 @@ include('layouts/header.php') ?>
                                         <div class="mb-3">
                                             <label for="subcategory" class="form-label">Subcategory <span class="text-danger">*</span></label>
                                             <select class="form-select" id="subcategory" name="subcategory" required="">
-                                                <option selected disabled value="">-- Select --</option>
-                                                <option value="">TP-Link</option>
+                                                <option disabled value="">-- Select --</option>
+                                                <option selected value="">Biometric Attendance & Access Control System</option>
                                                 <option value="">Cisco</option>
-                                                <option value=""> D-Link</option>
+                                                <option value="">D-Link</option>
                                             </select>
                                         </div>
                                     </div>
@@ -130,43 +139,77 @@ include('layouts/header.php') ?>
                                     <div class="col-12 mb-2">
                                         <div>
                                             <label for="short_details" class="form-label">Short Description <span class="text-danger">*</span></label>
-                                            <!-- <textarea id="short_details" class="form-control text-editor" name="short_details" placeholder="Enter Description"></textarea> -->
                                             <div id="quill-editor" style="height: 300px;">
-                                                <h1>Hello World</h1>
+                                                <p>A high-performance biometric device designed for secure and accurate attendance tracking and access control.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
                                         <div>
                                             <label for="full_details" class="form-label">Full Description<span class="text-danger">*</span></label>
-                                            <!-- <textarea id="full_details" class="form-control text-editor" name="full_details" placeholder="Enter Full Description"></textarea> -->
                                             <div id="quill-editor1" style="height: 300px;">
-                                                <h1>Hello World</h1>
+                                                <p>A high-performance biometric device designed for secure and accurate attendance tracking and access control. This compact and efficient system uses fingerprint, face recognition, and/or RFID technology to verify individual identity, helping organizations streamline workforce management and enhance security.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
                                         <div>
                                             <label for="tech_specs" class="form-label">Technical Specifications<span class="text-danger">*</span></label>
-                                            <!-- 
-                                            <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea>
-                                            -->
                                         </div>
                                         <div id="quill-editor2" style="height: 300px;">
-                                            <h1>Hello World</h1>
-                                            <p><br></p>
-                                            <h4>This is an simple editable area</h4>
-                                            <p><br></p>
-                                            <ol>
-                                                <li>
-                                                    Select a text to reveal the toolbar.
-                                                </li>
-                                                <li>
-                                                    Edit rich document on-the-fly, so elastic!
-                                                </li>
-                                            </ol>
-                                            <br>
-                                            <p>Preset build with <code>snow</code> theme, and some common formats.</p>
+                                            <div>
+                                                <table class="table table-bordered" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                                                    <thead>
+                                                        <tr style="background-color: #f2f2f2;">
+                                                            <th>Specification</th>
+                                                            <th>Details</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Identification Methods</td>
+                                                            <td>Fingerprint, Face Recognition, RFID Card, PIN</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fingerprint Capacity</td>
+                                                            <td>5,000 templates</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Face Capacity</td>
+                                                            <td>1,000 templates</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Card Capacity</td>
+                                                            <td>5,000 (125kHz RFID)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Transaction Storage</td>
+                                                            <td>100,000 records</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Recognition Speed</td>
+                                                            <td>≤ 0.5 seconds</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Display</td>
+                                                            <td>2.8-inch TFT Color LCD</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Audio/Visual Indicators</td>
+                                                            <td>Voice Prompt &amp; LED Notification</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Communication Interface</td>
+                                                            <td>TCP/IP, USB Host, Wi-Fi (optional)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Access Control Interface</td>
+                                                            <td>Door Sensor, Exit Button, Electric Lock, Alarm</td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-6">
@@ -174,7 +217,7 @@ include('layouts/header.php') ?>
                                             <div class="col-11">
                                                 <div class="mb-3">
                                                     <label for="warranty" class="form-label">With Installation</label>
-                                                    <input type="text" class="form-control" id="warranty" name="warranty" value="yes">
+                                                    <input type="text" class="form-control" id="warranty" name="warranty" value="Yes">
                                                 </div>
                                             </div>
                                             <div class="col-1">
@@ -197,65 +240,6 @@ include('layouts/header.php') ?>
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-xl-12 col-lg-6 warranty-list">
-                                        <div class="row px-5">
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="os_install" class="form-label">OS Installation</label>
-                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
-                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="os_install" class="form-label">OS Installation</label>
-                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
-                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                    <!--
-                                    <div class="col-xl-12 col-lg-6 warranty-list">
-                                        <div class="row px-5">
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="os_install" class="form-label">OS Installation</label>
-                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
-                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="os_install" class="form-label">OS Installation</label>
-                                                    <input type="checkbox" id="os_install" name="os_install" value="yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="mb-3">
-                                                    <label for="virus_install" class="form-label">Antivirus Installation</label>
-                                                    <input type="checkbox" id="virus_install" name="virus_install" value="yes">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                    -->
 
                                     <div class="col-xl-12  col-lg-6">
                                         <div class="mb-3">
@@ -401,11 +385,6 @@ include('layouts/header.php') ?>
 
                         </div>
 
-                        <!-- <div class="text-start mb-3">
-                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                Submit
-                            </button>
-                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
@@ -487,8 +466,8 @@ include('layouts/header.php') ?>
                                 <div>
                                     <label for="product_status" class="form-label">Product Status <span class="text-danger">*</span></label>
                                     <select required="" name="product_status" id="product_status" class="form-select w-100">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="1">Active</option>
+                                        <option disabled value="">-- Select --</option>
+                                        <option selected value="1">Active</option>
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
@@ -511,6 +490,10 @@ include('layouts/header.php') ?>
                                 <div class="mt-3 mb-3">
                                     <label for="dimensions" class="form-label">Product Dimensions (L × W × H cm/mm)<span class="text-danger">*</span></label>
                                     <input name="dimensions" id="dimensions" type="text" class="form-control" value="" placeholder="Enter Dimension" required="">
+                                </div>
+                                <div class="mt-3 mb-3">
+                                    <label for="shipping_charges" class="form-label">Shipping Charges<span class="text-danger">*</span></label>
+                                    <input name="shipping_charges" id="shipping_charges" type="text" class="form-control" value="" placeholder="Enter Shipping Charges" required="">
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="featured_image" class="form-label">Shipping Class<span class="text-danger">*</span></label>

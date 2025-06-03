@@ -207,8 +207,8 @@
                                         </div> -->
                                         <div class="col-xl-12  col-lg-6">
                                             <div class="mb-3">
-                                                <label for="warranty" class="form-label">Warranty</label>
-                                                <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Warranty">
+                                                <label for="warranty" class="form-label">Brand Warranty</label>
+                                                <input type="text" class="form-control" id="warranty" name="warranty" required="" value="" placeholder="Enter Brand Warranty">
                                             </div>
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-6 mb-2">
+                                        <!-- <div class="col-6 mb-2">
                                             <div>
                                                 <label for="min_order_qty" class="form-label">Minimum Order Qty<span class="text-danger">*</span></label>
                                                 <input name="min_order_qty" id="min_order_qty" type="number" class="form-control" value="" placeholder="Enter Minimum Order Quantity" required="">
@@ -297,13 +297,13 @@
                                                 <label for="max_order_qty" class="form-label">Maximum Order Qty<span class="text-danger">*</span></label>
                                                 <input name="max_order_qty" id="max_order_qty" type="number" class="form-control" value="" placeholder="Enter Maximum Order Quantity" required="">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="card pb-4">
+                            <!-- <div class="card pb-4">
                                 <div class="card-header border-bottom-dashed">
                                     <h5 class="card-title mb-0">
                                         SEO
@@ -339,7 +339,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
 
                             <div class="card">
                                 <div class="card-header">
@@ -516,7 +516,7 @@
 
                             </div>
 
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header border-bottom-dashed">
                                     <h5 class="card-title mb-0">
                                         Shipping Details
@@ -542,9 +542,9 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
 
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header border-bottom-dashed">
                                     <h5 class="card-title mb-0">
                                         Other Information:
@@ -568,7 +568,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-12">

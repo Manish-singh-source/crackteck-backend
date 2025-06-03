@@ -13,6 +13,26 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <h5 class="card-title mb-0">Service Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <div class="row g-3 pb-3">
+                                <div class="col-4">
+                                    <label for="product_type" class="form-label">Service Type <span class="text-danger">*</span></label>
+                                    <select required="" name="product_type" id="product_type" class="form-select w-100">
+                                        <option selected disabled>-- Select Service Type --</option>
+                                        <option value="Online">Online</option>
+                                        <option value="Offline">Offline</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
                         <h5 class="card-title mb-0">Customer Details</h5>
                     </div>
                     <div class="card-body">
@@ -20,18 +40,26 @@
                             <div class="row g-3 pb-3">
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="firstname" class="form-label">
-                                            First Name <span class="text-danger">*</span>
+                                        <label for="address" class="form-label">
+                                            Customer Type
                                         </label>
-                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your Name" id="firstname">
+                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter Customer Type" id="address">
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="firstname" class="form-label">
-                                            List Name <span class="text-danger">*</span>
+                                            First Name <span class="text-danger">*</span>
                                         </label>
-                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your Name" id="firstname">
+                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your First Name" id="firstname">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="firstname" class="form-label">
+                                            Last Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input required="" type="text" name="firstname" value="" class="form-control" placeholder="Enter Your Last Name" id="firstname">
                                     </div>
                                 </div>
 
@@ -106,23 +134,19 @@
                                         <label for="address" class="form-label">
                                             DOB
                                         </label>
-                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Pin Code" id="address">
+                                        <input type="date" name="address" value="" class="form-control" placeholder="" id="address">
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="address" class="form-label">
+                                        <label for="gender" class="form-label">
                                             Gender
                                         </label>
-                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Gender" id="address">
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div>
-                                        <label for="address" class="form-label">
-                                            Customer Type
-                                        </label>
-                                        <input type="text" name="address" value="" class="form-control" placeholder="Enter your Gender" id="address">
+                                        <select name="gender" id="gender" class="form-select w-100">
+                                            <option selected disabled>-- Select Gender --</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- <div class="col-xl-4 col-lg-6">
@@ -133,6 +157,12 @@
                                         <input type="text" name="address" value="" class="form-control" placeholder="Enter your Priority Level" id="address">
                                     </div>
                                 </div> -->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <div class="row g-3 pb-3">
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="address" class="form-label">
@@ -365,7 +395,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
             <div class="col-lg-12">
                 <div class="text-start mb-3">
