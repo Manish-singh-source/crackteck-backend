@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search By Name, ">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -43,8 +43,8 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Ascending Order</a></li>
-                                            <li><a class="dropdown-item" href="#">Descending Order</a></li>
+                                            <li><a class="dropdown-item" href="#">Module Number</a></li>
+                                            <li><a class="dropdown-item" href="#">Serial Number</a></li>
                                         </ul>
                                     </div>
 
@@ -64,84 +64,38 @@
                                             </div>
 
                                             <div class="modal-body px-3 py-md-2">
-                                                <h5>Checkboxes</h5>
+                                                <h5>Status</h5>
                                                 <div class="row">
-                                                    <div class="col-6">
-                                                        <h6 class="fs-15">Checkboxes</h6>
-                                                        <div class="mt-3">
-                                                            <div class="form-check mb-2">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                    checkbox
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                                                <label class="form-check-label" for="flexCheckDefault1">
-                                                                    checkbox 1
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <h6 class="fs-15">Disabled</h6>
-                                                        <div class="mt-3">
-                                                            <div class="form-check mb-2">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                                                                <label class="form-check-label" for="flexCheckDefault2">
-                                                                    checkbox 2
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                                    checkbox 3
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <h5>Radio</h5>
-                                                <div class="row">
-                                                    <div class="col-6">
-
+                                                    <div class="col">
                                                         <div class="mt-3">
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                                    Radio
+                                                                    Approved
                                                                 </label>
                                                             </div>
-
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mt-3">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                                    Radio 1
+                                                                    Pending
                                                                 </label>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-6">
-
+                                                    <div class="col">
                                                         <div class="mt-3">
-                                                            <div class="form-check mb-2">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled">
-                                                                <label class="form-check-label" for="flexRadioDisabled">
-                                                                    Radio 2
-                                                                </label>
-                                                            </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled">
-                                                                <label class="form-check-label" for="flexRadioCheckedDisabled">
-                                                                    Radio 3
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                                    Rejected
                                                                 </label>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
