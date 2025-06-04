@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Name, Speciality">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>

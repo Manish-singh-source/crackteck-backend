@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Pincode">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Shipping Title">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -44,7 +44,10 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Pincode</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Title</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Min Order</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Max Order</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Shipping Amount</a></li>
                                         </ul>
                                     </div>
 

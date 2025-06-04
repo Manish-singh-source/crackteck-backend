@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Lead Id">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -46,7 +46,8 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Company Name</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Lead Id</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Name</a></li>
                                             <!-- <li><a class="dropdown-item" href="#">Sort By Ratings</a></li>  -->
                                         </ul>
                                     </div>
@@ -191,8 +192,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Lead Id</th>
-                                                            <th>Company</th>
-                                                            <th>Contact Person</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Contact No</th>
+                                                            <th>Company Name</th>
                                                             <th>Industry</th>
                                                             <th>Source</th>
                                                             <th>Requirement</th>
@@ -206,8 +208,9 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>L-001</td>
-                                                            <td>ABC Ltd</td>
                                                             <td>sarah</td>
+                                                            <td>7709787878</td>
+                                                            <td>ABC Ltd</td>
                                                             <td>Pharma</td>
                                                             <td>Website</td>
                                                             <td>CCTV</td>
@@ -236,8 +239,9 @@
                                                         </tr>
                                                         <tr>
                                                             <td>L-002</td>
-                                                            <td>ABC Ltd</td>
                                                             <td>sarah</td>
+                                                            <td>7709787878</td>
+                                                            <td>ABC Ltd</td>
                                                             <td>Pharma</td>
                                                             <td>Website</td>
                                                             <td>CCTV</td>
