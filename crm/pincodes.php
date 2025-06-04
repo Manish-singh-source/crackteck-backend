@@ -9,7 +9,7 @@
                 <h4 class="fs-18 fw-semibold m-0">Pincode List</h4>
             </div>
             <div>
-                <a href="add-delivery-man.php" class="btn btn-primary">Add New Pincode</a>
+                <a href="create-pincode.php" class="btn btn-primary">Add New Pincode</a>
             </div>
         </div>
 
@@ -105,7 +105,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Delivery Men</span>
+                                    <span class="d-none d-sm-block">All Pincodes</span>
                                 </a>
                             </li>
                         </ul>
@@ -123,7 +123,8 @@
                                                         <tr>
                                                             <th>Sr. No.</th>
                                                             <th>Pincode</th>
-                                                            <th>Status</th>
+                                                            <th>Delivery Status</th>
+                                                            <th>Installation Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -141,11 +142,15 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-delivery-man.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked">
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
                                                                 <a aria-label="anchor" href="add-delivery-man.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -171,11 +176,15 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-delivery-man.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked" checked>
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
                                                                 <a aria-label="anchor" href="add-delivery-man.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -191,6 +200,16 @@
                                                         <tr>
                                                             <td>3</td>
                                                             <td>442499</td>
+
+                                                            <td>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked" checked>
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
                                                             <td>
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"
@@ -201,11 +220,6 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-delivery-man.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
                                                                 <a aria-label="anchor" href="add-delivery-man.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -225,17 +239,21 @@
                                                                 <div class="form-check form-switch mb-2">
                                                                     <input class="form-check-input"
                                                                         type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckChecked">
+                                                                    <label class="form-check-label"
+                                                                        for="flexSwitchCheckChecked"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check form-switch mb-2">
+                                                                    <input class="form-check-input"
+                                                                        type="checkbox" role="switch"
                                                                         id="flexSwitchCheckChecked" checked>
                                                                     <label class="form-check-label"
                                                                         for="flexSwitchCheckChecked"></label>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-delivery-man.php"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
                                                                 <a aria-label="anchor" href="add-delivery-man.php"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
@@ -257,12 +275,12 @@
                                 </div>
 
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 
 <?php include('layouts/footer.php') ?>

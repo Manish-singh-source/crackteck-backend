@@ -32,7 +32,7 @@
 
                 <li class="bg-light px-2 py-1 rounded-lg">
                     <h5 class="mb-0">
-                        <a class='tp-link' href='./index.php'>
+                        <a class='tp-link' href='../crm/index.php'>
                             <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
                             <span class="ps-1"> CRM </span>
                         </a>

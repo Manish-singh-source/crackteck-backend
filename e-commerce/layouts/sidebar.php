@@ -25,7 +25,7 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">Dashboard</li>
+                <!-- <li class="menu-title">Dashboard</li>
 
                 <li>
                     <a class='tp-link' href='index.php'>
@@ -45,7 +45,7 @@
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
                         <span class="ps-1"> Warehouse Dashboard </span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- <li class="menu-title">Access Control</li> -->
 

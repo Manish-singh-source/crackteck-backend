@@ -2,55 +2,115 @@
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Products List</h4>
             </div>
-            <!-- <div>
-                <a href="add-product.php" class="btn btn-primary">Add New Product</a> -->
-                <!-- <button class="btn btn-primary">Add New Product</button> -->
-            <!-- </div> -->
+            <div>
+                <a href="add-product.php" class="btn btn-primary">Add New Product</a>
+            </div>
         </div>
 
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body pt-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active p-2" id="all_customer_tab" data-bs-toggle="tab"
-                                        href="#all_customer" role="tab">
-                                        <span class="d-block d-sm-none"><i
-                                                class="mdi mdi-information"></i></span>
-                                        <span class="d-none d-sm-block">All Products</span>
-                                    </a>
-                                </li>
-                                <!-- 
-                            <li class="nav-item">
-                                <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                    role="tab">
-                                    <span class="d-block d-sm-none"><i
-                                            class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Trashed Products</span>
-                                </a>
-                            </li> 
-                            -->
-                            </ul>
-                            <div>
-                                <form action="#" method="POST" id="service-form" enctype="multipart/form-data">
-                                    <div class="row g-3 align-items-end">
-                                        <div class="col-12">
-                                            <input type="text" id="product-search" class="form-control" placeholder="Enter Product Id">
-                                            <div class="list-group suggestions" id="suggestions-list"></div>
+                    <div class="card-body border border-dashed border-end-0 border-start-0">
+                        <form action="#" method="get">
+                            <div class="d-flex justify-content-between">
+                                <div class="row">
+                                    <div class="col-xl-10 col-md-10 col-sm-10">
+                                        <div class="search-box">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Product">
+                                            <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-xl-2 col-md-2 col-sm-2 col-2">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <button type="submit" class="btn btn-primary waves ripple-light">
+                                                <i class="fa-solid fa-magnifying-glass "></i>
+
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-arrow-up-z-a "></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Sort By Name</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Quantity</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Date</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                            <i class="fa-solid fa-filter "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="standard-modalLabel">Filters</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body px-3 py-md-2">
+                                                <h5>Category</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    Electronic
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Biometric
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
+
+                        </form>
+                    </div>
+                    <div class="card-body pt-0">
+                        <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active p-2" id="all_customer_tab" data-bs-toggle="tab"
+                                    href="#all_customer" role="tab">
+                                    <span class="d-block d-sm-none"><i
+                                            class="mdi mdi-information"></i></span>
+                                    <span class="d-none d-sm-block">All Products</span>
+                                </a>
+                            </li>
+
+                        </ul>
 
                         <div class="tab-content text-muted">
 
@@ -67,6 +127,7 @@
                                                             <th>Categories - Sold Item</th>
                                                             <th>Info</th>
                                                             <th>Top Item - Todays Deal</th>
+                                                            <th>Quantity</th>
                                                             <th>Time - Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -81,7 +142,7 @@
                                                                     </div>
                                                                     <div>
                                                                         <div>
-                                                                            Headphone
+                                                                            Laptop
                                                                         </div>
                                                                         <div>
                                                                             Brand: Sony
@@ -122,6 +183,7 @@
                                                                     No
                                                                 </a>
                                                             </td>
+                                                            <td>5</td>
                                                             <td>
                                                                 <div>
                                                                     17 Apr 2025
@@ -130,7 +192,7 @@
                                                                     class="badge bg-success-subtle text-success fw-semibold">Published</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor"
+                                                                <a aria-label="anchor" href="./product-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -145,6 +207,11 @@
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                 </a>
+                                                                <a aria-label="scrap" href="scrap-items.php"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Scrap">
+                                                                    <i class="mdi mdi-recycle-variant fs-14 text-warning"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
 
@@ -155,74 +222,14 @@
                                     </div>
                                 </div>
 
-                            </div><!-- end Experience -->
+                            </div>
 
-                        </div> <!-- Tab panes -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- container-fluid -->
-</div> <!-- content -->
-
-
-<script>
-    $(document).ready(function() {
-        $(".service-info").hide();
-
-        $("#service-form").on('submit', function(e) {
-            e.preventDefault();
-            $(".service-info").show();
-        })
-    });
-</script>
-
-<script>
-    const products = [
-        "Apple iPhone 14",
-        "Samsung Galaxy S22",
-        "Sony WH-1000XM5",
-        "Dell XPS 13",
-        "HP Spectre x360",
-        "Logitech MX Master 3",
-        "Bose QuietComfort 45",
-        "Apple MacBook Pro 16",
-        "Google Pixel 6",
-        "Nintendo Switch"
-    ];
-
-    const searchBox = document.getElementById('product-search');
-    const suggestionsList = document.getElementById('suggestions-list');
-
-    searchBox.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        suggestionsList.innerHTML = ''; // Clear previous suggestions
-
-        if (query.length > 0) {
-            const filteredProducts = products.filter(product => product.toLowerCase().includes(query));
-
-            filteredProducts.forEach(product => {
-                const div = document.createElement('a');
-                div.setAttribute("href", "./add-product.php");
-                div.classList.add('list-group-item', 'list-group-item-action', 'suggestion-item');
-                div.textContent = product;
-
-                div.addEventListener('click', () => {
-                    searchBox.value = product; // Fill the input box with the selected suggestion
-                    suggestionsList.innerHTML = ''; // Clear suggestions
-                });
-
-                suggestionsList.appendChild(div);
-            });
-        }
-    });
-
-    // Hide suggestions when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.position-relative')) {
-            suggestionsList.innerHTML = ''; // Clear suggestions
-        }
-    });
-</script>
+    </div>
+</div>
 
 <?php include('layouts/footer.php') ?>
