@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Pincode">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Brand">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -44,7 +44,7 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Pincode</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Name</a></li>
                                         </ul>
                                     </div>
 
@@ -63,7 +63,31 @@
                                             </div>
 
                                             <div class="modal-body px-3 py-md-2">
-                                                <h5>Status</h5>
+                                                <h5>Top Brand</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    Active
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Inactive
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <h5>Brand Status</h5>
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="mt-3">

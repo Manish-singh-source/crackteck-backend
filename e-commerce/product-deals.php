@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Product List</h4>
+                <h4 class="fs-18 fw-semibold m-0">Product Offers List</h4>
             </div>
             <div>
                 <a href="add-deals.php" class="btn btn-primary">Add New Product</a>
@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Pincode">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Deal Offer">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -44,7 +44,10 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Pincode</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Name</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Discount</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Offer Price</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Time Left</a></li>
                                         </ul>
                                     </div>
 

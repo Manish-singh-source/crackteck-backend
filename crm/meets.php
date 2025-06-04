@@ -21,16 +21,14 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Lead Id, Meeting Id">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
                                     <div class="col-xl-2 col-md-2 col-sm-2 col-2">
                                         <div class="d-flex justify-content-center align-items-center">
                                             <button type="submit" class="btn btn-primary waves ripple-light">
-                                                <!-- <span class="d-none d-md-inline-flex"> Search </span> -->
                                                 <i class="fa-solid fa-magnifying-glass "></i>
-
                                             </button>
                                         </div>
                                     </div>
@@ -43,8 +41,8 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Company Name</a></li>
-                                            <!-- <li><a class="dropdown-item" href="#">Sort By Ratings</a></li>  -->
+                                            <li><a class="dropdown-item" href="#">Sort By Meeting Id</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Date</a></li>
                                         </ul>
                                     </div>
 
@@ -64,50 +62,6 @@
                                             </div>
 
                                             <div class="modal-body px-3 py-md-2">
-                                                <h5>Industry Type</h5>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="mt-3">
-                                                            <div class="form-check mb-2">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                    Pharma
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mt-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="hardware">
-                                                                <label class="form-check-label" for="hardware">
-                                                                    Retail
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mt-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="ossupport">
-                                                                <label class="form-check-label" for="ossupport">
-                                                                    Manufacturer
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mt-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="networking">
-                                                                <label class="form-check-label" for="networking">
-                                                                    Healthcare
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
                                                 <h5>Status</h5>
                                                 <div class="row">
                                                     <div class="col-6">
@@ -115,7 +69,7 @@
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                                    New
+                                                                    Pending
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -125,7 +79,7 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                                    Lost
+                                                                    Scheduled
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -135,7 +89,7 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="qualified">
                                                                 <label class="form-check-label" for="qualified">
-                                                                    Qualified
+                                                                    Confirmed
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -145,7 +99,7 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="unqualified">
                                                                 <label class="form-check-label" for="unqualified">
-                                                                    Unqualified
+                                                                    Cancelled
                                                                 </label>
                                                             </div>
                                                         </div>

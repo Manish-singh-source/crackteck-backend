@@ -22,7 +22,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Pincode">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Name">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -37,14 +37,6 @@
                                 </div>
 
                                 <div class="row g-3">
-                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-arrow-up-z-a "></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Pincode</a></li>
-                                        </ul>
-                                    </div>
 
                                     <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
@@ -122,7 +114,7 @@
                                                         </td>
                                                         <td>Welcome</td>
                                                         <td>
-                                                            <span class="badge bg-danger-subtle text-danger fw-semibold">Disable</span>
+                                                            <span class="badge bg-danger-subtle text-danger fw-semibold">Inactive</span>
                                                         </td>
                                                         <td>
                                                             <a aria-label="anchor"
