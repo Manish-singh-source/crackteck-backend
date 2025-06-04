@@ -20,7 +20,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search User Name, Role">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -42,17 +42,18 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Company Name</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Date and Time</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By IP Address</a></li>
                                             <!-- <li><a class="dropdown-item" href="#">Sort By Ratings</a></li>  -->
                                         </ul>
                                     </div>
 
-                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                    <!-- <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
-                                            <!-- <span class="d-none d-md-inline-flex"> Filters </span> -->
+                                            <span class="d-none d-md-inline-flex"> Filters </span>
                                             <i class="fa-solid fa-filter "></i>
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
                                     <div class="modal-dialog">

@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Spare Parts Requests</h4>
+                <h4 class="fs-18 fw-semibold m-0">Engineer In Hand Product</h4>
             </div>
         </div>
 
@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Pincode">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Engineer Name">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -41,15 +41,17 @@
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Sort By Pincode</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Total Qty</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By In Hand Qty</a></li>
+                                            <li><a class="dropdown-item" href="#">Sort By Used Qty</a></li>
                                         </ul>
                                     </div>
 
-                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                    <!-- <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
                                             <i class="fa-solid fa-filter "></i>
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
