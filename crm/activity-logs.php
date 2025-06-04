@@ -14,6 +14,155 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-body border border-dashed border-end-0 border-start-0">
+                        <form action="#" method="get">
+                            <div class="d-flex justify-content-between">
+                                <div class="row">
+                                    <div class="col-xl-10 col-md-10 col-sm-10">
+                                        <div class="search-box">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Products">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-md-2 col-sm-2 col-2">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <button type="submit" class="btn btn-primary waves ripple-light">
+                                                <!-- <span class="d-none d-md-inline-flex"> Search </span> -->
+                                                <i class="fa-solid fa-magnifying-glass "></i>
+
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <!-- <span class="d-none d-md-inline-flex"> Sort </span> -->
+                                            <i class="fa-solid fa-arrow-up-z-a "></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Sort By Company Name</a></li>
+                                            <!-- <li><a class="dropdown-item" href="#">Sort By Ratings</a></li>  -->
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                                            <!-- <span class="d-none d-md-inline-flex"> Filters </span> -->
+                                            <i class="fa-solid fa-filter "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="standard-modalLabel">Filters</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body px-3 py-md-2">
+                                                <h5>Industry Type</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    Pharma
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="hardware">
+                                                                <label class="form-check-label" for="hardware">
+                                                                    Retail
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="ossupport">
+                                                                <label class="form-check-label" for="ossupport">
+                                                                    Manufacturer
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="networking">
+                                                                <label class="form-check-label" for="networking">
+                                                                    Healthcare
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <h5>Status</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    New
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Lost
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="qualified">
+                                                                <label class="form-check-label" for="qualified">
+                                                                    Qualified
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="mt-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="unqualified">
+                                                                <label class="form-check-label" for="unqualified">
+                                                                    Unqualified
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
                     <div class="card-body pt-0">
                         <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">

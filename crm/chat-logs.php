@@ -19,6 +19,7 @@
                         </div>
                     </div>
 
+                    
                     <div class="card-body">
                         <div class="ticket-chat-wrapper p-3 bg-soft-gray rounded" data-simplebar="init">
                             <div class="simplebar-wrapper" style="margin: -16px;">
