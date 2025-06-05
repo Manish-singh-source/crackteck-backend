@@ -294,24 +294,11 @@
             <div class="col-md-12 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <div class="d-flex align-items-center">
-                            <h5 class="card-title mb-0">Sales Overview</h5>
-
-                            <div class="ms-auto">
-                                <button class="btn btn-sm bg-light border dropdown-toggle fw-medium"
-                                    type="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">This Month<i
-                                        class="mdi mdi-chevron-down ms-1 fs-14"></i></button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">This Month</a>
-                                    <a class="dropdown-item" href="#">Last Month</a>
-                                </div>
-                            </div>
-                        </div>
+                        <h5 class="card-title mb-0">Sales Overview</h5>
                     </div>
 
                     <div class="card-body">
-                        <div id="sales-overview" class="apex-charts"></div>
+                        <div id="basic_column_chart" class="apex-charts"></div>
                     </div>
                 </div>
             </div>

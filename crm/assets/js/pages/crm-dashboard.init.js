@@ -262,3 +262,51 @@ options = {
   document.querySelector("#totalleads"),
   options
 )).render();
+
+var options = {
+    series: [
+      { name: "Net Profit", data: [44, 55, 57, 56, 61, 58, 63, 60, 66] },
+      { name: "Revenue", data: [76, 85, 101, 98, 87, 105, 91, 114, 94] },
+      { name: "Free Cash Flow", data: [35, 41, 36, 26, 45, 48, 52, 53, 41] },
+    ],
+    chart: {
+      type: "bar",
+      height: 350,
+      parentHeightOffset: 0,
+      toolbar: { show: !1 },
+    },
+    colors: ["#b8c2cc", "#28c76f", "#ff9f43"],
+    plotOptions: {
+      bar: { horizontal: !1, columnWidth: "45%", endingShape: "rounded" },
+    },
+    dataLabels: { enabled: !1 },
+    stroke: { show: !0, width: 2, colors: ["transparent"] },
+    xaxis: {
+      categories: [
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+      ],
+    },
+    yaxis: { title: { text: "₹ (thousands)" } },
+    grid: { borderColor: "#f1f1f1" },
+    fill: { opacity: 1 },
+    tooltip: {
+      y: {
+        formatter: function (e) {
+          return "₹ " + e + " thousands";
+        },
+      },
+    },
+  },
+  chart = new ApexCharts(
+    document.querySelector("#basic_column_chart"),
+    options
+  );
+chart.render();

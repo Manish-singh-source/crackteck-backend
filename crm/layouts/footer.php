@@ -6,8 +6,7 @@
                 &copy;
                 <script>
                     document.write(new Date().getFullYear())
-                </script> - Made with <span
-                    class="mdi mdi-heart text-danger"></span> by <a href="#!"
+                </script> - Made by <a href="#!"
                     class="text-reset fw-semibold">Technofra</a>
             </div>
         </div>
