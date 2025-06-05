@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Deposit log list</h4>
+                <h4 class="fs-18 fw-semibold m-0">Re-Imbursement log list</h4>
             </div>
         </div>
 
@@ -22,7 +22,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Deposits</span>
+                                    <span class="d-none d-sm-block">All Re-Imbursements</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -30,7 +30,7 @@
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Pending Deposits</span>
+                                    <span class="d-none d-sm-block">Pending Re-Imbursements</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -38,7 +38,7 @@
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Approved Deposits</span>
+                                    <span class="d-none d-sm-block">Approved Imbursements</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -46,7 +46,7 @@
                                     role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-sitemap-outline"></i></span>
-                                    <span class="d-none d-sm-block">Rejected Deposits</span>
+                                    <span class="d-none d-sm-block">Rejected Imbursements</span>
                                 </a>
                             </li>
                         </ul>
@@ -62,10 +62,10 @@
                                                     <thead>
 
                                                         <tr>
-                                                            <td>Deposit ID</td>
+                                                            <td>Imbursements ID</td>
                                                             <td>Date</td>
                                                             <td>User Type</td>
-                                                            <td>Depositor Name</td>
+                                                            <td>Name</td>
                                                             <td>Amount</td>
                                                             <td>Method</td>
                                                             <td>Status</td>
@@ -77,7 +77,7 @@
 
                                                         <tr>
 
-                                                            <td>DEP001</td>
+                                                            <td>RI001</td>
                                                             <td>2025-05-26</td>
                                                             <td>Customer</td>
                                                             <td>Ravi Kumar</td>
@@ -91,7 +91,7 @@
                                                         </tr>
                                                         <tr>
 
-                                                            <td>DEP002</td>
+                                                            <td>RI002</td>
                                                             <td>2025-05-26</td>
                                                             <td>Staff</td>
                                                             <td>Admin User</td>
@@ -103,7 +103,7 @@
                                                             <td>Inventory fund</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>DEP003</td>
+                                                            <td>RI003</td>
                                                             <td>2025-05-25</td>
                                                             <td>Customer</td>
                                                             <td>Sarah Khan</td>

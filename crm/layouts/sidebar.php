@@ -83,7 +83,7 @@
                                 <a class='tp-link' href='payments.php'>Payment</a>
                             </li>
                             <li>
-                                <a class='tp-link' href='deposits.php'>Deposit</a>
+                                <a class='tp-link' href='reimbursement.php'>Re-Imbursement</a>
                             </li>
                             <li>
                                 <a class='tp-link' href='withdraw.php'>Withdraw</a>

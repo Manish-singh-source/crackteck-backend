@@ -21,29 +21,32 @@
                     </button>
                 </li>
 
-                <li class="bg-light px-2 py-1 rounded-lg">
+                <li class="px-2 py-1 rounded-lg">
                     <h5 class="mb-0">
                         <a class='tp-link' href='../e-commerce/index.php'>
-                            <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
-                            <span class="ps-1"> E-commerce </span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <!-- <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" /> -->
+                            <span class="d-none d-md-inline-flex ps-1"> E-commerce </span>
                         </a>
                     </h5>
                 </li>
 
-                <li class="bg-light px-2 py-1 rounded-lg">
+                <li class="px-2 py-1 rounded-lg">
                     <h5 class="mb-0">
                         <a class='tp-link' href='../crm/index.php'>
-                            <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
-                            <span class="ps-1"> CRM </span>
+                            <i class="fas fa-users"></i>
+                            <!-- <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" /> -->
+                            <span class="d-none d-md-inline-flex ps-1"> CRM </span>
                         </a>
                     </h5>
                 </li>
 
-                <li class="bg-light px-2 py-1 rounded-lg">
+                <li class="px-2 py-1 rounded-lg">
                     <h5 class="mb-0">
                         <a class='tp-link' href='../warehouse/index.php'>
-                            <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
-                            <span class="ps-1"> Warehouse </span>
+                            <i class="fas fa-warehouse"></i>
+                            <!-- <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" /> -->
+                            <span class="d-none d-md-inline-flex ps-1"> Warehouse </span>
                         </a>
                     </h5>
                 </li>
@@ -51,7 +54,7 @@
 
             <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center">
                 <li class="d-none d-lg-block">
-                    <form class="app-search d-none d-md-block me-auto">
+                    <form class="app-search d-none d-xxl-block me-auto">
                         <div class="position-relative topbar-search">
                             <input type="text" class="form-control ps-4" placeholder="Search..." />
                             <i
@@ -75,7 +78,7 @@
                     </button>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="d-none d-sm-flex nav-item dropdown">
                     <a class="nav-link text-dark dropdown-toggle dropdown-toggle-nocaret show" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="javascript:;" aria-expanded="true">
                         <i data-feather="grid" class="align-middle dots-grid"></i>
                     </a>
@@ -152,7 +155,7 @@
                     </div>
                 </li>
 
-                <li class="dropdown notification-list topbar-dropdown">
+                <li class="d-none d-sm-flex dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
                         <i data-feather="bell" class="noti-icon"></i>
@@ -296,7 +299,7 @@
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="assets/images/users/user-13.jpg" alt="user-image" class="rounded-circle" />
-                        <span class="pro-user-name ms-1">Alex <i class="mdi mdi-chevron-down"></i></span>
+                        <span class="d-none d-sm-inline-block pro-user-name ms-1">Alex <i class="mdi mdi-chevron-down"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown">
                         <!-- item-->
