@@ -164,49 +164,53 @@
 
                 <li>
                     <a class='tp-link' href='amc-plans.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/1A1A1A/external-amc-video-file-extension-line-creatype-outline-colourcreatype.png" alt="external-amc-video-file-extension-line-creatype-outline-colourcreatype" />
+                       <i class="fas fa-project-diagram"></i>
+
                         <span class="ps-1"> AMC Plans </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='service-request.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <i class="fas fa-clipboard-list"></i>
                         <span class="ps-1"> Service Requests </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='track-request.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/tracks.png" alt="tracks" />
+                       <i class="fas fa-location-arrow"></i>
+
                         <span class="ps-1"> Track Request </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='case-transfer.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/back-sorting.png" alt="back-sorting" />
+                        <i class="fas fa-exchange-alt"></i>
                         <span class="ps-1"> Case Transfer </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1" />
+                       <i class="fas fa-comments"></i>
+
                         <span class="ps-1"> Chat Logs </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='activity-logs.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/phone-disconnected.png" alt="phone-disconnected" />
+                        <i class="fas fa-stream"></i>
+
                         <span class="ps-1"> Activity Logs </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='pincodes.php'>
-                        <i data-feather="columns"></i>
+                       <i class="fas fa-globe-asia"></i>
                         <span> Manage Pincodes </span>
                     </a>
                 </li>
@@ -222,14 +226,15 @@
 
                 <li>
                     <a class='tp-link' href='spare-parts-requests.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1" />
+                       <i class="fas fa-cogs"></i>
+
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='in-hand-products.php'>
-                        <i data-feather="columns"></i>
+                       <i class="fas fa-user-check"></i>
                         <span>Assign Products </span>
                     </a>
                 </li>
@@ -252,13 +257,13 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='support-ticket.php'>
-                        <img width="" height="20" src="https://img.icons8.com/wired/64/1A1A1A/two-tickets.png" alt="two-tickets" />
+                        <i class="fas fa-life-ring"></i>
                         <span class="ps-1"> Tickets </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='invoice.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/thumbs-up-down.png" alt="thumbs-up-down" />
+                        <i class="fas fa-file-invoice"></i>
                         <span class="ps-1"> Invoice </span>
                     </a>
                 </li>
