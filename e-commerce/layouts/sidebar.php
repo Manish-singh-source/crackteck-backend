@@ -80,14 +80,14 @@
 
                 <li>
                     <a class='tp-link' href='customers.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
+                        <i class="fas fa-user"></i>
                         <span class="ps-1"> Customers </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='orders.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/purchase-order.png" alt="purchase-order" />
+                        <i class="fas fa-receipt"></i>
                         <span class="ps-1"> Orders </span>
                     </a>
                 </li>
@@ -95,14 +95,14 @@
                 <li class="menu-title mt-2">PRODUCTS</li>
                 <li>
                     <a class='tp-link' href='products.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/shopping-cart.png" alt="shopping-cart" />
+                        <i class="fas fa-shopping-cart"></i>
                         <span class="ps-1"> Products </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='categories.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/categorize.png" alt="categorize" />
+                        <i class="fas fa-th-list"></i>
                         <span class="ps-1"> Categories </span>
                     </a>
                 </li>
@@ -114,13 +114,13 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='brands.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/company.png" alt="company" />
+                        <i class="fas fa-tag"></i>
                         <span class="ps-1"> Brands </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='product-variants.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/open-box.png" alt="open-box" />
+                        <i class="fas fa-palette"></i>
                         <span class="ps-1"> Product Variants </span>
                     </a>
                 </li>
@@ -129,26 +129,27 @@
 
                 <li>
                     <a class='tp-link' href='coupons.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/1A1A1A/external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018.png" alt="external-coupons-black-friday-5-basic-sbts2018-outline-sbts2018" />
+                        <i class="fas fa-tags"></i>
                         <span class="ps-1"> Coupons </span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class='tp-link' href='Shipping-rate.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/price-tag-usd--v1.png" alt="price-tag-usd--v1"/>
                         <span class="ps-1"> Shipping Rate </span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a class='tp-link' href='subscribers.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-smashingstocks-mixed-smashing-stocks/68/1A1A1A/external-Subscribers-online-streaming-smashingstocks-mixed-smashing-stocks.png" alt="external-Subscribers-online-streaming-smashingstocks-mixed-smashing-stocks" />
+                        <i class="fas fa-envelope-open-text"></i>
+
                         <span class="ps-1"> Subscribers </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='contacts.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/apple-contacts.png" alt="apple-contacts" />
+                        <i class="fas fa-address-book"></i>
                         <span class="ps-1"> Contacts </span>
                     </a>
                 </li>
@@ -186,7 +187,7 @@
                 <li class="menu-title">Website Setup</li>
                 <li>
                     <a href="#sidebarBaseui1" data-bs-toggle="collapse">
-                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/document-footer.png" alt="document-footer" />
+                        <i class="fas fa-flag"></i>
                         <span class="ps-1"> Banner </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -204,14 +205,14 @@
                 </li>
                 <li>
                     <a class='tp-link' href='product-deals.php'>
-                    <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/1A1A1A/sale.png" alt="product-deal-offer"/>
+                    <i class="fas fa-bolt"></i>
                         <span class="ps-1"> Product Deal Offer </span>
                     </a>
                 </li>
 
                 <li>
                     <a class='tp-link' href='collection.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-outline-lafs/64/1A1A1A/external-Collection-nft-and-gamefi-outline-lafs.png" alt="external-Collection-nft-and-gamefi-outline-lafs"/>
+                      <i class="fas fa-th-large"></i>
                         <span> Collection </span>
                     </a>
                 </li>
