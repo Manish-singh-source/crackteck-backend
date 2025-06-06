@@ -292,7 +292,7 @@
                 </li>
 
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='client-receipts.php'>
                         <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
                         <span class="ps-1"> Client Receipts </span>
                     </a>
