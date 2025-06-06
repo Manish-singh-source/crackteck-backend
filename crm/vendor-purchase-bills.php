@@ -57,9 +57,13 @@
                                                             <td>PB-1001</td>
                                                             <td>Star Electronics</td>
                                                             <td>2025-06-01</td>
-                                                            <td>10x LED Bulbs @ \$5 + 18% GST</td>
-                                                            <td>\$59.00</td>
-                                                            <td>Paid</td>
+                                                            <td>10x LED Bulbs</td>
+                                                            <td>59.00₹</td>
+                                                            <td>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">
+                                                                    Paid
+                                                                </span>
+                                                            </td>
                                                             <td>Delivered in full</td>
                                                             <td>bill\_PB1001.pdf</td>
                                                             <td>
@@ -79,9 +83,13 @@
                                                             <td>PB-1002</td>
                                                             <td>PrintWorld Pvt Ltd</td>
                                                             <td>2025-06-03</td>
-                                                            <td>2x Laser Printers @ \$150 + 12% GST</td>
-                                                            <td>\$336.00</td>
-                                                            <td>Unpaid</td>
+                                                            <td>2x Laser Printers</td>
+                                                            <td>336.00₹</td>
+                                                            <td>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                                                    Unpaid
+                                                                </span>
+                                                            </td>
                                                             <td>Awaiting payment</td>
                                                             <td>bill\_PB1002.pdf</td>
                                                             <td>
@@ -101,10 +109,14 @@
                                                             <td> PB-1003</td>
                                                             <td> GreenMart Supplies</td>
                                                             <td> 2025-06-05</td>
-                                                            <td> 20x Eco Bags @ \$3 + 5% GST</td>
-                                                            <td> \$63.00</td>
-                                                            <td> Partially Paid</td>
-                                                            <td> Balance \$30 pending</td>
+                                                            <td> 20x Eco Bags</td>
+                                                            <td> 63.00₹</td>
+                                                            <td> 
+                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">
+                                                                    Partially Paid
+                                                                </span>
+                                                            </td>
+                                                            <td> Balance 30₹ pending</td>
                                                             <td> bill\_PB1003.pdf</td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
@@ -124,9 +136,13 @@
                                                             <td> PB-1004</td>
                                                             <td> OfficeKart India</td>
                                                             <td> 2025-06-06</td>
-                                                            <td> 5x Desk Chairs @ \$40 + 18% GST</td>
-                                                            <td> \$236.00</td>
-                                                            <td> Paid</td>
+                                                            <td> 5x Desk Chairs</td>
+                                                            <td> 236.00₹</td>
+                                                            <td> 
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">
+                                                                    Paid
+                                                                </span>
+                                                            </td>
                                                             <td> Good quality</td>
                                                             <td> bill\_PB1004.pdf</td>
                                                             <td>
