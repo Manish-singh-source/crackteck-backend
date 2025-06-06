@@ -310,7 +310,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='low-stock-alert.php'>
                         <i class="fas fa-exclamation-triangle"></i> 
                         <span class="ps-1"> Low Stock Reports </span>
                     </a>
@@ -322,7 +322,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='creditors-report.php'>
                         <i class="fas fa-user-tie"></i>
                         <span class="ps-1"> Creditors Reports </span>
                     </a>

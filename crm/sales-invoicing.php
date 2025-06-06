@@ -58,9 +58,13 @@
                                                             <td>2025-06-01</td>
                                                             <td>5x Landing Pages Design</td>
                                                             <td>1,250₹</td>
-                                                            <td>Paid</td>
+                                                            <td>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">
+                                                                    Paid
+                                                                </span>
+                                                            </td>
                                                             <td>Delivered on time</td>
-                                                            <td>invoice\_INV001.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -80,9 +84,13 @@
                                                             <td>2025-06-03</td>
                                                             <td>Website Maintenance Plan</td>
                                                             <td>600₹</td>
-                                                            <td>Unpaid</td>
+                                                            <td>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                                                    Unpaid
+                                                                </span>
+                                                            </td>
                                                             <td>Payment due in 7 days</td>
-                                                            <td>invoice\_INV002.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -102,9 +110,13 @@
                                                             <td>2025-06-05</td>
                                                             <td>SEO & Blog Services</td>
                                                             <td>950₹</td>
-                                                            <td>Partially Paid</td>
+                                                            <td>
+                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">
+                                                                    Partially Paid
+                                                                </span>
+                                                            </td>
                                                             <td>Balance: 250₹</td>
-                                                            <td>invoice\_INV003.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -124,9 +136,13 @@
                                                             <td>2025-06-06</td>
                                                             <td>Social Media Campaign</td>
                                                             <td>1,800₹</td>
-                                                            <td>Paid</td>
+                                                            <td>
+                                                                <span class="badge bg-success-subtle text-success fw-semibold">
+                                                                    Paid
+                                                                </span>
+                                                            </td>
                                                             <td>Excellent client</td>
-                                                            <td>invoice\_INV004.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"

@@ -65,7 +65,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Delivered in full</td>
-                                                            <td>bill\_PB1001.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -91,7 +91,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Awaiting payment</td>
-                                                            <td>bill\_PB1002.pdf</td>
+                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -111,13 +111,13 @@
                                                             <td> 2025-06-05</td>
                                                             <td> 20x Eco Bags</td>
                                                             <td> 63.00₹</td>
-                                                            <td> 
+                                                            <td>
                                                                 <span class="badge bg-warning-subtle text-warning fw-semibold">
                                                                     Partially Paid
                                                                 </span>
                                                             </td>
                                                             <td> Balance 30₹ pending</td>
-                                                            <td> bill\_PB1003.pdf</td>
+                                                            <td> <a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -138,13 +138,13 @@
                                                             <td> 2025-06-06</td>
                                                             <td> 5x Desk Chairs</td>
                                                             <td> 236.00₹</td>
-                                                            <td> 
+                                                            <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">
                                                                     Paid
                                                                 </span>
                                                             </td>
                                                             <td> Good quality</td>
-                                                            <td> bill\_PB1004.pdf</td>
+                                                            <td> <a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
