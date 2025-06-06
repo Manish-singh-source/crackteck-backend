@@ -143,7 +143,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='follow-up.php'>
-                       <i class="fas fa-calendar-check"></i>
+                        <i class="fas fa-calendar-check"></i>
                         <span class="ps-1">Follow-Up</span>
                     </a>
                 </li>
@@ -276,6 +276,58 @@
                         <span> Track Requests </span>
                     </a>
                 </li> -->
+
+                <li class="menu-title">Accounts Panel</li>
+
+                <li>
+                    <a class='tp-link' href='sales-invoicing.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
+                        <span class="ps-1"> Sales Invoicing </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
+                        <span class="ps-1"> Client Receipts </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='vendor-purchase-bills.php'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Vendor Purchase Bills </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Stock Reports </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Low Stock Reports </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Payments to Vendor </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Creditors Reports </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='#'>
+                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <span class="ps-1"> Expenses </span>
+                    </a>
+                </li>
 
             </ul>
         </div>
