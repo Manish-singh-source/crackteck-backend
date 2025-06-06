@@ -39,7 +39,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center mt-3 justify-content-between">
-                                        <p class="mb-0 text-dark mt-1 fs-14 fw-medium">Project this month
+                                        <p class="mb-0 text-dark mt-1 fs-14 fw-medium">This month
                                         </p>
                                         <p class="text-muted mb-0 fs-13 d-flex flex-column">
                                             <span
@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center mt-3 justify-content-between">
-                                        <p class="mb-0 text-dark mt-1">Project this month</p>
+                                        <p class="mb-0 text-dark mt-1">This month</p>
                                         <p class="text-muted mb-0 fs-13 d-flex flex-column">
                                             <span
                                                 class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+6.5%</span>
@@ -120,7 +120,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center mt-3 justify-content-between">
-                                        <p class="mb-0 text-dark mt-1">Project this month</p>
+                                        <p class="mb-0 text-dark mt-1">This month</p>
                                         <p class="text-muted mb-0 fs-13 d-flex flex-column">
                                             <span
                                                 class="text-danger px-2 py-1 bg-danger-subtle rounded-4 me-2">-7.5%</span>
@@ -156,7 +156,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center mt-3 justify-content-between">
-                                        <p class="mb-0 text-dark mt-1">Project this month</p>
+                                        <p class="mb-0 text-dark mt-1">This month</p>
                                         <p class="text-muted mb-0 fs-13 d-flex flex-column">
                                             <span
                                                 class="text-success px-2 py-1 bg-success-subtle rounded-4 me-2">+12.5%</span>
