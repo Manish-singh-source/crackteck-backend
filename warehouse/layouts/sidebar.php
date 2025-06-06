@@ -57,38 +57,38 @@
                 </li> -->
                 <li>
                     <a class='tp-link' href='product-list.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/ingredients-list.png" alt="ingredients-list"/>
+                       <i class="fas fa-list"></i>
                         <span class="ps-1">Product List</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='scrap-items.php'>
-                        <img width="" height="20" src="https://img.icons8.com/deco-glyph/48/1A1A1A/broken-computer.png" alt="broken-computer" />
+                        <i class="fas fa-trash"></i>
                         <span class="ps-1"> Scrap items </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='track-product.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios-filled/50/1A1A1A/track-order.png" alt="track-order"/>
+                        <i class="fas fa-shipping-fast"></i>
                         <span class="ps-1">Track Product</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='spare-parts-requests.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/maintenance--v1.png" alt="maintenance--v1" />
+                        <i class="fas fa-tools"></i>
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
                 </li>
                 <li class="menu-title mt-2">Manage Warehouse</li>
                 <li>
                     <a class='tp-link' href='warehouses-list.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
+                        <i class="fas fa-warehouse"></i>
                         <span class="ps-1">Warehouses</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='warehouse-list.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-prettycons-lineal-prettycons/49/1A1A1A/external-warehouse-delivery-prettycons-lineal-prettycons-1.png" alt="external-warehouse-delivery-prettycons-lineal-prettycons-1"/>
+                       <i class="fas fa-th"></i>
                         <span class="ps-1">Warehouse Rack</span>
                     </a>
                 </li>
