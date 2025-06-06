@@ -310,7 +310,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='low-stock-alert.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
                         <span class="ps-1"> Low Stock Reports </span>
                     </a>
@@ -322,7 +322,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='creditors-report.php'>
                         <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
                         <span class="ps-1"> Creditors Reports </span>
                     </a>
