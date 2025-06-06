@@ -52,7 +52,7 @@
 
                 <li>
                     <a href="#accesscontrol" data-bs-toggle="collapse">
-                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/user-credentials.png" alt="user-credentials" />
+                        <i class="fas fa-user-shield"></i>
                         <span class="ps-1"> Access Control </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -70,7 +70,7 @@
 
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="graph-report" />
+                        <i class="fas fa-file-alt"></i>
                         <span class="ps-1"> Reports </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -97,21 +97,21 @@
 
                 <li>
                     <a class='tp-link' href='customers.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
+                        <i class="fas fa-users"></i>
                         <span class="ps-1"> Customers </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='engineers.php'>
                         <!-- <i data-feather="columns"></i> -->
-                        <img width="" height="20" src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="gender-neutral-user--v1" />
+                        <i class="fas fa-user-cog"></i>
                         <span class="ps-1"> Engineers </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='delivery-man.php'>
                         <!-- <i data-feather="columns"></i> -->
-                        <img width="" height="20" src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/1A1A1A/external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2.png" alt="external-delivery-man-logistics-delivery-kmg-design-detailed-outline-kmg-design-2" />
+                        <i class="fas fa-shipping-fast"></i>
                         <span class="ps-1"> Delivery Man </span>
                     </a>
                 </li>
@@ -131,31 +131,31 @@
                 <li class="menu-title mt-2">Sales Person</li>
                 <li>
                     <a class='tp-link' href='sales-reports.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                        <i class="fas fa-chart-line"></i>
                         <span class="ps-1"> Sales Report </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='leads.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/gender-neutral-user--v1.png" alt="gender-neutral-user--v1" />
+                        <i class="fas fa-user-plus"></i>
                         <span class="ps-1"> Leads </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='follow-up.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/graph-report.png" alt="gender-neutral-user--v1" />
+                       <i class="fas fa-calendar-check"></i>
                         <span class="ps-1">Follow-Up</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='meets.php'>
-                        <img width="" height="20" src="https://img.icons8.com/dotty/80/1A1A1A/meeting.png" alt="meeting" />
+                        <i class="fas fa-handshake"></i>
                         <span class="ps-1"> Meets </span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='quotation.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/services--v1.png" alt="services--v1" />
+                        <i class="fas fa-file-invoice"></i>
                         <span class="ps-1"> Quotations </span>
                     </a>
                 </li>
