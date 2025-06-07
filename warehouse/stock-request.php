@@ -9,7 +9,7 @@
                 <h4 class="fs-18 fw-semibold m-0"> Stock Reports</h4>
             </div>
             <div>
-                <a href="add-stock-reports.php" class="btn btn-primary">Add Reports</a>
+                <a href="add-stock-request.php" class="btn btn-primary">Add Reports</a>
                 <!-- <button class="btn btn-primary">Add New Customer</button> -->
             </div>
         </div>

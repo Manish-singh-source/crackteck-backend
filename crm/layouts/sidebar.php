@@ -91,6 +91,33 @@
                             <li>
                                 <a class='tp-link' href='kyc-log.php'>KYC Log</a>
                             </li>
+                            <li>
+                                <a class='tp-link' href='sales-invoicing.php'>
+                                    Sales Invoicing
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class='tp-link' href='client-receipts.php'>
+                                    Client Receipts
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class='tp-link' href='payments-to-vendors.php'>
+                                    Payments to Vendor
+                                </a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href='creditors-report.php'>
+                                    Creditors Reports
+                                </a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href='expenses.php'>
+                                    Expenses
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -164,7 +191,7 @@
 
                 <li>
                     <a class='tp-link' href='amc-plans.php'>
-                       <i class="fas fa-project-diagram"></i>
+                        <i class="fas fa-project-diagram"></i>
 
                         <span class="ps-1"> AMC Plans </span>
                     </a>
@@ -179,7 +206,7 @@
 
                 <li>
                     <a class='tp-link' href='track-request.php'>
-                       <i class="fas fa-location-arrow"></i>
+                        <i class="fas fa-location-arrow"></i>
 
                         <span class="ps-1"> Track Request </span>
                     </a>
@@ -194,7 +221,7 @@
 
                 <li>
                     <a class='tp-link' href='call-logs.php'>
-                       <i class="fas fa-comments"></i>
+                        <i class="fas fa-comments"></i>
 
                         <span class="ps-1"> Chat Logs </span>
                     </a>
@@ -210,7 +237,7 @@
 
                 <li>
                     <a class='tp-link' href='pincodes.php'>
-                       <i class="fas fa-globe-asia"></i>
+                        <i class="fas fa-globe-asia"></i>
                         <span> Manage Pincodes </span>
                     </a>
                 </li>
@@ -226,7 +253,7 @@
 
                 <li>
                     <a class='tp-link' href='spare-parts-requests.php'>
-                       <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cogs"></i>
 
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
@@ -234,7 +261,7 @@
 
                 <li>
                     <a class='tp-link' href='in-hand-products.php'>
-                       <i class="fas fa-user-check"></i>
+                        <i class="fas fa-user-check"></i>
                         <span>Assign Products </span>
                     </a>
                 </li>
@@ -282,57 +309,9 @@
                     </a>
                 </li> -->
 
-                <li class="menu-title">Accounts Panel</li>
+                <!-- <li class="menu-title">Accounts Panel</li> -->
 
-                <li>
-                    <a class='tp-link' href='sales-invoicing.php'>
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <span class="ps-1"> Sales Invoicing </span>
-                    </a>
-                </li>
 
-                <li>
-                    <a class='tp-link' href='client-receipts.php'>
-                        <i class="fas fa-receipt"></i>
-                        <span class="ps-1"> Client Receipts </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='vendor-purchase-bills.php'>
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <span class="ps-1"> Vendor Purchase Bills </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='stock-request.php'>
-                        <i class="fas fa-chart-bar"></i>
-                        <span class="ps-1"> Stock Reports </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='low-stock-alert.php'>
-                        <i class="fas fa-exclamation-triangle"></i> 
-                        <span class="ps-1"> Low Stock Reports </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='payments-to-vendors.php'>
-                       <i class="fas fa-hand-holding-usd"></i>
-                        <span class="ps-1"> Payments to Vendor </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='creditors-report.php'>
-                        <i class="fas fa-user-tie"></i>
-                        <span class="ps-1"> Creditors Reports </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href='expenses.php'>
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span class="ps-1"> Expenses </span>
-                    </a>
-                </li>
 
             </ul>
         </div>
