@@ -88,11 +88,31 @@
                 </li>
                 <li>
                     <a class='tp-link' href='warehouse-list.php'>
-                       <i class="fas fa-th"></i>
+                        <i class="fas fa-th"></i>
                         <span class="ps-1">Warehouse Rack</span>
                     </a>
                 </li>
-
+                
+                
+                <li class="menu-title mt-2">Manage Stock Alerts</li>
+                <li>
+                    <a class='tp-link' href='vendor-purchase-bills.php'>
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span class="ps-1"> Vendor Purchase Bills </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='stock-request.php'>
+                        <i class="fas fa-chart-bar"></i>
+                        <span class="ps-1"> Stock Reports </span>
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='low-stock-alert.php'>
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        <span class="ps-1"> Low Stock Reports </span>
+                    </a>
+                </li>
             </ul>
 
         </div>
