@@ -33,7 +33,6 @@
                                             <button type="submit" class="btn btn-primary waves ripple-light">
                                                 <!-- <span class="d-none d-md-inline-flex"> Search </span> -->
                                                 <i class="fa-solid fa-magnifying-glass "></i>
-
                                             </button>
                                         </div>
                                     </div>
