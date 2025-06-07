@@ -155,7 +155,7 @@
                                                             <td>₹25,000</td>
                                                             <td>2023-06-01</td>
                                                             <td>UPI</td>
-                                                            <td><a href="invoice-123.pdf" target="_blank">Invoice #123</a></td>
+                                                            <td><a href="invoice-123.pdf" target="_blank">INV-001</a></td>
                                                             <td>Payment received in full</td>
                                                             <td>
                                                                 <a href="proofs/sarah-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
@@ -177,7 +177,7 @@
                                                             <td>₹10,000</td>
                                                             <td>2023-05-20</td>
                                                             <td>Cash</td>
-                                                            <td><a href="invoice-124.pdf" target="_blank">Invoice #124</a></td>
+                                                            <td><a href="invoice-124.pdf" target="_blank">INV-002</a></td>
                                                             <td>Partial payment</td>
                                                             <td>
                                                                 <a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a>

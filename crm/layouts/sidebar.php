@@ -316,7 +316,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='payments-to-vendors.php'>
                        <i class="fas fa-hand-holding-usd"></i>
                         <span class="ps-1"> Payments to Vendor </span>
                     </a>
@@ -328,7 +328,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='#'>
+                    <a class='tp-link' href='expenses.php'>
                         <i class="fas fa-money-bill-wave"></i>
                         <span class="ps-1"> Expenses </span>
                     </a>
