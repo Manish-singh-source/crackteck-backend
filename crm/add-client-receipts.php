@@ -3,8 +3,6 @@ $contain = "Add Customer";
 include('layouts/header.php') ?>
 
 <div class="content">
-
-
     <div class="container-fluid">
 
         <div class="bradcrumb pt-3 ps-2 bg-light">
