@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Create Sales Invoice</h4>
+                <h4 class="fs-18 fw-semibold m-0">Create Vendor Payment</h4>
             </div>
         </div>
 
@@ -13,28 +13,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Invoice Details</h5>
+                        <h5 class="card-title mb-0">Payment Details</h5>
                     </div>
                     <div class="card-body">
                         <form action="#" method="POST" enctype="multipart/form-data">
                             <div class="row g-3 pb-3">
+                                
                                 <div class="col-xl-4 col-lg-6">
-                                    <div>
-                                        <label for="invoiceNo" class="form-label">
-                                            Invoice No. <span class="text-danger">*</span>
-                                        </label>
-                                        <input required="" type="text" name="invoiceNo" value="" class="form-control" placeholder="Enter Invoice No" id="invoiceNo">
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <label for="clientName" class="form-label">Client Name <span class="text-danger">*</span></label>
-                                    <select required="" name="clientName" id="clientName" class="form-select w-100">
+                                    <label for="vendorName" class="form-label">Expense Type<span class="text-danger">*</span></label>
+                                    <select required="" name="vendorName" id="vendorName" class="form-select w-100">
                                         <option selected disabled>-- Select --</option>
-                                        <option value="saurabh">Saurabh</option>
-                                        <option value="manish">Manish</option>
+                                        <option value="Fuel">Fuel</option>
+                                        <option value="Travel">Travel</option>
+                                        <option value="Rent">Rent</option>
+                                        <option value="Salary">Salary</option>
                                     </select>
                                 </div>
-
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="date" class="form-label">
@@ -43,25 +37,39 @@
                                         <input type="date" name="date" value="" class="form-control" placeholder="" id="date">
                                     </div>
                                 </div>
-
+                               
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="amount" class="form-label">
-                                            Total Amount
+                                            Amount
                                         </label>
                                         <input type="text" name="amount" value="" class="form-control" placeholder="Enter Total Paid Amount" id="amount">
                                     </div>
                                 </div>
-
                                 <div class="col-xl-4 col-lg-6">
-                                    <label for="payStatus" class="form-label">Payment Status <span class="text-danger">*</span></label>
+                                    <div>
+                                        <label for="linkedBill" class="form-label">
+                                            Paid To
+                                        </label>
+                                        <select required="" name="linkedBill" id="linkedBill" class="form-select w-100">
+                                            <option selected disabled>-- Select --</option>
+                                            <option value="Saurabh">Saurabh</option>
+                                            <option value="Manish">Manish</option>
+                                        </select>
+                                        <!-- <input type="text" name="linkedBill" value="" class="form-control" placeholder="Enter Total Paid linkedBill" id="linkedBill"> -->
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <label for="payStatus" class="form-label">Payment Mode <span class="text-danger">*</span></label>
                                     <select required="" name="payStatus" id="payStatus" class="form-select w-100">
                                         <option selected disabled>-- Select --</option>
-                                        <option value="Paid">Paid</option>
-                                        <option value="Unpaid">Unpaid</option>
-                                        <option value="Partially Paid">Partially Paid</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="UPI">UPI</option>
+                                        <option value="Cheque">Cheque</option>
                                     </select>
                                 </div>
+                                
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="remarks" class="form-label">
@@ -73,7 +81,7 @@
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="attachment" class="form-label">
-                                            Attachment
+                                            Upload Bill Copy
                                         </label>
                                         <input data-size="150x150" type="file" class="preview form-control w-100" name="attachment" id="attachment">
                                     </div>

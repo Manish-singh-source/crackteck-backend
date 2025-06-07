@@ -47,7 +47,7 @@
                                                             <th>Total Amount</th>
                                                             <th>Payment Status</th>
                                                             <th>Notes/Remarks</th>
-                                                            <th>Attachment</th>
+                                                            <!-- <th>Attachment</th> -->
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -64,7 +64,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Delivered on time</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                                                            <!-- <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td> -->
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -90,7 +90,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Payment due in 7 days</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                                                            <!-- <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td> -->
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -116,7 +116,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Balance: 250₹</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                                                            <!-- <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td> -->
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
@@ -142,7 +142,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>Excellent client</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                                                            <!-- <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td> -->
                                                             <td>
                                                                 <a aria-label="anchor" href="delivery-order-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
