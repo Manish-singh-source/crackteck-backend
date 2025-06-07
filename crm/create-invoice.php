@@ -21,6 +21,14 @@
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
                                         <label for="invoiceNo" class="form-label">
+                                            Quotation ID <span class="text-danger">*</span>
+                                        </label>
+                                        <input required="" type="text" name="invoiceNo" value="" class="form-control" placeholder="Enter Quotation ID   " id="invoiceNo">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <label for="invoiceNo" class="form-label">
                                             Invoice No. <span class="text-danger">*</span>
                                         </label>
                                         <input required="" type="text" name="invoiceNo" value="" class="form-control" placeholder="Enter Invoice No" id="invoiceNo">

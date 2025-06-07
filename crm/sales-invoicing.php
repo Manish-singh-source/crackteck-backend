@@ -40,6 +40,7 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
+                                                            <th>Quotation ID</th>
                                                             <th>Invoice No</th>
                                                             <th>Client Name</th>
                                                             <th>Date</th>
@@ -53,6 +54,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="align-middle">
+                                                            <td>QTN-1001</td>
                                                             <td>INV-001</td>
                                                             <td>John Enterprises</td>
                                                             <td>2025-06-01</td>
@@ -79,6 +81,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr class="align-middle">
+                                                             <td>QTN-1001</td>
                                                             <td>INV-002</td>
                                                             <td>GreenTech Ltd.</td>
                                                             <td>2025-06-03</td>
@@ -105,6 +108,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr class="align-middle">
+                                                             <td>QTN-1001</td>
                                                             <td>INV-003</td>
                                                             <td>Nova Media</td>
                                                             <td>2025-06-05</td>
@@ -131,6 +135,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr class="align-middle">
+                                                             <td>QTN-1001</td>
                                                             <td>INV-004</td>
                                                             <td>Alpha Foods</td>
                                                             <td>2025-06-06</td>
