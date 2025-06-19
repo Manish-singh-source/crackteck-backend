@@ -247,6 +247,13 @@
                         <span> Pickup Request </span>
                     </a>
                 </li>
+                <li class="menu-title mt-2">Remote Support</li>
+                <li>
+                    <a class='tp-link' href='assigned-jobs.php'>
+                        <i class="fas fa-chart-line"></i>
+                        <span class="ps-1"> Assigned Jobs</span>
+                    </a>
+                </li>
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
