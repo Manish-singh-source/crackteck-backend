@@ -432,7 +432,7 @@
                                         Maintanance
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="./assets/files/CRM _ Dashboard.pdf" target="_blank">View Report</a>
+                                        <a class="btn btn-sm btn-primary" href="./view-detailed-service-history.php">View Report</a>
                                         <!-- <div id="popupOverlay">
                                             <span class="closeBtn hide-report">&times;</span>
                                             <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
@@ -550,10 +550,9 @@
                                     <th>Product Image</th>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Brand</th>
                                     <th>Modal Number</th>
-                                    <th>Serial Number</th>
-                                    <th>Purchase Date</th>
+                                    <th>Product Serial Number</th>
+                                    <th>Crackteck Serial Number</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -562,28 +561,75 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div>
-                                            Headphone
+                                            ZKTeco MB20 Biometric Attendance Device
                                         </div>
                                     </td>
                                     <td>
-                                        Computer
-                                    </td>
-                                    <td>
-                                        Sony
+                                        Biometric
                                     </td>
                                     <td>
                                         Inspiron 3511
                                     </td>
+                                    <td>B0BB7FQBBS</td>
                                     <td>
                                         B0BB7FQBBS
                                     </td>
-                                    <td>2025-04-04 06:09 PM</td>
+                                </tr>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ZKTeco MB20 Biometric Attendance Device
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Biometric
+                                    </td>
+                                    <td>
+                                        Inspiron 3511
+                                    </td>
+                                    <td>B0BB7FQBBS</td>
+                                    <td>
+                                        B0BB7FQBBQ
+                                    </td>
+                                </tr>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ZKTeco MB20 Biometric Attendance Device
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Biometric
+                                    </td>
+                                    <td>
+                                        Inspiron 3511
+                                    </td>
+                                    <td>B0BB7FQBBS</td>
+                                    <td>
+                                        B0BB7FQBBR
+                                    </td>
                                 </tr>
 
                             </tbody>
