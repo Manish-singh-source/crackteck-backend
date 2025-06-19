@@ -241,6 +241,12 @@
                         <span> Manage Pincodes </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='pickup-requests.php'>
+                        <i class="fas fa-truck"></i>
+                        <span> Pickup Request </span>
+                    </a>
+                </li>
 
                 <li class="menu-title mt-2">Inventory & spare parts team</li>
 
