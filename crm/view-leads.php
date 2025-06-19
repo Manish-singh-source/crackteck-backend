@@ -116,16 +116,16 @@
                                         <span class="fw-semibold text-break">Status :
                                         </span>
                                         <span>
-                                            Done
+                                            New
                                         </span>
                                     </li>
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                    <!-- <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">PO :
                                         </span>
                                         <span>
                                             <button class="btn btn-success btn-sm">View</button>
                                         </span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -140,8 +140,8 @@
                             <div class="col-12">
                                 <label for="status" class="form-label">Lead Status</label>
                                 <select class="form-control" name="status" id="status">
-                                    <option selected disabled>-- Select Status --</option>
-                                    <option value="New">New</option>
+                                    <option disabled>-- Select Status --</option>
+                                    <option value="New" selected>New</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Qualified">Qualified</option>
                                     <option value="Quoted">Quoted</option>
