@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Assigned Jobs </h4>
+                <h4 class="fs-18 fw-semibold m-0">Field Engineer Issues </h4>
             </div>
         </div>
 
@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-xl-10 col-md-10 col-sm-10">
                                         <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search By Name, ">
+                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search By Name">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Assigned Jobs</span>
+                                    <span class="d-none d-sm-block">All Issues</span>
                                 </a>
                             </li>
 
@@ -193,9 +193,9 @@
                                                             <th>Job Id</th>
                                                             <th>Engineer Name</th>
                                                             <th>Client Name</th>
+                                                            <th>Location</th>
                                                             <th>Issue Type</th>
                                                             <th>Priority</th>
-                                                            <th>Schedule/Deadline</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -207,14 +207,14 @@
                                                             </td>
                                                             <td>John Doe</td>
                                                             <td>ABC Pvt Ltd</td>
+                                                            <td>Kandivali</td>
                                                             <td>Startup performance Issue</td>
                                                             <td>High</td>
-                                                            <td>2024-02-05</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-field-issues.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -237,14 +237,14 @@
                                                             </td>
                                                             <td>Mike Doe</td>
                                                             <td>XYZ Pvt Ltd</td>
+                                                            <td>Mumbai</td>
                                                             <td>Startup performance Issue</td>
                                                             <td>Medium</td>
-                                                            <td>2024-02-05</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-field-issues.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -267,14 +267,14 @@
                                                             </td>
                                                             <td>John Doe</td>
                                                             <td>ABC Pvt Ltd</td>
+                                                            <td>Thane</td>
                                                             <td>Startup performance Issue</td>
                                                             <td>High</td>
-                                                            <td>2024-02-05</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-field-issues.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>

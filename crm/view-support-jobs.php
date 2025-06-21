@@ -28,7 +28,66 @@ include('layouts/header.php') ?>
         <div class="row">
             <div class="col-12">
                 <div class="row">
+
                     <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="d-flex">
+                                    <h5 class="card-title flex-grow-1 mb-0">
+                                        Client Details
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <ul class="list-group list-group-flush ">
+
+                                            <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                                <span class="fw-semibold text-break">Customer Name :
+                                                </span>
+                                                <span>
+                                                    Shyam Jaiswal
+                                                </span>
+                                            </li>
+
+                                            <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                                <span class="fw-semibold text-break">Contact no :
+                                                </span>
+                                                <span>
+                                                    9004086582
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <ul class="list-group list-group-flush ">
+
+                                            <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                                <span class="fw-semibold text-break">Email :
+                                                </span>
+                                                <span>
+                                                    shyam@gmail.com
+                                                </span>
+                                            </li>
+
+                                            <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                                <span class="fw-semibold text-break">Address :
+                                                </span>
+                                                <span>
+                                                    Lalji Pada , Kandivali West, Mumbai, Maharashtra 400067
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Start Job Section -->
+                    <div class="col-lg-12 start-job-section">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="row g-4 align-items-center">
@@ -70,18 +129,19 @@ include('layouts/header.php') ?>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 start-job-section">
                         <div class="text-start mb-3">
                             <!-- 
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Submit
                             </button>
                             -->
-                            <a href="#" class="btn btn-success w-sm waves ripple-light">Submit</a>
+                            <a href="#" class="btn btn-success w-sm waves ripple-light start-job-btn">Submit</a>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <!-- Start Details Section -->
+                    <div class="col-lg-12 start-job-details-section">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="d-flex">
@@ -129,13 +189,14 @@ include('layouts/header.php') ?>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 start-job-details-section">
                         <div class="text-start mb-3">
-                            <a href="#" class="btn btn-success w-sm waves ripple-light">Perform Diagnosis</a>
+                            <a href="#" class="btn btn-success w-sm waves ripple-light perform-diagnosis-btn">Perform Diagnosis</a>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <!-- Diagnosis Section -->
+                    <div class="col-lg-12 diagnosis-section">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="row g-4 align-items-center">
@@ -149,6 +210,11 @@ include('layouts/header.php') ?>
 
                             <div class="card-body">
                                 <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="fw-bold">
+                                            Diagnosis Type
+                                        </div>
+                                    </div>
                                     <div class="col-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="category3">
@@ -176,7 +242,7 @@ include('layouts/header.php') ?>
                                 </div>
                                 <div class="row g-3 pt-3">
                                     <div class="col-6">
-                                        <label for="meetType" class="form-label">Remote Tool Used:</label>
+                                        <label for="meetType" class="form-label">Diagnosis Notes:</label>
                                         <textarea name="notes" id="notes" class="form-control" rows="4"></textarea>
                                     </div>
                                 </div>
@@ -184,9 +250,235 @@ include('layouts/header.php') ?>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 diagnosis-section">
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light diagnosis-complete-btn">Submit</a>
+                        </div>
+                    </div>
+
+                    <!-- Diagnosis Details Section -->
+                    <div class="col-lg-12 diagnosis-details-section">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="d-flex">
+                                    <h5 class="card-title flex-grow-1 mb-0">
+                                        Diagnosis Details
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row gap-3">
+                                    <div class="col-12">
+                                        <div class="fw-semibold text-break">
+                                            Diagnosis Type
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item border-0">Windows/macOS</li>
+                                            <li class="list-group-item border-0">Network</li>
+                                            <li class="list-group-item border-0">Printer/Software</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="fw-semibold text-break">Diagnosis Notes :
+                                        </div>
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ut?
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 diagnosis-details-section">
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light take-action-btn">Take Action</a>
+                        </div>
+                    </div>
+
+                    <!-- Action Taken Section -->
+                    <div class="col-lg-12 action-taken-section">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="row g-4 align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="card-title mb-0">
+                                            Action Taken
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <!-- <div class="col-6">
+                                        <label for="meetTitle" class="form-label">Fix Description<span class="text-danger">*</span></label>
+                                        <input type="text" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Confirmation Details">
+                                    </div> -->
+                                    <div class="col-12">
+                                        <label for="meetType" class="form-label">Fix Description:</label>
+                                        <textarea name="notes" id="notes" class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="meetTitle" class="form-label">Before Screenshot<span class="text-danger">*</span></label>
+                                        <input type="file" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Confirmation Details">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="meetTitle" class="form-label">After Screenshot<span class="text-danger">*</span></label>
+                                        <input type="file" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Confirmation Details">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="meetTitle" class="form-label">Logs (if any)<span class="text-danger">*</span></label>
+                                        <input type="file" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Confirmation Details">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 action-taken-section">
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light take-action-complete-btn">Submit</a>
+                        </div>
+                    </div>
+
+                    <!-- Action Taken Details Section -->
+                    <div class="col-lg-12 action-taken-details-section">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="d-flex">
+                                    <h5 class="card-title flex-grow-1 mb-0">
+                                        Action Taken Details
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row gap-3">
+                                    <div class="col-12">
+                                        <div class="fw-semibold text-break">Fix Description :
+                                        </div>
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ut?
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="fw-semibold text-break">
+                                            Before Screenshot:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary">View</button>
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="fw-semibold text-break">
+                                            After Screenshot:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary">View</button>
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="fw-semibold text-break">
+                                            Logs (if any):
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary">View</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 action-taken-details-section">
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light escalate-btn">Escalate</a>
+                        </div>
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light complete-job-btn">Complete Job</a>
+                        </div>
+                    </div>
+
+                    <!-- Escalate Section -->
+                    <div class="col-lg-12 escalate-section">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="row g-4 align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="card-title mb-0">
+                                            Escalate to On-Site
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="status" class="form-label">Reason For Escalation</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option> -- Select Reason --</option>
+                                            <option>Hardware Failure</option>
+                                            <option>No Internet Access</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="meetType" class="form-label">Additional Notes:</label>
+                                        <textarea name="notes" id="notes" class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 escalate-section">
                         <div class="text-start mb-3">
                             <a href="#" class="btn btn-success w-sm waves ripple-light">Submit</a>
+                        </div>
+                    </div>
+
+                    <!-- Complete Job Section -->
+                    <div class="col-lg-12 complete-job-section">
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="row g-4 align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="card-title mb-0">
+                                            Complete Job
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="meetTitle" class="form-label">Time Spent(HH:MM)<span class="text-danger">*</span></label>
+                                        <input type="time" name="meetTitle" id="meetTitle" class="form-control" value="" required="" placeholder="Enter Confirmation Details">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="status" class="form-label">Result</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option> -- Select --</option>
+                                            <option>Resolved - Remote</option>
+                                            <option>Unresolved - Remote</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="meetType" class="form-label">Client Feedback:</label>
+                                        <textarea name="notes" id="notes" class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 complete-job-section">
+                        <div class="text-start mb-3">
+                            <a href="#" class="btn btn-success w-sm waves ripple-light">Mark as Complete</a>
                         </div>
                     </div>
                 </div>
@@ -195,4 +487,56 @@ include('layouts/header.php') ?>
     </div>
 </div>
 
+
+<script>
+    $(document).ready(function() {
+        // $(".start-job-section").hide();
+        $(".start-job-details-section").hide();
+
+        $(".diagnosis-section").hide();
+        $(".diagnosis-details-section").hide();
+
+        $(".action-taken-section").hide();
+        $(".action-taken-details-section").hide();
+
+        $(".escalate-section").hide();
+        $(".complete-job-section").hide();
+
+        // events
+        $(".start-job-btn").on("click", function() {
+            $(".start-job-section").hide();
+            $(".start-job-details-section").show();
+        });
+
+        $(".perform-diagnosis-btn").on("click", function() {
+            $(this).hide();
+            $(".diagnosis-section").show();
+        });
+
+        $(".diagnosis-complete-btn").on("click", function() {
+            $(this).hide();
+            $(".diagnosis-section").hide();
+            $(".diagnosis-details-section").show();
+        });
+
+        $(".take-action-btn").on("click", function() {
+            $(this).hide();
+            $(".action-taken-section").show();
+        });
+
+        $(".take-action-complete-btn").on("click", function() {
+            $(this).hide();
+            $(".action-taken-section").hide();
+            $(".action-taken-details-section").show();
+        });
+
+        $(".escalate-btn").on("click", function() {
+            $(".escalate-section").show();
+        });
+
+        $(".complete-job-btn").on("click", function() {
+            $(".complete-job-section").show();
+        });
+    });
+</script>
 <?php include('layouts/footer.php') ?>

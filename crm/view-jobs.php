@@ -6,7 +6,11 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Assigned Jobs </h4>
+                <h4 class="fs-18 fw-semibold m-0">Jobs </h4>
+            </div>
+            <div>
+                <a href="create-job-form.php" class="btn btn-primary">Create Job</a>
+                <!-- <button class="btn btn-primary">Add New Customer</button> -->
             </div>
         </div>
 
@@ -110,63 +114,6 @@
                         </form>
                     </div>
 
-                    <!-- <div class="col-xl-2 col-sm-3 col-6">
-                                    <div>
-                                        <select class="form-select" name="type" id="">
-
-                                            <option selected="" value="0">
-                                                All
-                                            </option>
-                                            <option value="1">
-                                                Laptops
-                                            </option>
-                                            <option value="2">
-                                                Computers
-                                            </option>
-                                            <option value="3">
-                                                Accessories
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3">
-                                    <div>
-                                        <button type="submit" class="btn btn-primary w-100 waves ripple-light">
-                                            <span class="d-none d-md-inline-flex"> Search </span>
-                                            <i class="fa-solid fa-magnifying-glass "></i>
-
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-sm-3 col-6">
-                                    <div>
-                                        <a href="#" class="btn btn-primary w-50 waves ripple-light">
-                                            <i class="ri-refresh-line me-1 align-bottom"></i>
-                                            Sort
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="d-none d-md-inline-flex"> Brand </span>
-                                        <i class="mdi mdi-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Dell</a></li>
-                                        <li><a class="dropdown-item" href="#">Hp</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-xl-2 col-md-2 col-sm-3 col-3 btn-group" role="group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="d-none d-md-inline-flex"> Status </span>
-                                        <i class="mdi mdi-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Approved</a></li>
-                                        <li><a class="dropdown-item" href="#">Pending</a></li>
-                                        <li><a class="dropdown-item" href="#">Rejected</a></li>
-                                    </ul>
-                                </div> -->
                     <div class="card-body pt-0">
                         <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -174,7 +121,7 @@
                                     href="#all_customer" role="tab">
                                     <span class="d-block d-sm-none"><i
                                             class="mdi mdi-information"></i></span>
-                                    <span class="d-none d-sm-block">All Assigned Jobs</span>
+                                    <span class="d-none d-sm-block">All Jobs</span>
                                 </a>
                             </li>
 
@@ -214,7 +161,7 @@
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-jobs-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -244,7 +191,7 @@
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-jobs-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -265,7 +212,7 @@
                                                             <td>
                                                                 RJ125
                                                             </td>
-                                                            <td>John Doe</td>
+                                                            <td>NA</td>
                                                             <td>ABC Pvt Ltd</td>
                                                             <td>Startup performance Issue</td>
                                                             <td>High</td>
@@ -274,7 +221,7 @@
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="view-support-jobs.php"
+                                                                <a aria-label="anchor" href="view-jobs-detail.php"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
