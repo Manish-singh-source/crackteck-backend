@@ -260,19 +260,19 @@
                 <li class="menu-title mt-2">Remote Support</li>
                 <li>
                     <a class='tp-link' href='view-jobs.php'>
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-briefcase"></i>
                         <span class="ps-1"> Jobs</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='assigned-jobs.php'>
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-clipboard-check"></i>
                         <span class="ps-1"> Assigned Jobs</span>
                     </a>
                 </li>
                 <li>
                     <a class='tp-link' href='field-issues.php'>
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-tools"></i>
                         <span class="ps-1"> Field Issues</span>
                     </a>
                 </li>
