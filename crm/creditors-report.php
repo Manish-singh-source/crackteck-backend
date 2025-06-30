@@ -37,10 +37,12 @@
                                                         <tr>
                                                             <th>Bill No</th>
                                                             <th>Vendor Name</th>
-                                                            <th>Bill Date</th>
                                                             <th>Total Amount</th>
                                                             <th>Paid Amount</th>
+                                                            <th>Bill Due</th>
                                                             <th>Balance</th>
+                                                            <th>Bill Date</th>
+                                                            <th>Bill Due Date</th>
                                                             <th>Payment Status</th>
                                                             <th>Actions</th>
                                                         </tr>
@@ -49,10 +51,12 @@
                                                         <tr class="align-middle">
                                                             <td>PB-1002</td>
                                                             <td>GreenTech Ltd.</td>
-                                                            <td>2025-06-03</td>
                                                             <td>600₹</td>
                                                             <td>0₹</td>
                                                             <td>600₹</td>
+                                                            <td>600₹</td>
+                                                            <td>2025-06-03</td>
+                                                            <td>2025-06-03</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">
                                                                     Unpaid
@@ -79,10 +83,12 @@
                                                         <tr class="align-middle">
                                                             <td>PB-1003</td>
                                                             <td>Nova Media</td>
-                                                            <td>2025-06-05</td>
                                                             <td>950₹</td>
                                                             <td>700₹</td>
                                                             <td>250₹</td>
+                                                            <td>250₹</td>
+                                                            <td>2025-06-05</td>
+                                                            <td>2025-06-05</td>
                                                             <td>
                                                                 <span class="badge bg-warning-subtle text-warning fw-semibold">
                                                                     Partially Paid

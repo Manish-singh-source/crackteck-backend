@@ -43,9 +43,10 @@
                                                             <th>Quotation ID</th>
                                                             <th>Invoice No</th>
                                                             <th>Client Name</th>
-                                                            <th>Date</th>
                                                             <th>Item details</th>
                                                             <th>Total Amount</th>
+                                                            <th>Bill Date</th>
+                                                            <th>Bill Due Date</th>
                                                             <th>Payment Status</th>
                                                             <th>Notes/Remarks</th>
                                                             <!-- <th>Attachment</th> -->
@@ -57,9 +58,10 @@
                                                             <td>QTN-1001</td>
                                                             <td>INV-001</td>
                                                             <td>John Enterprises</td>
-                                                            <td>2025-06-01</td>
                                                             <td>5x Landing Pages Design</td>
                                                             <td>1,250₹</td>
+                                                            <td>2025-06-01</td>
+                                                            <td>2025-06-01</td>
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">
                                                                     Paid
@@ -84,9 +86,10 @@
                                                              <td>QTN-1001</td>
                                                             <td>INV-002</td>
                                                             <td>GreenTech Ltd.</td>
-                                                            <td>2025-06-03</td>
                                                             <td>Website Maintenance Plan</td>
                                                             <td>600₹</td>
+                                                            <td>2025-06-03</td>
+                                                            <td>2025-06-03</td>
                                                             <td>
                                                                 <span class="badge bg-danger-subtle text-danger fw-semibold">
                                                                     Unpaid
@@ -111,9 +114,10 @@
                                                              <td>QTN-1001</td>
                                                             <td>INV-003</td>
                                                             <td>Nova Media</td>
-                                                            <td>2025-06-05</td>
                                                             <td>SEO & Blog Services</td>
                                                             <td>950₹</td>
+                                                            <td>2025-06-05</td>
+                                                            <td>2025-06-05</td>
                                                             <td>
                                                                 <span class="badge bg-warning-subtle text-warning fw-semibold">
                                                                     Partially Paid
@@ -138,9 +142,10 @@
                                                              <td>QTN-1001</td>
                                                             <td>INV-004</td>
                                                             <td>Alpha Foods</td>
-                                                            <td>2025-06-06</td>
                                                             <td>Social Media Campaign</td>
                                                             <td>1,800₹</td>
+                                                            <td>2025-06-06</td>
+                                                            <td>2025-06-06</td>
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success fw-semibold">
                                                                     Paid
