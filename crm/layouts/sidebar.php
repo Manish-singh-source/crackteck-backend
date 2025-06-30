@@ -71,7 +71,7 @@
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">
                         <i class="fas fa-file-alt"></i>
-                        <span class="ps-1"> Reports </span>
+                        <span class="ps-1"> Accounts </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarBaseui">
@@ -116,6 +116,16 @@
                             <li>
                                 <a class='tp-link' href='expenses.php'>
                                     Expenses
+                                </a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href='stock-request.php'>
+                                    Stock Reports
+                                </a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href='low-stock-alert.php'>
+                                    Low Stock Reports
                                 </a>
                             </li>
                         </ul>

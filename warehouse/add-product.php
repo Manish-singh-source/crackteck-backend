@@ -47,6 +47,51 @@
                                                 <input type="text" class="form-control" id="vendor_name" name="vendor_name" required="" value="" placeholder="Enter Vendor Name">
                                             </div>
                                         </div>
+                                        
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="invoice_number">
+                                                    Invoice Number <span class="text-danger">*</span>
+                                                </label>
+                                                <input name="invoice_number" id="invoice_number" type="text" class="form-control" value="" placeholder="Enter Invoice Number" required="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="invoice_file">
+                                                    Invoice PDf/Image <span class="text-danger">*</span>
+                                                </label>
+                                                <input name="invoice_file" id="invoice_file" type="file" class="form-control" value="" placeholder="Enter Invoice Number" required="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="date">
+                                                    Purchase Date <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" class="form-control" id="date" name="date" required="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="date">
+                                                    Bill Due Date <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" class="form-control" id="date" name="date" required="" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div>
+                                                <label class="form-label" for="date">
+                                                    Bill Amount <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="date" name="date" required="" value="" placeholder="Enter Bill Amount">
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

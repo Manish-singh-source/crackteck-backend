@@ -1,5 +1,39 @@
 <?php include('layouts/header.php') ?>
+<style>
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
 
+    #popupOverlay img {
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 0 10px #fff;
+    }
+
+    #popupOverlay .closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
 <div class="content">
     <div class="container-fluid">
 
@@ -83,10 +117,17 @@
                                 </span>
                             </li>
 
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Pickup Reason:
+                                </span>
+                                <span>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore, cupiditate.
+                                </span>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
-
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
@@ -148,14 +189,171 @@
                     </div>
 
                 </div>
+
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Diagnosis Details
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush ">
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Earthing:
+                                </span>
+                                <span>
+                                    <span class="badge bg-success-subtle text-success fw-semibold request-status">Done</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Power Test:
+                                </span>
+                                <span>
+                                    <span class="badge bg-success-subtle text-success fw-semibold request-status">Done</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Display Output:
+                                </span>
+                                <span>
+                                    <span class="badge bg-success-subtle text-success fw-semibold request-status">Done</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Keyboard / Mouse / Touchpad:
+                                </span>
+                                <span>
+                                    <span class="badge bg-success-subtle text-success fw-semibold request-status">Done</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">USB / HDMI / LAN / Audio Ports:
+                                </span>
+                                <span>
+                                    <span class="badge bg-warning-subtle text-warning fw-semibold request-status">Raised Issue</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Wi-Fi / Bluetooth:
+                                </span>
+                                <span>
+                                    <span class="badge bg-danger-subtle text-danger fw-semibold request-status">Pending</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Overheating Symptoms:
+                                </span>
+                                <span>
+                                    <span class="badge bg-danger-subtle text-danger fw-semibold request-status">Pending</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">RAM / HDD / SSD Health:
+                                </span>
+                                <span>
+                                    <span class="badge bg-danger-subtle text-danger fw-semibold request-status">Pending</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Hinge or Body Damage:
+                                </span>
+                                <span>
+                                    <span class="badge bg-danger-subtle text-danger fw-semibold request-status">Pending</span>
+                                </span>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                <span class="fw-semibold text-break">Battery / Charging:
+                                </span>
+                                <span>
+                                    <span class="badge bg-danger-subtle text-danger fw-semibold request-status">Pending</span>
+                                </span>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Issue Details
+                            </h5>
+                            <div>
+                                <span class="badge bg-danger-subtle text-danger fw-semibold">High</span>
+                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Priority :
+                                        </span>
+                                        <span class="badge bg-danger-subtle text-danger fw-semibold">High</span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Type :
+                                        </span>
+                                        <span>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ut?
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Image :
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">&times;</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Status :
+                                        </span>
+                                        <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Issue Description :
+                                        </span>
+                                        <span>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ut?
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
 
             <div class="col-xl-4">
-
-
-
-
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">

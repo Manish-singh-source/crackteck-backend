@@ -174,6 +174,85 @@
         <!-- End Start -->
 
         <div class="row">
+            <!-- 
+            <div class="col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col">
+                        <div class="card rounded-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="">
+                                        <h2 class="mb-0">₹88,367</h2>
+                                    </div>
+                                    <div class="">
+                                        <p class="dash-lable d-flex align-items-center gap-1 rounded mb-0 bg-danger text-danger bg-opacity-10">
+                                            <span class="material-icons-outlined fs-6">arrow_upward</span>18.6%
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="mb-0">Sale This Month</p>
+                                <div class="mt-4">
+                                    <p class="mb-2 d-flex align-items-center justify-content-between">285 left to Goal<span class="">78%</span></p>
+                                    <div class="progress w-100" style="height: 6px;">
+                                        <div class="progress-bar bg-grd-danger" style="width: 65%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card rounded-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="">
+                                        <h2 class="mb-0">$88,367</h2>
+                                    </div>
+                                    <div class="">
+                                        <p class="dash-lable d-flex align-items-center gap-1 rounded mb-0 bg-danger text-danger bg-opacity-10">
+                                            <span class="material-icons-outlined fs-6">arrow_upward</span>18.6%
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="mb-0">Sale This Month</p>
+                                <div class="mt-4">
+                                    <p class="mb-2 d-flex align-items-center justify-content-between">285 left to Goal<span class="">78%</span></p>
+                                    <div class="progress w-100" style="height: 6px;">
+                                        <div class="progress-bar bg-grd-danger" style="width: 65%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card rounded-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="">
+                                        <h2 class="mb-0">$55,674</h2>
+                                    </div>
+                                    <div class="">
+                                        <p class="dash-lable d-flex align-items-center gap-1 rounded mb-0 bg-success text-success bg-opacity-10">
+                                            <span class="material-icons-outlined fs-6">arrow_upward</span>42.6%
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="mb-0">Sale This Week</p>
+                                <div class="mt-4">
+                                    <p class="mb-2 d-flex align-items-center justify-content-between">285 left to Goal<span class="">88%</span></p>
+                                    <div class="progress w-100" style="height: 6px;">
+                                        <div class="progress-bar bg-grd-success" style="width: 88%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            -->
+
             <div class="col-md-12 col-xl-8">
                 <div class="card overflow-hidden">
 
