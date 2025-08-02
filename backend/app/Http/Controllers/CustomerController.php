@@ -108,4 +108,24 @@ class CustomerController extends Controller
         return redirect()->route('customer.index')->with('success', 'Customer deleted successfully.');
     }
 
+    public function ec_index()
+    {
+        return view('/e-commerce/customer/index');
+    }
+
+    public function ec_create()
+    {
+        return view('/e-commerce/customer/create');
+    }
+
+    public function ec_view()
+    {
+        return view('/e-commerce/customer/view');
+    }
+
+    public function ec_edit()
+    {
+        return view('/e-commerce/customer/edit');
+    }
+
 }

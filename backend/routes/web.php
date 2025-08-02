@@ -3,9 +3,15 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AmcController;
 use App\Http\Controllers\AssignedJobController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CallLogController;
 use App\Http\Controllers\CaseTransferController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientReceiptController;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\CreditorsReportController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
@@ -22,11 +28,14 @@ use App\Http\Controllers\KycLogController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\LowStockController;
 use App\Http\Controllers\MeetController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PayToVendorController;
 use App\Http\Controllers\PickupRequestController;
 use App\Http\Controllers\PincodeController;
+use App\Http\Controllers\ProductDealController;
 use App\Http\Controllers\ProductListController;
+use App\Http\Controllers\ProductVariantsController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReimbursementController;
 use App\Http\Controllers\SaleReportController;
@@ -34,9 +43,14 @@ use App\Http\Controllers\SalesInvoicingController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SparePartController;
 use App\Http\Controllers\StockReportController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\TrackProductController;
 use App\Http\Controllers\TrackRequestController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\VendorPurchaseBillController;
+use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\WarehouseRackController;
 use App\Http\Controllers\WithdrawController;
 use App\Models\PickupRequest;
 
@@ -938,129 +952,185 @@ Route::get('/warehouse/index', function () {
 Route::controller(ProductListController::class)->group(function(){
     // Products List Page
     Route::get('/warehouse/product-list','index')->name('products.index');
+    // Create Product Page 
+    Route::get('/warehouse/create-product', 'create')->name('product-list.create');
+    // View Product Page 
+    Route::get('/warehouse/view-product-list', 'view')->name('product-list.view');
+    // Edit Products Page 
+    Route::get('/warehouse/edit-product-list', 'edit')->name('product-list.edit');
+    // Scrap Items Page
+    Route::get('/warehouse/scrap-items', 'scrapItems')->name('product-list.scrap-items');
 });
 // Route::get('/warehouse/products', function () {
 //     return view('/warehouse/product-list/index');
 // })->name('products.index');
 
 // Create Product Page
-Route::get('/warehouse/create-product', function () {
-    return view('/warehouse/product-list/create');
-})->name('product-list.create');
+// Route::get('/warehouse/create-product', function () {
+//     return view('/warehouse/product-list/create');
+// })->name('product-list.create');
 
 // View Product Page
-Route::get('/warehouse/view-product', function () {
-    return view('/warehouse/product-list/view');
-})->name('product-list.view');
+// Route::get('/warehouse/view-product', function () {
+//     return view('/warehouse/product-list/view');
+// })->name('product-list.view');
 
 // Edit Product Page
-Route::get('/warehouse/edit-product', function () {
-    return view('/warehouse/product-list/edit');
-})->name('product-list.edit');
+// Route::get('/warehouse/edit-product', function () {
+//     return view('/warehouse/product-list/edit');
+// })->name('product-list.edit');
 
 // Scrap Items Page
-Route::get('/warehouse/scrap-items', function () {
-    return view('/warehouse/product-list/scrap-items');
-})->name('product-list.scrap-items');
+// Route::get('/warehouse/scrap-items', function () {
+//     return view('/warehouse/product-list/scrap-items');
+// })->name('product-list.scrap-items');
 
 // ------------------------------------------------------------ Track Product List -------------------------------------------------------------
 
+Route::controller(TrackProductController::class)->group(function (){
+    // Track Product List Page
+    Route::get('/warehouse/track-product-list', 'index')->name('track-product.index');
+});
 // Track Product List Page
-Route::get('/warehouse/track-product-list', function () {
-    return view('/warehouse/track-product/index');
-})->name('track-product.index');
+// Route::get('/warehouse/track-product-list', function () {
+//     return view('/warehouse/track-product/index');
+// })->name('track-product.index');
 
 // ------------------------------------------------------------ Spare Parts List -------------------------------------------------------------
 
+Route::controller(SparePartController::class)->group(function (){
+    // Spare Parts Requests
+    Route::get('/warehouse/spare-parts', 'index')->name('spare-parts.index');
+    // View Spare Part Requests
+    Route::get('/warehouse/view-spare-part', 'view')->name('spare-parts.view');
+});
 // Spare Parts Requests
-Route::get('/warehouse/spare-parts-requests', function () {
-    return view('/warehouse/spare-parts-requests/index');
-})->name('spare-parts.index');
+// Route::get('/warehouse/spare-parts-requests', function () {
+//     return view('/warehouse/spare-parts-requests/index');
+// })->name('spare-parts.index');
 
 // View Spare Part Request Page
-Route::get('/warehouse/view-spare-part-request', function () {
-    return view('/warehouse/spare-parts-requests/view');
-})->name('spare-parts.view');
+// Route::get('/warehouse/view-spare-part-request', function () {
+//     return view('/warehouse/spare-parts-requests/view');
+// })->name('spare-parts.view');
 
-// ------------------------------------------------------------ Warehouse Page -------------------------------------------------------------
+// ------------------------------------------------------------ Warehouse Page ------------------------------------------------------------
 
+Route::controller(WarehouseController::class)->group(function (){
+    // Warehouses List Page
+    Route::get('/warehouse/warehouses-list', 'index')->name('warehouses-list.index');
+    // Create Warehouse Page
+    Route::get('/warehouse/create-warehouse', 'create')->name('warehouse-list.create');
+    // View Warehouse Page
+    Route::get('/warehouse/view-warehouse-list', 'view')->name('warehouses-list.view');
+    // Edit Warehouse Page
+    Route::get('/warehouse/edit-warehouse', 'edit')->name('warehouses-list.edit');
+});
 // Warehouses List Page
-Route::get('/warehouse/warehouses-list', function () {
-    return view('/warehouse/warehouses-list/index');
-})->name('warehouses-list.index');
+// Route::get('/warehouse/warehouses-list', function () {
+//     return view('/warehouse/warehouses-list/index');
+// })->name('warehouses-list.index');
 
 // Create Warehouse Page
-Route::get('/warehouse/create-warehouse', function () {
-    return view('/warehouse/warehouses-list/create');
-})->name('warehouse-list.create');
+// Route::get('/warehouse/create-warehouse', function () {
+//     return view('/warehouse/warehouses-list/create');
+// })->name('warehouse-list.create');
 
 // View Warehouse Page
-Route::get('/warehouse/view-warehouse', function () {
-    return view('/warehouse/warehouses-list/view');
-})->name('warehouses-list.view');
+// Route::get('/warehouse/view-warehouse', function () {
+//     return view('/warehouse/warehouses-list/view');
+// })->name('warehouses-list.view');
 
 // Edit Warehouse Page
-Route::get('/warehouse/edit-warehouse', function () {
-    return view('/warehouse/warehouses-list/edit');
-})->name('warehouses-list.edit');
+// Route::get('/warehouse/edit-warehouse', function () {
+//     return view('/warehouse/warehouses-list/edit');
+// })->name('warehouses-list.edit');
 
 // ------------------------------------------------------------ Warehouse Rack Page -------------------------------------------------------------
 
+Route::controller(WarehouseRackController::class)->group(function (){
+    // Warehouse Rack Page
+    Route::get('/warehouse/rack', 'index')->name('rack.index');
+    // Create Warehouse Rack Page
+    Route::get('/warehouse/create-rack', 'create')->name('rack.create');
+    // Edit Warehouse Rack Page
+    Route::get('/warehouse/edit-rack', 'edit')->name('rack.edit');
+});
 // Warehouse Rack Page
-Route::get('/warehouse/rack', function () {
-    return view('/warehouse/rack/index');
-})->name('rack.index');
+// Route::get('/warehouse/rack', function () {
+//     return view('/warehouse/rack/index');
+// })->name('rack.index');
 
 // Create Rack Page
-Route::get('/warehouse/create-rack', function () {
-    return view('/warehouse/rack/create');
-})->name('rack.create');
+// Route::get('/warehouse/create-rack', function () {
+//     return view('/warehouse/rack/create');
+// })->name('rack.create');
 
 // Edit Rack Page
-Route::get('/warehouse/edit-rack', function () {
-    return view('/warehouse/rack/edit');
-})->name('rack.edit');
+// Route::get('/warehouse/edit-rack', function () {
+//     return view('/warehouse/rack/edit');
+// })->name('rack.edit');
 
 // ------------------------------------------------------------ Vendor Purchase Page -------------------------------------------------------------
 
+Route::controller(VendorPurchaseBillController::class)->group(function (){
+    // Vendor Purchase Page
+    Route::get('/warehouse/vendor-purchase-bills' ,'index')->name('vendor.index');
+    // Create Vendor Purchase Page
+    Route::get('/warehouse/create-vendor-purchase-bill' ,'create')->name('vendor.create');
+    // View Vendor Purchase Page
+    Route::get('/warehouse/view-vendor-purchase-bill' ,'view')->name('vendor.view');
+});
 // Vendor Purchase Page
-Route::get('/warehouse/vendor-purchase-bills', function () {
-    return view('/warehouse/vendor-purchase-bills/index');
-})->name('vendor.index');
+// Route::get('/warehouse/vendor-purchase-bills', function () {
+//     return view('/warehouse/vendor-purchase-bills/index');
+// })->name('vendor.index');
 
 // Create Vendor Purchase Page 
-Route::get('/warehouse/create-vendor-purchase-bill', function () {
-    return view('/warehouse/vendor-purchase-bills/create');
-})->name('vendor.create');
+// Route::get('/warehouse/create-vendor-purchase-bill', function () {
+//     return view('/warehouse/vendor-purchase-bills/create');
+// })->name('vendor.create');
 
 // View Vendor Purchase Page 
-Route::get('/warehouse/view-vendor-puschase-bills', function () {
-    return view('/warehouse/vendor-purchase-bills/view');
-})->name('vendor.view');
+// Route::get('/warehouse/view-vendor-puschase-bills', function () {
+//     return view('/warehouse/vendor-purchase-bills/view');
+// })->name('vendor.view');
 
 // ------------------------------------------------------------ Vendor Purchase Page -------------------------------------------------------------
 
+Route::controller(StockReportController::class)->group(function (){
+    // Stock Report Page 
+    Route::get('/warehouse/stock-requests' ,'warehouse_index')->name('stock-request.index');
+    // Create Stock Report Page
+    Route::get('/warehouse/create-stock-request' ,'warehouse_create')->name('stock-request.create');
+    // Edit Stock Report Page
+    Route::get('/warehouse/edit-stock-request' ,'warehouse_edit')->name('stock-request.edit');
+});
 // Stock Report Page 
-Route::get('/warehouse/stock-reports', function () {
-    return view('/warehouse/stock-request/index');
-})->name('stock-request.index');
+// Route::get('/warehouse/stock-reports', function () {
+//     return view('/warehouse/stock-request/index');
+// })->name('stock-request.index');
 
 // Create Report Page 
-Route::get('/warehouse/create-stock-reports', function () {
-    return view('/warehouse/stock-request/create');
-})->name('stock-request.create');
+// Route::get('/warehouse/create-stock-reports', function () {
+//     return view('/warehouse/stock-request/create');
+// })->name('stock-request.create');
 
 // Edit Report Page 
-Route::get('/warehouse/edit-stock-reports', function () {
-    return view('/warehouse/stock-request/edit');
-})->name('stock-request.edit');
+// Route::get('/warehouse/edit-stock-reports', function () {
+//     return view('/warehouse/stock-request/edit');
+// })->name('stock-request.edit');
 
 // ------------------------------------------------------------ Low Stock Page -------------------------------------------------------------
 
+Route::controller(LowStockController::class)->group(function (){
+    // Low Stock Page 
+    Route::get('/warehouse/low-stock-alert' , 'warehouse_index')->name('low-stock.index');
+});
 // Low Stock Page 
-Route::get('/warehouse/low-stock-alert', function () {
-    return view('/warehouse/low-stock-alert/index');
-})->name('low-stock.index');
+// Route::get('/warehouse/low-stock-alert', function () {
+//     return view('/warehouse/low-stock-alert/index');
+// })->name('low-stock.index');
 
 
 
@@ -1087,216 +1157,314 @@ Route::get('/e-commerce/index', function () {
 
 // ------------------------------------------------------------ E-Commerce Customer Page -------------------------------------------------------------
 
+Route::controller(CustomerController::class)->group(function (){
+    // E-commerce Customer Page 
+    Route::get('/e-commerce/customers' ,'ec_index')->name('ec.customer.index');
+    // Create EC Customer Page
+    Route::get('/e-commerce/create-sustomer' ,'ec_create')->name('ec.customer.create');
+    // View EC Customer Page
+    Route::get('/e-commerce/view-customer' ,'ec_view')->name('ec.customer.view');
+    // Edit EC Customer Page
+    Route::get('/e-commerce/edit-customer' ,'ec_edit')->name('ec.customer.edit');
+});
 // E-commerce Customer Page 
-Route::get('/e-commerce/customers', function () {
-    return view('/e-commerce/customer/index');
-})->name('ec.customer.index');
+// Route::get('/e-commerce/customers', function () {
+//     return view('/e-commerce/customer/index');
+// })->name('ec.customer.index');
 
 // Create Customer Page
-Route::get('/e-commerce/create-customers', function () {
-    return view('/e-commerce/customer/create');
-})->name('ec.customer.create');
+// Route::get('/e-commerce/create-customers', function () {
+//     return view('/e-commerce/customer/create');
+// })->name('ec.customer.create');
 
 // View Customer Page 
-Route::get('/e-commerce/view-customers', function () {
-    return view('/e-commerce/customer/view');
-})->name('ec.customer.view');
+// Route::get('/e-commerce/view-customers', function () {
+//     return view('/e-commerce/customer/view');
+// })->name('ec.customer.view');
 
 // Edit Customer Page 
-Route::get('/e-commerce/edit-customers', function () {
-    return view('/e-commerce/customer/edit');
-})->name('ec.customer.edit');
+// Route::get('/e-commerce/edit-customers', function () {
+//     return view('/e-commerce/customer/edit');
+// })->name('ec.customer.edit');
 
 // ------------------------------------------------------------ E-Commerce Order Page -------------------------------------------------------------
 
+Route::controller(OrderController::class)->group(function (){
+    // Order Page 
+    Route::get('/e-commerce/order' ,'index')->name('order.index');
+    // Create Order Page
+    Route::get('/e-commerce/create-order' ,'create')->name('order.create');
+    // View Order Page
+    Route::get('/e-commerce/view-order' ,'view')->name('order.view');
+});
 // Order Page 
-Route::get('/e-commerce/order', function () {
-    return view('/e-commerce/order/index');
-})->name('order.index');
+// Route::get('/e-commerce/order', function () {
+//     return view('/e-commerce/order/index');
+// })->name('order.index');
 
 // Create Order Page 
-Route::get('/e-commerce/create-order', function () {
-    return view('/e-commerce/order/create');
-})->name('order.create');
+// Route::get('/e-commerce/create-order', function () {
+//     return view('/e-commerce/order/create');
+// })->name('order.create');
 
 // View Order Page 
-Route::get('/e-commerce/view-order', function () {
-    return view('/e-commerce/order/view');
-})->name('order.view');
+// Route::get('/e-commerce/view-order', function () {
+//     return view('/e-commerce/order/view');
+// })->name('order.view');
 
 // ------------------------------------------------------------ E-Commerce Products Page -------------------------------------------------------------
 
+Route::controller(ProductListController::class)->group(function (){
+    // Product Page 
+    Route::get('/e-commerce/products' ,'ec_index')->name('ec.product.index');
+    // Create Product Page
+    Route::get('/e-commerce/create-product' ,'ec_create')->name('ec.product.create');
+    // View Product Page
+    Route::get('/e-commerce/view-product' ,'ec_view')->name('ec.product.view');
+    // Edit Product Page 
+    Route::get('/e-commerce/edit-product' ,'ec_edit')->name('ec.product.edit');
+    // Scrap Items Product Page
+    Route::get('/e-commerce/scrap-items' ,'ec_scrapItems')->name('scrap-items');
+});
 // Product Page 
-Route::get('/e-commerce/products', function () {
-    return view('/e-commerce/products/index');
-})->name('ec.product.index');
+// Route::get('/e-commerce/products', function () {
+//     return view('/e-commerce/products/index');
+// })->name('ec.product.index');
 
 // Create Product Page 
-Route::get('/e-commerce/create-products', function () {
-    return view('/e-commerce/products/create');
-})->name('ec.product.create');
+// Route::get('/e-commerce/create-products', function () {
+//     return view('/e-commerce/products/create');
+// })->name('ec.product.create');
 
 // View Product Page 
-Route::get('/e-commerce/view-products', function () {
-    return view('/e-commerce/products/view');
-})->name('ec.product.view');
+// Route::get('/e-commerce/view-products', function () {
+//     return view('/e-commerce/products/view');
+// })->name('ec.product.view');
 
 // Edit Product Page 
-Route::get('/e-commerce/edit-products', function () {
-    return view('/e-commerce/products/edit');
-})->name('ec.product.edit');
+// Route::get('/e-commerce/edit-products', function () {
+//     return view('/e-commerce/products/edit');
+// })->name('ec.product.edit');
 
 // Scrab Items Product Page 
-Route::get('/e-commerce/scrab-items', function () {
-    return view('/e-commerce/products/scrap-items');
-})->name('scrap-items');
+// Route::get('/e-commerce/scrab-items', function () {
+//     return view('/e-commerce/products/scrap-items');
+// })->name('scrap-items');
 
 // ------------------------------------------------------------ E-Commerce Categories Page -------------------------------------------------------------
 
+Route::controller(CategorieController::class)->group(function (){
+    // Categorie Page 
+    Route::get('/e-commerce/categories' ,'index')->name('category.index');
+    // Create Categorie Page
+    Route::get('/e-commerce/create-categorie' ,'create')->name('category.create');
+    // Edit Create Categorie Page 
+    Route::get('/e-commerce/edit-categorie' ,'edit')->name('category.edit');
+});
 // Categorie Page 
-Route::get('/e-commerce/categories', function () {
-    return view('/e-commerce/categories/index');
-})->name('category.index');
+// Route::get('/e-commerce/categories', function () {
+//     return view('/e-commerce/categories/index');
+// })->name('category.index');
 
 // Create Categorie Page 
-Route::get('/e-commerce/create-categories', function () {
-    return view('/e-commerce/categories/create');
-})->name('category.create');
+// Route::get('/e-commerce/create-categories', function () {
+//     return view('/e-commerce/categories/create');
+// })->name('category.create');
 
 // Edit Categorie Page 
-Route::get('/e-commerce/edit-categories', function () {
-    return view('/e-commerce/categories/edit');
-})->name('category.edit');
+// Route::get('/e-commerce/edit-categories', function () {
+//     return view('/e-commerce/categories/edit');
+// })->name('category.edit');
 
 // ------------------------------------------------------------ E-Commerce Brands Page -------------------------------------------------------------
 
+Route::controller(BrandController::class)->group(function (){
+    // Brands Page 
+    Route::get('/e-commerce/brands' ,'index')->name('brand.index');
+    // Create Brands Page 
+    Route::get('/e-commerce/create-brand' ,'create')->name('brand.create');
+    // Edit Brands Page
+    Route::get('/e-commerce/edit-brand' ,'edit')->name('brand.edit');
+});
 // Brands Page 
-Route::get('/e-commerce/brands', function () {
-    return view('/e-commerce/brands/index');
-})->name('brand.index');
+// Route::get('/e-commerce/brands', function () {
+//     return view('/e-commerce/brands/index');
+// })->name('brand.index');
 
 // Create Brands Page 
-Route::get('/e-commerce/create-brands', function () {
-    return view('/e-commerce/brands/create');
-})->name('brand.create');
+// Route::get('/e-commerce/create-brands', function () {
+//     return view('/e-commerce/brands/create');
+// })->name('brand.create');
 
 // Edit Brands Page 
-Route::get('/e-commerce/edit-brands', function () {
-    return view('/e-commerce/brands/edit');
-})->name('brand.edit');
+// Route::get('/e-commerce/edit-brands', function () {
+//     return view('/e-commerce/brands/edit');
+// })->name('brand.edit');
 
 // ------------------------------------------------------------ E-Commerce Product Variants Page -------------------------------------------------------------
 
+Route::controller(ProductVariantsController::class)->group(function (){
+    // Product Variants Page 
+    Route::get('/e-commerce/product-variants' ,'index')->name('variant.index');
+    // Product Attribute List Page
+    Route::get('/e-commerce/product-attribute-list' ,'view')->name('variant.view');
+});
 // Product Variants Page 
-Route::get('/e-commerce/product-variants', function () {
-    return view('/e-commerce/product-variants/index');
-})->name('variant.index');
+// Route::get('/e-commerce/product-variants', function () {
+//     return view('/e-commerce/product-variants/index');
+// })->name('variant.index');
 
 // Product Attribute List Page 
-Route::get('/e-commerce/product-attribute-list', function () {
-    return view('/e-commerce/product-variants/view');
-})->name('variant.view');
+// Route::get('/e-commerce/product-attribute-list', function () {
+//     return view('/e-commerce/product-variants/view');
+// })->name('variant.view');
 
 // ------------------------------------------------------------ E-Commerce Coupons Page -------------------------------------------------------------
 
-// Coupons Page 
-Route::get('/e-commerce/coupons', function () {
-    return view('/e-commerce/coupons/index');
-})->name('coupon.index');
+Route::controller(CouponsController::class)->group(function (){
+    // Coupons Page 
+    Route::get('/e-commerce/coupons' ,'index')->name('coupon.index');
+    // Create Coupons Page
+    Route::get('/e-commerce/create-coupons' ,'create')->name('coupon.create');
+    // Edit Coupons Page
+    Route::get('/e-commerce/edit-coupons' ,'edit')->name('coupon.edit');
+});
+// Coupons Page     
+// Route::get('/e-commerce/coupons', function () {
+//     return view('/e-commerce/coupons/index');
+// })->name('coupon.index');
 
 // Create Coupons Page 
-Route::get('/e-commerce/create-coupons', function () {
-    return view('/e-commerce/coupons/create');
-})->name('coupon.create');
+// Route::get('/e-commerce/create-coupons', function () {
+//     return view('/e-commerce/coupons/create');
+// })->name('coupon.create');
 
 // Edit Coupons Page 
-Route::get('/e-commerce/edit-coupons', function () {
-    return view('/e-commerce/coupons/edit');
-})->name('coupon.edit');
+// Route::get('/e-commerce/edit-coupons', function () {
+//     return view('/e-commerce/coupons/edit');
+// })->name('coupon.edit');
 
 // ------------------------------------------------------------ E-Commerce Subscribers Page -------------------------------------------------------------
 
+Route::controller(SubscriberController::class)->group(function (){
+    // Subscribers Page
+    Route::get('/e-commerce/subscribers' ,'index')->name('subscriber.index');
+    // Send Mail Page
+    Route::get('/e-commerce/send-mail-subscriber' , 'sendMail')->name('subscriber.send-mail');
+});
 // Subscribers Page 
-Route::get('/e-commerce/subscribers', function () {
-    return view('/e-commerce/subscribers/index');
-})->name('subscriber.index');
+// Route::get('/e-commerce/subscribers', function () {
+//     return view('/e-commerce/subscribers/index');
+// })->name('subscriber.index');
 
 // Send Mail Page 
-Route::get('/e-commerce/send-mail-subscriber', function () {
-    return view('/e-commerce/subscribers/send-mail');
-})->name('subscriber.send-mail');
+// Route::get('/e-commerce/send-mail-subscriber', function () {
+//     return view('/e-commerce/subscribers/send-mail');
+// })->name('subscriber.send-mail');
 
 // ------------------------------------------------------------ E-Commerce Contact Page -------------------------------------------------------------
 
-// Conatct Page 
-Route::get('/e-commerce/contacts', function () {
-    return view('/e-commerce/contacts/index');
-})->name('contact.index');
+// Contact Page 
+Route::get('/e-commerce/contacts', [ContactController::class, 'index'])->name('contact.index');
+// Route::get('/e-commerce/contacts', function () {
+//     return view('/e-commerce/contacts/index');
+// })->name('contact.index');
 
 // ------------------------------------------------------------ E-Commerce Website Banner Page -------------------------------------------------------------
 
+Route::controller(BannerController::class)->group(function (){
+    // Website Banner Page
+    Route::get('/e-commerce/website-banner' ,'websiteBanner')->name('website.banner.index');
+    // Add Website Banner Page
+    Route::get('/e-commerce/add-banner' ,'addWebsiteBanner')->name('website.banner.create');
+    // Edit Website Banner Page
+    Route::get('/e-commerce/edit-banner' ,'editWebsiteBanner')->name('website.banner.edit');
+
+    // Promotional Banner Page
+    Route::get('/e-commerce/promotional-banner' ,'promotionalBanner')->name('promotional.banner.index');
+    // Add Promotional Banner Page
+    Route::get('/e-commerce/add-promotional-banner' ,'addPromotionalBanner')->name('promotional.banner.create');
+    // Edit Promotional Banner Page
+    Route::get('/e-commerce/edit-promotional-banner' ,'editPromotionalBanner')->name('promotional.banner.edit');
+});
 // Website Banner Page 
-Route::get('/e-commerce/website-banner', function () {
-    return view('/e-commerce/banner/website-banner/index');
-})->name('website.banner.index');
+// Route::get('/e-commerce/website-banner', function () {
+//     return view('/e-commerce/banner/website-banner/index');
+// })->name('website.banner.index');
 
 // Add Website Banner Page 
-Route::get('/e-commerce/add-banner', function () {
-    return view('/e-commerce/banner/website-banner/create');
-})->name('website.banner.create');
+// Route::get('/e-commerce/add-banner', function () {
+//     return view('/e-commerce/banner/website-banner/create');
+// })->name('website.banner.create');
 
 // Edit Website Banner Page 
-Route::get('/e-commerce/edit-banner', function () {
-    return view('/e-commerce/banner/website-banner/edit');
-})->name('website.banner.edit');
+// Route::get('/e-commerce/edit-banner', function () {
+//     return view('/e-commerce/banner/website-banner/edit');
+// })->name('website.banner.edit');
 
 // ------------------------------------------------------------ E-Commerce Promotional Banner Page -------------------------------------------------------------
 
 // Promotional Banner Page 
-Route::get('/e-commerce/promotional-banner', function () {
-    return view('/e-commerce/banner/promotional-banner/index');
-})->name('promotional.banner.index');
+// Route::get('/e-commerce/promotional-banner', function () {
+//     return view('/e-commerce/banner/promotional-banner/index');
+// })->name('promotional.banner.index');
 
 // Add Promotional Banner Page 
-Route::get('/e-commerce/add-promotional-banner', function () {
-    return view('/e-commerce/banner/promotional-banner/create');
-})->name('promotional.banner.create');
+// Route::get('/e-commerce/add-promotional-banner', function () {
+//     return view('/e-commerce/banner/promotional-banner/create');
+// })->name('promotional.banner.create');
 
 // Edit Promotional Banner Page 
-Route::get('/e-commerce/edit-promotional-banner', function () {
-    return view('/e-commerce/banner/promotional-banner/edit');
-})->name('promotional.banner.edit');
+// Route::get('/e-commerce/edit-promotional-banner', function () {
+//     return view('/e-commerce/banner/promotional-banner/edit');
+// })->name('promotional.banner.edit');
 
 // ------------------------------------------------------------ E-Commerce Product Deals Page -------------------------------------------------------------
 
+Route::controller(ProductDealController::class)->group(function (){
+    // Product Deals Page
+    Route::get('/e-commerce/product-deals' ,'index')->name('product-deals.index');
+    // Add Product Deals Page
+    Route::get('/e-commerce/add-product-deals' ,'create')->name('product-deals.create');
+    // Edit Product Deals Page
+    Route::get('/e-commerce/edit-product-deals' ,'edit')->name('product-deals.edit');
+});
 // Product Deals Page 
-Route::get('/e-commerce/product-deals', function () {
-    return view('/e-commerce/product-deals/index');
-})->name('product-deals.index');
+// Route::get('/e-commerce/product-deals', function () {
+//     return view('/e-commerce/product-deals/index');
+// })->name('product-deals.index');
 
 // Add Product Deals Page 
-Route::get('/e-commerce/add-product-deals', function () {
-    return view('/e-commerce/product-deals/create');
-})->name('product-deals.create');
+// Route::get('/e-commerce/add-product-deals', function () {
+//     return view('/e-commerce/product-deals/create');
+// })->name('product-deals.create');
 
 // Edit Product Deals Page 
-Route::get('/e-commerce/edit-product-deals', function () {
-    return view('/e-commerce/product-deals/edit');
-})->name('product-deals.edit');
+// Route::get('/e-commerce/edit-product-deals', function () {
+//     return view('/e-commerce/product-deals/edit');
+// })->name('product-deals.edit');
 
 // ------------------------------------------------------------ E-Commerce Collection Page -------------------------------------------------------------
 
+Route::controller(CollectionController::class)->group(function (){
+    // Collection Deals Page 
+    Route::get('/e-commerce/collections' ,'index')->name('collection.index');
+    // Add Collection Deals Page
+    Route::get('e-commerce/add-collections' ,'create')->name('collection.create');
+    // Edit Collection Deals Page
+    Route::get('/e-commerce/edit-collections' ,'edit')->name('collection.edit');
+});
 // Collection Deals Page 
-Route::get('/e-commerce/collections', function () {
-    return view('/e-commerce/collection/index');
-})->name('collection.index');
+// Route::get('/e-commerce/collections', function () {
+//     return view('/e-commerce/collection/index');
+// })->name('collection.index');
 
 // Add Collection Deals Page 
-Route::get('/e-commerce/add-collections', function () {
-    return view('/e-commerce/collection/create');
-})->name('collection.create');
+// Route::get('/e-commerce/add-collections', function () {
+//     return view('/e-commerce/collection/create');
+// })->name('collection.create');
 
 // Edit Collection Deals Page 
-Route::get('/e-commerce/edit-collections', function () {
-    return view('/e-commerce/collection/edit');
-})->name('collection.edit');
+// Route::get('/e-commerce/edit-collections', function () {
+//     return view('/e-commerce/collection/edit');
+// })->name('collection.edit');

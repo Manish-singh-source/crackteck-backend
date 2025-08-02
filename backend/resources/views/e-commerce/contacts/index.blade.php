@@ -74,11 +74,11 @@
                                                         <td>demo1@example.com</td>
                                                         <td>This is regarding something.</td>
                                                         <td>
-                                                            <a aria-label="anchor"
+                                                            {{-- <a aria-label="anchor"
                                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                            </a>
+                                                            </a> --}}
                                                             <a aria-label="anchor"
                                                                 class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                 data-bs-toggle="tooltip" data-bs-original-title="Delete">
@@ -91,11 +91,11 @@
                                                         <td>demo2@example.com</td>
                                                         <td>This is regarding something.</td>
                                                         <td>
-                                                            <a aria-label="anchor"
+                                                            {{-- <a aria-label="anchor"
                                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                            </a>
+                                                            </a> --}}
                                                             <a aria-label="anchor"
                                                                 class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                 data-bs-toggle="tooltip" data-bs-original-title="Delete">
