@@ -9,11 +9,11 @@ class SparePartController extends Controller
     //
     public function index()
     {
-        return view('/crm/spare-parts-requests/index');
+        return view('/warehouse/spare-parts-requests/index');
     }
 
     public function view()
     {
-        return view('/crm/spare-parts-requests/view');
+        return view('/warehouse/spare-parts-requests/view');
     }
 }

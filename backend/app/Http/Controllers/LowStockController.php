@@ -11,4 +11,9 @@ class LowStockController extends Controller
     {
         return view('/crm/accounts/low-stock-alert');
     }
+
+    public function warehouse_index()
+    {
+        return view('/warehouse/low-stock-alert/index');
+    }
 }
