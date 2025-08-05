@@ -176,6 +176,10 @@
         });
     });
 </script>
+<script>
+    var table1 = $('#example').DataTable();
+</script>
+@yield('scripts')
 </body>
 
 
