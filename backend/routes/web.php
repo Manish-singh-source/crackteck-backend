@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AmcController;
 use App\Http\Controllers\AssignedJobController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CallLogController;
 use App\Http\Controllers\CaseTransferController;
 use App\Http\Controllers\ClientReceiptController;
@@ -23,14 +24,17 @@ use App\Http\Controllers\LowStockController;
 use App\Http\Controllers\MeetController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PayToVendorController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PickupRequestController;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReimbursementController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleReportController;
 use App\Http\Controllers\SalesInvoicingController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SparePartController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StockReportController;
 use App\Http\Controllers\SupportTicketController;
 use App\Http\Controllers\TrackRequestController;
@@ -38,20 +42,34 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawController;
 
 
-// Login Page 
-Route::get('/', function () {
-    return view('login');
-})->name('login');
+Route::controller(AuthController::class)->group(function () {
+    // Login Page 
+    Route::get('/', 'login')->name('login');
+    Route::post('/', 'loginStore')->name('loginStore');
+    // Sign Up Page
+    Route::get('/signup', 'signup')->name('signup');
+    Route::post('/signup', 'register')->name('register');
+    // Forgot Password 
+    Route::get('/recover-password', 'recover_password')->name('recover-password');
+    // Profile Page 
+    Route::get('/crm/profile', 'profile')->name('profile');
+    // Logout Page 
+    Route::post('/logout', 'logout')->name('logout');
+});
+
+// Route::get('/', function () {
+//     return view('login');
+// })->name('login');
 
 // Sign Up  
-Route::get('/signup', function () {
-    return view('signup');
-})->name('signup');
+// Route::get('/signup', function () {
+//     return view('signup');
+// })->name('signup');
 
 // Recover Password  
-Route::get('/recover-password', function () {
-    return view('recover-password');
-})->name('recover-password');
+// Route::get('/recover-password', function () {
+//     return view('recover-password');
+// })->name('recover-password');
 
 // 404 
 Route::get('/404', function () {
@@ -67,6 +85,11 @@ Route::get('/500', function () {
 Route::get('/503', function () {
     return view('503');
 })->name('503');
+
+// 503 
+// Route::get('/crm/profile', function () {
+//     return view('/crm/profile');
+// })->name('profile');
 
 // Index
 // Create 
@@ -90,20 +113,31 @@ Route::get('/crm/index', function () {
 
 // ------------------------------------------------------------ Access Control ( Staff Page) -------------------------------------------------------------
 
+Route::controller(StaffController::class)->group(function (){
+    // Staff List
+    Route::get('/crm/staff', 'index')->name('staff.index');
+    // Create Staff List
+    Route::get('/crm/create-staff', 'create')->name('staff.create');
+    // View Staff List
+    Route::get('/crm/view-staff/{id}', 'view')->name('staff.view');
+    // Assign Role To Staff 
+    Route::put('/crm/assign-role-to-staff/{id}', 'assignRole')->name('assign.role');
+});
+
 // Staff List 
-Route::get('/crm/staff', function () {
-    return view('/crm/access-control/staff/index');
-})->name('staff.index');
+// Route::get('/crm/staff', function () {
+//     return view('/crm/access-control/staff/index');
+// })->name('staff.index');
 
 // Staff Create 
-Route::get('/crm/create-staff', function () {
-    return view('/crm/access-control/staff/create');
-})->name('staff.create');
+// Route::get('/crm/create-staff', function () {
+//     return view('/crm/access-control/staff/create');
+// })->name('staff.create');
 
 // Staff View 
-Route::get('/crm/view-staff', function () {
-    return view('/crm/access-control/staff/view');
-})->name('staff.view');
+// Route::get('/crm/view-staff', function () {
+//     return view('/crm/access-control/staff/view');
+// })->name('staff.view');
 
 // Staff Edit
 Route::get('/crm/edit-staff', function () {
@@ -112,20 +146,59 @@ Route::get('/crm/edit-staff', function () {
 
 // ------------------------------------------------------------ Access Control ( Roles Page) -------------------------------------------------------------
 
-// Role List
-Route::get('/crm/roles', function () {
-    return view('/crm/access-control/roles/index');
-})->name('roles.index');
+Route::controller(RoleController::class)->group(function () {
+    // Role List
+    Route::get('/crm/roles', 'index')->name('roles.index');
+    // Create Role
+    Route::get('/crm/create-role', 'create')->name('roles.create');
+    // Store Role List 
+    Route::post('/crm/store-role', 'store')->name('role.store');
+    // Edit Role 
+    Route::get('/crm/edit-role/{id}', 'edit')->name('roles.edit');
+    // Update Role List
+    Route::put('/crm/update-role/{id}','update')->name('role.update');
+    // Delete Role List 
+    Route::delete('/crm/delete-role/{id}', 'delete')->name('role.delete');
+});
+// Route::get('/crm/roles', function () {
+//     return view('/crm/access-control/roles/index');
+// })->name('roles.index');
 
 // Role Create
-Route::get('/crm/create-roles', function () {
-    return view('/crm/access-control/roles/create');
-})->name('roles.create');
+// Route::get('/crm/create-roles', function () {
+//     return view('/crm/access-control/roles/create');
+// })->name('roles.create');
 
 // Role Edit
-Route::get('/crm/edit-roles', function () {
-    return view('/crm/access-control/roles/edit');
-})->name('roles.edit');
+// Route::get('/crm/edit-roles', function () {
+//     return view('/crm/access-control/roles/edit');
+// })->name('roles.edit');
+
+// ------------------------------------------------------------ Access Control ( Permission Page) -------------------------------------------------------------
+
+// Permission List
+// Route::get('/crm/permission', function () {
+//     return view('/crm/access-control/permission/index');
+// })->name('roles.permission');
+
+// Permission List
+// Route::get('/crm/permission', [PermissionController::class, 'index'])->name('permission.index');
+// Route::get('/crm/create-permission', [PermissionController::class, 'create'])->name('permission.create');
+
+Route::controller(PermissionController::class)->group(function () {
+    // Permission List 
+    Route::get('/crm/permission', 'index')->name('permission.index');
+    // Create Permission List 
+    Route::get('/crm/create-permission', 'create')->name('permission.create');
+    // Store Permission List 
+    Route::post('/crm/store-permission', 'store')->name('permission.store');
+    // Edit Permission List
+    Route::get('/crm/edit-permission/{id}', 'edit')->name('permission.edit');
+    // Update Permission List 
+    Route::put('/crm/update-permission/{id}', 'update')->name('permission.update');
+    // Delete Permission List
+    Route::delete('/crm/delete-permission/{id}', 'delete')->name('permission.delete');
+});
 
 // ------------------------------------------------------------ Accounts Page -------------------------------------------------------------
 
@@ -147,47 +220,47 @@ Route::get('/crm/kyc-log', [KycLogController::class, 'index'])->name('kyc-log');
 
 // ######################## Sales Invoicing  ########################
 
-Route::controller(SalesInvoicingController::class)->group(function (){
+Route::controller(SalesInvoicingController::class)->group(function () {
     //  Sales Invoicing List Page
     Route::get('/crm/sales-invoicing', 'index')->name('sales.index');
     // Create Sales Invoicing List Page 
-    Route::get('/crm/create-sales-invoicing','create')->name('sales.create');
+    Route::get('/crm/create-sales-invoicing', 'create')->name('sales.create');
     // View Sales Invoicing List Page 
-    Route::get('/crm/view-sales-invoicing','view')->name('sales.view');
+    Route::get('/crm/view-sales-invoicing', 'view')->name('sales.view');
 });
 
 // ######################## Client Receipts  ########################
 
-Route::controller(ClientReceiptController::class)->group(function (){
+Route::controller(ClientReceiptController::class)->group(function () {
     // Client Receipts List Page
-    Route::get('/crm/client-receipts','index')->name('client.index');
+    Route::get('/crm/client-receipts', 'index')->name('client.index');
     // Create Client Recipot Page 
-    Route::get('/crm/create-client-receipts','create')->name('client.create');
+    Route::get('/crm/create-client-receipts', 'create')->name('client.create');
     // View Client Receipt Page 
-    Route::get('/crm/view-client-receipts','view')->name('client.view');
+    Route::get('/crm/view-client-receipts', 'view')->name('client.view');
     // Edit Client Receipt Page 
-    Route::get('/crm/edit-client-receipts','edit')->name('client.edit');
+    Route::get('/crm/edit-client-receipts', 'edit')->name('client.edit');
 });
 
 // ######################## Payments to Vendors  ########################
 
-Route::controller(PayToVendorController::class)->group(function(){
+Route::controller(PayToVendorController::class)->group(function () {
     // Payments to Vendors List Page
-    Route::get('/crm/payments-to-vendor','index')->name('pay-to-vendors.index');
+    Route::get('/crm/payments-to-vendor', 'index')->name('pay-to-vendors.index');
     // Create Payments to Vendors List Page 
-    Route::get('/crm/create-payments-to-vendor','create')->name('pay-to-vendors.create');
+    Route::get('/crm/create-payments-to-vendor', 'create')->name('pay-to-vendors.create');
 });
 
 // ######################## Creditors Report  ########################
 
-Route::controller(CreditorsReportController::class)->group(function(){
+Route::controller(CreditorsReportController::class)->group(function () {
     // Creditors Report List Page
     Route::get('/crm/creditors-report', 'index')->name('creditors-report.index');
 });
 
 // ######################## Expenses  ########################
 
-Route::controller(ExpensesController::class)->group(function (){
+Route::controller(ExpensesController::class)->group(function () {
     // Expenses List Page
     Route::get('/crm/expenses', 'index')->name('expenses.index');
     // Expenses Create Page 
@@ -196,18 +269,18 @@ Route::controller(ExpensesController::class)->group(function (){
 
 // ######################## Stock Request  ########################
 
-Route::controller(StockReportController::class)->group(function (){
+Route::controller(StockReportController::class)->group(function () {
     // Stock Request Page
-    Route::get('/crm/stock-report','index')->name('stock-report.index');
+    Route::get('/crm/stock-report', 'index')->name('stock-report.index');
     // Stock Request Create Page 
-    Route::get('/crm/create-stock-report','create')->name('stock-report.create');
+    Route::get('/crm/create-stock-report', 'create')->name('stock-report.create');
     // Stock Request Edit Page 
-    Route::get('/crm/edit-stock-report','edit')->name('stock-report.edit');
+    Route::get('/crm/edit-stock-report', 'edit')->name('stock-report.edit');
 });
 
 // ######################## Low Stock Alert  ########################
 
-Route::controller(LowStockController::class)->group(function (){
+Route::controller(LowStockController::class)->group(function () {
     // Low Stock Alert Page
     Route::get('/crm/low-stock-alert', 'index')->name('low-stock-alert');
 });
@@ -298,13 +371,13 @@ Route::controller(SaleReportController::class)->group(function () {
 
 // ------------------------------------------------------------ Leads Page -------------------------------------------------------------
 
-Route::controller(LeadController::class)->group(function (){
+Route::controller(LeadController::class)->group(function () {
     // Leads Page
     Route::get('/crm/leads', 'index')->name('leads.index');
     // Create Leads Page 
     Route::get('/crm/create-leads', 'create')->name('leads.create');
     // Store Leads Page 
-    Route::post('/crm/store-leads','store')->name('leads.store');
+    Route::post('/crm/store-leads', 'store')->name('leads.store');
     // View Leads Page 
     Route::get('/crm/view-leads/{id}', 'view')->name('leads.view');
     // Edit Leads Page 
@@ -323,7 +396,7 @@ Route::controller(FollowUpController::class)->group(function () {
     // Create Follow Up Page 
     Route::get('/crm/create-follow-up', 'create')->name('follow-up.create');
     // Store Follow Up Page 
-    Route::post('/crm/store-follow-up','store')->name('follow-up.store');
+    Route::post('/crm/store-follow-up', 'store')->name('follow-up.store');
     // View Follow Up Page 
     Route::get('/crm/view-follow-up/{id}', 'view')->name('follow-up.view');
     // Edit Follow Up Page 
@@ -332,6 +405,8 @@ Route::controller(FollowUpController::class)->group(function () {
     Route::put('/crm/update-follow-up/{id}', 'update')->name('follow-up.update');
     // Delete Follow Up Page 
     Route::delete('/crm/delete-follow-up/{id}', 'delete')->name('follow-up.delete');
+    // Fetch leads Data 
+    Route::get('/crm/fetch-leads/{id}', 'fetchLeads')->name('follow-up.view');
 });
 
 // ------------------------------------------------------------ Meets Pages -------------------------------------------------------------
@@ -342,7 +417,7 @@ Route::controller(MeetController::class)->group(function () {
     // Create Meet Page 
     Route::get('/crm/create-meets', 'create')->name('meets.create');
     // Store Meet Page 
-    Route::post('/crm/store-meets','store')->name('meets.store');
+    Route::post('/crm/store-meets', 'store')->name('meets.store');
     // View Meet Page 
     Route::get('/crm/view-meets/{id}', 'view')->name('meets.view');
     // Edit Meet Page 
@@ -351,6 +426,8 @@ Route::controller(MeetController::class)->group(function () {
     Route::put('/crm/update-meets/{id}', 'update')->name('meets.update');
     // Delete Meet Page 
     Route::delete('/crm/delete-meets/{id}', 'delete')->name('meets.delete');
+    // Fetch leads Data 
+    Route::get('/crm/fetch-client/{id}', 'fetchClient')->name('fetch-client.view');
 });
 
 // ------------------------------------------------------------ Quotation Page -------------------------------------------------------------
@@ -360,7 +437,7 @@ Route::controller(QuotationController::class)->group(function () {
     // Create Quotation Page 
     Route::get('/crm/create-quotation', 'create')->name('quotation.create');
     // Store Quotation Page 
-    Route::post('/crm/store-quotation','store')->name('quotation.store');
+    Route::post('/crm/store-quotation', 'store')->name('quotation.store');
     // View Quotation Page 
     Route::get('/crm/view-quotation/{id}', 'view')->name('quotation.view');
     // Edit Quotation Page 
@@ -373,7 +450,7 @@ Route::controller(QuotationController::class)->group(function () {
 
 // ------------------------------------------------------------ AMC Plans Page -------------------------------------------------------------
 
-Route::controller(AmcController::class)->group(function (){
+Route::controller(AmcController::class)->group(function () {
     // AMC Plans Page
     Route::get('/crm/amc-plans', 'index')->name('amc-plans.index');
     // Create AMC Plans Page 
@@ -390,7 +467,7 @@ Route::controller(AmcController::class)->group(function (){
 
 // ------------------------------------------------------------ Service Request Page -------------------------------------------------------------
 
-Route::controller(ServiceRequestController::class)->group(function (){
+Route::controller(ServiceRequestController::class)->group(function () {
     // Service Request Page
     Route::get('/crm/service-request', 'index')->name('service-request.index');
 
@@ -407,20 +484,20 @@ Route::controller(ServiceRequestController::class)->group(function (){
     Route::get('/crm/view-amc-request', 'view_amc')->name('service-request.view-amc');
     // Edit Amc Request Page 
     Route::get('/crm/edit-amc-request', 'edit_amc')->name('service-request.edit-amc');
-}); 
+});
 
 // ------------------------------------------------------------ Track Request Page -------------------------------------------------------------
 
-Route::controller(TrackRequestController::class)->group(function() {
+Route::controller(TrackRequestController::class)->group(function () {
     // Track Request Page
-    Route::get('/crm/track-request','index')->name('track-request.index');
+    Route::get('/crm/track-request', 'index')->name('track-request.index');
 });
 
 // ------------------------------------------------------------ Case Transfer Page -------------------------------------------------------------
 
-Route::controller(CaseTransferController::class)->group(function (){
+Route::controller(CaseTransferController::class)->group(function () {
     // Case Transfer Page
-    Route::get('/crm/case-transfer','index')->name('case-transfer.index');
+    Route::get('/crm/case-transfer', 'index')->name('case-transfer.index');
     // Create Case Transfer Page 
     Route::get('/crm/create-case-transfer', 'create')->name('case-transfer.create');
 });
@@ -432,113 +509,113 @@ Route::get('/crm/view-case-transfer', function () {
 
 // ------------------------------------------------------------ Call Logs Page -------------------------------------------------------------
 
-Route::controller(CallLogController::class)->group(function (){
+Route::controller(CallLogController::class)->group(function () {
     // Call Logs Page
     Route::get('/crm/call-logs', 'index')->name('call-logs.index');
     // View Logs Page 
-    Route::get('/crm/view-call-logs','view')->name('call-logs.view');
+    Route::get('/crm/view-call-logs', 'view')->name('call-logs.view');
 });
 
 // ------------------------------------------------------------ Activity Logs Page -------------------------------------------------------------
 
-Route::controller(ActivityLogController::class)->group( function (){
+Route::controller(ActivityLogController::class)->group(function () {
     // Activity Logs Page
     Route::get('/crm/activity-logs', 'index')->name('activity-logs.index');
 });
 
 // ------------------------------------------------------------ Pincodes Page -------------------------------------------------------------
 
-Route::controller(PincodeController::class)->group( function (){
+Route::controller(PincodeController::class)->group(function () {
     // Pincodes Page
-    Route::get('/crm/manage-pincodes','index')->name('pincodes.index');
+    Route::get('/crm/manage-pincodes', 'index')->name('pincodes.index');
     // Create Pincode Page  
-    Route::get('/crm/create-manage-pincodes','create')->name('pincodes.create');
+    Route::get('/crm/create-manage-pincodes', 'create')->name('pincodes.create');
     // Store Pincode Page 
-    Route::post('/crm/store-manage-pincodes','store')->name('pincodes.store');
+    Route::post('/crm/store-manage-pincodes', 'store')->name('pincodes.store');
     // Edit Pincode Page 
-    Route::get('/crm/edit-manage-pincodes/{id}','edit')->name('pincodes.edit');
+    Route::get('/crm/edit-manage-pincodes/{id}', 'edit')->name('pincodes.edit');
     // Delete Pincode Page 
-    Route::delete('/crm/delete-manage-pincode/{id}','delete')->name('pincodes.delete');
+    Route::delete('/crm/delete-manage-pincode/{id}', 'delete')->name('pincodes.delete');
 });
 
 // ------------------------------------------------------------ Pickup Requests Page -------------------------------------------------------------
 
-Route::controller(PickupRequestController::class)->group(function (){
-    // Pickup Requests Page
-    Route::get('/crm/pickup-requests','index')->name('pickup-requests.index');
+Route::controller(PickupRequestController::class)->group(function () {
+    // Pickup Requests Page 
+    Route::get('/crm/pickup-requests', 'index')->name('pickup-requests.index');
     // View Request Page 
     Route::get('/crm/view-pickup-requests/', 'view')->name('pickup-request.view');
 });
 
 // ------------------------------------------------------------ View Jobs Page -------------------------------------------------------------
 
-Route::controller(JobController::class)->group(function(){
+Route::controller(JobController::class)->group(function () {
     // View Jobs Page
-    Route::get('/crm/jobs','index')->name('jobs.index');
+    Route::get('/crm/jobs', 'index')->name('jobs.index');
     // Create Jobs Page 
-    Route::get('/crm/create-job','create')->name('jobs.create');
+    Route::get('/crm/create-job', 'create')->name('jobs.create');
     // Store Job Page 
-    Route::post('/crm/store-jobs','store')->name('jobs.store');
+    Route::post('/crm/store-jobs', 'store')->name('jobs.store');
     // View Job Page 
     Route::get('/crm/view-jobs/{id}', 'view')->name('jobs.view');
     // Edit Job Page 
     Route::get('/crm/edit-jobs/{id}', 'edit')->name('jobs.edit');
     // Delete Job Page 
-    Route::delete('/crm/delete-jobs/{id}','delete')->name('jobs.delete');
+    Route::delete('/crm/delete-jobs/{id}', 'delete')->name('jobs.delete');
 });
 
 // ------------------------------------------------------------ Assigned Jobs Page -------------------------------------------------------------
 
-Route::controller(AssignedJobController::class)->group(function (){
+Route::controller(AssignedJobController::class)->group(function () {
     // Assigned Jobs Page
-    Route::get('/crm/assigned-jobs','index')->name('assigned-jobs.index');
+    Route::get('/crm/assigned-jobs', 'index')->name('assigned-jobs.index');
     // View Assigned Jobs Page 
-    Route::get('/crm/view-assigned-job','view')->name('assigned-jobs.view');
+    Route::get('/crm/view-assigned-job', 'view')->name('assigned-jobs.view');
     // Edit Assigned Jobs Page 
-    Route::get('/crm/edit-assiged-jobs','edit')->name('assigned-jobs.edit');
+    Route::get('/crm/edit-assiged-jobs', 'edit')->name('assigned-jobs.edit');
 });
 
 // ------------------------------------------------------------ Field Issues Page -------------------------------------------------------------
 
-Route::controller(FieldIssuesController::class)->group(function (){
+Route::controller(FieldIssuesController::class)->group(function () {
     // Field Issues Page
-    Route::get('/crm/field-issues','index')->name('field-issues.index');
+    Route::get('/crm/field-issues', 'index')->name('field-issues.index');
     // View Field Issues Page 
-    Route::get('/crm/view-field-issues','view')->name('field-issues.view');
+    Route::get('/crm/view-field-issues', 'view')->name('field-issues.view');
     // Edit Field Issues Page 
-    Route::get('/crm/edit-field-issues','edit')->name('field-issues.edit');
+    Route::get('/crm/edit-field-issues', 'edit')->name('field-issues.edit');
 });
 
 // ------------------------------------------------------------ Spare Parts Page -------------------------------------------------------------
 
-Route::controller(SparePartController::class)->group(function (){
+Route::controller(SparePartController::class)->group(function () {
     // Spare Parts Requests Page
-    Route::get('/crm/spare-parts-requests','index')->name('spare-parts-requests.index');
+    Route::get('/crm/spare-parts-requests', 'index')->name('spare-parts-requests.index');
     // View Parts Requests Page 
-    Route::get('/crm/view-spare-parts-requests','view')->name('spare-parts-requests.view');
+    Route::get('/crm/view-spare-parts-requests', 'view')->name('spare-parts-requests.view');
 });
 
 // ------------------------------------------------------------ Assign Products Page -------------------------------------------------------------
 
-Route::controller(InHandProductController::class)->group(function (){
+Route::controller(InHandProductController::class)->group(function () {
     // In Hand Products Page
-    Route::get('/crm/in-hand-products','index')->name('in-hand-products.index');
+    Route::get('/crm/in-hand-products', 'index')->name('in-hand-products.index');
     // View In Hand Products Page 
-    Route::get('/crm/view-in-hand-products','view')->name('assign-products.view');
+    Route::get('/crm/view-in-hand-products', 'view')->name('assign-products.view');
 });
 
 // ------------------------------------------------------------ Assign Products Page -------------------------------------------------------------
 
-Route::controller(SupportTicketController::class)->group(function (){
+Route::controller(SupportTicketController::class)->group(function () {
     // Support Ticket Page
-    Route::get('/crm/support-ticket','index')->name('support-ticket.index');
+    Route::get('/crm/support-ticket', 'index')->name('support-ticket.index');
     // View Support Ticket Page 
-    Route::get('/crm/view-support-ticket','view')->name('support-ticket.view');
+    Route::get('/crm/view-support-ticket', 'view')->name('support-ticket.view');
 });
 
 // ------------------------------------------------------------ Assign Products Page -------------------------------------------------------------
 
-Route::controller(InvoiceController::class)->group(function (){
+Route::controller(InvoiceController::class)->group(function () {
     // Invoice Page
-    Route::get('/crm/invoice','index')->name('invoice.index');
+    Route::get('/crm/invoice', 'index')->name('invoice.index');
 });

@@ -5,7 +5,7 @@
 
         <!-- Start Content-->
         <div class="container-fluid">
-            <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Engineers List</h4>
                 </div>
@@ -201,7 +201,7 @@
                                                         class="table table-striped table-borderless dt-responsive nowrap">
                                                         <thead>
                                                             <tr>
-                                                                <th>Profile</th>
+                                                                {{-- <th>Profile</th> --}}
                                                                 <th>Full Name</th>
                                                                 <th>Email</th>
                                                                 <th>Contact Number</th>
@@ -216,7 +216,7 @@
                                                         <tbody class="align-middle">
                                                             <tr>
                                                                 @foreach ($engineers as $engineer)
-                                                                    <td>
+                                                                    {{-- <td>
                                                                         <div
                                                                             class="d-flex justify-content-space-between align-items-center gap-2">
                                                                             <span>
@@ -226,7 +226,7 @@
                                                                                     class="d-block rounded-circle">
                                                                             </span>
                                                                         </div>
-                                                                    </td>
+                                                                    </td> --}}
                                                                     <td>
                                                                         {{ $engineer->first_name }} {{ $engineer->last_name }}
                                                                     </td>

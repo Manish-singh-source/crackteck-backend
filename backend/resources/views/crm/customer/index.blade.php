@@ -5,7 +5,7 @@
 
         <!-- Start Content-->
         <div class="container-fluid">
-            <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Customers List</h4>
                 </div>
@@ -119,21 +119,21 @@
                                     </a>
                                 </li>
                                 <!-- <li class="nav-item">
-                                                        <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
-                                                            role="tab">
-                                                            <span class="d-block d-sm-none"><i
-                                                                    class="mdi mdi-sitemap-outline"></i></span>
-                                                            <span class="d-none d-sm-block">Active Customer</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
-                                                            href="#banned_customers" role="tab">
-                                                            <span class="d-block d-sm-none"><i
-                                                                    class="mdi mdi-sitemap-outline"></i></span>
-                                                            <span class="d-none d-sm-block">Banned Customer</span>
-                                                        </a>
-                                                    </li> -->
+                                                            <a class="nav-link p-2" id="active_customer_tab" data-bs-toggle="tab" href="#active_customer"
+                                                                role="tab">
+                                                                <span class="d-block d-sm-none"><i
+                                                                        class="mdi mdi-sitemap-outline"></i></span>
+                                                                <span class="d-none d-sm-block">Active Customer</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link p-2" id="banned_customers_tab" data-bs-toggle="tab"
+                                                                href="#banned_customers" role="tab">
+                                                                <span class="d-block d-sm-none"><i
+                                                                        class="mdi mdi-sitemap-outline"></i></span>
+                                                                <span class="d-none d-sm-block">Banned Customer</span>
+                                                            </a>
+                                                        </li> -->
                             </ul>
 
                             <div class="tab-content text-muted">
@@ -199,15 +199,14 @@
                                                                             onsubmit="return confirm('Are you sure?')">
                                                                             @csrf
                                                                             @method('DELETE')
-                                                                            <button
-                                                                            type="submit"
+                                                                            <button type="submit"
                                                                                 class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-original-title="Delete"><i
                                                                                     class="mdi mdi-delete fs-14 text-danger"></i>
                                                                             </button>
                                                                         </form>
-                                                                        
+
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -297,9 +296,9 @@
                                         <div class="col-12">
                                             <div class="card shadow-none">
                                                 <!-- <div class="card-header">
-                                                                                    <h5 class="card-title mb-0">Tables</h5>
-                                                                                </div>
-                                                                                -->
+                                                                                        <h5 class="card-title mb-0">Tables</h5>
+                                                                                    </div>
+                                                                                    -->
                                                 <div class="card-body">
                                                     <table id="responsive-datatable"
                                                         class="table table-striped table-borderless dt-responsive nowrap">
@@ -372,9 +371,9 @@
                                         <div class="col-12">
                                             <div class="card shadow-none">
                                                 <!-- <div class="card-header">
-                                                                                    <h5 class="card-title mb-0">Tables</h5>
-                                                                                </div>
-                                                                                -->
+                                                                                        <h5 class="card-title mb-0">Tables</h5>
+                                                                                    </div>
+                                                                                    -->
                                                 <div class="card-body">
                                                     <table id="responsive-datatable"
                                                         class="table table-striped table-borderless dt-responsive nowrap">

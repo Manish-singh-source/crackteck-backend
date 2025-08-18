@@ -174,19 +174,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($quotations as $quotation)
                                                         <tr>
                                                             <td>
                                                                 <a href="">
-                                                                    L-001
+                                                                    {{ $quotation->lead_id }}
                                                                 </a>
                                                             </td>
-                                                            <td>QTN-1001</td>
-                                                            <td>John Doe Ltd.</td>
-                                                            <td>Draft</td>
-                                                            <td>2025-05-20</td>
-                                                            <td>2025-05-20</td>
+                                                            <td>{{ $quotation->quote_id }}</td>
+                                                            <td>{{ $quotation->lead->first_name }} {{ $quotation->lead->last_name }}</td>
+                                                            <td>{{ $quotation->lead->status }}</td>
+                                                            <td>{{ $quotation->created_at->format('d M Y') }}</td>
+                                                            <td>{{ $quotation->updated_at->format('d M Y') }}</td>
                                                             <td>
-                                                                <a aria-label="anchor" href=""
+                                                                <a aria-label="anchor" href="{{ route('quotation.view', $quotation->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
@@ -202,6 +203,7 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

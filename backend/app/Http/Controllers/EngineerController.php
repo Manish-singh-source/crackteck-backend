@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Engineer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 
@@ -28,7 +29,7 @@ class EngineerController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
             'phone' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:engineers,email',
             'dob' => 'required',
             'gender' => 'required'
         ]);
@@ -60,14 +61,30 @@ class EngineerController extends Controller
 
         $engineer->police_verification = $request->police_verification;
         $engineer->police_verification_status = $request->police_verification_status;
-        $engineer->police_certificate = $request->police_certificate;
+        // $engineer->police_certificate = $request->police_certificate;
+        if ($request->hasFile('police_certificate')) {
+            $file = $request->file('police_certificate');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/police_certificate'), $filename);
+            $engineer->police_certificate = 'uploads/crm/engineer/police_certificate/' . $filename;
+        }
 
         $engineer->designation = $request->designation;
         $engineer->department = $request->department;
         $engineer->join_date = $request->join_date;
 
         $engineer->primary_skills = $request->primary_skills;
-        $engineer->pic = $request->pic;
+        // $engineer->pic = $request->pic;
+        if ($request->hasFile('pic')) {
+            $file = $request->file('pic');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/pic'), $filename);
+            $engineer->pic = 'uploads/crm/engineer/pic/' . $filename;
+        }
 
         $engineer->save();
 
@@ -96,7 +113,7 @@ class EngineerController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
             'phone' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|',
             'dob' => 'required',
             'gender' => 'required'
         ]);
@@ -128,14 +145,46 @@ class EngineerController extends Controller
 
         $engineer->police_verification = $request->police_verification;
         $engineer->police_verification_status = $request->police_verification_status;
-        $engineer->police_certificate = $request->police_certificate;
+        if ($request->hasFile('police_certificate')) {
+
+            // Only if updating profile 
+            if ($engineer->police_certificate != '') {
+                if (File::exists(public_path($engineer->police_certificate))) {
+                    File::delete(public_path($engineer->police_certificate));
+                }
+            }
+            // updating profile end
+
+            $file = $request->file('police_certificate');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/police_certificate'), $filename);
+            $engineer->police_certificate = 'uploads/crm/engineer/police_certificate/' . $filename;
+        }
 
         $engineer->designation = $request->designation;
         $engineer->department = $request->department;
         $engineer->join_date = $request->join_date;
 
         $engineer->primary_skills = $request->primary_skills;
-        $engineer->pic = $request->pic;
+        if ($request->hasFile('pic')) {
+
+            // Only if updating profile 
+            if ($engineer->pic != '') {
+                if (File::exists(public_path($engineer->pic))) {
+                    File::delete(public_path($engineer->pic));
+                }
+            }
+            // updating profile end
+
+            $file = $request->file('pic');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/pic'), $filename);
+            $engineer->pic = 'uploads/crm/engineer/pic/' . $filename;
+        }
 
         $engineer->save();
 

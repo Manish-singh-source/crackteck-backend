@@ -34,8 +34,8 @@ return new class extends Migration
             $table->string('ifsc_code')->nullable();
             
             
-            $table->enum('police_verification', ['1', '2'])->comment('1: Yes , 2: No')->nullable();
-            $table->enum('police_verification_status', ['1', '2'])->comment('1: Pending , 2: Completed')->nullable();
+            $table->enum('police_verification', ['Yes', 'No'])->comment('1: Yes , 2: No')->nullable();
+            $table->enum('police_verification_status', ['Pending', 'Completed'])->comment('1: Pending , 2: Completed')->nullable();
             $table->string('police_certificate')->nullable();
             
             $table->enum('designation', ['Network Engineer', 'Hardware Technician']);

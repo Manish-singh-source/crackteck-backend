@@ -5,7 +5,7 @@
 
         <!-- Start Content-->
         <div class="container-fluid">
-            <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Leads</h4>
                 </div>
@@ -234,7 +234,7 @@
                                                                     <td>{{ $lead->budget_range }}</td>
                                                                     <td>{{ $lead->urgency }}</td>
                                                                     <td>{{ $lead->status }}</td>
-                                                                    <td>Raj Patel</td>
+                                                                    <td>Super Admin</td>
 
                                                                     <td>
                                                                         <a aria-label="anchor"

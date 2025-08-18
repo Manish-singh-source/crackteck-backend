@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <div class="card pb-4">
                                     <div class="card-header border-bottom-dashed">
                                         <h5 class="card-title mb-0">
@@ -127,6 +127,7 @@
                                                         'name' => 'branch_name',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Name of Branch',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
                                                 <div class="col-6">
@@ -135,6 +136,7 @@
                                                         'name' => 'address',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Address Line 1',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -144,6 +146,7 @@
                                                         'name' => 'address2',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Address Line 2',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -153,6 +156,7 @@
                                                         'name' => 'city',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter City',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -162,6 +166,7 @@
                                                         'name' => 'state',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter State',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -171,6 +176,7 @@
                                                         'name' => 'country',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Country',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -180,6 +186,7 @@
                                                         'name' => 'pincode',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Pincode',
+                                                        'model' => $customer->address,
                                                     ])
                                                 </div>
 
@@ -216,63 +223,38 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($customer_address as $customer_address)
+                                                    
+                                                <tr class="align-middle">
+                                                    <td>{{ $customer->address->branch_name ?? 'Branch Not Found' }}</td>
+                                                    <td>
+                                                        <div>
+                                                            {{ $customer->address->address ?? 'Address Not Found' }}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{ $customer->address->address2 ?? 'Address2 Not Found' }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $customer->address->city ?? 'City Not Found' }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $customer->address->state ?? 'State Not Found' }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $customer->address->country ?? 'Country Not Found' }}
+                                                    </td>
+                                                    <td>{{ $customer->address->pincode ?? 'No State Found' }}</td>
+                                                    <td>
+                                                        <a aria-label="anchor"
+                                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
-                                                <tr class="align-middle">
-                                                    <td>BO</td>
-                                                    <td>
-                                                        <div>
-                                                            Sanjay Nagar Jalji Pada Kandivali West
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Ganesh Nagar
-                                                    </td>
-                                                    <td>
-                                                        Mumbai
-                                                    </td>
-                                                    <td>
-                                                        Maharashtra
-                                                    </td>
-                                                    <td>
-                                                        India
-                                                    </td>
-                                                    <td>400067</td>
-                                                    <td>
-                                                        <a aria-label="anchor"
-                                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-middle">
-                                                    <td>KD</td>
-                                                    <td>
-                                                        <div>
-                                                            Sanjay Nagar Jalji Pada Kandivali West
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Ganesh Nagar
-                                                    </td>
-                                                    <td>
-                                                        Mumbai
-                                                    </td>
-                                                    <td>
-                                                        Maharashtra
-                                                    </td>
-                                                    <td>
-                                                        India
-                                                    </td>
-                                                    <td>400067</td>
-                                                    <td>
-                                                        <a aria-label="anchor"
-                                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -299,9 +281,9 @@
                                                     'name' => 'customer_type',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        '1' => 'Retail',
-                                                        '2' => 'Wholesale',
-                                                        '3' => 'Corporate',
+                                                        'Retail' => 'Retail',
+                                                        'Wholesale' => 'Wholesale',
+                                                        'Corporate' => 'Corporate',
                                                     ],
                                                     'model' => $customer,
                                                 ])

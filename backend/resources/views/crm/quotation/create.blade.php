@@ -45,15 +45,7 @@
                                     <div class="card-body">
                                         <div class="row g-3">
 
-                                            <!-- <div class="col-6">
-                                                        <label for="clientName" class="form-label">Client Name</label>
-                                                        <select class="form-control" name="clientName" id="clientName">
-                                                            <option selected disabled>-- Select Client --</option>
-                                                            <option value="">Saurabh</option>
-                                                            <option value="">Manish</option>
-                                                        </select>
-                                                    </div> -->
-                                            <div class="col-6">
+                                            {{-- <div class="col-6">
                                                 @include('components.form.select', [
                                                     'label' => 'Lead Id',
                                                     'name' => 'lead_id',
@@ -66,6 +58,23 @@
                                                         'L-005' => 'L-005',
                                                     ],
                                                 ])
+                                            </div> --}}
+
+                                            <div class="col-6">
+                                                <label for="warehouse" class="form-label">Lead Id <span
+                                                        class="text-danger">*</span></label>
+                                                <select required name="lead_id" id="lead_id" class="form-select w-100">
+                                                    <option value="" selected disabled>-- Select Lead Id --</option>
+                                                    @foreach ($leads as $lead)
+                                                        <option value="{{ $lead->id }}"
+                                                            {{ old('lead_id') == $lead->id ? 'selected' : '' }}>
+                                                            {{ $lead->id }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('lead_id'))
+                                                    <span class="text-danger">{{ $errors->first('lead_id') }}</span>
+                                                @endif
                                             </div>
 
                                             <div class="col-6">

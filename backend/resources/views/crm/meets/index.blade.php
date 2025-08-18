@@ -5,7 +5,7 @@
 
         <!-- Start Content-->
         <div class="container-fluid">
-            <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Task, Meeting & Visit Scheduler</h4>
                 </div>
@@ -183,7 +183,7 @@
                                                                 <th>Type</th>
                                                                 <th>Date & Time</th>
                                                                 <th>Location</th>
-                                                                <th>Assigned Rep</th>
+                                                                {{-- <th>Assigned Rep</th> --}}
                                                                 <th>Engineer (if any)</th>
                                                                 <th>Status</th>
                                                                 <th>Follow-up Task</th>
@@ -203,7 +203,7 @@
                                                                     <td>{{ $meet->meeting_type }}</td>
                                                                     <td>{{ $meet->date }} {{ $meet->time }}</td>
                                                                     <td>{{ $meet->location }}</td>
-                                                                    <td>NA</td>
+                                                                    {{-- <td>NA</td> --}}
                                                                     <td>NA</td>
                                                                     <td>{{ $meet->status }}</td>
                                                                     <td>{{ $meet->followUp }}</td>

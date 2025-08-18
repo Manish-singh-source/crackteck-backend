@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FollowUp;
+use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,8 @@ class FollowUpController extends Controller
 
     public function create()
     {
-        return view('/crm/follow-up/create');
+        $leads = Lead::all();
+        return view('/crm/follow-up/create', compact('leads'));
     }
 
     public function store(Request $request)
@@ -27,7 +29,7 @@ class FollowUpController extends Controller
             'lead_id' => 'required',
             'client_name' => 'required|min:3',
             'contact' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:follow_ups,email',
             'followup_date' => 'required',
             'followup_time' => 'required'
         ]);
@@ -64,7 +66,8 @@ class FollowUpController extends Controller
     public function edit($id)
     {
         $followup = FollowUp::find($id);
-        return view('/crm/follow-up/edit', compact('followup'));
+        $leads = Lead::all();
+        return view('/crm/follow-up/edit', compact('followup', 'leads'));
     }
 
     public function update(Request $request, $id)
@@ -105,5 +108,16 @@ class FollowUpController extends Controller
         $followup->delete();
 
         return redirect()->route('follow-up.index')->with('success', 'Follow Up deleted successfully.');
+    }
+
+
+    public function fetchLeads($id)
+    {
+        $lead = Lead::find($id);
+        return response()->json([
+            'client_name' => $lead->first_name,
+            'email' => $lead->email,
+            'phone' => $lead->phone,
+        ]);
     }
 }

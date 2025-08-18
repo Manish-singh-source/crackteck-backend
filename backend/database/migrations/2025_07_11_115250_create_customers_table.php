@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->date('dob');
             $table->enum('gender', ['male', 'female']);
-            $table->enum('customer_type', ['1', '2' ,"3"])->comment('1: Retail , 2: Wholesale , 3: Corporate');
+            $table->enum('customer_type', ['Retail', 'Wholesale' ,"Corporate"]);
             $table->string('company_name');
             $table->string('company_addr');
             $table->string('gst_no');
             $table->string('pan_no');
+            
             $table->timestamps();
         });
     }

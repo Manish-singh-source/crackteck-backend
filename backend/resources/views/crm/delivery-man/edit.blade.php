@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('delivery-man.update', $delivery->id) }}" method="POST">
+                    <form action="{{ route('delivery-man.update', $delivery->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -120,13 +120,20 @@
 
                                     <div class="card-body">
                                         <div class="row g-3">
-                                            <div class="col-6">
-                                                <label for="current-address" class="form-label">Current Address <span
+                                            {{-- <div class="col-6">
+                                                <label for="current_address" class="form-label">Current Address <span
                                                         class="text-danger">*</span></label>
-                                                <textarea name="current-address" id="current-address" class="form-control" value="" required=""
-                                                    placeholder="Enter Current Address"></textarea>
-                                                    
+                                                <textarea name="current_address" id="current_address" class="form-control" value="{{ $delivery->current_address }}" required=""
+                                                    placeholder="Enter Current Address"></textarea>  
+                                            </div> --}}
+
+                                            <div class="col-6">
+                                                <label for="current_address" class="form-label">
+                                                    Current Address <span class="text-danger">*</span>
+                                                </label>
+                                                <textarea name="current_address" id="current_address" class="form-control" required placeholder="Enter Current Address">{{ $delivery->current_address }}</textarea>
                                             </div>
+
 
                                             <div class="col-6">
                                                 @include('components.form.input', [
@@ -216,16 +223,16 @@
                                                 ])
                                             </div>
                                             <!--
-                                            <div class="col-6">
-                                                <label for="delivery_mode" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
-                                                <select class="form-control" name="delivery_mode" id="delivery_mode">
-                                                    <option selected disabled>-- Select --</option>
-                                                    <option value="Walking">Walking</option>
-                                                    <option value="Bike">Bike</option>
-                                                    <option value="Van">Van</option>
-                                                    <option value="Truck">Truck</option>
-                                                </select>
-                                            </div> -->
+                                                <div class="col-6">
+                                                    <label for="delivery_mode" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
+                                                    <select class="form-control" name="delivery_mode" id="delivery_mode">
+                                                        <option selected disabled>-- Select --</option>
+                                                        <option value="Walking">Walking</option>
+                                                        <option value="Bike">Bike</option>
+                                                        <option value="Van">Van</option>
+                                                        <option value="Truck">Truck</option>
+                                                    </select>
+                                                </div> -->
                                         </div>
                                     </div>
 
@@ -340,10 +347,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="text-start mb-3">
-                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                        Submit
-                                    </button>
-                                </div> -->
+                                        <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                            Submit
+                                        </button>
+                                    </div> -->
                             </div>
 
                             <div class="col-lg-4">
@@ -431,7 +438,7 @@
                                             <div class="">
                                                 @include('components.form.input', [
                                                     'label' => 'Upload Document Photo',
-                                                    'name' => 'passbook-pic',
+                                                    'name' => 'passbook_pic',
                                                     'type' => 'file',
                                                     'model' => $delivery,
                                                 ])
@@ -462,7 +469,7 @@
                                     </a> --}}
                                     <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                         Submit
-                                    </button> 
+                                    </button>
                                 </div>
                             </div>
                         </div>

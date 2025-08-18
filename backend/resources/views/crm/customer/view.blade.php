@@ -5,7 +5,7 @@
 <div class="content">
     <div class="container-fluid">
 
-        <div class="row pb-3">
+        <div class="row py-3">
 
             <div class="col-xxl-3 col-xl-4 col-lg-5">
                 <div class="card sticky-side-div">
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="px-3">
                             <div class="profile-section-image">
-                                <img src="{{ asset('./assets/images/users/user.jpg') }}" alt="Customer Profile Image" style="width: 150px; height:150px" class="img-thumbnail">
+                                <img src={{ $customer->pic ? asset($customer->pic) : asset('images/default-profile.png') }} alt="Customer Profile Image" style="width: 150px; height:150px" class="img-thumbnail">
                             </div>
                             <div class="mt-3">
                                 <h6 class="mb-0">{{ $customer->first_name }} {{ $customer->last_name }}</h6>
@@ -75,31 +75,31 @@
                                     <span class="fw-semibold">
                                         Address
                                     </span>
-                                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur.</span>
+                                    <span>{{ $customer->address->address ?? 'No Address Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         City
                                     </span>
-                                    <span>Kandivali</span>
+                                    <span>{{ $customer->address->city ?? 'No City Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         State
                                     </span>
-                                    <span>Maharashtra</span>
+                                    <span>{{ $customer->address->state ?? 'No State Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Country
                                     </span>
-                                    <span>India</span>
+                                    <span>{{ $customer->address->country ?? 'No Country Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Pincode
                                     </span>
-                                    <span>400 067</span>
+                                    <span>{{ $customer->address->pincode ?? 'No Pincode Found' }}</span>
                                 </li>
                             </ul>
 

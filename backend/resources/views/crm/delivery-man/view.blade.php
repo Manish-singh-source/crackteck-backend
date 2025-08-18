@@ -18,13 +18,14 @@
 
                                     <div class="d-flex align-items-center gap-3 mb-2">
                                         <!-- <div class="p-1 border border-primary border-opacity-10 bg-primary-subtle rounded-2 me-2">
-                                            <span>
-                                                <img src="./assets/images/person.jpg" alt="Headphone" width="50px" height="50px" class="d-block">
-                                            </span>
-                                        </div> -->
-                                        <div class="hando-profile-main">
-                                            <img src="{{ asset('./assets/images/person.jpg') }}"
-                                                class="img-fluid avatar-xxl img-thumbnail float-start" alt="image profile">
+                                                    <span>
+                                                        <img src="./assets/images/person.jpg" alt="Headphone" width="50px" height="50px" class="d-block">
+                                                    </span>
+                                                </div> -->
+                                        <div class="profile-section-image">
+                                            <img src={{ $delivery->pic ? asset($delivery->pic) : Avatar::create($delivery->first_name . ' ' . $delivery->last_name)->toBase64() }}
+                                                alt="Delivery Man Profile Image" style="width: 150px; height:150px"
+                                                class="img-thumbnail">
                                         </div>
                                         <div class="overflow-hidden ms-md-4 ms-0">
                                             <h4 class="m-0 text-dark fs-20 mt-2 mt-md-0">{{ $delivery->first_name }}

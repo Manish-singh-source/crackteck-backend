@@ -43,16 +43,10 @@
                                     <div class="card-body">
                                         <div class="row g-3">
                                             <div class="col-6">
-                                                @include('components.form.select', [
+                                                @include('components.form.input', [
                                                     'label' => 'Lead Id',
                                                     'name' => 'lead_id',
-                                                    'options' => [
-                                                        '0' => '--Select Lead--',
-                                                        'L-001' => 'L-001',
-                                                        'L-002' => 'L-002',
-                                                        'L-003' => 'L-003',
-                                                        'L-004' => 'L-004',
-                                                    ],
+                                                    'options' => [],
                                                     'model' => $followup,
                                                 ])
                                             </div>
@@ -123,7 +117,7 @@
 
                                             <div class="col-6">
                                                 <label for="remarks" class="form-label">Remarks</label>
-                                                <textarea name="remarks" id="remarks" class="form-control" rows="3" placeholder="Enter any remarks"></textarea>
+                                                <textarea name="remarks" id="remarks" class="form-control" rows="3" placeholder="Enter any remarks">{{ old('remarks', $followup->remarks) }}</textarea>
                                             </div>
                                         </div>
                                     </div>
