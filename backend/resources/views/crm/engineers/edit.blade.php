@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('engineer.update', $engineer->id) }}" method="POST">
+                    <form action="{{ route('engineer.update', $engineer->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -244,16 +244,17 @@
 
                                     <div class="card-body">
                                             <div class="row g-3">
-
+                                                
                                                 <div class="col-6">
                                                     @include('components.form.select', [
                                                         'label' => 'Police Verification:',
                                                         'name' => 'police_verification',
                                                         'options' => [
                                                             '0' => '--Select--',
-                                                            '1' => 'Yes',
-                                                            '2' => 'No',
+                                                            'Yes' => 'Yes',
+                                                            'No' => 'No',
                                                         ],
+                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -263,9 +264,10 @@
                                                         'name' => 'police_verification_status',
                                                         'options' => [
                                                             '0' => '--Select--',
-                                                            '1' => 'Pending',
-                                                            '2' => 'Completed',
+                                                            'Pending' => 'Pending',
+                                                            'Completed' => 'Completed',
                                                         ],
+                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -296,8 +298,8 @@
                                                     'name' => 'designation',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        '1' => 'Network Engineer',
-                                                        '2' => 'Hardware Technician',
+                                                        'Network Engineer' => 'Network Engineer',
+                                                        'Hardware Technician' => 'Hardware Technician',
                                                     ],
                                                     'model' => $engineer,
                                                 ])
@@ -308,10 +310,11 @@
                                                     'name' => 'department',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        '1' => 'Installation',
-                                                        '2' => 'Maintenance',
-                                                        '3' => 'Support',
+                                                        'Installation' => 'Installation',
+                                                        'Maintenance' => 'Maintenance',
+                                                        'Support' => 'Support',
                                                     ],
+                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
@@ -320,6 +323,7 @@
                                                     'label' => 'Joining Date',
                                                     'name' => 'join_date',
                                                     'type' => 'date',
+                                                    'model' => $engineer,
                                                 ])
                                             </div>
                                         </div>
@@ -340,9 +344,10 @@
                                                     'name' => 'primary_skills',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        '1' => 'Network Engineer',
-                                                        '2' => 'Hardware Technician',
+                                                        'Network Engineer' => 'Network Engineer',
+                                                        'Hardware Technician' => 'Hardware Technician',
                                                     ],
+                                                    'model' => $engineer,
                                                 ])
                                             </div>
                                         </div>

@@ -30,7 +30,7 @@
                     <form action="{{ route('follow-up.store') }}" method="POST">
                         @csrf
                         @method('POST')
-                        
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -44,7 +44,7 @@
 
                                     <div class="card-body">
                                         <div class="row g-3">
-                                            <div class="col-6">
+                                            {{-- <div class="col-6">
                                                 @include('components.form.select', [
                                                     'label' => 'Lead Id',
                                                     'name' => 'lead_id',
@@ -56,6 +56,22 @@
                                                         'L-004' => 'L-004',
                                                     ],
                                                 ])
+                                            </div> --}}
+                                            <div class="col-6">
+                                                <label for="warehouse" class="form-label">Lead Id <span
+                                                        class="text-danger">*</span></label>
+                                                <select required name="lead_id" id="lead_id" class="form-select w-100">
+                                                    <option value="" selected disabled>-- Select Lead Id --</option>
+                                                    @foreach ($leads as $lead)
+                                                        <option value="{{ $lead->id }}"
+                                                            {{ old('lead_id') == $lead->id ? 'selected' : '' }}>
+                                                            {{ $lead->id }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('lead_id'))
+                                                    <span class="text-danger">{{ $errors->first('lead_id') }}</span>
+                                                @endif
                                             </div>
                                             <div class="col-6">
                                                 @include('components.form.input', [
@@ -127,10 +143,10 @@
 
 
                                 <!-- <div class="text-start mb-3">
-                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                        Submit
-                                    </button>
-                                </div> -->
+                                                <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                                    Submit
+                                                </button>
+                                            </div> -->
                             </div>
 
 
@@ -161,6 +177,26 @@
                 let formData = e.serialize();
                 console.log(formData);
             });
+        });
+    </script>
+
+    <script>
+        document.getElementById('lead_id').addEventListener('change', function() {
+            let leadId = this.value;
+
+            if (leadId) {
+                fetch(`/crm/fetch-leads/${leadId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        if (!data.error) {
+                            document.getElementById('client_name').value = data.client_name ?? '';
+                            document.getElementById('email').value = data.email ?? '';
+                            document.getElementById('contact').value = data.phone ?? '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,14 +12,16 @@ class QuotationController extends Controller
     //
     public function index()
     {
-        // $meet = Quotation::all();
+        $quotations = Quotation::with('lead')->get();
+        // dd($quotations);
         // return view('/crm/meets/index', compact('meet'));
-        return view('/crm/Quotation/index');
+        return view('/crm/Quotation/index', compact('quotations'));
     }
 
     public function create()
     {
-        return view('/crm/Quotation/create');
+        $leads = Lead::all();
+        return view('/crm/Quotation/create', compact('leads'));
     }
 
     public function store(Request $request)

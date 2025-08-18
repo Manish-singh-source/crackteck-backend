@@ -5,157 +5,827 @@
 <div class="content">
     <div class="container-fluid">
 
-        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
-            <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Quotation</h4>
+        <div class="row pt-3">
+            <div class="col-xl-8 mx-auto">
+
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Customer Details
+                            </h5>
+                            <div class="fw-bold text-dark">
+                                #1001
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+
+
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Customer Name :
+                                        </span>
+                                        <span>
+                                            {{ $quotation->lead->first_name }} {{ $quotation->lead->last_name }}
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Contact no :
+                                        </span>
+                                        <span>
+                                            {{ $quotation->lead->phone }}
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Feedback :
+                                        </span>
+                                        <span>
+                                            Need a AMC Service for my PC
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Company Name :
+                                        </span>
+                                        <span>
+                                            {{ $quotation->lead->company_name }}
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">GST No :
+                                        </span>
+                                        <span>
+                                            988498
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Email :
+                                        </span>
+                                        <span>
+                                            {{ $quotation->lead->email }}
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address :
+                                        </span>
+                                        <span>
+                                            Lalji Pada , Kandivali West, Mumbai, Maharashtra 400067
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Customer Type :
+                                        </span>
+                                        <span>
+                                            Retailer
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Company Address :
+                                        </span>
+                                        <span>
+                                            Lalji Pada , Maharashtra 400067
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">PAN No :
+                                        </span>
+                                        <span>
+                                            789MTUO
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Address/Branch Details
+                            </h5>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+
+
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Branch Name :
+                                        </span>
+                                        <span>
+                                            KD
+                                        </span>
+                                    </li>
+
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address Line 2 :
+                                        </span>
+                                        <span>
+                                            Sanjay Gandhi National Park, Borivali East,
+                                        </span>
+                                    </li>
+
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">State :
+                                        </span>
+                                        <span>
+                                            Maharashtra
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Pincode :
+                                        </span>
+                                        <span>
+                                            400067
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush ">
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Address Line 1 :
+                                        </span>
+                                        <span>
+                                            Sanjay Gandhi National Park, Borivali East,
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">City :
+                                        </span>
+                                        <span>
+                                            Mumbai
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Country :
+                                        </span>
+                                        <span>
+                                            India
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title flex-grow-1 mb-0">
+                                    Service History Details
+                                </h5>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between align-items-center gap-2">
+                                <div>
+                                    <span>
+                                        Next Visit Date:
+                                    </span>
+                                    <span class="p-1 rounded bg-warning-subtle text-warning fw-semibold">2025-07-16</span>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addVisitModal2">Add Visit</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addVisitModal2" tabindex="-1" aria-labelledby="addVisitModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="#">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addVisitModalLabel2">Reschedule Appointment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body p-2">
+                                                        <div class="card">
+                                                            <div class="card-header border-bottom-dashed">
+                                                                <div class="d-flex">
+                                                                    <h5 class="card-title flex-grow-1 mb-0">
+                                                                        Engineer Location
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card-body">
+                                                                <div>
+                                                                    <select required="" name="eng-location2" id="eng-location2" class="form-select w-100">
+                                                                        <option value="0" selected="" disabled="">---- Select Location ----</option>
+                                                                        <option value="0">Mumbai</option>
+                                                                        <option value="0">Delhi</option>
+                                                                        <option value="0">Kolkata</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="card hide-assign-eng-section2" id="mySection2" style="display: none;">
+                                                            <div class="card-header border-bottom-dashed">
+                                                                <div class="d-flex pb-3">
+                                                                    <h5 class="card-title flex-grow-1 mb-0">Assign Engineer</h5>
+                                                                </div>
+                                                                <div class="col-sm-10 d-flex gap-2">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input eng-assign2" type="radio" name="gridRadios2" id="individualRadio2" value="individual" checked="">
+                                                                        <label class="form-check-label" for="individualRadio2">
+                                                                            Individual Engineer
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input eng-assign2" type="radio" name="gridRadios2" id="groupRadio2" value="group">
+                                                                        <label class="form-check-label" for="groupRadio2">
+                                                                            Group Engineer
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card-body">
+                                                                <!-- Individual Engineer Dropdown -->
+                                                                <div id="individualDropdown2">
+                                                                    <select required="" name="status2" class="form-select w-100">
+                                                                        <option value="" selected="" disabled="">---- Select Individual Engineer ----</option>
+                                                                        <option value="engineer1">Engineer 1</option>
+                                                                        <option value="engineer2">Engineer 2</option>
+                                                                        <option value="engineer3">Engineer 3</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- Group Engineer Dropdown -->
+                                                                <div id="groupDropdown2" style="display: none;">
+                                                                    <select id="groupDropdownSelect2" class="form-select w-100">
+                                                                        <option value="" selected="" disabled="">---- Select Group Engineer ----</option>
+                                                                        <option value="group1">Engineer 1</option>
+                                                                        <option value="group2">Engineer 2</option>
+                                                                        <option value="group3">Engineer 3</option>
+                                                                    </select>
+
+                                                                    <!-- Button to display selected options -->
+                                                                    <button class="btn btn-primary mt-2 add-engineer2">Add Engineer</button>
+
+                                                                    <!-- Table to display selected values with checkboxes -->
+                                                                    <table class="table mt-4" id="selectedTable2">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Group Name</th>
+                                                                                <th>Admin</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <!-- Selected values will appear here -->
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-striped table-borderless dt-responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Engineer Name</th>
+                                    <th>Visit Date</th>
+                                    <th>Issue Type</th>
+                                    <th>Report</th>
+                                    <th>Status</th>
+                                    <th>Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        Chris Doe
+                                    </td>
+                                    <td>2025-07-16 12:09 PM</td>
+                                    <td>
+                                        Maintanance
+                                    </td>
+                                    <td>
+                                        NA
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning-subtle text-warning fw-semibold">Upcoming</span>
+                                    </td>
+                                    <td>
+                                        <!-- Re-Scheduled Button -->
+                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rescheduleModal">
+                                            Re-Scheduled
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="#">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div class="modal-body p-2">
+                                                            <p>Please enter new schedule date:</p>
+                                                            <input type="date" id="newSchedule" class="form-control" placeholder="Enter new date/time">
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-success">Submit</button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        John Doe
+                                    </td>
+                                    <td>2025-04-04 06:09 PM</td>
+                                    <td>
+                                        Maintanance
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href="./view-detailed-service-history.php">View Report</a>
+                                        <!-- <div id="popupOverlay">
+                                            <span class="closeBtn hide-report">&times;</span>
+                                            <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
+                                        </div> -->
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary disabled">Re-Scheduled</button>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                AMC Details
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Plan Name:
+                                        </span>
+                                        <span>
+                                            Software Updates
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Duration (Months) :
+                                        </span>
+                                        <span>
+                                            12
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Start From :
+                                        </span>
+                                        <span>
+                                            2025-04-04 06:09 PM
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Total Visits :
+                                        </span>
+                                        <span>
+                                            5 Per Year
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Plan Type :
+                                        </span>
+                                        <span>
+                                            Standard
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Description :
+                                        </span>
+                                        <span>
+                                            AMC Service for 1 year
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">End From :
+                                        </span>
+                                        <span>
+                                            2025-04-04 06:09 PM
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Product Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-borderless dt-responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Product Image</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Modal Number</th>
+                                    <th>Product Serial Number</th>
+                                    <th>Crackteck Serial Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ZKTeco MB20 Biometric Attendance Device
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Biometric
+                                    </td>
+                                    <td>
+                                        Inspiron 3511
+                                    </td>
+                                    <td>B0BB7FQBBS</td>
+                                    <td>
+                                        B0BB7FQBBS
+                                    </td>
+                                </tr>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ZKTeco MB20 Biometric Attendance Device
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Biometric
+                                    </td>
+                                    <td>
+                                        Inspiron 3511
+                                    </td>
+                                    <td>B0BB7FQBBS</td>
+                                    <td>
+                                        B0BB7FQBBQ
+                                    </td>
+                                </tr>
+
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ZKTeco MB20 Biometric Attendance Device
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Biometric
+                                    </td>
+                                    <td>
+                                        Inspiron 3511
+                                    </td>
+                                    <td>B0BB7FQBBS</td>
+                                    <td>
+                                        B0BB7FQBBR
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
 
 
-        </div>
+            <div class="col-xl-4">
 
-        <div class="row">
-            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="panel-body">
-                            <div class="clearfix">
-                                <div class="float-start d-flex justify-content-center">
-                                    <img src="{{ asset('assets/images/favicon.png') }}" class="me-2" alt="logo" height="24">
-                                    <h4 class="mb-0 caption fw-semibold fs-18">Crackteck</h4>
-                                </div>
-                                <div class="float-end">
-                                    <h4 class="fs-18">Quotation ID: QTN-1006
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 bg-primary rounded-2 mb-3">
-                                    <div class="float-start mt-3 text-white">
-                                        <address>
-                                            <strong>Quotation To:</strong><br>
-                                            Sanjay Nagar lalji Pada<br>
-                                            Kandivali West M-400067<br>
-                                            <abbr title="Phone">P: </abbr>+91 9607 78 8836
-                                        </address>
-                                    </div>
-                                    <div class="float-end mt-3 text-white">
-                                        <address>
-                                            <strong>Bill To:</strong><br>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="pe-4">Client Name:</td>
-                                                        <td class="fw-medium">Manish</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pe-4">Email:</td>
-                                                        <td>crackteck@gmail.com</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pe-4">Phone:</td>
-                                                        <td>+91 9607 78 8836</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </address>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive rounded-2">
-                                        <table class="table mt-4 mb-4 table-centered border">
-                                            <thead class="rounded-2">
-
-
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Item</th>
-                                                    <th>HSN</th>
-                                                    <th>Quantity</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Tax %</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Dell Inspiron Laptop</td>
-                                                    <td>8471</td>
-                                                    <td>1</td>
-                                                    <td>₹50,000</td>
-                                                    <td>18%</td>
-                                                    <td>₹1,18,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>HP Desktop Computer</td>
-                                                    <td>9983</td>
-                                                    <td>2</td>
-                                                    <td>₹10,000</td>
-                                                    <td>18%</td>
-                                                    <td>₹21,800</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td colspan="2">
-                                                        <table class="table table-sm text-nowrap mb-0 table-borderless">
-                                                            <tbody>
-
-                                                                <tr>
-                                                                    <td>
-                                                                        <p class="mb-0">Sub-total :</p>
-                                                                    </td>
-                                                                    <td>
-                                                                        <p class="mb-0 fw-medium fs-15">₹1,28,000</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td scope="row">
-                                                                        <p class="mb-0">GST :</p>
-                                                                    </td>
-                                                                    <td>
-                                                                        <p class="mb-0 fw-medium fs-15">₹23,040</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td scope="row">
-                                                                        <p class="mb-0 fs-14">Total :</p>
-                                                                    </td>
-                                                                    <td>
-                                                                        <p class="mb-0 fw-medium fs-16 text-success">₹1,51,040</p>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-print-none">
-                                <div class="float-end">
-                                    <a href="javascript:window.print()" class="btn btn-dark border-0"><i class="mdi mdi-printer me-1"></i>Print</a>
-                                    <a href="{{ route('quotation.index') }}" class="btn btn-primary">Submit</a>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Engineer Location
+                            </h5>
                         </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <select required="" name="eng-location" id="eng-location" class="form-select w-100">
+                                <option value="0" selected="" disabled="">---- Select Location ----</option>
+                                <option value="0">Mumbai</option>
+                                <option value="0">Delhi</option>
+                                <option value="0">Kolkata</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card hide-assign-eng-section" id="mySection" style="display: none;">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex pb-3">
+                            <h5 class="card-title flex-grow-1 mb-0">Assign Engineer</h5>
+                        </div>
+                        <div class="col-sm-10 d-flex gap-2">
+                            <div class="form-check">
+                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="individualRadio" value="individual" checked="">
+                                <label class="form-check-label" for="individualRadio">
+                                    Individual Engineer
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="groupRadio" value="group">
+                                <label class="form-check-label" for="groupRadio">
+                                    Group Engineer
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Individual Engineer Dropdown -->
+                        <div id="individualDropdown">
+                            <select required="" name="status" class="form-select w-100">
+                                <option value="" selected="" disabled="">---- Select Individual Engineer ----</option>
+                                <option value="engineer1">Engineer 1</option>
+                                <option value="engineer2">Engineer 2</option>
+                                <option value="engineer3">Engineer 3</option>
+                            </select>
+                        </div>
+
+                        <!-- Group Engineer Dropdown -->
+                        <div id="groupDropdown" style="display: none;">
+                            <select id="groupDropdown1" class="form-select w-100">
+                                <option value="" selected="" disabled="">---- Select Group Engineer ----</option>
+                                <option value="group2">Engineer 1</option>
+                                <option value="group3">Engineer 2</option>
+                                <option value="group3">Engineer 3</option>
+                            </select>
+                            <!-- Button to display selected options -->
+                            <button class="btn btn-primary mt-2 add-engineer">Add Engineer</button>
+
+                            <!-- Table to display selected values with checkboxes -->
+                            <table class="table mt-4" id="selectedTable">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <th>Admin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Selected values will appear here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-end pb-3 hide-section" style="display: none;">
+                    <button href="#" class="btn btn-primary assign-eng-btn">
+                        Assign
+                    </button>
+                </div>
+
+                <div class="card hide-selected-engineers-section" style="display: none;">
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex  ">
+                            <h5 class="card-title flex-grow-1 mb-0">Assigned Engineer List</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 1:
+                                        </span>
+                                        <span>
+                                            Supervisor
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 2 :
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Engineer 3 :
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card hide-report-section" style="display: none;">
+
+                    <div class="card-header border-bottom-dashed">
+                        <div class="d-flex">
+                            <h5 class="card-title flex-grow-1 mb-0">
+                                Engineer Report Details
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group list-group-flush">
+
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Before Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">×</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&amp;s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">After Service:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">×</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&amp;s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Service Report:
+                                        </span>
+                                        <span>
+                                            <button class="btn btn-sm btn-primary show-report">View</button>
+                                            <div id="popupOverlay">
+                                                <span class="closeBtn hide-report">×</span>
+                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&amp;s" alt="Popup Image">
+                                            </div>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-4">
+                        <ul class="simple-timeline mb-0">
+                            <li class="timeline-item timeline-item-transparent">
+                                <span class="timeline-dot timeline-dot-purple"></span>
+                                <div class="timeline-time mt-3">
+                                    <div class="timeline-header-section mb-2">
+                                        <h5 class="mb-0">Status Changed</h5>
+                                        <small class="text-muted">25 min ago</small>
+                                    </div>
+                                    <p class="mb-2">
+                                        Status has been changed pending to active.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item timeline-item-transparent">
+                                <span class="timeline-dot timeline-dot-info"></span>
+                                <div class="timeline-time mt-3">
+                                    <div class="timeline-header-section mb-2">
+                                        <h5 class="mb-0">Service Generated</h5>
+                                        <small class="text-muted">6 days ago</small>
+                                    </div>
+                                    <p class="mb-2">
+                                        A new service request has been generated by John Doe (engineer)
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="timeline-time mt-3">
+                                    <div class="timeline-header-section mb-2">
+                                        <a href="#" class="mb-0 btn btn-sm btn-primary">View All History</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-
 </div>
 
 @endsection

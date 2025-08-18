@@ -41,6 +41,9 @@
                             <li>
                                 <a class='tp-link' href="{{ route('roles.index') }}">Roles</a>
                             </li>
+                            <li>
+                                <a class='tp-link' href="{{ route('permission.index') }}">Permission</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -109,27 +112,36 @@
                     </div>
                 </li>
 
-                <li>
-                    <a class='tp-link' href="{{ route('customer.index') }}">
-                        <i class="fas fa-users"></i>
-                        <span class="ps-1"> Customers </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href="{{ route('engineers.index') }}">
-                        <!-- <i data-feather="columns"></i> -->
-                        <i class="fas fa-user-cog"></i>
-                        <span class="ps-1"> Engineers </span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href="{{ route('delivery-man.index') }}">
-                        <!-- <i data-feather="columns"></i> -->
-                        <i class="fas fa-shipping-fast"></i>
-                        <span class="ps-1"> Delivery Man </span>
-                    </a>
-                </li>
+                @can('Customer List')
+                    <li>
+                        <a class='tp-link' href="{{ route('customer.index') }}">
+                            <i class="fas fa-users"></i>
+                            <span class="ps-1"> Customers </span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Engineer List')
+                    <li>
+                        <a class='tp-link' href="{{ route('engineers.index') }}">
+                            <!-- <i data-feather="columns"></i> -->
+                            <i class="fas fa-user-cog"></i>
+                            <span class="ps-1"> Engineers </span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Delivery Man List')
+                    <li>
+                        <a class='tp-link' href="{{ route('delivery-man.index') }}">
+                            <!-- <i data-feather="columns"></i> -->
+                            <i class="fas fa-shipping-fast"></i>
+                            <span class="ps-1"> Delivery Man </span>
+                        </a>
+                    </li>
+                @endcan
                 <li class="menu-title mt-2">Sales Person</li>
+
                 <li>
                     <a class='tp-link' href="{{ route('sales-reports.index') }}">
                         <i class="fas fa-chart-line"></i>
@@ -272,7 +284,7 @@
                     </a>
                 </li>
 
-                
+
             </ul>
         </div>
         <!-- End Sidebar -->

@@ -27,7 +27,7 @@ class LeadController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
             'phone' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:leads,email',
             'dob' => 'required',
             'gender' => 'required'
         ]);

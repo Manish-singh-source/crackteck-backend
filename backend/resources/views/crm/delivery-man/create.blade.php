@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('delivery-man.store') }}" method="POST">
+                    <form action="{{ route('delivery-man.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="row">
@@ -115,9 +115,9 @@
                                     <div class="card-body">
                                         <div class="row g-3">
                                             <div class="col-6">
-                                                <label for="current-address" class="form-label">Current Address <span
+                                                <label for="current_address" class="form-label">Current Address <span
                                                         class="text-danger">*</span></label>
-                                                <textarea name="current-address" id="current-address" class="form-control" value="" required=""
+                                                <textarea name="current_address" id="current_address" class="form-control"
                                                     placeholder="Enter Current Address"></textarea>
                                             </div>
 

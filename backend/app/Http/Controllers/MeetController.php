@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
 use App\Models\Meet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,8 @@ class MeetController extends Controller
 
     public function create()
     {
-        return view('/crm/meets/create');
+        $leads = Lead::all();
+        return view('/crm/meets/create', compact('leads'));
     }
 
     public function store(Request $request)
@@ -112,5 +114,13 @@ class MeetController extends Controller
         $meet->delete();
 
         return redirect()->route('meets.index')->with('success', 'Meets deleted successfully.');
+    }
+
+    public function fetchClient($id)
+    {
+        $lead = Lead::find($id);
+        return response()->json([
+            'client_name' => $lead->first_name,
+        ]);
     }
 }

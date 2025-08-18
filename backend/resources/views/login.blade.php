@@ -72,15 +72,30 @@
                                             <div class="saprator my-4"><span>or continue with email</span></div>
 
                                             <div class="pt-0">
-                                                <form action="{{ route('crm/index') }}" class="my-4">
+                                                <form action="{{ route('loginStore') }}" method="POST" class="my-4">
+                                                    @csrf
                                                     <div class="form-group mb-3">
-                                                        <label for="emailaddress" class="form-label">Email address</label>
-                                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                                        <label for="email" class="form-label">Email address</label>
+                                                        <input class="form-control @error('email') is-invalid @enderror"
+                                                         type="email" id="email" name="email"
+                                                         value="{{ old('email') }}" required
+                                                         placeholder="Enter your email">
+
+                                                         @error('email')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                         @enderror
                                                     </div>
 
                                                     <div class="form-group mb-3">
                                                         <label for="password" class="form-label">Password</label>
-                                                        <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
+                                                        <input class="form-control @error('password') is-invalid @enderror"
+                                                         type="password" required id="password"
+                                                         name="password"
+                                                         placeholder="Enter your password">
+
+                                                         @error('password')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                         @enderror
                                                     </div>
 
                                                     <!-- 
