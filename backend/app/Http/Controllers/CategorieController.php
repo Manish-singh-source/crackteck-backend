@@ -17,7 +17,7 @@ class CategorieController extends Controller
     {
         $users = User::all();
     
-        dd($users);
+        // dd($users);
         return view('/e-commerce/categories/create');
     }
 
