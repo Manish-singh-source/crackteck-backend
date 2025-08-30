@@ -515,3 +515,12 @@ CREATE TABLE services (
     installation_status ENUM('active','inactive') NOT NULL DEFAULT 'active',
 );
 
+31. Case Transfers 
+
+CREATE TABLE services (
+    service_id Integer NOT NULL, -- referenced from 'services' table
+    engineer_id Integer NOT NULL, -- referenced from 'engineers' table
+);
+
+
+
