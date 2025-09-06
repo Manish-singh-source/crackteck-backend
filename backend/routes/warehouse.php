@@ -36,6 +36,9 @@ Route::controller(ProductListController::class)->group(function(){
     Route::get('/warehouse/scrap-items', 'scrapItems')->name('product-list.scrap-items');
 });
 
+Route::get('/warehouse-dependent', [WarehouseRackController::class, 'getDependentData']);
+
+
 // ------------------------------------------------------------ Track Product List -------------------------------------------------------------
 
 Route::controller(TrackProductController::class)->group(function (){

@@ -87,7 +87,7 @@
                                     <span class="fw-semibold">
                                         State
                                     </span>
-                                    <span>{{ $customer->address->state ?? 'No State Found' }}</span>
+                                    <span>{{ $customer->address->state ?? 'No City Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">

@@ -31,11 +31,17 @@ Route::controller(CustomerController::class)->group(function (){
     // E-commerce Customer Page 
     Route::get('/e-commerce/customers' ,'ec_index')->name('ec.customer.index');
     // Create EC Customer Page
-    Route::get('/e-commerce/create-sustomer' ,'ec_create')->name('ec.customer.create');
+    Route::get('/e-commerce/create-customer' ,'ec_create')->name('ec.customer.create');
+    // Store EC Customer Detail
+    Route::post('/e-commerce/store-customer', 'ec_store')->name('ec.customer.store');
     // View EC Customer Page
-    Route::get('/e-commerce/view-customer' ,'ec_view')->name('ec.customer.view');
+    Route::get('/e-commerce/view-customer/{id}' ,'ec_view')->name('ec.customer.view');
     // Edit EC Customer Page
-    Route::get('/e-commerce/edit-customer' ,'ec_edit')->name('ec.customer.edit');
+    Route::get('/e-commerce/edit-customer/{id}' ,'ec_edit')->name('ec.customer.edit');
+    // Update EC Customer Page 
+    Route::put('/e-commerce/update-customer/{id}', 'ec_update')->name('ec.customer.update');
+    // Delete EC Customer Page 
+    Route::delete('/e-commerce/delete-customer/{id}', 'ec_delete')->name('ec.customer.delete');
 });
 
 // ------------------------------------------------------------ E-Commerce Order Page -------------------------------------------------------------
@@ -71,9 +77,23 @@ Route::controller(CategorieController::class)->group(function (){
     Route::get('/e-commerce/categories' ,'index')->name('category.index');
     // Create Categorie Page
     Route::get('/e-commerce/create-categorie' ,'create')->name('category.create');
+    // Store Categorie Page 
+    // Route::post('/e-commerce/store-categorie' ,'store')->name('category.store');
+    // Parent Categorie Store 
+    Route::post('/e-commerce/store-parent-categorie' ,'storeParent')->name('parent.category.store');
+    // Sub Categorie Store 
+    Route::post('/e-commerce/store-sub-categorie' ,'storeSubCategorie')->name('sub.category.store');
+    // View Sub Categorie From Parent View 
+    Route::get('/e-commerce/view-categorie/{id}' ,'parentCategorie')->name('categorie.view');
     // Edit Create Categorie Page 
-    Route::get('/e-commerce/edit-categorie' ,'edit')->name('category.edit');
+    Route::get('/e-commerce/edit-categorie/{id}' ,'edit')->name('category.edit');
+    // Update Categorie Page 
+    Route::put('/e-commerce/update-categorie/{id}' , 'update')->name('category.update');
+    // Delete Categorie Page 
+    Route::delete('/e-commerce/delete-categorie/{id}' ,'delete')->name('category.delete');
 });
+
+Route::get('/categorie-dependent', [CategorieController::class, 'getDependentData']);
 
 // ------------------------------------------------------------ E-Commerce Brands Page -------------------------------------------------------------
 
@@ -82,8 +102,14 @@ Route::controller(BrandController::class)->group(function (){
     Route::get('/e-commerce/brands' ,'index')->name('brand.index');
     // Create Brands Page 
     Route::get('/e-commerce/create-brand' ,'create')->name('brand.create');
+    // Store Brands Page 
+    Route::post('/e-commerce/store-brand' ,'store')->name('brand.store');
     // Edit Brands Page
-    Route::get('/e-commerce/edit-brand' ,'edit')->name('brand.edit');
+    Route::get('/e-commerce/edit-brand/{id}' ,'edit')->name('brand.edit');
+    // Update Brands Page 
+    Route::put('/e-commerce/update-brand/{id}', 'update')->name('brand.update');
+    // Delete Brands Page 
+    Route::delete('/e-commerce/delete-brand/{id}' ,'delete')->name('brand.delete');
 });
 
 // ------------------------------------------------------------ E-Commerce Product Variants Page -------------------------------------------------------------
@@ -92,7 +118,16 @@ Route::controller(ProductVariantsController::class)->group(function (){
     // Product Variants Page 
     Route::get('/e-commerce/product-variants' ,'index')->name('variant.index');
     // Product Attribute List Page
-    Route::get('/e-commerce/product-attribute-list' ,'view')->name('variant.view');
+    Route::get('/e-commerce/product-attribute-list/{id}' ,'view')->name('variant.view');
+    // Update Product Attribute List 
+    Route::put('/e-commerce/update-product-attribute/{id}' ,'updateAttribute')->name('variant.update');
+    // Store Product Attribute 
+    Route::post('/e-commerce/store-product-attribute' ,'storeAttribute')->name('variant.store');
+    // Delete Product Attribute
+    Route::delete('/e-commerce/delete-product-attribute/{id}' ,'deleteAttribute')->name('variant.delete');
+    // Store Product Attribute Value 
+    Route::post('/e-commerce/store-product-attribute-value' ,'storeAttributeValue')->name('variant.store.attribute.value');
+    
 });
 
 // ------------------------------------------------------------ E-Commerce Coupons Page -------------------------------------------------------------
@@ -127,15 +162,27 @@ Route::controller(BannerController::class)->group(function (){
     Route::get('/e-commerce/website-banner' ,'websiteBanner')->name('website.banner.index');
     // Add Website Banner Page
     Route::get('/e-commerce/add-banner' ,'addWebsiteBanner')->name('website.banner.create');
+    // Store Website Banner Page 
+    Route::post('/e-commerce/store-banner', 'storeWebsiteBanner')->name('website.banner.store');
     // Edit Website Banner Page
-    Route::get('/e-commerce/edit-banner' ,'editWebsiteBanner')->name('website.banner.edit');
+    Route::get('/e-commerce/edit-banner/{id}' ,'editWebsiteBanner')->name('website.banner.edit');
+    // Update website Banner Page 
+    Route::put('/e-commerce/update-banner/{id}' ,'updateWebsiteBanner')->name('website.banner.update');
+    // Delete Website Banner Page 
+    Route::delete('/e-commerce/delete-banner/{id}', 'deleteWebsiteBanner')->name('website.banner.delete');
 
     // Promotional Banner Page
     Route::get('/e-commerce/promotional-banner' ,'promotionalBanner')->name('promotional.banner.index');
     // Add Promotional Banner Page
     Route::get('/e-commerce/add-promotional-banner' ,'addPromotionalBanner')->name('promotional.banner.create');
+    // Store Promotional Banner Page 
+    Route::post('/e-commerce/store-promotional-banner' ,'storePromotionalBanner')->name('promotional.banner.store');
     // Edit Promotional Banner Page
-    Route::get('/e-commerce/edit-promotional-banner' ,'editPromotionalBanner')->name('promotional.banner.edit');
+    Route::get('/e-commerce/edit-promotional-banner/{id}' ,'editPromotionalBanner')->name('promotional.banner.edit');
+    // Update Promotional Banner Page 
+    Route::put('/e-commerce/update-promotional-banner/{id}' ,'updatePromotionalBanner')->name('promotional.banner.update');
+    // Delete Promotional Banner Page 
+    Route::delete('/e-commerce/delete-promotional-banner{id}' ,'deletePromotionalBanner')->name('promotional.banner.delete');
 });
 
 // ------------------------------------------------------------ E-Commerce Product Deals Page -------------------------------------------------------------

@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('customer.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('ec.customer.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="row">
@@ -220,7 +220,7 @@
                                             <div class="mb-3">
                                                 @include('components.form.input', [
                                                     'label' => 'GST Number',
-                                                    'name' => 'gst',
+                                                    'name' => 'gst_no',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter GST Number',
                                                 ])
@@ -229,7 +229,7 @@
                                             <div class="mb-3">
                                                 @include('components.form.input', [
                                                     'label' => 'PAN Number',
-                                                    'name' => 'pan',
+                                                    'name' => 'pan_no',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter PAN Number',
                                                 ])
@@ -268,10 +268,13 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="text-start mb-3">
-                                    <a href="{{ route('ec.customer.index') }}"
+                                    {{-- <a href="{{ route('ec.customer.index') }}"
                                         class="btn btn-success w-sm waves ripple-light">
                                         Submit
-                                    </a>
+                                    </a> --}}
+                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                        Submit
+                                    </button>
                                 </div>
                             </div>
 

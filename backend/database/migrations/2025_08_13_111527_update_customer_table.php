@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             //
+            $table->string('branch_name')->nullable();
             $table->string('pic')->nullable();
             $table->enum('customer_type', ['Retail', 'Wholesale' ,"Corporate"]);
         });
