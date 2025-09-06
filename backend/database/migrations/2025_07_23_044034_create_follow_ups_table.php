@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('follow_ups', function (Blueprint $table) {
             $table->id();
             
-            $table->enum('lead_id', ['L-001', 'L-002', 'L-003', 'L-004']);
-            // $table->string('lead_id');
+            // $table->enum('lead_id', ['L-001', 'L-002', 'L-003', 'L-004']);
+            $table->string('lead_id');
             $table->string('client_name');
             $table->string('contact');
             $table->string('email')->unique();

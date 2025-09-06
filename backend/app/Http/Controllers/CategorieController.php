@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Categorie;
 use App\Models\ParentCategorie;
 use App\Models\SubCategorie;
+=======
+use App\Models\User;
+>>>>>>> 04484d88166d540bbe563a08b982f98211f3f972
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -70,6 +74,7 @@ class CategorieController extends Controller
 
     public function storeParent(Request $request)
     {
+<<<<<<< HEAD
         $validator = Validator::make($request->all(), [
             'parent_categories' => 'required',
             'status' => 'required',
@@ -88,6 +93,12 @@ class CategorieController extends Controller
             return back()->with('error', 'Something went wrong.');
         }
         return redirect()->route('category.index')->with('success', 'Parent Categorie added successfully.');
+=======
+        $users = User::all();
+    
+        // dd($users);
+        return view('/e-commerce/categories/create');
+>>>>>>> 04484d88166d540bbe563a08b982f98211f3f972
     }
 
     public function storeSubCategorie(Request $request)

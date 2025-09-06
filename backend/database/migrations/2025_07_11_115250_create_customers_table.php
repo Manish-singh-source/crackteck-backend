@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('company_addr');
             $table->string('gst_no');
             $table->string('pan_no');
+            $table->string('pic')->nullable();
+
             
             $table->timestamps();
         });

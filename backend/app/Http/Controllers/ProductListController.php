@@ -54,7 +54,7 @@ class ProductListController extends Controller
         $brand = Brand::pluck('brand_title', 'id');
         $parentCategorie = ParentCategorie::pluck('parent_categories', 'id');
         $subcategorie = SubCategorie::pluck('sub_categorie', 'id');
-        return view('/e-commerce/products/create', compact('brand', 'parentCategorie', 'subcategorie'));
+        return view('/e-commerce/products/create', compact('brand', 'parentCategorie', 'subcategit gorie'));
     }
 
     public function ec_view()
