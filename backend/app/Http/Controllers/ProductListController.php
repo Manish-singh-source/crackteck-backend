@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Categorie;
+use App\Models\ParentCategorie;
+use App\Models\SubCategorie;
+use App\Models\Warehouse;
+use App\Models\WarehouseRack;
 use Illuminate\Http\Request;
 
 class ProductListController extends Controller
@@ -14,7 +20,13 @@ class ProductListController extends Controller
 
     public function create()
     {
-        return view('/warehouse/product-list/create');
+        $warehouse = Warehouse::pluck('warehouse_name', 'id');
+        $warehouseRack = WarehouseRack::pluck('rack_name', 'id');
+        $zoneAreas = WarehouseRack::pluck('zone_area', 'id');
+        $rackNo = WarehouseRack::pluck('rack_no', 'id');
+        $levelNo = WarehouseRack::pluck('level_no', 'id');
+        $positionNo = WarehouseRack::pluck('position_no', 'id');
+        return view('/warehouse/product-list/create', compact('warehouse','warehouseRack','zoneAreas','rackNo','levelNo','positionNo'));
     }
 
     public function view()
@@ -39,7 +51,10 @@ class ProductListController extends Controller
 
     public function ec_create()
     {
-        return view('/e-commerce/products/create');
+        $brand = Brand::pluck('brand_title', 'id');
+        $parentCategorie = ParentCategorie::pluck('parent_categories', 'id');
+        $subcategorie = SubCategorie::pluck('sub_categorie', 'id');
+        return view('/e-commerce/products/create', compact('brand', 'parentCategorie', 'subcategorie'));
     }
 
     public function ec_view()
@@ -56,4 +71,5 @@ class ProductListController extends Controller
     {
         return view('/e-commerce/products/scrap-items');
     }
+    
 }

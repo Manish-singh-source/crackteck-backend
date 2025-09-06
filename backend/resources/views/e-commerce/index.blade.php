@@ -568,12 +568,12 @@
                                         <td>9876543211</td>
                                         <td>2</td>
                                         <td>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.view') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="View">
                                                 <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                             </a>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.edit') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -594,12 +594,12 @@
                                         <td>9876543210</td>
                                         <td>1</td>
                                         <td>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.view') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="View">
                                                 <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                             </a>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.edit') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -620,12 +620,12 @@
                                         <td>9876543210</td>
                                         <td>3</td>
                                         <td>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.view') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="View">
                                                 <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                             </a>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.edit') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
@@ -646,12 +646,12 @@
                                         <td>9876543210</td>
                                         <td>2</td>
                                         <td>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.view') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="View">
                                                 <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                             </a>
-                                            <a aria-label="anchor" href="{{ route('ec.customer.edit') }}"
+                                            <a aria-label="anchor" href=""
                                                 class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                 data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                 <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>

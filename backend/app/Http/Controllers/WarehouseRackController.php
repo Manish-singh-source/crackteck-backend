@@ -14,7 +14,7 @@ class WarehouseRackController extends Controller
     public function index()
     {
         $warehouse_racks = WarehouseRack::all();
-        return view('/warehouse/rack/index' ,compact('warehouse_racks'));
+        return view('/warehouse/rack/index', compact('warehouse_racks'));
     }
 
     public function create()
@@ -47,7 +47,7 @@ class WarehouseRackController extends Controller
         return redirect()->route('rack.index')->with('success', 'Warehouse Rack added successfully.');
     }
 
-    public function edit($id) 
+    public function edit($id)
     {
         $warehouse_rack = WarehouseRack::with('warehouse')->findOrFail($id);
         // dd($warehouse_rack);
@@ -91,5 +91,30 @@ class WarehouseRackController extends Controller
         $warehouse_rack->delete();
 
         return redirect()->route('rack.index')->with('success', 'Warehouse Rack deleted successfully.');
+    }
+
+
+    public function getDependentData(Request $request)
+    {
+        $type = $request->type; // rack / zone / rack_no / level / position
+        $id   = $request->id;   // selected parent id
+
+        $query = WarehouseRack::query();
+
+        if ($type == 'rack') {
+            $data = $query->where('warehouse_id', $id)->pluck('rack_name', 'id');
+        } elseif ($type == 'zone') {
+            $data = $query->where('id', $id)->pluck('zone_area', 'id');
+        } elseif ($type == 'rack_no') {
+            $data = $query->where('id', $id)->pluck('rack_no', 'id');
+        } elseif ($type == 'level') {
+            $data = $query->where('id', $id)->pluck('level_no', 'id');
+        } elseif ($type == 'position') {
+            $data = $query->where('id', $id)->pluck('position_no', 'id');
+        } else {
+            $data = [];
+        }
+
+        return response()->json($data);
     }
 }

@@ -20,11 +20,11 @@
                     <div class="card-body">
                         <div class="px-3">
                             <div class="profile-section-image">
-                                <img src="{{ asset('assets/images/users/user.jpg') }}" alt="Customer Profile Image" style="width: 150px; height:150px" class="img-thumbnail">
+                                <img src={{ $customer->pic ? asset($customer->pic) : asset('images/default-profile.png') }} alt="Customer Profile Image" style="width: 150px; height:150px" class="img-thumbnail">
                             </div>
                             <div class="mt-3">
-                                <h6 class="mb-0">John Doe</h6>
-                                <p>Joining Date 26 Mar, 2025 04:24 PM</p>
+                                <h6 class="mb-0"> <Strong>Customer Name :-  </Strong> {{ $customer->first_name }} {{ $customer->last_name }}</h6>
+                                <p><strong> Joining Date :- </strong> {{ $customer->created_at->format('d M Y') }} </p>
                             </div>
                         </div>
 
@@ -36,28 +36,28 @@
                                     <span class="fw-semibold">
                                         Full Name
                                     </span>
-                                    <span class="font-weight-bold">John Doe</span>
+                                    <span class="font-weight-bold">{{ $customer->first_name }} {{ $customer->last_name }}</span>
                                 </li>
                                 
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Username
                                     </span>
-                                    <span class="font-weight-bold">John</span>
+                                    <span class="font-weight-bold">{{ $customer->first_name ?? 'No UserName' }}</span>
                                 </li>
 
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Email
                                     </span>
-                                    <span class="font-weight-bold text-break">example@gmail.com</span>
+                                    <span class="font-weight-bold text-break">{{ $customer->email }}</span>
                                 </li>
 
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Phone
                                     </span>
-                                    <span class="font-weight-bold">9988557755</span>
+                                    <span class="font-weight-bold">{{ $customer->phone }}</span>
                                 </li>
 
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
@@ -74,31 +74,31 @@
                                     <span class="fw-semibold">
                                         Address
                                     </span>
-                                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur.</span>
+                                    <span>{{ $customer->address->address ?? 'No Address Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         City
                                     </span>
-                                    <span>Kandivali</span>
+                                    <span>{{ $customer->address->city ?? 'No City Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         State
                                     </span>
-                                    <span>Maharashtra</span>
+                                    <span>{{ $customer->address->state ?? 'No City Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Country
                                     </span>
-                                    <span>India</span>
+                                    <span>{{ $customer->address->country ?? 'No Country Found' }}</span>
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
                                     <span class="fw-semibold">
                                         Pincode
                                     </span>
-                                    <span>400 067</span>
+                                    <span>{{ $customer->address->pincode ?? 'No Pincode Found' }}</span>
                                 </li>
                             </ul>
                             
