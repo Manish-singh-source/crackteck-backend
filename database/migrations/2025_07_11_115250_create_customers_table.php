@@ -15,18 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('phone',10);
+            $table->string('phone', 10);
             $table->string('email')->unique();
             $table->date('dob');
+            $table->string('branch_name')->nullable();
             $table->enum('gender', ['male', 'female']);
-            $table->enum('customer_type', ['Retail', 'Wholesale' ,"Corporate"]);
+            $table->enum('customer_type', ['Retail', 'Wholesale', "Corporate"]);
             $table->string('company_name');
             $table->string('company_addr');
             $table->string('gst_no');
             $table->string('pan_no');
             $table->string('pic')->nullable();
 
-            
+
             $table->timestamps();
         });
     }
