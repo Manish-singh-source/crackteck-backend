@@ -240,29 +240,29 @@
                                                 <div>
                                                     <label for="short_details" class="form-label">Short Description <span
                                                             class="text-danger">*</span></label>
-                                                    <textarea id="short_details" class="form-control text-editor" name="short_details" placeholder="Enter Description"></textarea>
-                                                    {{-- <div id="quill-editor" style="height: 300px;">
+                                                    {{-- <textarea id="short_details" class="form-control text-editor" name="short_details" placeholder="Enter Description"></textarea> --}}
+                                                    <div id="quill-editor" style="height: 300px;">
                                                     <h1>Hello World</h1>
-                                                </div> --}}
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
                                                 <div>
                                                     <label for="full_details" class="form-label">Full Description<span
                                                             class="text-danger">*</span></label>
-                                                    <textarea id="full_details" class="form-control text-editor" name="full_details" placeholder="Enter Full Description"></textarea>
-                                                    {{-- <div id="quill-editor1" style="height: 300px;">
+                                                    {{-- <textarea id="full_details" class="form-control text-editor" name="full_details" placeholder="Enter Full Description"></textarea> --}}
+                                                    <div id="quill-editor1" style="height: 300px;">
                                                     <h1>Hello World</h1>
-                                                </div> --}}
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-2">
                                                 <div>
                                                     <label for="tech_specs" class="form-label">Technical Specifications<span
                                                             class="text-danger">*</span></label>
-                                                    <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea>
+                                                    {{-- <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea> --}}
                                                 </div>
-                                                {{-- <div id="quill-editor2" style="height: 300px;">
+                                                <div id="quill-editor2" style="height: 300px;">
                                                 <h1>Hello World</h1>
                                                 <p><br></p>
                                                 <h4>This is an simple editable area</h4>
@@ -277,7 +277,7 @@
                                                 </ol>
                                                 <br>
                                                 <p>Preset build with <code>snow</code> theme, and some common formats.</p>
-                                            </div> --}}
+                                            </div>
                                             </div>
                                             <div class="col-xl-12  col-lg-6">
                                                 <div class="mb-3">
