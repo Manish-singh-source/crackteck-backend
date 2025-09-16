@@ -126,89 +126,100 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Product</th>
-                                                            <th>Categories - Sold Item</th>
-                                                            <th>Info</th>
-                                                            <th>Top Item - Todays Deal</th>
-                                                            <th>Quantity</th>
-                                                            <th>Time - Status</th>
+                                                            <th>SKU</th>
+                                                            <th>Category</th>
+                                                            <th>Pricing</th>
+                                                            <th>Stock</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                        @forelse($products as $product)
                                                         <tr class="align-middle">
                                                             <td>
                                                                 <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                                    <div class="me-3">
+                                                                        @if($product->main_product_image)
+                                                                            <img src="{{ asset($product->main_product_image) }}" alt="{{ $product->product_name }}" width="80" height="80" class="img-fluid rounded">
+                                                                        @else
+                                                                            <img src="https://placehold.co/80x80" alt="No Image" width="80" height="80" class="img-fluid rounded">
+                                                                        @endif
                                                                     </div>
                                                                     <div>
-                                                                        <div>
-                                                                            Laptop
+                                                                        <div class="fw-semibold">
+                                                                            {{ $product->product_name }}
                                                                         </div>
-                                                                        <div>
-                                                                            Brand: Sony
+                                                                        <div class="text-muted small">
+                                                                            Brand: {{ $product->brand->name ?? 'N/A' }}
+                                                                        </div>
+                                                                        <div class="text-muted small">
+                                                                            Model: {{ $product->model_no ?? 'N/A' }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <span class="badge bg-primary-subtle text-primary fw-semibold">Electronics</span>
-                                                                <div>
-                                                                    Total Sold: 2
-                                                                </div>
+                                                                <span class="badge bg-info-subtle text-info">{{ $product->sku }}</span>
+                                                                @if($product->hsn_code)
+                                                                    <div class="small text-muted">HSN: {{ $product->hsn_code }}</div>
+                                                                @endif
                                                             </td>
                                                             <td>
-                                                                <div>
-                                                                    Regular price : ₹100.0
-                                                                </div>
-                                                                <div>
-                                                                    Discount Price : ₹97.0
-                                                                </div>
-                                                                <div>
-                                                                    <a href="#" class="text-primary">
-                                                                        Best Selling Item - Yes
-                                                                    </a>
-                                                                </div>
-                                                                <div>
-                                                                    <a href="#" class="text-danger">
-                                                                        Suggested Item - No
-                                                                    </a>
-                                                                </div>
+                                                                @if($product->parentCategorie)
+                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">{{ $product->parentCategorie->name }}</span>
+                                                                @endif
+                                                                @if($product->subCategorie)
+                                                                    <div class="small text-muted">{{ $product->subCategorie->name }}</div>
+                                                                @endif
                                                             </td>
                                                             <td>
-                                                                <a href="#" class="text-success">
-                                                                    Yes
-                                                                </a>
-                                                                <span>|</span>
-                                                                <a href="#" class="text-danger">
-                                                                    No
-                                                                </a>
+                                                                @if($product->cost_price)
+                                                                    <div class="small">Cost: ₹{{ number_format($product->cost_price, 2) }}</div>
+                                                                @endif
+                                                                @if($product->selling_price)
+                                                                    <div class="small">Selling: ₹{{ number_format($product->selling_price, 2) }}</div>
+                                                                @endif
+                                                                @if($product->discount_price)
+                                                                    <div class="small text-success">Discount: ₹{{ number_format($product->discount_price, 2) }}</div>
+                                                                @endif
                                                             </td>
-                                                            <td>5</td>
                                                             <td>
-                                                                <div>
-                                                                    17 Apr 2025
+                                                                <div>{{ $product->stock_quantity ?? 0 }}</div>
+                                                                @if($product->stock_status)
+                                                                    <span class="badge {{ $product->stock_status == 'In Stock' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                                                        {{ $product->stock_status }}
+                                                                    </span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <div class="small text-muted">
+                                                                    {{ $product->created_at->format('d M Y') }}
                                                                 </div>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success fw-semibold">Published</span>
+                                                                <span class="badge {{ $product->status == 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} fw-semibold">
+                                                                    {{ $product->status ?? 'Inactive' }}
+                                                                </span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('product-list.view') }}"
+                                                                <a aria-label="anchor" href="{{ route('product-list.view', $product->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor" href="{{ route('product-list.edit') }}"
+                                                                <a aria-label="anchor" href="{{ route('product-list.edit', $product->id) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
+                                                                <form action="{{ route('product-list.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" aria-label="anchor"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
                                                                 <a aria-label="scrap" href="{{ route('product-list.scrap-items') }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Scrap">
@@ -216,7 +227,17 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
-
+                                                        @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center py-4">
+                                                                <div class="text-muted">
+                                                                    <i class="mdi mdi-package-variant-closed fs-48 mb-2"></i>
+                                                                    <p>No products found</p>
+                                                                    <a href="{{ route('product-list.create') }}" class="btn btn-primary">Add First Product</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>

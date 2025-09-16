@@ -181,13 +181,6 @@
 
 
     <script>
-        $(document).ready(function() {
-            $(".delete-row").on("click", function() {
-                $(this).parents("tr").hide();
-            });
-        });
-    </script>
-    <script>
         var table1 = $('#example').DataTable();
     </script>
     @yield('scripts')

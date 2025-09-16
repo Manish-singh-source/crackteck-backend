@@ -5,531 +5,409 @@
 <div class="content">
     <div class="container-fluid">
 
-        <div class="row pt-3">
-            <div class="col-xl-8 mx-auto">
-
-                <div class="card">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Product Basic Details
-                            </h5>
-                            <a href="{{ route('product-list.create') }}" class="btn btn-sm btn-primary">Edit</a>
-                            <!-- <button class="btn btn-sm btn-primary">Edit</button> -->
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">SKU :
-                                </span>
-                                <span>
-                                    #SKU-001
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Name :
-                                </span>
-                                <span>
-                                    ZKTeco MB20 Biometric Attendance Device
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Brand :
-                                </span>
-                                <span>
-                                    ZKTeco
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Model Number :
-                                </span>
-                                <span>
-                                    MB20
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Category :
-                                </span>
-                                <span>
-                                    Biometric Attendance & Access Control System
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Sub Category :
-                                </span>
-                                <span>
-                                    Biometric Attendance & Access Control System
-                                </span>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Product Description Details
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item d-flex gap-3 flex-column">
-                                <div class="fw-semibold text-break">Short Description :
-                                </div>
-                                <div>
-                                    A high-performance biometric device designed for secure and accurate attendance tracking and access control.</div>
-                            </li>
-
-                            <li class="list-group-item d-flex gap-3 flex-column">
-                                <div class="fw-semibold text-break">Full Description :
-                                </div>
-                                <div>
-                                    A high-performance biometric device designed for secure and accurate attendance tracking and access control. This compact and efficient system uses fingerprint, face recognition, and/or RFID technology to verify individual identity, helping organizations streamline workforce management and enhance security.</div>
-                            </li>
-
-                            <li class="list-group-item d-flex gap-3 flex-column">
-                                <div class="fw-semibold text-break">Technical Specifications :
-                                </div>
-                                <div>
-                                    <table class="table table-bordered" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-                                        <thead>
-                                            <tr style="background-color: #f2f2f2;">
-                                                <th>Specification</th>
-                                                <th>Details</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Identification Methods</td>
-                                                <td>Fingerprint, Face Recognition, RFID Card, PIN</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fingerprint Capacity</td>
-                                                <td>5,000 templates</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Face Capacity</td>
-                                                <td>1,000 templates</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Card Capacity</td>
-                                                <td>5,000 (125kHz RFID)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Transaction Storage</td>
-                                                <td>100,000 records</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Recognition Speed</td>
-                                                <td>≤ 0.5 seconds</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Display</td>
-                                                <td>2.8-inch TFT Color LCD</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Audio/Visual Indicators</td>
-                                                <td>Voice Prompt & LED Notification</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Communication Interface</td>
-                                                <td>TCP/IP, USB Host, Wi-Fi (optional)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Access Control Interface</td>
-                                                <td>Door Sensor, Exit Button, Electric Lock, Alarm</td>
-                                            </tr>
-                                            <!-- <tr>
-                                                <td>Operating Temperature</td>
-                                                <td>0°C to 45°C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Operating Humidity</td>
-                                                <td>20% – 80% (non-condensing)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Power Supply</td>
-                                                <td>DC 12V, 2A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dimensions</td>
-                                                <td>168 × 125 × 38 mm</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Installation Type</td>
-                                                <td>Wall-mounted</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Software Compatibility</td>
-                                                <td>ZKTeco ZKTime.Net, BioTime</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Backup Battery</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Certifications</td>
-                                                <td>CE, FCC, RoHS</td>
-                                            </tr> -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Product List
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table
-                            class="table table-striped table-borderless dt-responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Product Image</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Price</th>
-                                    <th>Modal Number</th>
-                                    <th>Product Serial Number</th>
-                                    <th>Serial Number</th>
-                                    <th>Barcode</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            ZKTeco MB20 Biometric Attendance Device
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Biometric
-                                    </td>
-                                    <td>
-                                        ₹4,500
-                                    </td>
-                                    <td>
-                                        Inspiron 3511
-                                    </td>
-                                    <td>B0BB7FQBBS</td>
-                                    <td>
-                                        <input type="text" class="form-control" value="B0BB7FQBBS">
-                                    </td>
-                                    <td><img id="barcode1" width="150px" height="50px" /></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary">Save</button>
-                                    </td>
-                                </tr>
-
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            ZKTeco MB20 Biometric Attendance Device
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Biometric
-                                    </td>
-                                    <td>
-                                        ₹4,500
-                                    </td>
-                                    <td>
-                                        Inspiron 3511
-                                    </td>
-                                    <td>B0BB7FQBBS</td>
-                                    <td>
-                                        <input type="text" class="form-control" value="B0BB7FQBBQ">
-                                    </td>
-                                    <td><img id="barcode2" width="150px" height="50px" /></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary">Save</button>
-                                    </td>
-                                </tr>
-
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            ZKTeco MB20 Biometric Attendance Device
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Biometric
-                                    </td>
-                                    <td>
-                                        ₹4,500
-                                    </td>
-                                    <td>
-                                        Inspiron 3511
-                                    </td>
-                                    <td>B0BB7FQBBS</td>
-                                    <td>
-                                        <input type="text" class="form-control" value="B0BB7FQBBR">
-                                    </td>
-                                    <td><img id="barcode3" width="150px" height="50px" /></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary">Save</button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="flex-grow-1">
+                <h4 class="fs-18 fw-semibold m-0">Product Details</h4>
             </div>
-            <div class="col-xl-4 mx-auto">
+            <div>
+                <a href="{{ route('product-list.edit', $product->id) }}" class="btn btn-primary">Edit Product</a>
+                <a href="{{ route('products.index') }}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Vendor Information -->
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Rack Details
-                            </h5>
-                        </div>
+                        <h5 class="card-title mb-0">Vendor Information</h5>
                     </div>
-
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Warehouse Name :
-                                </span>
-                                <span>
-                                    ABC-1234
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Rack No. :
-                                </span>
-                                <span>
-                                    R-01
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Level No. :
-                                </span>
-                                <span>
-                                    L-01
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Position No. :
-                                </span>
-                                <span>
-                                    L-01
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Expiry Date. :
-                                </span>
-                                <span>
-                                    10-July-2025
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Status. :
-                                </span>
-                                <span class="badge bg-success-subtle text-success fw-semibold">
-                                    Active
-                                </span>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">PO Number:</label>
+                                    <p class="text-muted">{{ $product->po_number ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Vendor Name:</label>
+                                    <p class="text-muted">{{ $product->vendor_name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Invoice Number:</label>
+                                    <p class="text-muted">{{ $product->invoice_number ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Purchase Date:</label>
+                                    <p class="text-muted">{{ $product->purchase_date ? $product->purchase_date->format('d M Y') : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Bill Due Date:</label>
+                                    <p class="text-muted">{{ $product->bill_due_date ? $product->bill_due_date->format('d M Y') : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Bill Amount:</label>
+                                    <p class="text-muted">{{ $product->bill_amount ? '₹' . number_format($product->bill_amount, 2) : 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Basic Product Information -->
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Product Variation Details
-                            </h5>
-                        </div>
+                        <h5 class="card-title mb-0">Basic Product Information</h5>
                     </div>
-
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Color :
-                                </span>
-                                <span>
-                                    Black
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Size/Length :
-                                </span>
-                                <span>
-                                    34x35
-                                </span>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Product Name:</label>
+                                    <p class="text-muted">{{ $product->product_name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">SKU:</label>
+                                    <p class="text-muted">{{ $product->sku }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">HSN Code:</label>
+                                    <p class="text-muted">{{ $product->hsn_code ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Brand:</label>
+                                    <p class="text-muted">{{ $product->brand->name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Model No:</label>
+                                    <p class="text-muted">{{ $product->model_no ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Serial No:</label>
+                                    <p class="text-muted">{{ $product->serial_no ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Parent Category:</label>
+                                    <p class="text-muted">{{ $product->parentCategorie->name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Sub Category:</label>
+                                    <p class="text-muted">{{ $product->subCategorie->name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Product Details -->
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Shipping Details
-                            </h5>
-                        </div>
+                        <h5 class="card-title mb-0">Product Details</h5>
                     </div>
-
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Product Weight(kg/gms) :
-                                </span>
-                                <span>
-                                    5
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Product Dimensions (L × W × H cm/mm) :
-                                </span>
-                                <span>
-                                    34x35
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">
-                                    Shipping Class :
-                                </span>
-                                <span>
-                                    Heavy
-                                </span>
-                            </li>
-                        </ul>
+                        <div class="mb-3">
+                            <label class="fw-semibold">Short Description:</label>
+                            <div class="text-muted">
+                                {!! $product->short_description ?? 'N/A' !!}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-semibold">Full Description:</label>
+                            <div class="text-muted">
+                                {!! $product->full_description ?? 'N/A' !!}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-semibold">Technical Specification:</label>
+                            <div class="text-muted">
+                                {!! $product->technical_specification ?? 'N/A' !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Pricing Information -->
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Other Details
-                            </h5>
+                        <h5 class="card-title mb-0">Pricing Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Cost Price:</label>
+                                    <p class="text-muted">{{ $product->cost_price ? '₹' . number_format($product->cost_price, 2) : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Selling Price:</label>
+                                    <p class="text-muted">{{ $product->selling_price ? '₹' . number_format($product->selling_price, 2) : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Discount Price:</label>
+                                    <p class="text-muted">{{ $product->discount_price ? '₹' . number_format($product->discount_price, 2) : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Tax Rate:</label>
+                                    <p class="text-muted">{{ $product->tax_rate ? $product->tax_rate . '%' : 'N/A' }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
+                <!-- Inventory Information -->
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <h5 class="card-title mb-0">Inventory Information</h5>
+                    </div>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Stock Quantity:</label>
+                                    <p class="text-muted">{{ $product->stock_quantity ?? 0 }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Stock Status:</label>
+                                    <p class="text-muted">
+                                        <span class="badge {{ $product->stock_status == 'In Stock' ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $product->stock_status ?? 'Out of Stock' }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Minimum Stock Level:</label>
+                                    <p class="text-muted">{{ $product->minimum_stock_level ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Maximum Stock Level:</label>
+                                    <p class="text-muted">{{ $product->maximum_stock_level ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Reorder Level:</label>
+                                    <p class="text-muted">{{ $product->reorder_level ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Reorder Quantity:</label>
+                                    <p class="text-muted">{{ $product->reorder_quantity ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Warranty :
-                                </span>
-                                <span>
-                                    1 Year Manufacturer Warranty
-                                </span>
-                            </li>
-
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">With Installation :
-                                </span>
-                                <span>
-                                    Yes
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Featured Product :
-                                </span>
-                                <span>
-                                    Yes
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                <span class="fw-semibold text-break">Tags :
-                                </span>
-                                <span>
-                                    Best Seller
-                                </span>
-                            </li>
-                        </ul>
+                <!-- Rack Details -->
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <h5 class="card-title mb-0">Rack Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Warehouse:</label>
+                                    <p class="text-muted">{{ $product->warehouse->name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Warehouse Rack:</label>
+                                    <p class="text-muted">{{ $product->warehouseRack->name ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Rack Zone Area:</label>
+                                    <p class="text-muted">{{ $product->rack_zone_area ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Rack No:</label>
+                                    <p class="text-muted">{{ $product->rack_no ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Level No:</label>
+                                    <p class="text-muted">{{ $product->level_no ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Position No:</label>
+                                    <p class="text-muted">{{ $product->position_no ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Expiry Date:</label>
+                                    <p class="text-muted">{{ $product->expiry_date ? $product->expiry_date->format('d M Y') : 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Rack Status:</label>
+                                    <p class="text-muted">
+                                        <span class="badge bg-info">{{ $product->rack_status ?? 'N/A' }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
+
+            <div class="col-lg-4">
+                <!-- Product Images -->
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <h5 class="card-title mb-0">Product Images</h5>
+                    </div>
+                    <div class="card-body">
+                        @if($product->main_product_image)
+                            <div class="mb-3">
+                                <label class="fw-semibold">Main Product Image:</label>
+                                <div class="mt-2">
+                                    <img src="{{ asset($product->main_product_image) }}" alt="Main Product Image" class="img-fluid rounded" style="max-height: 200px;">
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($product->additional_product_images && count($product->additional_product_images) > 0)
+                            <div class="mb-3">
+                                <label class="fw-semibold">Additional Images:</label>
+                                <div class="row mt-2">
+                                    @foreach($product->additional_product_images as $image)
+                                        <div class="col-6 mb-2">
+                                            <img src="{{ asset($image) }}" alt="Additional Image" class="img-fluid rounded" style="max-height: 100px;">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($product->datasheet_manual)
+                            <div class="mb-3">
+                                <label class="fw-semibold">Datasheet/Manual:</label>
+                                <div class="mt-2">
+                                    <a href="{{ asset($product->datasheet_manual) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="mdi mdi-file-pdf-outline"></i> Download PDF
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Product Variations -->
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <h5 class="card-title mb-0">Product Variations</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Color Options:</label>
+                                    <p class="text-muted">{{ $product->color_options ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Size Options:</label>
+                                    <p class="text-muted">{{ $product->size_options ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Length Options:</label>
+                                    <p class="text-muted">{{ $product->length_options ?? 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Status -->
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <h5 class="card-title mb-0">Product Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Status:</label>
+                                    <p class="text-muted">
+                                        <span class="badge {{ $product->status == 'Active' ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $product->status ?? 'Inactive' }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Created Date:</label>
+                                    <p class="text-muted">{{ $product->created_at->format('d M Y, h:i A') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="fw-semibold">Last Updated:</label>
+                                    <p class="text-muted">{{ $product->updated_at->format('d M Y, h:i A') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 </div> <!-- content -->
-
-
-<script src="{{ asset('assets/js/jsBarcode.js') }}"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script> -->
-<script>
-    JsBarcode("#barcode1", "B0BB7FQBBS", {
-        format: "CODE128",
-        lineColor: "#000",
-        width: 2,
-        height: 100,
-        displayValue: true
-    });
-
-    JsBarcode("#barcode2", "B0BB7FQBBS", {
-        format: "CODE128",
-        lineColor: "#000",
-        width: 2,
-        height: 100,
-        displayValue: true
-    });
-
-    JsBarcode("#barcode3", "B0BB7FQBBS", {
-        format: "CODE128",
-        lineColor: "#000",
-        width: 2,
-        height: 100,
-        displayValue: true
-    });
-</script>
-
 
 @endsection
