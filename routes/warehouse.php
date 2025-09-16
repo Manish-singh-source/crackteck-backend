@@ -26,12 +26,18 @@ Route::get('/warehouse/index', function () {
 Route::controller(ProductListController::class)->group(function(){
     // Products List Page
     Route::get('/warehouse/product-list','index')->name('products.index');
-    // Create Product Page 
+    // Create Product Page
     Route::get('/warehouse/create-product', 'create')->name('product-list.create');
-    // View Product Page 
-    Route::get('/warehouse/view-product-list', 'view')->name('product-list.view');
-    // Edit Products Page 
-    Route::get('/warehouse/edit-product-list', 'edit')->name('product-list.edit');
+    // Store Product
+    Route::post('/warehouse/create-product', 'store')->name('product-list.store');
+    // View Product Page
+    Route::get('/warehouse/view-product-list/{id}', 'view')->name('product-list.view');
+    // Edit Products Page
+    Route::get('/warehouse/edit-product-list/{id}', 'edit')->name('product-list.edit');
+    // Update Product
+    Route::put('/warehouse/edit-product-list/{id}', 'update')->name('product-list.update');
+    // Delete Product
+    Route::delete('/warehouse/product-list/{id}', 'destroy')->name('product-list.destroy');
     // Scrap Items Page
     Route::get('/warehouse/scrap-items', 'scrapItems')->name('product-list.scrap-items');
 });

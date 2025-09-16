@@ -15,7 +15,8 @@
             <div class="row">
                 <div class="col-12">
 
-                    <form action="product-detail.php" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('product-list.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="card">
@@ -67,13 +68,24 @@
                                             <div class="col-xl-6 col-lg-6">
                                                 <div>
                                                     @include('components.form.input', [
-                                                        'label' => 'Invoice PDf/Image',
-                                                        'name' => 'invoice_file',
+                                                        'label' => 'Invoice PDF',
+                                                        'name' => 'invoice_pdf',
                                                         'type' => 'file',
-                                                        'placeholder' => 'Upload Invoice PDF/Image',
+                                                        'placeholder' => 'Upload Invoice PDF',
                                                     ])
                                                 </div>
                                             </div>
+
+                                            {{-- <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    @include('components.form.input', [
+                                                        'label' => 'Invoice Image',
+                                                        'name' => 'invoice_image',
+                                                        'type' => 'file',
+                                                        'placeholder' => 'Upload Invoice Image',
+                                                    ])
+                                                </div>
+                                            </div> --}}
 
                                             <div class="col-xl-6 col-lg-6">
                                                 <div>
@@ -90,7 +102,7 @@
                                                 <div>
                                                     @include('components.form.input', [
                                                         'label' => 'Bill Due Date',
-                                                        'name' => 'bill_date',
+                                                        'name' => 'bill_due_date',
                                                         'type' => 'date',
                                                         'placeholder' => 'Bill Due Date',
                                                     ])
@@ -161,13 +173,8 @@
                                                 <div class="mb-3">
                                                     @include('components.form.select', [
                                                         'label' => 'Brand',
-                                                        'name' => 'brand',
-                                                        'options' => [
-                                                            '0' => '--Select--',
-                                                            '1' => 'TP-Link',
-                                                            '2' => 'Cisco',
-                                                            '3' => 'D-Link',
-                                                        ],
+                                                        'name' => 'brand_id',
+                                                        'options' => ['' => '--Select Brand--'] + $brands->toArray(),
                                                     ])
                                                 </div>
                                             </div>
@@ -176,7 +183,7 @@
                                                 <div>
                                                     @include('components.form.input', [
                                                         'label' => 'Model No',
-                                                        'name' => 'model',
+                                                        'name' => 'model_no',
                                                         'type' => 'text',
                                                         'placeholder' => 'Product Model No.',
                                                     ])
@@ -187,7 +194,7 @@
                                                 <div>
                                                     @include('components.form.input', [
                                                         'label' => 'Serial No',
-                                                        'name' => 'serial',
+                                                        'name' => 'serial_no',
                                                         'type' => 'text',
                                                         'placeholder' => 'Product Serial No.',
                                                     ])
@@ -198,13 +205,8 @@
                                                 <div class="mb-3">
                                                     @include('components.form.select', [
                                                         'label' => 'Category',
-                                                        'name' => 'category',
-                                                        'options' => [
-                                                            '0' => '--Select--',
-                                                            '1' => 'TP-Link',
-                                                            '2' => 'Cisco',
-                                                            '3' => 'D-Link',
-                                                        ],
+                                                        'name' => 'parent_category_id',
+                                                        'options' => ['' => '--Select Category--'] + $parentCategories->toArray(),
                                                     ])
                                                 </div>
                                             </div>
@@ -213,13 +215,8 @@
                                                 <div class="mb-3">
                                                     @include('components.form.select', [
                                                         'label' => 'Subcategory',
-                                                        'name' => 'subcategory',
-                                                        'options' => [
-                                                            '0' => '--Select--',
-                                                            '1' => 'TP-Link',
-                                                            '2' => 'Cisco',
-                                                            '3' => 'D-Link',
-                                                        ],
+                                                        'name' => 'sub_category_id',
+                                                        'options' => ['' => '--Select Subcategory--'] + $subCategories->toArray(),
                                                     ])
                                                 </div>
                                             </div>
@@ -236,54 +233,32 @@
 
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-12 mb-2">
+                                            <div class="col-12 mb-3">
                                                 <div>
-                                                    <label for="short_details" class="form-label">Short Description <span
-                                                            class="text-danger">*</span></label>
-                                                    <textarea id="short_details" class="form-control text-editor" name="short_details" placeholder="Enter Description"></textarea>
-                                                    {{-- <div id="quill-editor" style="height: 300px;">
-                                                    <h1>Hello World</h1>
-                                                </div> --}}
+                                                    <label for="short_description" class="form-label">Short Description</label>
+                                                    <div id="short-description-editor" style="height: 200px;"></div>
+                                                    <input type="hidden" name="short_description" id="short_description">
                                                 </div>
                                             </div>
-                                            <div class="col-12 mb-2">
+                                            <div class="col-12 mb-3">
                                                 <div>
-                                                    <label for="full_details" class="form-label">Full Description<span
-                                                            class="text-danger">*</span></label>
-                                                    <textarea id="full_details" class="form-control text-editor" name="full_details" placeholder="Enter Full Description"></textarea>
-                                                    {{-- <div id="quill-editor1" style="height: 300px;">
-                                                    <h1>Hello World</h1>
-                                                </div> --}}
+                                                    <label for="full_description" class="form-label">Full Description</label>
+                                                    <div id="full-description-editor" style="height: 300px;"></div>
+                                                    <input type="hidden" name="full_description" id="full_description">
                                                 </div>
                                             </div>
-                                            <div class="col-12 mb-2">
+                                            <div class="col-12 mb-3">
                                                 <div>
-                                                    <label for="tech_specs" class="form-label">Technical Specifications<span
-                                                            class="text-danger">*</span></label>
-                                                    <textarea id="tech_specs" class="form-control text-editor" name="tech_specs" placeholder="Enter Specifications"></textarea>
+                                                    <label for="technical_specification" class="form-label">Technical Specifications</label>
+                                                    <div id="technical-specification-editor" style="height: 300px;"></div>
+                                                    <input type="hidden" name="technical_specification" id="technical_specification">
                                                 </div>
-                                                {{-- <div id="quill-editor2" style="height: 300px;">
-                                                <h1>Hello World</h1>
-                                                <p><br></p>
-                                                <h4>This is an simple editable area</h4>
-                                                <p><br></p>
-                                                <ol>
-                                                    <li>
-                                                        Select a text to reveal the toolbar.
-                                                    </li>
-                                                    <li>
-                                                        Edit rich document on-the-fly, so elastic!
-                                                    </li>
-                                                </ol>
-                                                <br>
-                                                <p>Preset build with <code>snow</code> theme, and some common formats.</p>
-                                            </div> --}}
                                             </div>
-                                            <div class="col-xl-12  col-lg-6">
+                                            <div class="col-xl-12 col-lg-6">
                                                 <div class="mb-3">
                                                     @include('components.form.input', [
                                                         'label' => 'Brand Warranty',
-                                                        'name' => 'warranty',
+                                                        'name' => 'brand_warranty',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Brand Warranty',
                                                     ])
@@ -361,7 +336,7 @@
                                 <div class="card pb-4">
                                     <div class="card-header border-bottom-dashed">
                                         <h5 class="card-title mb-0">
-                                            Inventory
+                                            Inventory Details
                                         </h5>
                                     </div>
 
@@ -370,8 +345,8 @@
                                             <div class="col-6 mb-2">
                                                 <div>
                                                     @include('components.form.input', [
-                                                        'label' => 'Stock',
-                                                        'name' => 'stock',
+                                                        'label' => 'Stock Quantity',
+                                                        'name' => 'stock_quantity',
                                                         'type' => 'number',
                                                         'placeholder' => 'Enter Stock Quantity',
                                                     ])
@@ -383,10 +358,9 @@
                                                         'label' => 'Stock Status',
                                                         'name' => 'stock_status',
                                                         'options' => [
-                                                            '0' => '--Select--',
-                                                            '1' => 'In Stock',
-                                                            '2' => 'Out of Stock',
-                                                            '3' => 'Pre-order',
+                                                            '' => '--Select--',
+                                                            'In Stock' => 'In Stock',
+                                                            'Out of Stock' => 'Out of Stock',
                                                         ],
                                                     ])
                                                 </div>
@@ -407,7 +381,7 @@
                                                     'label' => 'Warehouse',
                                                     'name' => 'warehouse_id',
                                                     'options' =>
-                                                        ['' => 'Select Warehouse'] + $warehouse->toArray(),
+                                                        ['' => 'Select Warehouse'] + $warehouses->toArray(),
                                                     'model' => isset($product) ? $product : null,
                                                 ])
                                             </div>
@@ -496,7 +470,7 @@
                                         <div class="mb-3">
                                             @include('components.form.input', [
                                                 'label' => 'Main Product Image',
-                                                'name' => 'main_image',
+                                                'name' => 'main_product_image',
                                                 'type' => 'file',
                                                 'placeholder' => 'Upload Main Product Image',
                                             ])
@@ -506,27 +480,19 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            @include('components.form.input', [
-                                                'label' => 'Additional Product Images',
-                                                'name' => 'additional_images',
-                                                'type' => 'file',
-                                                'placeholder' => 'Upload Additional Product Images',
-                                            ])
-                                            <div id="emailHelp" class="text-danger">Image Size Should Be
-                                                800x650
-                                            </div>
+                                            <label for="additional_product_images" class="form-label">Additional Product Images</label>
+                                            <input type="file" class="form-control" name="additional_product_images[]" multiple accept="image/*">
+                                            <div class="text-danger">Image Size Should Be 800x650</div>
                                         </div>
 
                                         <div class="mb-3">
                                             @include('components.form.input', [
                                                 'label' => 'Product Datasheet or Manual',
-                                                'name' => 'datasheet_doc',
+                                                'name' => 'datasheet_manual',
                                                 'type' => 'file',
                                                 'placeholder' => 'Upload Product Datasheet or Manual',
                                             ])
-                                            <div id="emailHelp" class="text-danger">Image Size Should Be
-                                                800x650
-                                            </div>
+                                            <div class="text-danger">PDF files only</div>
                                         </div>
                                     </div>
 
@@ -545,25 +511,23 @@
                                             @include('components.form.select', [
                                                 'label' => 'Color Options',
                                                 'name' => 'color_options',
-                                                'options' => [
-                                                    '0' => '--Select--',
-                                                    '1' => 'Black',
-                                                    '2' => 'White',
-                                                    '3' => 'Grey',
-                                                ],
+                                                'options' => ['' => '--Select Color--'] + $colorOptions->toArray(),
                                             ])
                                         </div>
 
                                         <div class="mt-3">
                                             @include('components.form.select', [
-                                                'label' => 'Size/Length Options',
+                                                'label' => 'Size Options',
                                                 'name' => 'size_options',
-                                                'options' => [
-                                                    '0' => '--Select--',
-                                                    '1' => '20',
-                                                    '2' => '30',
-                                                    '3' => '40',
-                                                ],
+                                                'options' => ['' => '--Select Size--'] + $sizeOptions->toArray(),
+                                            ])
+                                        </div>
+
+                                        <div class="mt-3">
+                                            @include('components.form.select', [
+                                                'label' => 'Length Options',
+                                                'name' => 'length_options',
+                                                'options' => ['' => '--Select Length--'] + $lengthOptions->toArray(),
                                             ])
                                         </div>
                                     </div>
@@ -582,11 +546,11 @@
                                         <div>
                                             @include('components.form.select', [
                                                 'label' => 'Product Status',
-                                                'name' => 'product_status',
+                                                'name' => 'status',
                                                 'options' => [
-                                                    '0' => '--Select--',
-                                                    '1' => 'Active',
-                                                    '2' => 'Inactive',
+                                                    '' => '--Select--',
+                                                    'Active' => 'Active',
+                                                    'Inactive' => 'Inactive',
                                                 ],
                                             ])
                                         </div>
@@ -602,9 +566,12 @@
                                     <!-- <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                                         Submit
                                                     </button> -->
-                                    <a type="submit" href="{{ route('products.index') }}"
-                                        class="btn btn-success w-sm waves ripple-light">
+                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                         Submit
+                                    </button>
+                                    <a href="{{ route('products.index') }}"
+                                        class="btn btn-danger w-sm waves ripple-light">
+                                        Cancel
                                     </a>
                                 </div>
                             </div>
@@ -617,8 +584,57 @@
         </div> <!-- container-fluid -->
     </div> <!-- content -->
 
+    <!-- Include Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <!-- Include Quill JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            // Initialize Quill editors
+            var shortDescriptionQuill = new Quill('#short-description-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image']
+                    ]
+                }
+            });
+
+            var fullDescriptionQuill = new Quill('#full-description-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image']
+                    ]
+                }
+            });
+
+            var technicalSpecificationQuill = new Quill('#technical-specification-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image']
+                    ]
+                }
+            });
+
+            // Update hidden inputs when form is submitted
+            $('form').on('submit', function() {
+                $('#short_description').val(shortDescriptionQuill.root.innerHTML);
+                $('#full_description').val(fullDescriptionQuill.root.innerHTML);
+                $('#technical_specification').val(technicalSpecificationQuill.root.innerHTML);
+            });
 
             // Warehouse -> Racks
             $('select[name="warehouse_id"]').on('change', function() {
