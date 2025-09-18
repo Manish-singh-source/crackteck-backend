@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Categorie;
 use App\Models\ParentCategorie;
 use App\Models\Product;
+use App\Models\ProductSerial;
 use App\Models\ProductVariantAttribute;
 use App\Models\ProductVariantAttributeValue;
 use App\Models\SubCategorie;
@@ -114,8 +115,41 @@ class ProductListController extends Controller
 
     public function view($id)
     {
-        $product = Product::with(['brand', 'parentCategorie', 'subCategorie', 'warehouse', 'warehouseRack'])->findOrFail($id);
+        $product = Product::with(['brand', 'parentCategorie', 'subCategorie', 'warehouse', 'warehouseRack', 'productSerials'])->findOrFail($id);
+
+        // Create product serials if they don't exist based on stock quantity
+        $this->ensureProductSerials($product);
+
+        // Reload product with serials
+        $product->load('productSerials');
+
         return view('/warehouse/product-list/view', compact('product'));
+    }
+
+    /**
+     * Ensure product serials exist for the product based on stock quantity
+     */
+    private function ensureProductSerials(Product $product)
+    {
+        $stockQuantity = $product->stock_quantity ?? 0;
+        $existingSerials = $product->productSerials()->count();
+
+        // If we need more serials, create them
+        if ($existingSerials < $stockQuantity) {
+            $serialsToCreate = $stockQuantity - $existingSerials;
+
+            for ($i = 0; $i < $serialsToCreate; $i++) {
+                $autoSerial = ProductSerial::generateAutoSerial($product->id);
+
+                ProductSerial::create([
+                    'product_id' => $product->id,
+                    'auto_generated_serial' => $autoSerial,
+                    'final_serial' => $autoSerial,
+                    'is_manual' => false,
+                    'status' => 'active'
+                ]);
+            }
+        }
     }
 
     public function edit($id)
@@ -292,5 +326,68 @@ class ProductListController extends Controller
     {
         return view('/e-commerce/products/scrap-items');
     }
-    
+
+    /**
+     * Save or update a product serial number
+     */
+    public function saveSerial(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'serial_id' => 'required|exists:product_serials,id',
+            'manual_serial' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $productSerial = ProductSerial::findOrFail($request->serial_id);
+
+            // Check if manual serial is provided and if it's unique
+            if ($request->manual_serial) {
+                $existingSerial = ProductSerial::where('final_serial', $request->manual_serial)
+                    ->where('id', '!=', $productSerial->id)
+                    ->first();
+
+                if ($existingSerial) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Serial number already exists. Please use a unique serial number.'
+                    ], 422);
+                }
+
+                $productSerial->manual_serial = $request->manual_serial;
+                $productSerial->final_serial = $request->manual_serial;
+                $productSerial->is_manual = true;
+            } else {
+                // If no manual serial provided, use auto-generated
+                $productSerial->manual_serial = null;
+                $productSerial->final_serial = $productSerial->auto_generated_serial;
+                $productSerial->is_manual = false;
+            }
+
+            $productSerial->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Serial number saved successfully',
+                'data' => [
+                    'final_serial' => $productSerial->final_serial,
+                    'is_manual' => $productSerial->is_manual
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while saving the serial number'
+            ], 500);
+        }
+    }
+
 }
