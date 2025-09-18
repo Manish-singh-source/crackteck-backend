@@ -241,8 +241,6 @@
 $(document).ready(function() {
     // Handle scrap product form submission
     $('#scrapProductForm').on('submit', function(e) {
-        e.preventDefault();
-
         const form = $(this);
         const submitBtn = $('#scrapSubmitBtn');
         const spinner = submitBtn.find('.spinner-border');
@@ -260,6 +258,11 @@ $(document).ready(function() {
             method: 'POST',
             data: form.serialize(),
             success: function(response) {
+                // Hide loading state first
+                submitBtn.prop('disabled', false);
+                spinner.addClass('d-none');
+                console.log(response);
+
                 if (response.success) {
                     // Show success message
                     toastr.success(response.message);
@@ -277,6 +280,10 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
+                // Hide loading state first
+                submitBtn.prop('disabled', false);
+                spinner.addClass('d-none');
+
                 if (xhr.status === 422) {
                     // Validation errors
                     const errors = xhr.responseJSON.errors;
@@ -287,11 +294,6 @@ $(document).ready(function() {
                 } else {
                     toastr.error('An error occurred while processing your request.');
                 }
-            },
-            complete: function() {
-                // Hide loading state
-                submitBtn.prop('disabled', false);
-                spinner.addClass('d-none');
             }
         });
     });
@@ -312,28 +314,27 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        toastr.success(response.message);
-
+                        // toastr.success(response.message);
+                        location.reload();
                         // Remove the row from table
                         button.closest('tr').fadeOut(function() {
                             $(this).remove();
 
-                            // Check if table is empty
+                            // Check if table is empty and reload if needed
                             if ($('tbody tr:visible').length === 0) {
-                                location.reload();
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
                             }
-                            location.reload();
                         });
                     } else {
                         toastr.error(response.message);
                         button.prop('disabled', false);
-                        location.reload();
                     }
                 },
                 error: function() {
                     toastr.error('An error occurred while restoring the product.');
                     button.prop('disabled', false);
-                    location.reload();
                 }
             });
         }

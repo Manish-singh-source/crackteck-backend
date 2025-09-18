@@ -193,6 +193,13 @@
                                                     onclick="saveSerial({{ $serial->id }})">
                                                 <i class="mdi mdi-content-save"></i> Save
                                             </button>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-danger ms-1 scrap-serial-btn"
+                                                    data-serial-id="{{ $serial->id }}"
+                                                    data-serial-number="{{ $serial->final_serial }}"
+                                                    onclick="scrapSerial('{{ $serial->final_serial }}', {{ $serial->id }})">
+                                                <i class="mdi mdi-delete"></i> Scrap
+                                            </button>
                                             <div class="mt-1">
                                                 <small class="text-muted">
                                                     Current: <strong id="current-serial-{{ $serial->id }}">{{ $serial->final_serial }}</strong>
@@ -503,6 +510,46 @@
     </div>
 </div> <!-- content -->
 
+<!-- Scrap Serial Modal -->
+<div class="modal fade" id="scrapSerialModal" tabindex="-1" aria-labelledby="scrapSerialModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scrapSerialModalLabel">Scrap Serial Number</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="scrapSerialForm">
+                @csrf
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="mdi mdi-alert-circle-outline me-2"></i>
+                        <strong>Warning:</strong> This action will permanently scrap the selected serial number.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Serial Number</label>
+                        <input type="text" class="form-control" id="scrapSerialNumber" readonly>
+                        <input type="hidden" id="scrapSerialId" name="serial_ids">
+                    </div>
+                    <div class="mb-3">
+                        <label for="scrapReason" class="form-label">Reason <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="scrapReason" name="reason" rows="3"
+                            placeholder="Enter the reason for scrapping this serial number" required></textarea>
+                        <div class="invalid-feedback" id="reason_error"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="scrapSerialSubmitBtn">
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        <i class="mdi mdi-delete me-1"></i>
+                        Scrap Serial
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
@@ -586,6 +633,22 @@ function showAlert(type, message) {
     }, 5000);
 }
 
+// Scrap serial function
+function scrapSerial(serialNumber, serialId) {
+    // Set modal data
+    document.getElementById('scrapSerialNumber').value = serialNumber;
+    document.getElementById('scrapSerialId').value = serialNumber;
+    document.getElementById('scrapReason').value = '';
+
+    // Clear previous errors
+    document.getElementById('reason_error').textContent = '';
+    document.getElementById('scrapReason').classList.remove('is-invalid');
+
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('scrapSerialModal'));
+    modal.show();
+}
+
 // Add Enter key support for serial inputs
 document.addEventListener('DOMContentLoaded', function() {
     const serialInputs = document.querySelectorAll('.serial-input');
@@ -596,6 +659,79 @@ document.addEventListener('DOMContentLoaded', function() {
                 const serialId = this.id.replace('manual-serial-', '');
                 saveSerial(serialId);
             }
+        });
+    });
+
+    // Handle scrap serial form submission
+    document.getElementById('scrapSerialForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const submitBtn = document.getElementById('scrapSerialSubmitBtn');
+        const spinner = submitBtn.querySelector('.spinner-border');
+        const serialNumber = document.getElementById('scrapSerialNumber').value;
+
+        // Clear previous errors
+        document.getElementById('reason_error').textContent = '';
+        document.getElementById('scrapReason').classList.remove('is-invalid');
+
+        // Show loading state
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        // Prepare form data
+        const formData = new FormData(form);
+
+        fetch('{{ route("product-list.scrap-product") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide loading state
+            submitBtn.disabled = false;
+            spinner.classList.add('d-none');
+
+            if (data.success) {
+                // Show success message
+                showAlert('success', data.message);
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('scrapSerialModal'));
+                modal.hide();
+
+                // Remove the scrapped serial row from the table
+                const serialRow = document.querySelector(`tr[id*="${serialNumber}"]`);
+                if (serialRow) {
+                    serialRow.style.transition = 'opacity 0.3s';
+                    serialRow.style.opacity = '0';
+                    setTimeout(() => {
+                        serialRow.remove();
+
+                        // Check if no more serial numbers are left
+                        const remainingRows = document.querySelectorAll('#serial-row-');
+                        if (remainingRows.length === 0) {
+                            // Reload page if no serial numbers left
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        }
+                    }, 300);
+                }
+            } else {
+                showAlert('error', data.message);
+            }
+        })
+        .catch(error => {
+            // Hide loading state
+            submitBtn.disabled = false;
+            spinner.classList.add('d-none');
+
+            console.error('Error:', error);
+            showAlert('error', 'An error occurred while scrapping the serial number');
         });
     });
 });

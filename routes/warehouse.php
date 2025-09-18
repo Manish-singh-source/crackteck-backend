@@ -56,6 +56,8 @@ Route::get('/warehouse-dependent', [WarehouseRackController::class, 'getDependen
 Route::controller(TrackProductController::class)->group(function (){
     // Track Product List Page
     Route::get('/warehouse/track-product-list', 'index')->name('track-product.index');
+    // Track Product Search
+    Route::post('/warehouse/track-product-search', 'search')->name('track-product.search');
 });
 
 // ------------------------------------------------------------ Spare Parts List -------------------------------------------------------------
