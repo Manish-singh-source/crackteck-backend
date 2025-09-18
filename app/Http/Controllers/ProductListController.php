@@ -117,13 +117,24 @@ class ProductListController extends Controller
 
     public function view($id)
     {
-        $product = Product::with(['brand', 'parentCategorie', 'subCategorie', 'warehouse', 'warehouseRack', 'productSerials'])->findOrFail($id);
+        $product = Product::with([
+            'brand',
+            'parentCategorie',
+            'subCategorie',
+            'warehouse',
+            'warehouseRack',
+            'productSerials' => function($query) {
+                $query->where('status', 'active'); // Only show active serial numbers
+            }
+        ])->findOrFail($id);
 
         // Create product serials if they don't exist based on stock quantity
         $this->ensureProductSerials($product);
 
-        // Reload product with serials
-        $product->load('productSerials');
+        // Reload product with active serials only
+        $product->load(['productSerials' => function($query) {
+            $query->where('status', 'active');
+        }]);
 
         return view('/warehouse/product-list/view', compact('product'));
     }
