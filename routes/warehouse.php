@@ -102,12 +102,20 @@ Route::controller(WarehouseRackController::class)->group(function (){
 // ------------------------------------------------------------ Vendor Purchase Page -------------------------------------------------------------
 
 Route::controller(VendorPurchaseBillController::class)->group(function (){
-    // Vendor Purchase Page
+    // Vendor Purchase Bills Index Page
     Route::get('/warehouse/vendor-purchase-bills' ,'index')->name('vendor.index');
-    // Create Vendor Purchase Page
+    // Create Vendor Purchase Bill Page
     Route::get('/warehouse/create-vendor-purchase-bill' ,'create')->name('vendor.create');
-    // View Vendor Purchase Page
-    Route::get('/warehouse/view-vendor-purchase-bill' ,'view')->name('vendor.view');
+    // Store Vendor Purchase Bill
+    Route::post('/warehouse/create-vendor-purchase-bill' ,'store')->name('vendor.store');
+    // View Vendor Purchase Bill Page
+    Route::get('/warehouse/view-vendor-purchase-bill/{id}' ,'view')->name('vendor.view');
+    // Edit Vendor Purchase Bill Page
+    Route::get('/warehouse/edit-vendor-purchase-bill/{id}' ,'edit')->name('vendor.edit');
+    // Update Vendor Purchase Bill
+    Route::put('/warehouse/edit-vendor-purchase-bill/{id}' ,'update')->name('vendor.update');
+    // Delete Vendor Purchase Bill
+    Route::delete('/warehouse/vendor-purchase-bill/{id}' ,'destroy')->name('vendor.destroy');
 });
 
 // ------------------------------------------------------------ Vendor Purchase Page -------------------------------------------------------------

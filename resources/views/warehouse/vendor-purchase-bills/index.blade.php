@@ -16,6 +16,20 @@
         </div>
 
 
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -45,7 +59,6 @@
                                                             <th>Purchase Bill No</th>
                                                             <th>Vendor Name</th>
                                                             <th>Purchase Date</th>
-                                                            <th>Item details</th>
                                                             <th>Total Amount</th>
                                                             <th>Payment Status</th>
                                                             <th>Notes/Remarks</th>
@@ -55,111 +68,52 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @forelse($vendorPurchaseBills as $bill)
                                                         <tr class="align-middle">
-                                                            <td>PB-1001</td>
-                                                            <td>Star Electronics</td>
-                                                            <td>2025-06-01</td>
-                                                            <td>10x LED Bulbs</td>
-                                                            <td>59.00₹</td>
+                                                            <td>{{ $bill->purchase_bill_no }}</td>
+                                                            <td>{{ $bill->vendor_name }}</td>
+                                                            <td>{{ $bill->purchase_date->format('Y-m-d') }}</td>
+                                                            <td>{{ $bill->formatted_total_amount }}</td>
                                                             <td>
-                                                                <span class="badge bg-success-subtle text-success fw-semibold">
-                                                                    Paid
+                                                                <span class="badge {{ $bill->payment_status_badge_class }} fw-semibold">
+                                                                    {{ $bill->payment_status }}
                                                                 </span>
                                                             </td>
-                                                            <td>Delivered in full</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                                                            <td>{{ $bill->notes ?? '-' }}</td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('vendor.view') }}"
+                                                                @if($bill->attachment)
+                                                                    <a href="{{ $bill->attachment_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                                                                @else
+                                                                    <span class="text-muted">No attachment</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="{{ route('vendor.view', $bill->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                <a aria-label="anchor" href="{{ route('vendor.edit', $bill->id) }}"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil fs-14 text-warning"></i>
                                                                 </a>
+                                                                <form action="{{ route('vendor.destroy', $bill->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this vendor purchase bill?')">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" aria-label="anchor"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
-                                                        <tr class="align-middle">
-                                                            <td>PB-1002</td>
-                                                            <td>PrintWorld Pvt Ltd</td>
-                                                            <td>2025-06-03</td>
-                                                            <td>2x Laser Printers</td>
-                                                            <td>336.00₹</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">
-                                                                    Unpaid
-                                                                </span>
-                                                            </td>
-                                                            <td>Awaiting payment</td>
-                                                            <td><a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('vendor.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                        @empty
+                                                        <tr>
+                                                            <td colspan="8" class="text-center">No vendor purchase bills found.</td>
                                                         </tr>
-                                                        <tr class="align-middle">
-                                                            <td> PB-1003</td>
-                                                            <td> GreenMart Supplies</td>
-                                                            <td> 2025-06-05</td>
-                                                            <td> 20x Eco Bags</td>
-                                                            <td> 63.00₹</td>
-                                                            <td>
-                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">
-                                                                    Partially Paid
-                                                                </span>
-                                                            </td>
-                                                            <td> Balance 30₹ pending</td>
-                                                            <td> <a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('vendor.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="align-middle">
-
-                                                            <td> PB-1004</td>
-                                                            <td> OfficeKart India</td>
-                                                            <td> 2025-06-06</td>
-                                                            <td> 5x Desk Chairs</td>
-                                                            <td> 236.00₹</td>
-                                                            <td>
-                                                                <span class="badge bg-success-subtle text-success fw-semibold">
-                                                                    Paid
-                                                                </span>
-                                                            </td>
-                                                            <td> Good quality</td>
-                                                            <td> <a href="proofs/michael-payment.pdf" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('vendor.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
