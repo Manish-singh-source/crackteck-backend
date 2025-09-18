@@ -40,6 +40,8 @@ Route::controller(ProductListController::class)->group(function(){
     Route::delete('/warehouse/product-list/{id}', 'destroy')->name('product-list.destroy');
     // Scrap Items Page
     Route::get('/warehouse/scrap-items', 'scrapItems')->name('product-list.scrap-items');
+    // Save Serial Number
+    Route::post('/warehouse/save-serial', 'saveSerial')->name('product-list.save-serial');
 });
 
 Route::get('/warehouse-dependent', [WarehouseRackController::class, 'getDependentData']);
