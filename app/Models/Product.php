@@ -79,4 +79,20 @@ class Product extends Model
             $query->where('attribute_name', 'Length');
         })->pluck('attribute_value', 'id');
     }
+
+    /**
+     * Relationship with ProductSerial
+     */
+    public function productSerials()
+    {
+        return $this->hasMany(ProductSerial::class);
+    }
+
+    /**
+     * Get active product serials
+     */
+    public function activeSerials()
+    {
+        return $this->hasMany(ProductSerial::class)->where('status', 'active');
+    }
 }
