@@ -619,3 +619,5 @@ Route::controller(InvoiceController::class)->group(function () {
     // Invoice Page
     Route::get('/crm/invoice', 'index')->name('invoice.index');
 });
+
+route::get('/crm/track-product', [TrackProductController::class, 'index'])->name('track-product.index');

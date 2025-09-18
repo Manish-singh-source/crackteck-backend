@@ -20,20 +20,12 @@
                         <form action="#" method="get">
                             <div class="d-flex justify-content-between">
                                 <div class="row">
-                                    <div class="col-xl-10 col-md-10 col-sm-10">
-                                        <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search Product">
-                                            <i class="ri-search-line search-icon"></i>
-                                        </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScrapModal">
+                                            Add Scrap Product
+                                        </button>
                                     </div>
-                                    <div class="col-xl-2 col-md-2 col-sm-2 col-2">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <button type="submit" class="btn btn-primary waves ripple-light">
-                                                <i class="fa-solid fa-magnifying-glass "></i>
 
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="row g-3">
@@ -45,7 +37,6 @@
                                             <li><a class="dropdown-item" href="#">Sort By Name</a></li>
                                         </ul>
                                     </div>
-
                                     <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
                                             <i class="fa-solid fa-filter "></i>
@@ -154,74 +145,44 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @forelse($scrapItems as $scrapItem)
                                                         <tr>
                                                             <td>
                                                                 <div>
-                                                                    Dell Inspiron 3370
+                                                                    {{ $scrapItem->product_name }}
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div>
-                                                                    Laptop
+                                                                    {{ $scrapItem->product->parentCategorie->parent_categories ?? 'N/A' }}
                                                                 </div>
-                                                                <div
-                                                                    class="badge bg-primary-subtle text-primary fw-semibold">Dell</div>
+                                                                <div class="badge bg-primary-subtle text-primary fw-semibold">
+                                                                    {{ $scrapItem->product->brand->brand_title ?? 'N/A' }}
+                                                                </div>
                                                             </td>
-                                                            <td>Product Not Working</td>
-                                                            <td>9879877</td>
-                                                            <td>CDB-0987</td>
-                                                            <!-- <td>
-                                                                <div class="form-check form-switch mb-2">
-                                                                    <input class="form-check-input"
-                                                                        type="checkbox" role="switch"
-                                                                        id="flexSwitchCheckChecked">
-                                                                    <label class="form-check-label"
-                                                                        for="flexSwitchCheckChecked"></label>
-                                                                </div>
-                                                            </td> -->
+                                                            <td>{{ $scrapItem->reason }}</td>
+                                                            <td>{{ $scrapItem->product->model_no ?? 'N/A' }}</td>
+                                                            <td>{{ $scrapItem->serial_number }}</td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('products.index') }}"
-                                                                    class="btn btn-icon btn-sm bg-success-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Restore">
+                                                                <button type="button"
+                                                                    class="btn btn-icon btn-sm bg-success-subtle restore-btn"
+                                                                    data-scrap-id="{{ $scrapItem->id }}"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-original-title="Restore">
                                                                     <i class="mdi mdi-restore fs-14 text-success"></i>
-                                                                </a>
-
+                                                                </button>
                                                             </td>
                                                         </tr>
+                                                        @empty
                                                         <tr>
-                                                            <td>
-                                                                <div>
-                                                                    Kingston SSD 256 GB
+                                                            <td colspan="6" class="text-center py-4">
+                                                                <div class="text-muted">
+                                                                    <i class="mdi mdi-information-outline fs-24 mb-2"></i>
+                                                                    <p class="mb-0">No scrap items found</p>
                                                                 </div>
-                                                            </td>
-                                                            <td>
-                                                                <div>
-                                                                    Accessories
-                                                                </div>
-                                                                <div
-                                                                    class="badge bg-primary-subtle text-primary fw-semibold">Kingston</div>
-                                                            </td>
-                                                            <td>Not Working</td>
-                                                            <td>9879877</td>
-                                                            <td>KING-1987</td>
-                                                            <!-- <td>
-                                                                <div class="form-check form-switch mb-2">
-                                                                    <input class="form-check-input"
-                                                                        type="checkbox" role="switch"
-                                                                        id="flexSwitchCheckChecked" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="flexSwitchCheckChecked"></label>
-                                                                </div>
-                                                            </td> -->
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('products.index') }}"
-                                                                    class="btn btn-icon btn-sm bg-success-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Restore">
-                                                                    <i class="mdi mdi-restore fs-14 text-success"></i>
-                                                                </a>
                                                             </td>
                                                         </tr>
-
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -236,5 +197,147 @@
         </div> <!-- container-fluid -->
     </div> <!-- content -->
 
+    <!-- Add Scrap Product Modal -->
+    <div class="modal fade" id="addScrapModal" tabindex="-1" aria-labelledby="addScrapModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addScrapModalLabel">Add Scrap Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="scrapProductForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="serial_ids" class="form-label">Serial ID(s) <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="serial_ids" name="serial_ids" rows="3"
+                                placeholder="Enter one or multiple serial numbers (comma separated)&#10;Example: SER-001, SER-002, SER-003" required></textarea>
+                            <div class="form-text">Enter serial numbers separated by commas</div>
+                            <div class="invalid-feedback" id="serial_ids_error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="reason" name="reason" rows="3"
+                                placeholder="Enter the reason for scrapping this product" required></textarea>
+                            <div class="invalid-feedback" id="reason_error"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="scrapSubmitBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            Scrap Product(s)
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Handle scrap product form submission
+    $('#scrapProductForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const form = $(this);
+        const submitBtn = $('#scrapSubmitBtn');
+        const spinner = submitBtn.find('.spinner-border');
+
+        // Clear previous errors
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+
+        // Show loading state
+        submitBtn.prop('disabled', true);
+        spinner.removeClass('d-none');
+
+        $.ajax({
+            url: '{{ route("product-list.scrap-product") }}',
+            method: 'POST',
+            data: form.serialize(),
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    toastr.success(response.message);
+
+                    // Reset form and close modal
+                    form[0].reset();
+                    $('#addScrapModal').modal('hide');
+
+                    // Reload page to show updated data
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Validation errors
+                    const errors = xhr.responseJSON.errors;
+                    Object.keys(errors).forEach(function(key) {
+                        $('#' + key).addClass('is-invalid');
+                        $('#' + key + '_error').text(errors[key][0]);
+                    });
+                } else {
+                    toastr.error('An error occurred while processing your request.');
+                }
+            },
+            complete: function() {
+                // Hide loading state
+                submitBtn.prop('disabled', false);
+                spinner.addClass('d-none');
+            }
+        });
+    });
+
+    // Handle restore product
+    $('.restore-btn').on('click', function() {
+        const scrapId = $(this).data('scrap-id');
+        const button = $(this);
+
+        if (confirm('Are you sure you want to restore this product?')) {
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: '{{ route("product-list.restore-product", ":id") }}'.replace(':id', scrapId),
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+
+                        // Remove the row from table
+                        button.closest('tr').fadeOut(function() {
+                            $(this).remove();
+
+                            // Check if table is empty
+                            if ($('tbody tr:visible').length === 0) {
+                                location.reload();
+                            }
+                            location.reload();
+                        });
+                    } else {
+                        toastr.error(response.message);
+                        button.prop('disabled', false);
+                        location.reload();
+                    }
+                },
+                error: function() {
+                    toastr.error('An error occurred while restoring the product.');
+                    button.prop('disabled', false);
+                    location.reload();
+                }
+            });
+        }
+    });
+});
+</script>
 @endsection

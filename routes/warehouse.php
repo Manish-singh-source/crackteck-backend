@@ -40,6 +40,10 @@ Route::controller(ProductListController::class)->group(function(){
     Route::delete('/warehouse/product-list/{id}', 'destroy')->name('product-list.destroy');
     // Scrap Items Page
     Route::get('/warehouse/scrap-items', 'scrapItems')->name('product-list.scrap-items');
+    // Scrap Product
+    Route::post('/warehouse/scrap-product', 'scrapProduct')->name('product-list.scrap-product');
+    // Restore Product
+    Route::post('/warehouse/restore-product/{scrapItemId}', 'restoreProduct')->name('product-list.restore-product');
     // Save Serial Number
     Route::post('/warehouse/save-serial', 'saveSerial')->name('product-list.save-serial');
 });
