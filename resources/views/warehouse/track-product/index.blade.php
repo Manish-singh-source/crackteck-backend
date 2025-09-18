@@ -3,132 +3,220 @@
 @section('content')
 
 <div class="content">
-
-    <!-- Start Content-->
     <div class="container-fluid">
-        <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0"></h4>
+                <h4 class="fs-18 fw-semibold m-0">Track Product</h4>
+                <p class="text-muted mb-0">Search products by SKU or Serial Number</p>
             </div>
         </div>
 
-
+        <!-- Search Form -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Track Product</h5>
-                    </div><!-- end card header -->
+                        <h5 class="card-title mb-0">Search Product</h5>
+                    </div>
                     <div class="card-body">
-                        <div>
-                            <form action="#" method="POST" id="service-form" enctype="multipart/form-data">
-                                <div class="row g-3 align-items-end">
-                                    <div class="col-6">
-                                        @include('components.form.input', [
-                                        'label' => 'Tracking (Product) Id',
-                                        'name' => 'product_id',
-                                        'type' => 'text',
-                                        'placeholder' => 'Enter Product Id',
-                                        ])
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="submit" class="btn btn-md btn-primary btn-xl px-4 fs-6 text-light waves ripple-light">View</button>
-                                    </div>
+                        <form id="trackProductForm">
+                            @csrf
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-8">
+                                    <label for="search_term" class="form-label">SKU or Serial Number <span class="text-danger">*</span></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="search_term"
+                                           name="search_term"
+                                           placeholder="Enter SKU or Serial Number"
+                                           required>
+                                    <div class="invalid-feedback" id="search_term_error"></div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-12">
-                <div class="card service-info">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Product Details
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table id="responsive-datatable"
-                            class="table table-striped table-borderless dt-responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Product Image</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Brand</th>
-                                    <th>Quantity</th>
-                                    <th>Rack No</th>
-                                    <th>Level No</th>
-                                    <th>Position No</th>
-                                    <th>Stored Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="align-middle">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            Headphone
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Computer
-                                    </td>
-                                    <td>
-                                        Sony
-                                    </td>
-                                    <td>50</td>
-                                    <td>12</td>
-                                    <td>13</td>
-                                    <td>11</td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td>
-                                        <a aria-label="anchor" href="{{ route('product-list.view') }}"
-                                            class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                            data-bs-toggle="tooltip" data-bs-original-title="View">
-                                            <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                        </a>
-                                        <a aria-label="anchor" href="{{ route('product-list.edit') }}"
-                                            class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                            data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                            <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                        </a>
-                                        <a aria-label="anchor"
-                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary" id="searchBtn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                        <i class="fas fa-search me-1"></i>
+                                        Search
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="clearBtn">
+                                        <i class="fas fa-times me-1"></i>
+                                        Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Search Results -->
+        <div class="row" id="searchResults" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Search Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="resultsContainer">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="row" id="noResults" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <div class="mb-3">
+                            <i class="fas fa-search text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="text-muted">No Product Found</h5>
+                        <p class="text-muted mb-0">No product found with this SKU or Serial ID. Please try a different search term.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div> <!-- container-fluid -->
 </div> <!-- content -->
 
+@endsection
+
+@section('scripts')
 <script>
-    $(document).ready(function() {
-        $(".service-info").hide();
+$(document).ready(function() {
+    // Handle track product form submission
+    $('#trackProductForm').on('submit', function(e) {
+        e.preventDefault();
 
-        $("#service-form").on('submit', function(e) {
-            e.preventDefault();
-            $(".service-info").show();
-        })
+        const form = $(this);
+        const submitBtn = $('#searchBtn');
+        const spinner = submitBtn.find('.spinner-border');
+        const searchTerm = $('#search_term').val().trim();
+
+        if (!searchTerm) {
+            $('#search_term').addClass('is-invalid');
+            $('#search_term_error').text('Please enter a SKU or Serial Number');
+            return;
+        }
+
+        // Clear previous errors and results
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+        $('#searchResults, #noResults').hide();
+
+        // Show loading state
+        submitBtn.prop('disabled', true);
+        spinner.removeClass('d-none');
+
+        $.ajax({
+            url: '{{ route("track-product.search") }}',
+            method: 'POST',
+            data: form.serialize(),
+            success: function(response) {
+                if (response.success && response.data.length > 0) {
+                    displayResults(response.data);
+                    $('#searchResults').show();
+                } else {
+                    $('#noResults').show();
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Validation errors
+                    const errors = xhr.responseJSON.errors;
+                    Object.keys(errors).forEach(function(key) {
+                        $('#' + key).addClass('is-invalid');
+                        $('#' + key + '_error').text(errors[key][0]);
+                    });
+                } else {
+                    toastr.error('An error occurred while searching for products.');
+                }
+            },
+            complete: function() {
+                // Hide loading state
+                submitBtn.prop('disabled', false);
+                spinner.addClass('d-none');
+            }
+        });
     });
+
+    // Handle clear button
+    $('#clearBtn').on('click', function() {
+        $('#trackProductForm')[0].reset();
+        $('#searchResults, #noResults').hide();
+        $('.is-invalid').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+    });
+
+    // Function to display search results
+    function displayResults(products) {
+        let html = '';
+
+        products.forEach(function(product, index) {
+            const serialNumbers = product.serial_numbers.join(', ') || 'N/A';
+            const rackInfo = `${product.rack_info.rack_no} / ${product.rack_info.zone_area} / ${product.rack_info.level_no} / ${product.rack_info.position_no}`;
+            const availabilityBadge = product.availability_status === 'In Stock' ?
+                '<span class="badge bg-success">In Stock</span>' :
+                '<span class="badge bg-danger">Out of Stock</span>';
+
+            html += `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center">
+                                ${product.main_image ?
+                                    `<img src="${product.main_image}" alt="${product.product_name}" class="img-fluid rounded" style="max-width: 80px; max-height: 80px;">` :
+                                    `<div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
+                                        <i class="mdi mdi-package-variant text-muted fs-24"></i>
+                                    </div>`
+                                }
+                            </div>
+                            <div class="col-md-10">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-semibold" style="width: 150px;">Product Name:</td>
+                                                <td>${product.product_name}</td>
+                                                <td class="fw-semibold" style="width: 150px;">SKU:</td>
+                                                <td>${product.sku}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-semibold">Serial Number(s):</td>
+                                                <td><span class="badge bg-info">${serialNumbers}</span></td>
+                                                <td class="fw-semibold">Warehouse:</td>
+                                                <td>${product.warehouse_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-semibold">Rack / Zone / Level / Position:</td>
+                                                <td>${rackInfo}</td>
+                                                <td class="fw-semibold">Availability:</td>
+                                                <td>${availabilityBadge}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-semibold">Quantity:</td>
+                                                <td><span class="badge bg-primary">${product.quantity}</span></td>
+                                                <td class="fw-semibold">Brand:</td>
+                                                <td>${product.brand}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        $('#resultsContainer').html(html);
+    }
+});
 </script>
-
-
 @endsection
