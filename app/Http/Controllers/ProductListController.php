@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductSerial;
 use App\Models\ProductVariantAttribute;
 use App\Models\ProductVariantAttributeValue;
+use App\Models\ScrapItem;
 use App\Models\SubCategorie;
 use App\Models\Warehouse;
 use App\Models\WarehouseRack;
@@ -17,6 +18,7 @@ use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProductListController extends Controller
 {
@@ -295,8 +297,139 @@ class ProductListController extends Controller
 
     public function scrapItems()
     {
-        $scrapProducts = Product::where('status', 'Inactive')->get();
-        return view('/warehouse/product-list/scrap-items', compact('scrapProducts'));
+        $scrapItems = ScrapItem::with(['product', 'productSerial'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('/warehouse/product-list/scrap-items', compact('scrapItems'));
+    }
+
+    public function scrapProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'serial_ids' => 'required|string',
+            'reason' => 'required|string|max:500'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $serialIds = array_map('trim', explode(',', $request->serial_ids));
+            $scrappedCount = 0;
+            $errors = [];
+
+            foreach ($serialIds as $serialId) {
+                if (empty($serialId)) continue;
+
+                // Find the product serial
+                $productSerial = ProductSerial::where('final_serial', $serialId)
+                    ->where('status', 'active')
+                    ->first();
+
+                if (!$productSerial) {
+                    $errors[] = "Serial ID '{$serialId}' not found or already inactive";
+                    continue;
+                }
+
+                $product = $productSerial->product;
+                if (!$product) {
+                    $errors[] = "Product not found for serial ID '{$serialId}'";
+                    continue;
+                }
+
+                // Create scrap item record
+                ScrapItem::create([
+                    'product_id' => $product->id,
+                    'product_serial_id' => $productSerial->id,
+                    'serial_number' => $serialId,
+                    'product_name' => $product->product_name,
+                    'product_sku' => $product->sku,
+                    'reason' => $request->reason,
+                    'quantity_scrapped' => 1,
+                    'scrapped_at' => now(),
+                    'scrapped_by' => auth()->user()->name ?? 'System'
+                ]);
+
+                // Update product serial status
+                $productSerial->update(['status' => 'damaged']);
+
+                // Decrease product quantity
+                if ($product->stock_quantity > 0) {
+                    $product->decrement('stock_quantity', 1);
+                }
+
+                $scrappedCount++;
+            }
+
+            DB::commit();
+
+            if ($scrappedCount > 0) {
+                $message = $scrappedCount . ' item(s) scrapped successfully';
+                if (!empty($errors)) {
+                    $message .= '. Some items had errors: ' . implode(', ', $errors);
+                }
+                return response()->json([
+                    'success' => true,
+                    'message' => $message,
+                    'scrapped_count' => $scrappedCount
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No items were scrapped. Errors: ' . implode(', ', $errors)
+                ], 400);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while scrapping items: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function restoreProduct(Request $request, $scrapItemId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $scrapItem = ScrapItem::with(['product', 'productSerial'])->findOrFail($scrapItemId);
+
+            // Restore the product serial status
+            if ($scrapItem->productSerial) {
+                $scrapItem->productSerial->update(['status' => 'active']);
+            }
+
+            // Increase product quantity
+            if ($scrapItem->product) {
+                $scrapItem->product->increment('stock_quantity', $scrapItem->quantity_scrapped);
+            }
+
+            // Delete the scrap item record
+            $scrapItem->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Product restored successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while restoring the product: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function ec_index()
