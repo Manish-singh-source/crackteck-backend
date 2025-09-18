@@ -2,52 +2,26 @@
 
 @section('content')
 
-<style>
-    #popupOverlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.8);
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    #popupOverlay img {
-        max-width: 90%;
-        max-height: 90%;
-        box-shadow: 0 0 10px #fff;
-    }
-
-    #popupOverlay .closeBtn {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-</style>
 <div class="content">
     <div class="container-fluid">
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="flex-grow-1">
+                <h4 class="fs-18 fw-semibold m-0">Vendor Purchase Bill Details</h4>
+            </div>
+            <div>
+                <a href="{{ route('vendor.index') }}" class="btn btn-secondary">Back to List</a>
+                <a href="{{ route('vendor.edit', $vendorPurchaseBill->id) }}" class="btn btn-primary ms-2">Edit</a>
+            </div>
+        </div>
 
         <div class="row pt-3">
-            <div class="col-xl-8 mx-auto">
+            <div class="col-xl-12 mx-auto">
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">Customer Details</h5>
-                            <div class="fw-bold text-dark">Order ID: #1001</div>
+                            <h5 class="card-title mb-0">Purchase Bill Details</h5>
+                            <div class="fw-bold text-dark">Bill No: {{ $vendorPurchaseBill->purchase_bill_no }}</div>
                         </div>
                     </div>
 
@@ -59,35 +33,24 @@
                                 <ul class="list-group list-group-flush">
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Customer Name:</span>
-                                        <span>Shyam Jaiswal</span>
+                                        <span class="fw-semibold">Purchase Bill No:</span>
+                                        <span>{{ $vendorPurchaseBill->purchase_bill_no }}</span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Contact No:</span>
-                                        <span>9004086582</span>
+                                        <span class="fw-semibold">Vendor Name:</span>
+                                        <span>{{ $vendorPurchaseBill->vendor_name }}</span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Email:</span>
-                                        <span>shyam@gmail.com</span>
+                                        <span class="fw-semibold">Purchase Date:</span>
+                                        <span>{{ $vendorPurchaseBill->purchase_date->format('d M Y') }}</span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Customer Type:</span>
-                                        <span>Retailer</span>
+                                        <span class="fw-semibold">Total Amount:</span>
+                                        <span class="fw-bold text-success">{{ $vendorPurchaseBill->formatted_total_amount }}</span>
                                     </li>
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Order Date:</span>
-                                        <span>2025-04-04 06:09 PM</span>
-                                    </li>
-
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Payment Method:</span>
-                                        <span>Online - UPI</span>
-                                    </li>
-
-
 
                                 </ul>
                             </div>
@@ -97,30 +60,31 @@
                                 <ul class="list-group list-group-flush">
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Company Name:</span>
-                                        <span>Technofra</span>
+                                        <span class="fw-semibold">Payment Status:</span>
+                                        <span class="badge {{ $vendorPurchaseBill->payment_status_badge_class }} fw-semibold">
+                                            {{ $vendorPurchaseBill->payment_status }}
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-start gap-2 flex-wrap">
+                                        <span class="fw-semibold">Notes/Remarks:</span>
+                                        <span>{{ $vendorPurchaseBill->notes ?? 'No notes provided' }}</span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Shipping Address:</span>
-                                        <span>Lalji Pada, Maharashtra 400067</span>
+                                        <span class="fw-semibold">Attachment:</span>
+                                        @if($vendorPurchaseBill->attachment)
+                                            <a href="{{ $vendorPurchaseBill->attachment_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="mdi mdi-download me-1"></i>View/Download
+                                            </a>
+                                        @else
+                                            <span class="text-muted">No attachment</span>
+                                        @endif
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">Billing Address:</span>
-                                        <span>Lalji Pada, Kandivali West, Mumbai, Maharashtra 400067</span>
-                                    </li>
-
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">GST No:</span>
-                                        <span>988498</span>
-                                    </li>
-
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-2 flex-wrap">
-                                        <span class="fw-semibold">PAN No:</span>
-                                        <span>789MTUO</span>
-                                    </li>
-
+                                        <span class="fw-semibold">Created Date:</span>
+                                        <span>{{ $vendorPurchaseBill->created_at->format('d M Y, h:i A') }}</span>
 
                                 </ul>
                             </div>
@@ -129,100 +93,9 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Order Details
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-borderless dt-responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer Name</th>
-                                    <th>Product Image</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Order Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="align-middle">
-                                    <td>#ORD12345</td>
-                                    <td>John Doe</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Headphone</td>
-                                    <td>2</td>
-                                    <td>₹99.99</td>
-                                    <td>2025-04-04 06:09 PM</td>
-                                    <td><span class="badge bg-success">Delivered</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="col-xl-4">
-
-                <div class="card">
-                    <div class="card-body p-4">
-                        <ul class="simple-timeline mb-0">
-                            <li class="timeline-item timeline-item-transparent">
-                                <span class="timeline-dot timeline-dot-purple"></span>
-                                <div class="timeline-time mt-3">
-                                    <div class="timeline-header-section mb-2">
-                                        <h5 class="mb-0">Status Changed</h5>
-                                        <small class="text-muted">25 min ago</small>
-                                    </div>
-                                    <p class="mb-2">
-                                        Status has been changed pending to active.
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="timeline-item timeline-item-transparent">
-                                <span class="timeline-dot timeline-dot-info"></span>
-                                <div class="timeline-time mt-3">
-                                    <div class="timeline-header-section mb-2">
-                                        <h5 class="mb-0">Service Generated</h5>
-                                        <small class="text-muted">6 days ago</small>
-                                    </div>
-                                    <p class="mb-2">
-                                        A new service request has been generated by John Doe (engineer)
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="timeline-time mt-3">
-                                    <div class="timeline-header-section mb-2">
-                                        <a href="#" class="mb-0 btn btn-sm btn-primary">View All History</a>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
-
     </div>
-</div> <!-- content -->
-
+</div>
 
 @endsection

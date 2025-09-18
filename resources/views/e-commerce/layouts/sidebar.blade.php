@@ -43,7 +43,7 @@
 
                 <li class="menu-title mt-2">PRODUCTS</li>
                 <li>
-                    <a class='tp-link' href="{{ route('ec.product.index') }}">
+                    <a class='tp-link' href="">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="ps-1"> Products </span>
                     </a>

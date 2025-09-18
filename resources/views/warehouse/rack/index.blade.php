@@ -21,8 +21,8 @@
                     <div class="card">
                         <div class="card-body border border-dashed border-end-0 border-start-0">
                             <form action="#" method="get">
-                                <div class="d-flex justify-content-between">
-                                    <div class="row">
+                                <div class="d-flex justify-content-end">
+                                    {{-- <div class="row">
                                         <div class="col-xl-10 col-md-10 col-sm-10">
                                             <div class="search-box">
                                                 <input type="text" name="search" value=""
@@ -38,7 +38,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="row g-3">
                                         <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
