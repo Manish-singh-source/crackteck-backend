@@ -40,6 +40,7 @@ use App\Http\Controllers\SupportTicketController;
 use App\Http\Controllers\TrackRequestController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawController;
+use App\Http\Controllers\TrackProductController;
 
 
 Route::controller(AuthController::class)->group(function () {
@@ -620,4 +621,4 @@ Route::controller(InvoiceController::class)->group(function () {
     Route::get('/crm/invoice', 'index')->name('invoice.index');
 });
 
-route::get('/crm/track-product', [TrackProductController::class, 'index'])->name('track-product.index');
+route::get('/warehouse/track-product', [TrackProductController::class, 'index'])->name('track-product.index');
