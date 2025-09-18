@@ -444,19 +444,19 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="fw-semibold">Color Options:</label>
-                                    <p class="text-muted">{{ $product->color_options ?? 'N/A' }}</p>
+                                    <p class="text-muted">{{ $product->formatted_color_options }}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="fw-semibold">Size Options:</label>
-                                    <p class="text-muted">{{ $product->size_options ?? 'N/A' }}</p>
+                                    <p class="text-muted">{{ $product->formatted_size_options }}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="fw-semibold">Length Options:</label>
-                                    <p class="text-muted">{{ $product->length_options ?? 'N/A' }}</p>
+                                    <p class="text-muted">{{ $product->formatted_length_options }}</p>
                                 </div>
                             </div>
                         </div>

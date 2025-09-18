@@ -12,6 +12,8 @@
             <div>
                 <a href="{{ route('product-list.create') }}" class="btn btn-primary">Add New Product</a>
             </div>
+            
+            
         </div>
 
 
@@ -26,6 +28,7 @@
                                         <div class="search-box">
                                             <input type="text" name="search" value="" class="form-control search" placeholder="Search Product">
                                             <i class="ri-search-line search-icon"></i>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-xl-2 col-md-2 col-sm-2 col-2">
@@ -40,6 +43,7 @@
 
                                 <div class="row g-3">
                                     <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
+                                        
                                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fa-solid fa-arrow-up-z-a "></i>
                                         </button>
@@ -220,11 +224,7 @@
                                                                         <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                                     </button>
                                                                 </form>
-                                                                <a aria-label="scrap" href="{{ route('product-list.scrap-items') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Scrap">
-                                                                    <i class="mdi mdi-recycle-variant fs-14 text-warning"></i>
-                                                                </a>
+                                                               
                                                             </td>
                                                         </tr>
                                                         @empty

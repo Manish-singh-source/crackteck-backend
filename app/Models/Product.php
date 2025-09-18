@@ -29,6 +29,9 @@ class Product extends Model
         'discount_price' => 'decimal:2',
         'tax' => 'decimal:2',
         'final_price' => 'decimal:2',
+        'color_options' => 'json',
+        'size_options' => 'json',
+        'length_options' => 'json',
     ];
 
     public function brand()
@@ -94,5 +97,79 @@ class Product extends Model
     public function activeSerials()
     {
         return $this->hasMany(ProductSerial::class)->where('status', 'active');
+    }
+
+    /**
+     * Relationship with ScrapItem
+     */
+    public function scrapItems()
+    {
+        return $this->hasMany(ScrapItem::class);
+    }
+
+    /**
+     * Get formatted color options for display
+     */
+    public function getFormattedColorOptionsAttribute()
+    {
+        if (empty($this->color_options) || $this->color_options === '[]') {
+            return 'No color options available';
+        }
+
+        if (is_string($this->color_options)) {
+            $colors = json_decode($this->color_options, true);
+        } else {
+            $colors = $this->color_options;
+        }
+
+        if (empty($colors) || !is_array($colors)) {
+            return 'No color options available';
+        }
+
+        return implode(', ', array_values($colors));
+    }
+
+    /**
+     * Get formatted size options for display
+     */
+    public function getFormattedSizeOptionsAttribute()
+    {
+        if (empty($this->size_options) || $this->size_options === '[]') {
+            return 'No size options available';
+        }
+
+        if (is_string($this->size_options)) {
+            $sizes = json_decode($this->size_options, true);
+        } else {
+            $sizes = $this->size_options;
+        }
+
+        if (empty($sizes) || !is_array($sizes)) {
+            return 'No size options available';
+        }
+
+        return implode(', ', array_values($sizes));
+    }
+
+    /**
+     * Get formatted length options for display
+     */
+    public function getFormattedLengthOptionsAttribute()
+    {
+        if (empty($this->length_options) || $this->length_options === '[]') {
+            return 'No length options available';
+        }
+
+        if (is_string($this->length_options)) {
+            $lengths = json_decode($this->length_options, true);
+        } else {
+            $lengths = $this->length_options;
+        }
+
+        if (empty($lengths) || !is_array($lengths)) {
+            return 'No length options available';
+        }
+
+        return implode(', ', array_values($lengths));
     }
 }
