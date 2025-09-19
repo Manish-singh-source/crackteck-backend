@@ -46,7 +46,7 @@
                                     </label>
                                     <div class="input-group">
                                         <input type="text" class="form-control @error('ecommerce_product_id') is-invalid @enderror"
-                                               placeholder="Search Product Name" id="productSearch" autocomplete="off"
+                                               placeholder="Search by Product Name or SKU" id="productSearch" autocomplete="off"
                                                value="{{ $productDeal->ecommerceProduct->warehouseProduct->product_name }}">
                                         <button type="button" class="btn btn-secondary" id="browseProducts">
                                             <i class="fa fa-search"></i> Browse
@@ -243,7 +243,7 @@ $(document).ready(function() {
                         </div>
                         <div>
                             <div class="fw-semibold">${product.name}</div>
-                            <small class="text-muted">Brand: ${product.brand} | Price: ₹${parseFloat(product.selling_price).toLocaleString()}</small>
+                            <small class="text-muted">SKU: ${product.sku} | Brand: ${product.brand} | Price: ₹${parseFloat(product.selling_price).toLocaleString()}</small>
                         </div>
                     </div>
                 </div>

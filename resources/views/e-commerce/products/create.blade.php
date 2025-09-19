@@ -56,8 +56,13 @@
                                             </div>
                                             <div class="col-12" id="selected_product_info" style="display: none;">
                                                 <div class="alert alert-success">
+                                                    <div>
+                                                        <img src="" id="selected_product_image" alt="">
+                                                    </div>  
+                                                    <div class="d-flex align-items-center">
                                                     <strong>Selected Product:</strong> <span id="selected_product_name"></span>
                                                     <button type="button" class="btn-close float-end" id="clear_selection"></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,8 +99,11 @@
                                                     <label class="form-label" for="sku">
                                                         SKU <span class="text-danger">*</span>
                                                     </label>
-                                                    <input type="text" class="form-control" id="sku" name="sku"
-                                                        placeholder="Select warehouse product first" readonly>
+                                                    <input type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" name="sku"
+                                                        placeholder="Enter unique SKU for e-commerce" value="{{ old('sku') }}">
+                                                    @error('sku')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -621,12 +629,20 @@
 
                 let html = '';
                 products.forEach(function(product) {
+                    console.log(product.main_product_image);
                     html += `
                         <div class="search-result-item p-2 border-bottom cursor-pointer" data-product-id="${product.id}">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <div class="fw-semibold">${product.display_text}</div>
-                                    <small class="text-muted">Stock: ${product.stock_quantity} | Status: ${product.stock_status}</small>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div>
+                                            <img src="/${product.main_product_image}" alt="${product.product_name}" style=" height: 40px; object-fit: cover;">
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">${product.display_text}</div>
+                                            <small class="text-muted">Stock: ${product.stock_quantity} | Status: ${product.stock_status}</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -673,6 +689,8 @@
                 // Fill basic information
                 $('#product_name').val(product.product_name);
                 $('#sku').val(product.sku);
+                $('#sku').attr('readonly', true);
+                // Note: SKU is now manually entered for e-commerce products
                 $('#brand_name').val(product.brand_name);
                 $('#model_no').val(product.model_no);
                 $('#serial_no').val(product.serial_no);
@@ -718,7 +736,8 @@
                 $('#meta_keywords').val(product.brand_name + ', ' + product.category_name);
 
                 // Show selected product info
-                $('#selected_product_name').text(product.product_name + ' - ' + product.sku);
+                $('#selected_product_name').text(product.product_name + ' (Warehouse SKU: ' + product.sku + ')');
+                $('#selected_product_image').attr('src', product.main_product_image);
                 $('#selected_product_info').show();
             }
 
@@ -845,6 +864,46 @@
             $(document).on('click', function(e) {
                 if (!$(e.target).closest('#warehouse_search, #search_results').length) {
                     $('#search_results').hide();
+                }
+            });
+
+            // AJAX SKU Validation for E-commerce Products
+            let skuTimeout = null;
+            $('#sku').on('input', function() {
+                const sku = $(this).val().trim();
+                const $input = $(this);
+                const $feedback = $('#sku-ajax-feedback');
+
+                // Clear previous timeout
+                if (skuTimeout) {
+                    clearTimeout(skuTimeout);
+                }
+
+                // Remove existing feedback
+                $feedback.remove();
+                $input.removeClass('is-invalid is-valid');
+
+                if (sku.length >= 2) {
+                    skuTimeout = setTimeout(() => {
+                        $.ajax({
+                            url: '{{ route("ec.product.check-sku") }}',
+                            method: 'GET',
+                            data: { sku: sku },
+                            success: function(response) {
+                                if (response.valid) {
+                                    $input.removeClass('is-invalid').addClass('is-valid');
+                                    $input.after('<div id="sku-ajax-feedback" class="valid-feedback">' + response.message + '</div>');
+                                } else {
+                                    $input.removeClass('is-valid').addClass('is-invalid');
+                                    $input.after('<div id="sku-ajax-feedback" class="invalid-feedback">' + response.message + '</div>');
+                                }
+                            },
+                            error: function() {
+                                $input.removeClass('is-valid').addClass('is-invalid');
+                                $input.after('<div id="sku-ajax-feedback" class="invalid-feedback">Error checking SKU availability</div>');
+                            }
+                        });
+                    }, 500);
                 }
             });
         });

@@ -118,9 +118,17 @@ class ProductDealController extends Controller
         $search = $request->get('search', '');
 
         $products = EcommerceProduct::with(['warehouseProduct.brand'])
-            ->whereHas('warehouseProduct', function ($query) use ($search) {
-                $query->where('product_name', 'LIKE', "%{$search}%")
-                      ->where('status', 'active');
+            ->where(function ($query) use ($search) {
+                // Search in e-commerce product SKU
+                $query->where('sku', 'LIKE', "%{$search}%")
+                      // Or search in warehouse product name and SKU
+                      ->orWhereHas('warehouseProduct', function ($subQuery) use ($search) {
+                          $subQuery->where('product_name', 'LIKE', "%{$search}%")
+                                   ->orWhere('sku', 'LIKE', "%{$search}%");
+                      });
+            })
+            ->whereHas('warehouseProduct', function ($query) {
+                $query->where('status', 'active');
             })
             ->where('ecommerce_status', 'active')
             ->limit(10)
@@ -129,9 +137,12 @@ class ProductDealController extends Controller
                 return [
                     'id' => $product->id,
                     'name' => $product->warehouseProduct->product_name,
+                    'sku' => $product->sku, // E-commerce SKU
+                    'warehouse_sku' => $product->warehouseProduct->sku, // Warehouse SKU
                     'brand' => $product->warehouseProduct->brand->brand_title ?? 'N/A',
                     'selling_price' => $product->warehouseProduct->selling_price,
                     'image' => $product->warehouseProduct->main_product_image,
+                    'display_text' => $product->warehouseProduct->product_name . ' (SKU: ' . $product->sku . ')',
                 ];
             });
 

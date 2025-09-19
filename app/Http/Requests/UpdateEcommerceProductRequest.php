@@ -27,7 +27,15 @@ class UpdateEcommerceProductRequest extends FormRequest
         return [
             // Warehouse product reference
             'warehouse_product_id' => 'required|exists:products,id',
-            
+
+            // SKU validation - unique within e-commerce products, ignore current record
+            'sku' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('ecommerce_products', 'sku')->ignore($productId)
+            ],
+
             // SEO Fields
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
@@ -84,6 +92,8 @@ class UpdateEcommerceProductRequest extends FormRequest
         return [
             'warehouse_product_id.required' => 'Please select a warehouse product.',
             'warehouse_product_id.exists' => 'Selected warehouse product does not exist.',
+            'sku.required' => 'SKU is required.',
+            'sku.unique' => 'Product with this SKU already exists.',
             'meta_product_url_slug.unique' => 'This URL slug is already taken.',
             'max_order_qty.gte' => 'Maximum order quantity must be greater than or equal to minimum order quantity.',
             'min_order_qty.min' => 'Minimum order quantity must be at least 1.',
