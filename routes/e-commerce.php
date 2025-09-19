@@ -77,6 +77,8 @@ Route::controller(EcommerceProductController::class)->group(function (){
     // AJAX Routes for Warehouse Product Search
     Route::get('/e-commerce/search-warehouse-products', 'searchWarehouseProducts')->name('ec.product.search-warehouse');
     Route::get('/e-commerce/get-warehouse-product/{id}', 'getWarehouseProduct')->name('ec.product.get-warehouse');
+    // AJAX SKU Validation
+    Route::get('/e-commerce/check-sku-unique', 'checkSkuUnique')->name('ec.product.check-sku');
 });
 
 // Keep old ProductListController routes for backward compatibility (scrap items)

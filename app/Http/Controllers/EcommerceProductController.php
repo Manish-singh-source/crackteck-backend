@@ -11,6 +11,7 @@ use App\Models\SubCategorie;
 use App\Http\Requests\StoreEcommerceProductRequest;
 use App\Http\Requests\UpdateEcommerceProductRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -381,5 +382,35 @@ class EcommerceProductController extends Controller
                 ]);
             }
         }
+    }
+
+    /**
+     * Check if SKU is unique for e-commerce products via AJAX
+     */
+    public function checkSkuUnique(Request $request): JsonResponse
+    {
+        $sku = $request->input('sku');
+        $productId = $request->input('product_id'); // For updates, exclude current product
+
+        if (empty($sku)) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'SKU is required'
+            ]);
+        }
+
+        $query = EcommerceProduct::where('sku', $sku);
+
+        // If updating, exclude current product
+        if ($productId) {
+            $query->where('id', '!=', $productId);
+        }
+
+        $exists = $query->exists();
+
+        return response()->json([
+            'valid' => !$exists,
+            'message' => $exists ? 'Product with this SKU already exists' : 'SKU is available'
+        ]);
     }
 }
