@@ -3,596 +3,475 @@
 @section('content')
 
 <div class="content">
-
     <div class="container-fluid">
 
-        <div class="bradcrumb pt-3 ps-2 bg-light">
-            <div class="row ">
-                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Product</li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
-        <div class="py-1 d-flex align-items-sm-center flex-sm-row flex-column">
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0"></h4>
+                <h4 class="fs-18 fw-semibold m-0">Edit E-commerce Product</h4>
+                <p class="text-muted">Update product information for both warehouse and e-commerce</p>
+            </div>
+            <div>
+                <a href="{{ route('ec.product.view', $product->id) }}" class="btn btn-secondary">View Product</a>
+                <a href="{{ route('ec.product.index') }}" class="btn btn-secondary">Back to List</a>
             </div>
         </div>
 
+        <form id="editProductForm" action="{{ route('ec.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <div class="row g-4 align-items-center">
-                                    <div class="col-sm">
-                                        <h5 class="card-title mb-0">
-                                            Basic Product Information
-                                        </h5>
-                                    </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Warehouse Product Information (Read-only) -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Warehouse Product Information</h5>
+                            <p class="text-muted mb-0">This information comes from the linked warehouse product</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->product_name }}" readonly>
                                 </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label class="form-label" for="product_name">
-                                                Product Name <span class="text-danger">*</span>
-                                            </label>
-                                            <input name="product_name" id="product_name" type="text" class="form-control" value="ZKTeco MB20 Biometric Attendance Device" placeholder="Enter Product Name" required="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label class="form-label" for="sku">
-                                                SKU <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="sku" name="sku" required="" value="#SKU-001" placeholder="Product SKU Code">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="brand" class="form-label">Brand <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="brand" name="brand" required="">
-                                                <option disabled value="">-- Select --</option>
-                                                <option selected value="">ZKTeco</option>
-                                                <option value="">TP-Link</option>
-                                                <option value="">Cisco</option>
-                                                <option value=""> D-Link</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label class="form-label" for="model">
-                                                Model No <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="model" name="model" required="" value="MB20" placeholder="Product Model No.">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label class="form-label" for="serial">
-                                                Product Serial No <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="B0BB7FQBBS" placeholder="Product Serial No.">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div>
-                                            <label class="form-label" for="serial">
-                                                Custom Serial No <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="serial" name="serial" required="" value="B0BB7FQBBS" placeholder="Custom Product Serial No.">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="category" name="category" required="">
-                                                <option disabled value="">-- Select --</option>
-                                                <option selected value="">Biometric Attendance & Access Control System</option>
-                                                <option value="">Cisco</option>
-                                                <option value=""> D-Link</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="subcategory" class="form-label">Subcategory <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="subcategory" name="subcategory" required="">
-                                                <option disabled value="">-- Select --</option>
-                                                <option selected value="">Biometric Attendance & Access Control System</option>
-                                                <option value="">Cisco</option>
-                                                <option value="">D-Link</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">SKU</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->sku }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Brand</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->brand->brand_title ?? 'N/A' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Model No</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->model_no ?? 'N/A' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Category</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->parentCategorie->parent_categories ?? 'N/A' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Sub Category</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->subCategorie->sub_categorie ?? 'N/A' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Stock Quantity</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->stock_quantity ?? 0 }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Selling Price</label>
+                                    <input type="text" class="form-control" value="{{ $product->warehouseProduct->selling_price ? '₹' . number_format($product->warehouseProduct->selling_price, 2) : 'N/A' }}" readonly>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card pb-4">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Product Details
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 mb-2">
-                                        <div>
-                                            <label for="short_details" class="form-label">Short Description <span class="text-danger">*</span></label>
-                                            <div id="quill-editor" style="height: 300px;">
-                                                <p>A high-performance biometric device designed for secure and accurate attendance tracking and access control.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div>
-                                            <label for="full_details" class="form-label">Full Description<span class="text-danger">*</span></label>
-                                            <div id="quill-editor1" style="height: 300px;">
-                                                <p>A high-performance biometric device designed for secure and accurate attendance tracking and access control. This compact and efficient system uses fingerprint, face recognition, and/or RFID technology to verify individual identity, helping organizations streamline workforce management and enhance security.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div>
-                                            <label for="tech_specs" class="form-label">Technical Specifications<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div id="quill-editor2" style="height: 300px;">
-                                            <div>
-                                                <table class="table table-bordered" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-                                                    <thead>
-                                                        <tr style="background-color: #f2f2f2;">
-                                                            <th>Specification</th>
-                                                            <th>Details</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Identification Methods</td>
-                                                            <td>Fingerprint, Face Recognition, RFID Card, PIN</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Fingerprint Capacity</td>
-                                                            <td>5,000 templates</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Face Capacity</td>
-                                                            <td>1,000 templates</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Card Capacity</td>
-                                                            <td>5,000 (125kHz RFID)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Transaction Storage</td>
-                                                            <td>100,000 records</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Recognition Speed</td>
-                                                            <td>≤ 0.5 seconds</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Display</td>
-                                                            <td>2.8-inch TFT Color LCD</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Audio/Visual Indicators</td>
-                                                            <td>Voice Prompt &amp; LED Notification</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Communication Interface</td>
-                                                            <td>TCP/IP, USB Host, Wi-Fi (optional)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Access Control Interface</td>
-                                                            <td>Door Sensor, Exit Button, Electric Lock, Alarm</td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-6">
-                                        <div class="row justify-content-end align-items-end">
-                                            <div class="col-11">
-                                                <div class="mb-3">
-                                                    <label for="warranty" class="form-label">With Installation</label>
-                                                    <input type="text" class="form-control" id="warranty" name="warranty" value="Yes">
-                                                </div>
-                                            </div>
-                                            <div class="col-1">
-                                                <div class="mb-3">
-                                                    <button class="btn btn-primary w-100 add-warranty">Add</button>
-                                                </div>
-                                            </div>
-
-                                            <table class="table mt-4" id="warrantyTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Installation Included</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Selected values will appear here -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-12  col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="brand_warranty_details" class="form-label">Brand Warranty</label>
-                                            <input type="text" class="form-control" id="brand_warranty_details" name="brand_warranty_details" required="" value="" placeholder="Enter Brand Warranty">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-12  col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="crackteck_warranty_details" class="form-label">Company Warranty</label>
-                                            <input type="text" class="form-control" id="crackteck_warranty_details" name="crackteck_warranty_details" required="" value="" placeholder="Enter Our Company Warranty">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card pb-4">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Pricing
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="cost_price" class="form-label">Cost Price <span class="text-danger">*</span></label>
-                                            <input name="cost_price" id="cost_price" type="text" class="form-control" value="" placeholder="Enter Cost Price" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="selling_price" class="form-label">Selling Price <span class="text-danger">*</span></label>
-                                            <input name="selling_price" id="selling_price" type="text" class="form-control" value="" placeholder="Enter Selling Price" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="discount_price" class="form-label">Discount Price <span class="text-danger">*</span></label>
-                                            <input name="discount_price" id="discount_price" type="text" class="form-control" value="" placeholder="Enter Discount Price" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="tax" class="form-label">Tax (%) <span class="text-danger">*</span></label>
-                                            <input name="tax" id="tax" type="text" class="form-control" value="" placeholder="Enter Tax" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="final_price" class="form-label">Final Price (after discount) </label>
-                                            <input name="final_price" id="final_price" type="text" class="form-control" value="" placeholder="Enter Final Price" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card pb-4">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Inventory
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
-                                            <input name="stock" id="stock" type="text" class="form-control" value="" placeholder="Enter Stock" required="">
-                                            <div id="emailHelp" class="text-danger">Stock Should Be Less Than 50</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="stock_status" class="form-label">Stock Status <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="stock_status" name="stock_status" required="">
-                                                <option selected disabled value="">-- Select --</option>
-                                                <option value="">In Stock</option>
-                                                <option value="">Out of Stock</option>
-                                                <option value="">Pre-order</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="min_order_qty" class="form-label">Minimum Order Qty<span class="text-danger">*</span></label>
-                                            <input name="min_order_qty" id="min_order_qty" type="number" class="form-control" value="" placeholder="Enter Minimum Order Quantity" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="max_order_qty" class="form-label">Maximum Order Qty<span class="text-danger">*</span></label>
-                                            <input name="max_order_qty" id="max_order_qty" type="number" class="form-control" value="" placeholder="Enter Maximum Order Quantity" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card pb-4">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    SEO
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="meta_title" class="form-label">Meta Title <span class="text-danger">*</span></label>
-                                            <input name="meta_title" id="meta_title" type="text" class="form-control" value="" placeholder="Enter Meta Title" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="meta_description" class="form-label">Meta Description <span class="text-danger">*</span></label>
-                                            <input name="meta_description" id="meta_description" type="text" class="form-control" value="" placeholder="Enter Meta Description" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="meta_keywords" class="form-label">Meta Keywords<span class="text-danger">*</span></label>
-                                            <input name="meta_keywords" id="meta_keywords" type="text" class="form-control" value="" placeholder="Enter Meta Keywords" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div>
-                                            <label for="url_slug" class="form-label">Product URL Slug <span class="text-danger">*</span></label>
-                                            <input name="url_slug" id="url_slug" type="text" class="form-control" value="" placeholder="Enter Product URL Slug" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
                     </div>
 
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Images and Media:
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="main_image" class="form-label">Main Product Image<span class="text-danger">*</span></label>
-                                    <input type="file" name="main_image" id="main_image" class="form-control" required="">
-                                    <div id="emailHelp" class="text-danger">Image Size Should Be
-                                        800x650
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="additional_images" class="form-label">Additional Product Images<span class="text-danger">*</span></label>
-                                    <input type="file" name="additional_images" id="additional_images" class="form-control" required="" multiple>
-                                    <div id="emailHelp" class="text-danger">Image Size Should Be
-                                        800x650
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="datasheet_doc" class="form-label">Product Datasheet or Manual <span class="text-danger">*</span></label>
-                                    <input type="file" name="datasheet_doc" id="datasheet_doc" class="form-control" required="">
-                                    <div id="emailHelp" class="text-danger">Image Size Should Be
-                                        800x650
-                                    </div>
-                                </div>
-                            </div>
-
+                    <!-- SEO Information -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">SEO Information</h5>
                         </div>
-
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Product Variations
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-
-                                <div>
-                                    <label for="color_options" class="form-label">Color Options <span class="text-danger">*</span></label>
-                                    <select required="" name="color_options" id="color_options" class="form-select w-100">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="1">Black</option>
-                                        <option value="2">White</option>
-                                        <option value="3">Grey</option>
-                                    </select>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label" for="meta_title">Meta Title</label>
+                                    <input type="text" class="form-control" id="meta_title" name="meta_title"
+                                           value="{{ old('meta_title', $product->meta_title) }}"
+                                           placeholder="Enter meta title for SEO">
                                 </div>
-
-                                <div class="mt-3">
-                                    <label for="size_options" class="form-label">Size/Length Options <span class="text-danger">*</span></label>
-                                    <select required="" name="size_options" id="size_options" class="form-select w-100">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="1">Black</option>
-                                        <option value="2">White</option>
-                                        <option value="3">Grey</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="meta_description">Meta Description</label>
+                                    <textarea class="form-control" id="meta_description" name="meta_description" rows="3"
+                                              placeholder="Enter meta description for SEO">{{ old('meta_description', $product->meta_description) }}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="meta_keywords">Meta Keywords</label>
+                                    <input type="text" class="form-control" id="meta_keywords" name="meta_keywords"
+                                           value="{{ old('meta_keywords', $product->meta_keywords) }}"
+                                           placeholder="Enter meta keywords separated by commas">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="meta_product_url_slug">URL Slug</label>
+                                    <input type="text" class="form-control" id="meta_product_url_slug" name="meta_product_url_slug"
+                                           value="{{ old('meta_product_url_slug', $product->meta_product_url_slug) }}"
+                                           placeholder="Enter URL slug (auto-generated if empty)">
                                 </div>
                             </div>
-
                         </div>
+                    </div>
 
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Status
-                                </h5>
-                            </div>
-
-                            <div class="card-body">
-
-                                <div>
-                                    <label for="product_status" class="form-label">Product Status <span class="text-danger">*</span></label>
-                                    <select required="" name="product_status" id="product_status" class="form-select w-100">
-                                        <option disabled value="">-- Select --</option>
-                                        <option selected value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
+                    <!-- E-commerce Descriptions -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">E-commerce Descriptions</h5>
+                            <p class="text-muted mb-0">These descriptions are specific to e-commerce and can be different from warehouse descriptions</p>
                         </div>
-
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Shipping Details
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="weight" class="form-label">Product Weight (kg/gms) <span class="text-danger">*</span></label>
-                                    <input name="weight" id="weight" type="text" class="form-control" value="" placeholder="Enter Weight" required="">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label" for="ecommerce_short_description">E-commerce Short Description</label>
+                                    <textarea class="form-control" id="ecommerce_short_description" name="ecommerce_short_description" rows="3"
+                                              placeholder="Enter short description for e-commerce">{{ old('ecommerce_short_description', $product->ecommerce_short_description) }}</textarea>
                                 </div>
-                                <div class="mt-3 mb-3">
-                                    <label for="dimensions" class="form-label">Product Dimensions (L × W × H cm/mm)<span class="text-danger">*</span></label>
-                                    <input name="dimensions" id="dimensions" type="text" class="form-control" value="" placeholder="Enter Dimension" required="">
+                                <div class="col-md-12">
+                                    <label class="form-label" for="ecommerce_full_description">E-commerce Full Description</label>
+                                    <textarea class="form-control" id="ecommerce_full_description" name="ecommerce_full_description" rows="5"
+                                              placeholder="Enter full description for e-commerce">{{ old('ecommerce_full_description', $product->ecommerce_full_description) }}</textarea>
                                 </div>
-                                <div class="mt-3 mb-3">
-                                    <label for="shipping_charges" class="form-label">Shipping Charges<span class="text-danger">*</span></label>
-                                    <input name="shipping_charges" id="shipping_charges" type="text" class="form-control" value="" placeholder="Enter Shipping Charges" required="">
-                                </div>
-                                <div class="mt-3 mb-3">
-                                    <label for="featured_image" class="form-label">Shipping Class<span class="text-danger">*</span></label>
-                                    <select class="form-select" id="warranty" name="warranty" required="">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="">Light</option>
-                                        <option value="">Heavy</option>
-                                        <option value="">Fragile</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="ecommerce_technical_specification">E-commerce Technical Specification</label>
+                                    <textarea class="form-control" id="ecommerce_technical_specification" name="ecommerce_technical_specification" rows="5"
+                                              placeholder="Enter technical specifications for e-commerce">{{ old('ecommerce_technical_specification', $product->ecommerce_technical_specification) }}</textarea>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
 
-                        <div class="card">
-                            <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">
-                                    Other Information:
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="featured_image" class="form-label">Featured Product?<span class="text-danger">*</span></label>
-                                    <select class="form-select" id="warranty" name="warranty" required="">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
-                                    </select>
+                    <!-- Inventory & Order Management -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Inventory & Order Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="min_order_qty">Minimum Order Quantity</label>
+                                    <input type="number" class="form-control" id="min_order_qty" name="min_order_qty"
+                                           value="{{ old('min_order_qty', $product->min_order_qty) }}"
+                                           placeholder="Enter minimum order quantity" min="1">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="featured_image" class="form-label">Tags<span class="text-danger">*</span></label>
-                                    <select class="form-select" id="warranty" name="warranty" required="">
-                                        <option selected disabled value="">-- Select --</option>
-                                        <option value="">Best Seller</option>
-                                        <option value="">High-Speed</option>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="max_order_qty">Maximum Order Quantity</label>
+                                    <input type="number" class="form-control" id="max_order_qty" name="max_order_qty"
+                                           value="{{ old('max_order_qty', $product->max_order_qty) }}"
+                                           placeholder="Enter maximum order quantity" min="1">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="company_warranty">Company Warranty</label>
+                                    <input type="text" class="form-control" id="company_warranty" name="company_warranty"
+                                           value="{{ old('company_warranty', $product->company_warranty) }}"
+                                           placeholder="Enter company warranty details">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Details -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Shipping Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="product_weight">Product Weight</label>
+                                    <input type="text" class="form-control" id="product_weight" name="product_weight"
+                                           value="{{ old('product_weight', $product->product_weight) }}"
+                                           placeholder="e.g., 2.5 kg">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="product_dimensions">Product Dimensions</label>
+                                    <input type="text" class="form-control" id="product_dimensions" name="product_dimensions"
+                                           value="{{ old('product_dimensions', $product->product_dimensions) }}"
+                                           placeholder="e.g., 30x20x15 cm">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="shipping_charges">Shipping Charges</label>
+                                    <input type="number" step="0.01" class="form-control" id="shipping_charges" name="shipping_charges"
+                                           value="{{ old('shipping_charges', $product->shipping_charges) }}"
+                                           placeholder="Enter shipping charges">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="shipping_class">Shipping Class</label>
+                                    <select class="form-select" id="shipping_class" name="shipping_class">
+                                        <option value="">Select Shipping Class</option>
+                                        <option value="Light" {{ old('shipping_class', $product->shipping_class) == 'Light' ? 'selected' : '' }}>Light</option>
+                                        <option value="Heavy" {{ old('shipping_class', $product->shipping_class) == 'Heavy' ? 'selected' : '' }}>Heavy</option>
+                                        <option value="Fragile" {{ old('shipping_class', $product->shipping_class) == 'Fragile' ? 'selected' : '' }}>Fragile</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
-                        <div class="text-start mb-3">
-                            <a href="{{ route('ec.product.index') }}" class="btn btn-success w-sm waves ripple-light">
-                                Submit
-                            </a>
+                    <!-- Installation Options -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Installation Options</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">Installation Options</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="installation_options[]" value="Basic Installation" id="basic_installation"
+                                                       {{ (is_array(old('installation_options', $product->with_installation)) && in_array('Basic Installation', old('installation_options', $product->with_installation))) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="basic_installation">
+                                                    Basic Installation
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="installation_options[]" value="Advanced Installation" id="advanced_installation"
+                                                       {{ (is_array(old('installation_options', $product->with_installation)) && in_array('Advanced Installation', old('installation_options', $product->with_installation))) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="advanced_installation">
+                                                    Advanced Installation
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="installation_options[]" value="Professional Setup" id="professional_setup"
+                                                       {{ (is_array(old('installation_options', $product->with_installation)) && in_array('Professional Setup', old('installation_options', $product->with_installation))) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="professional_setup">
+                                                    Professional Setup
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Product Tags -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Product Tags</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label" for="product_tags">Product Tags</label>
+                                    <input type="text" class="form-control" id="product_tags" name="product_tags"
+                                           value="{{ old('product_tags', is_array($product->product_tags) ? implode(', ', $product->product_tags) : $product->product_tags) }}"
+                                           placeholder="Enter tags separated by commas (e.g., bestseller, featured, new)">
+                                    <small class="text-muted">Separate multiple tags with commas</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Product Images -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Product Images</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="product_images">Product Images</label>
+                                <input type="file" class="form-control" id="product_images" name="product_images[]" multiple accept="image/*">
+                                <small class="text-muted">Upload multiple images. Supported formats: JPG, PNG, GIF</small>
+                            </div>
+                            @if($product->product_images && is_array($product->product_images))
+                                <div class="current-images">
+                                    <label class="form-label">Current Images:</label>
+                                    <div class="row">
+                                        @foreach($product->product_images as $index => $image)
+                                            <div class="col-6 mb-2">
+                                                <div class="position-relative">
+                                                    <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail" style="width: 100%; height: 80px; object-fit: cover;">
+                                                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                                                            onclick="removeImage({{ $index }})" style="padding: 2px 6px; font-size: 10px;">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- E-commerce Status & Flags -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">E-commerce Status & Flags</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="ecommerce_status">E-commerce Status</label>
+                                <select class="form-select" id="ecommerce_status" name="ecommerce_status">
+                                    <option value="draft" {{ old('ecommerce_status', $product->ecommerce_status) == 'draft' ? 'selected' : '' }}>Draft</option>
+                                    <option value="active" {{ old('ecommerce_status', $product->ecommerce_status) == 'active' ? 'selected' : '' }}>Active</option>
+                                    <option value="inactive" {{ old('ecommerce_status', $product->ecommerce_status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1"
+                                               {{ old('is_featured', $product->is_featured) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_featured">Featured</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="is_best_seller" name="is_best_seller" value="1"
+                                               {{ old('is_best_seller', $product->is_best_seller) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_best_seller">Best Seller</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="is_suggested" name="is_suggested" value="1"
+                                               {{ old('is_suggested', $product->is_suggested) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_suggested">Suggested</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="is_todays_deal" name="is_todays_deal" value="1"
+                                               {{ old('is_todays_deal', $product->is_todays_deal) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_todays_deal">Today's Deal</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Information -->
+                    <div class="card">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Sales Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="total_sold">Total Sold</label>
+                                <input type="number" class="form-control" id="total_sold" name="total_sold"
+                                       value="{{ old('total_sold', $product->total_sold) }}"
+                                       placeholder="Enter total sold quantity" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="mdi mdi-content-save me-1"></i>
+                                    Update Product
+                                </button>
+                                <a href="{{ route('ec.product.view', $product->id) }}" class="btn btn-secondary">
+                                    <i class="mdi mdi-eye me-1"></i>
+                                    View Product
+                                </a>
+                                <a href="{{ route('ec.product.index') }}" class="btn btn-outline-secondary">
+                                    <i class="mdi mdi-arrow-left me-1"></i>
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
-    </div> <!-- container-fluid -->
+        </form>
+
+    </div>
 </div> <!-- content -->
 
+@endsection
+
+@section('scripts')
 <script>
-    $(document).ready(function() {
-        // Add engineer to table
-        $('#warrantyTable').hide();
-        $(".add-warranty").on("click", function() {
-            $('#warrantyTable').show();
-            const warrantyValue = $('#warranty').val();
-            const tableBody = $('#warrantyTable tbody');
-            console.log(warrantyValue);
-            const newRow = `
-                            <tr>
-                                <td>${warrantyValue}</td>
-                                <td>
-                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-warning-subtle me-1" data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                        <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                    </a>
-                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        `;
-            console.log(warrantyValue);
-            tableBody.append(newRow);
-        });
+// Handle product tags input
+document.getElementById('product_tags').addEventListener('input', function(e) {
+    // Auto-format tags as user types
+    let value = e.target.value;
+    // Remove extra spaces and ensure proper comma separation
+    value = value.replace(/\s*,\s*/g, ', ').replace(/,+/g, ',');
+    if (value !== e.target.value) {
+        e.target.value = value;
+    }
+});
+
+// Handle installation options
+document.querySelectorAll('input[name="installation_options[]"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        // You can add any additional logic here if needed
+        console.log('Installation option changed:', this.value, this.checked);
+    });
+});
+
+// Handle image removal
+function removeImage(index) {
+    if (confirm('Are you sure you want to remove this image?')) {
+        // Create a hidden input to mark this image for removal
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'remove_images[]';
+        hiddenInput.value = index;
+        document.getElementById('editProductForm').appendChild(hiddenInput);
+
+        // Hide the image container
+        event.target.closest('.col-6').style.display = 'none';
+    }
+}
+
+// Form validation
+document.getElementById('editProductForm').addEventListener('submit', function(e) {
+    let isValid = true;
+    const requiredFields = ['meta_title', 'ecommerce_status'];
+
+    requiredFields.forEach(function(fieldName) {
+        const field = document.getElementById(fieldName);
+        if (field && !field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        } else if (field) {
+            field.classList.remove('is-invalid');
+        }
     });
 
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
 
-    $(document).ready(function() {
-        $(".warranty-list").hide();
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin me-1"></i> Updating...';
+    submitBtn.disabled = true;
 
-        $("#warranty").on('click', function() {
-            if ($(this)[0].checked) {
-                $(".warranty-list").show();
-            } else {
-                $(".warranty-list").hide();
-            }
-        });
+    // Re-enable button after 10 seconds as fallback
+    setTimeout(function() {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 10000);
+});
 
-        $("#reject-request").on('click', function() {
-            $(this).parent().hide();
-            $(".request-status").html("Rejected");
-        });
-    });
+// Auto-generate URL slug from meta title
+document.getElementById('meta_title').addEventListener('input', function(e) {
+    const slugField = document.getElementById('meta_product_url_slug');
+    if (!slugField.value || slugField.dataset.autoGenerated === 'true') {
+        const slug = e.target.value
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+        slugField.value = slug;
+        slugField.dataset.autoGenerated = 'true';
+    }
+});
+
+// Mark slug as manually edited if user types in it
+document.getElementById('meta_product_url_slug').addEventListener('input', function(e) {
+    if (e.target.value) {
+        e.target.dataset.autoGenerated = 'false';
+    }
+});
 </script>
-
 @endsection

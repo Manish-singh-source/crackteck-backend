@@ -7,6 +7,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EcommerceProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductDealController;
 use App\Http\Controllers\ProductListController;
@@ -57,15 +58,29 @@ Route::controller(OrderController::class)->group(function (){
 
 // ------------------------------------------------------------ E-Commerce Products Page -------------------------------------------------------------
 
-Route::controller(ProductListController::class)->group(function (){
-    // Product Page 
-    Route::get('/e-commerce/products' ,'ec_index')->name('ec.product.index');
+Route::controller(EcommerceProductController::class)->group(function (){
+    // Product List Page
+    Route::get('/e-commerce/products', 'index')->name('ec.product.index');
     // Create Product Page
-    Route::get('/e-commerce/create-product' ,'ec_create')->name('ec.product.create');
+    Route::get('/e-commerce/create-product', 'create')->name('ec.product.create');
+    // Store Product
+    Route::post('/e-commerce/create-product', 'store')->name('ec.product.store');
     // View Product Page
-    Route::get('/e-commerce/view-product' ,'ec_view')->name('ec.product.view');
-    // Edit Product Page 
-    Route::get('/e-commerce/edit-product' ,'ec_edit')->name('ec.product.edit');
+    Route::get('/e-commerce/view-product/{id}', 'show')->name('ec.product.view');
+    // Edit Product Page
+    Route::get('/e-commerce/edit-product/{id}', 'edit')->name('ec.product.edit');
+    // Update Product
+    Route::put('/e-commerce/edit-product/{id}', 'update')->name('ec.product.update');
+    // Delete Product
+    Route::delete('/e-commerce/delete-product/{id}', 'destroy')->name('ec.product.delete');
+
+    // AJAX Routes for Warehouse Product Search
+    Route::get('/e-commerce/search-warehouse-products', 'searchWarehouseProducts')->name('ec.product.search-warehouse');
+    Route::get('/e-commerce/get-warehouse-product/{id}', 'getWarehouseProduct')->name('ec.product.get-warehouse');
+});
+
+// Keep old ProductListController routes for backward compatibility (scrap items)
+Route::controller(ProductListController::class)->group(function (){
     // Scrap Items Product Page
     Route::get('/e-commerce/scrap-items' ,'ec_scrapItems')->name('scrap-items');
 });

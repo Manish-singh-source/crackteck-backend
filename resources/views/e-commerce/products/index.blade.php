@@ -135,94 +135,137 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                        @forelse($products as $product)
                                                         <tr class="align-middle">
                                                             <td>
                                                                 <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="https://placehold.co/80x80" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                                    <div class="me-3">
+                                                                        @if($product->warehouseProduct && $product->warehouseProduct->main_product_image)
+                                                                            <img src="{{ asset($product->warehouseProduct->main_product_image) }}"
+                                                                                 alt="{{ $product->product_name }}" width="80" height="80"
+                                                                                 class="img-fluid rounded">
+                                                                        @else
+                                                                            <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                                                                 style="width: 80px; height: 80px;">
+                                                                                <i class="mdi mdi-image fs-24 text-muted"></i>
+                                                                            </div>
+                                                                        @endif
                                                                     </div>
                                                                     <div>
-                                                                        <div>
-                                                                            Laptop
+                                                                        <div class="fw-semibold">
+                                                                            {{ $product->product_name }}
                                                                         </div>
-                                                                        <div>
-                                                                            Brand: Sony
+                                                                        <div class="text-muted">
+                                                                            Brand: {{ $product->warehouseProduct->brand->brand_title ?? 'N/A' }}
+                                                                        </div>
+                                                                        <div class="text-muted small">
+                                                                            SKU: {{ $product->sku }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <span class="badge bg-primary-subtle text-primary fw-semibold">Electronics</span>
-                                                                <div>
-                                                                    Total Sold: 2
+                                                                @if($product->warehouseProduct && $product->warehouseProduct->parentCategorie)
+                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">
+                                                                        {{ $product->warehouseProduct->parentCategorie->parent_categories }}
+                                                                    </span>
+                                                                @endif
+                                                                <div class="mt-1">
+                                                                    Total Sold: {{ $product->total_sold }}
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div>
-                                                                    Regular price : ₹100.0
+                                                                    Regular price: ₹{{ number_format($product->selling_price, 2) }}
+                                                                </div>
+                                                                @if($product->discount_price)
+                                                                <div>
+                                                                    Discount Price: ₹{{ number_format($product->discount_price, 2) }}
+                                                                </div>
+                                                                @endif
+                                                                <div>
+                                                                    <span class="text-{{ $product->is_best_seller ? 'success' : 'muted' }}">
+                                                                        Best Seller: {{ $product->is_best_seller ? 'Yes' : 'No' }}
+                                                                    </span>
                                                                 </div>
                                                                 <div>
-                                                                    Discount Price : ₹97.0
-                                                                </div>
-                                                                <div>
-                                                                    <a href="#" class="text-primary">
-                                                                        Best Selling Item - Yes
-                                                                    </a>
-                                                                </div>
-                                                                <div>
-                                                                    <a href="#" class="text-danger">
-                                                                        Suggested Item - No
-                                                                    </a>
+                                                                    <span class="text-{{ $product->is_suggested ? 'success' : 'muted' }}">
+                                                                        Suggested: {{ $product->is_suggested ? 'Yes' : 'No' }}
+                                                                    </span>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="#" class="text-success">
-                                                                    Yes
-                                                                </a>
+                                                                <span class="text-{{ $product->is_featured ? 'success' : 'muted' }}">
+                                                                    {{ $product->is_featured ? 'Yes' : 'No' }}
+                                                                </span>
                                                                 <span>|</span>
-                                                                <a href="#" class="text-danger">
-                                                                    No
-                                                                </a>
+                                                                <span class="text-{{ $product->is_todays_deal ? 'success' : 'muted' }}">
+                                                                    {{ $product->is_todays_deal ? 'Yes' : 'No' }}
+                                                                </span>
                                                             </td>
-                                                            <td>5</td>
+                                                            <td>{{ $product->stock_quantity }}</td>
                                                             <td>
                                                                 <div>
-                                                                    17 Apr 2025
+                                                                    {{ $product->created_at->format('d M Y') }}
                                                                 </div>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success fw-semibold">Published</span>
+                                                                <span class="badge bg-{{ $product->ecommerce_status === 'active' ? 'success' : ($product->ecommerce_status === 'draft' ? 'warning' : 'danger') }}-subtle
+                                                                             text-{{ $product->ecommerce_status === 'active' ? 'success' : ($product->ecommerce_status === 'draft' ? 'warning' : 'danger') }} fw-semibold">
+                                                                    {{ ucfirst($product->ecommerce_status) }}
+                                                                </span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('ec.product.view') }}"
+                                                                <a aria-label="anchor" href="{{ route('ec.product.view', $product->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor" href="{{ route('ec.product.edit') }}"
+                                                                <a aria-label="anchor" href="{{ route('ec.product.edit', $product->id) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                                <button aria-label="anchor" type="button"
+                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-product"
+                                                                    data-product-id="{{ $product->id }}"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                                     <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                                <a aria-label="scrap" href="{{ route('scrap-items') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Scrap">
-                                                                    <i class="mdi mdi-recycle-variant fs-14 text-warning"></i>
-                                                                </a>
+                                                                </button>
                                                             </td>
                                                         </tr>
-
+                                                        @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center py-4">
+                                                                <div class="text-muted">
+                                                                    <i class="mdi mdi-package-variant-closed fs-48 mb-3 d-block"></i>
+                                                                    <h5>No E-commerce Products Found</h5>
+                                                                    <p>Start by creating your first e-commerce product from warehouse inventory.</p>
+                                                                    <a href="{{ route('ec.product.create') }}" class="btn btn-primary">
+                                                                        <i class="mdi mdi-plus me-1"></i> Add New Product
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Pagination -->
+                                @if($products->hasPages())
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="text-muted">
+                                            Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
+                                        </div>
+                                        <div>
+                                            {{ $products->links() }}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
 
                             </div>
 
@@ -233,5 +276,70 @@
         </div>
     </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this e-commerce product? This action cannot be undone.</p>
+                <p class="text-muted"><strong>Note:</strong> This will only remove the product from e-commerce. The warehouse product will remain intact.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    let productIdToDelete = null;
+
+    // Handle delete button click
+    $('.delete-product').on('click', function() {
+        productIdToDelete = $(this).data('product-id');
+        $('#deleteModal').modal('show');
+    });
+
+    // Handle confirm delete
+    $('#confirmDelete').on('click', function() {
+        if (productIdToDelete) {
+            $.ajax({
+                url: `{{ route('ec.product.delete', ':id') }}`.replace(':id', productIdToDelete),
+                method: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#deleteModal').modal('hide');
+                        location.reload(); // Reload the page to reflect changes
+                    } else {
+                        alert(response.message || 'Error deleting product');
+                    }
+                },
+                error: function(xhr) {
+                    let message = 'Error deleting product';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                    alert(message);
+                }
+            });
+        }
+    });
+
+    // Clear productIdToDelete when modal is hidden
+    $('#deleteModal').on('hidden.bs.modal', function() {
+        productIdToDelete = null;
+    });
+});
+</script>
 
 @endsection
