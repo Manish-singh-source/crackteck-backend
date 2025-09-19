@@ -11,8 +11,8 @@
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Enginner</li>
-                            <li class="breadcrumb-item active" aria-current="page">Edit Enginner</li>
+                            <li class="breadcrumb-item active" aria-current="page">Customer</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Customer</li>
                         </ol>
                     </nav>
                 </div>
@@ -26,9 +26,9 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('engineer.update', $engineer->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('customer.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="card">
@@ -50,7 +50,6 @@
                                                     'name' => 'first_name',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter First Name',
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
@@ -60,7 +59,6 @@
                                                     'name' => 'last_name',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter Last Name',
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
@@ -70,7 +68,6 @@
                                                     'name' => 'phone',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter Phone number',
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
@@ -79,8 +76,7 @@
                                                     'label' => 'E-mail address',
                                                     'name' => 'email',
                                                     'type' => 'email',
-                                                    'placeholder' => 'Enter E-mail Id',
-                                                    'model' => $engineer,
+                                                    'placeholder' => 'Enter Email id',
                                                 ])
                                             </div>
 
@@ -90,7 +86,6 @@
                                                     'name' => 'dob',
                                                     'type' => 'date',
                                                     'placeholder' => 'Enter Date of Birth',
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
@@ -100,10 +95,9 @@
                                                     'name' => 'gender',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        'male' => 'Male',
-                                                        'female' => 'Female',
+                                                        '1' => 'Male',
+                                                        '2' => 'Female',
                                                     ],
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
                                         </div>
@@ -113,19 +107,27 @@
                                 <div class="card pb-4">
                                     <div class="card-header border-bottom-dashed">
                                         <h5 class="card-title mb-0">
-                                            Address Information
+                                            Address/Branch Information
                                         </h5>
                                     </div>
 
                                     <div class="card-body">
+                                        <form method="post" id="branch-form">
                                             <div class="row g-3">
+                                                <div class="col-6">
+                                                    @include('components.form.input', [
+                                                        'label' => 'Branch Name',
+                                                        'name' => 'branch_name',
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Enter Name of Branch',
+                                                    ])
+                                                </div>
                                                 <div class="col-6">
                                                     @include('components.form.input', [
                                                         'label' => 'Address Line 1',
                                                         'name' => 'address',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Address Line 1',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -135,7 +137,6 @@
                                                         'name' => 'address2',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Address Line 2',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -145,7 +146,6 @@
                                                         'name' => 'city',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter City',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -155,7 +155,6 @@
                                                         'name' => 'state',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter State',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -165,7 +164,6 @@
                                                         'name' => 'country',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Country',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
@@ -175,179 +173,165 @@
                                                         'name' => 'pincode',
                                                         'type' => 'text',
                                                         'placeholder' => 'Enter Pincode',
-                                                        'model' => $engineer,
                                                     ])
                                                 </div>
 
+                                                <div class="col-12">
+                                                    <div class="text-end">
+                                                        <input type="submit" value="Add" class="btn btn-success">
+                                                        <!-- <button type="submit" class="btn btn-success">
+                                                        Add
+                                                    </button> -->
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </form>
                                     </div>
                                 </div>
-
-                                <div class="card pb-4">
+                                <div class="card branch-section">
                                     <div class="card-header border-bottom-dashed">
                                         <h5 class="card-title mb-0">
-                                            Bank Account Details
+                                            Branch Information
                                         </h5>
                                     </div>
-
                                     <div class="card-body">
-                                            <div class="row g-3">
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Bank Account Holder Name',
-                                                        'name' => 'bank_acc_holder_name',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Bank Account Holder Name',
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
+                                        <table class="table table-striped table-borderless dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Branch Name</th>
+                                                    <th>Address Line 1</th>
+                                                    <th>Address Line 2</th>
+                                                    <th>City</th>
+                                                    <th>State</th>
+                                                    <th>Country</th>
+                                                    <th>Pincode</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Bank Account Number',
-                                                        'name' => 'bank_acc_number',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Bank Account Number',
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Bank Name',
-                                                        'name' => 'bank_name',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Bank Name',
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'IFSC Code',
-                                                        'name' => 'ifsc_code',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter IFSC Code',
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
-                                            </div>
+                                                <tr class="align-middle">
+                                                    <td>BO</td>
+                                                    <td>
+                                                        <div>
+                                                            Sanjay Nagar Jalji Pada Kandivali West
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Ganesh Nagar
+                                                    </td>
+                                                    <td>
+                                                        Mumbai
+                                                    </td>
+                                                    <td>
+                                                        Maharashtra
+                                                    </td>
+                                                    <td>
+                                                        India
+                                                    </td>
+                                                    <td>400067</td>
+                                                    <td>
+                                                        <a aria-label="anchor"
+                                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="align-middle">
+                                                    <td>KD</td>
+                                                    <td>
+                                                        <div>
+                                                            Sanjay Nagar Jalji Pada Kandivali West
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Ganesh Nagar
+                                                    </td>
+                                                    <td>
+                                                        Mumbai
+                                                    </td>
+                                                    <td>
+                                                        Maharashtra
+                                                    </td>
+                                                    <td>
+                                                        India
+                                                    </td>
+                                                    <td>400067</td>
+                                                    <td>
+                                                        <a aria-label="anchor"
+                                                            class="btn btn-icon btn-sm bg-danger-subtle delete-row"
+                                                            data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-
-                                <div class="card pb-4">
-                                    <div class="card-header border-bottom-dashed">
-                                        <h5 class="card-title mb-0">
-                                            Police Verification Details
-                                        </h5>
-                                    </div>
-
-                                    <div class="card-body">
-                                            <div class="row g-3">
-                                                
-                                                <div class="col-6">
-                                                    @include('components.form.select', [
-                                                        'label' => 'Police Verification:',
-                                                        'name' => 'police_verification',
-                                                        'options' => [
-                                                            '0' => '--Select--',
-                                                            'Yes' => 'Yes',
-                                                            'No' => 'No',
-                                                        ],
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.select', [
-                                                        'label' => 'Police Verification Status:',
-                                                        'name' => 'police_verification_status',
-                                                        'options' => [
-                                                            '0' => '--Select--',
-                                                            'Pending' => 'Pending',
-                                                            'Completed' => 'Completed',
-                                                        ],
-                                                        'model' => $engineer,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Upload Police Verification Document',
-                                                        'name' => 'police_certificate',
-                                                        'type' => 'file',
-                                                    ])
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
+                                <!-- <div class="text-start mb-3">
+                                <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                    Submit
+                                </button>
+                            </div> -->
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="card">
                                     <div class="card-header border-bottom-dashed">
                                         <h5 class="card-title mb-0">
-                                            Employment Details:
+                                            Other Details:
                                         </h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="mb-3">
                                                 @include('components.form.select', [
-                                                    'label' => 'Designation',
-                                                    'name' => 'designation',
+                                                    'label' => 'Customer Type',
+                                                    'name' => 'customer_type',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        'Network Engineer' => 'Network Engineer',
-                                                        'Hardware Technician' => 'Hardware Technician',
+                                                        '1' => 'Retail',
+                                                        '2' => 'Wholesale',
+                                                        '3' => 'Corporate',
                                                     ],
-                                                    'model' => $engineer,
-                                                ])
-                                            </div>
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Department',
-                                                    'name' => 'department',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        'Installation' => 'Installation',
-                                                        'Maintenance' => 'Maintenance',
-                                                        'Support' => 'Support',
-                                                    ],
-                                                    'model' => $engineer,
                                                 ])
                                             </div>
 
                                             <div class="mb-3">
                                                 @include('components.form.input', [
-                                                    'label' => 'Joining Date',
-                                                    'name' => 'join_date',
-                                                    'type' => 'date',
-                                                    'model' => $engineer,
+                                                    'label' => 'Company Name',
+                                                    'name' => 'company_name',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Company Name',
                                                 ])
                                             </div>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div class="card">
-                                    <div class="card-header border-bottom-dashed">
-                                        <h5 class="card-title mb-0">
-                                            Skill Details:
-                                        </h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
+                                            {{-- <div class="mb-3">
+                                                @include('components.form.input', [
+                                                    'label' => 'Company Address',
+                                                    'name' => 'company_addr',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Company Address',
+                                                ])
+                                            </div> --}}
+
                                             <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Primary Skills',
-                                                    'name' => 'primary_skills',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        'Network Engineer' => 'Network Engineer',
-                                                        'Hardware Technician' => 'Hardware Technician',
-                                                    ],
-                                                    'model' => $engineer,
+                                                @include('components.form.input', [
+                                                    'label' => 'GST Number',
+                                                    'name' => 'gst_no',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter GST Number',
+                                                ])
+                                            </div>
+
+                                            <div class="mb-3">
+                                                @include('components.form.input', [
+                                                    'label' => 'PAN Number',
+                                                    'name' => 'pan_no',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter PAN Number',
                                                 ])
                                             </div>
                                         </div>
@@ -371,21 +355,10 @@
                                                     'type' => 'file',
                                                 ])
                                             </div>
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Status',
-                                                    'name' => 'status',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        '1' => 'Active',
-                                                        '2' => 'Inactive',
-                                                    ],
-                                                ])
-                                            </div>
                                             <!-- <div class="mb-3">
-                                                    <label for="pic" class="form-label">Profile Picture Upload <span class="text-danger">*</span></label>
-                                                    <input type="file" name="pic" id="pic" class="form-control" value="" required="" placeholder="Profile Picture Upload">
-                                                </div> -->
+                                            <label for="pic" class="form-label">Profile Picture Upload <span class="text-danger">*</span></label>
+                                            <input type="file" name="pic" id="pic" class="form-control" value="" required="" placeholder="Profile Picture Upload">
+                                        </div> -->
                                         </div>
 
                                     </div>
@@ -394,17 +367,17 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="text-start mb-3">
-                                    {{-- <a href="{{ route('engineers.index') }}"
-                                        class="btn btn-success w-sm waves ripple-light">
-                                        Submit
-                                    </a> --}}
+                                    {{-- <a href="{{ route('customer.index') }}" class="btn btn-success w-sm waves ripple-light">
+                                    Submit
+                                </a> --}}
                                     <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                            Submit
-                                        </button> 
+                                        Submit
+                                    </button>
                                 </div>
                             </div>
 
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -413,13 +386,9 @@
 
     <script>
         $(document).ready(function() {
-            $(".branch-section").hide();
+            // $(".branch-section").hide();
 
-            $("#branch-form").on("submit", function(e) {
-                e.preventdefault();
-                let formData = e.serialize();
-                console.log(formData);
-            });
+
         });
     </script>
 @endsection

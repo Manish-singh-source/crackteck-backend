@@ -306,7 +306,7 @@
                                                                 class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                                                 <span class="fw-semibold text-break">Status :</span>
                                                                 <span
-                                                                    class="badge bg-success-subtle text-success fw-semibold">Active</span>
+                                                                    class="badge bg-success-subtle text-success fw-semibold">{{ $engineer->status }}</span>
                                                             </li>
 
                                                         </ul>
