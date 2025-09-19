@@ -2,11 +2,9 @@
 
 @section('content')
     <div class="content">
-
         <div class="container-fluid">
-
             <div class="bradcrumb pt-3 ps-2 bg-light">
-                <div class="row ">
+                <div class="row">
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -19,274 +17,373 @@
 
             <div class="py-1 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0"></h4>
+                    <h4 class="fs-18 fw-semibold m-0">Add New E-commerce Product</h4>
                 </div>
             </div>
 
+            <form id="ecommerceProductForm" action="{{ route('ec.product.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="warehouse_product_id" id="warehouse_product_id">
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <div class="row g-4 align-items-center">
-                                        <div class="col-sm">
-                                            <h5 class="card-title mb-0">
-                                                Basic Product Information
-                                            </h5>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <!-- Warehouse Product Search Section -->
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm">
+                                                <h5 class="card-title mb-0">
+                                                    Search Warehouse Product
+                                                </h5>
+                                                <p class="text-muted mb-0">Search and select a product from warehouse to auto-fill details</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <label class="form-label" for="warehouse_search">
+                                                    Search Product by Name, SKU, or Serial Number <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" id="warehouse_search"
+                                                           placeholder="Type to search warehouse products..." autocomplete="off">
+                                                    <div id="search_results" class="position-absolute w-100 bg-white border rounded shadow-sm"
+                                                         style="z-index: 1000; max-height: 300px; overflow-y: auto; display: none;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" id="selected_product_info" style="display: none;">
+                                                <div class="alert alert-success">
+                                                    <strong>Selected Product:</strong> <span id="selected_product_name"></span>
+                                                    <button type="button" class="btn-close float-end" id="clear_selection"></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card-body">
-                                    <div class="row g-3">
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                <label class="form-label" for="product_name">
-                                                    Product Name <span class="text-danger">*</span>
-                                                </label>
-                                                <input name="product_name" id="product_name" type="text"
-                                                    class="form-control" placeholder="Enter Product Name" required="">
+                                <!-- Basic Product Information (Auto-filled) -->
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm">
+                                                <h5 class="card-title mb-0">
+                                                    Basic Product Information
+                                                </h5>
+                                                <p class="text-muted mb-0">Auto-filled from warehouse product</p>
                                             </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                <label class="form-label" for="sku">
-                                                    SKU <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="text" class="form-control" id="sku" name="sku"
-                                                    required="" placeholder="Product SKU Code">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Brand',
-                                                    'name' => 'brand_title',
-                                                    'options' => $brand,
-                                                    'model' => isset($product) ? $product : null,
-                                                ])
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                <label class="form-label" for="model">
-                                                    Model No <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="text" class="form-control" id="model" name="model"
-                                                    required="" placeholder="Product Model No.">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                <label class="form-label" for="serial">
-                                                    Product Serial No <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="text" class="form-control" id="serial" name="serial"
-                                                    required="" placeholder="Product Serial No.">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                <label class="form-label" for="serial">
-                                                    Custom Serial No <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="text" class="form-control" id="serial" name="serial"
-                                                    required="" placeholder="Custom Product Serial No.">
-                                            </div>
-                                        </div>
-
-                                        {{-- <div class="col-xl-6 col-lg-6">
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Parent Category',
-                                                    'name' => 'parent_category',
-                                                    'options' => $parentCategorie,
-                                                    'model' => isset($product) ? $product : null,
-                                                ])
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Sub Category',
-                                                    'name' => 'sub_category',
-                                                    'options' => $subcategorie,
-                                                    'model' => isset($product) ? $product : null,
-                                                ])
-                                            </div>
-                                        </div> --}}
-
-                                        <div class="col-lg-6">
-                                            @include('components.form.select', [
-                                                'label' => 'Parent Category',
-                                                'name' => 'parent_category',
-                                                'options' =>
-                                                    ['' => 'Select Parent Category'] + $parentCategorie->toArray(),
-                                                'model' => isset($product) ? $product : null,
-                                            ])
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            @include('components.form.select', [
-                                                'label' => 'Sub Category',
-                                                'name' => 'sub_category',
-                                                'options' => ['' => 'First select parent category'],
-                                                'model' => isset($product) ? $product : null,
-                                            ])
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="card pb-4">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Product Details
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12 mb-2">
-                                            <div>
-                                                <label for="short_details" class="form-label">Short Description <span
-                                                        class="text-danger">*</span></label>
-                                                <div id="quill-editor" style="height: 300px;">
-                                                    <p>A high-performance biometric device designed for secure and accurate
-                                                        attendance tracking and access control.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-2">
-                                            <div>
-                                                <label for="full_details" class="form-label">Full Description<span
-                                                        class="text-danger">*</span></label>
-                                                <div id="quill-editor1" style="height: 300px;">
-                                                    <p>A high-performance biometric device designed for secure and accurate
-                                                        attendance tracking and access control. This compact and efficient
-                                                        system uses fingerprint, face recognition, and/or RFID technology to
-                                                        verify individual identity, helping organizations streamline
-                                                        workforce management and enhance security.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-2">
-                                            <div>
-                                                <label for="tech_specs" class="form-label">Technical Specifications<span
-                                                        class="text-danger">*</span></label>
-                                            </div>
-                                            <div id="quill-editor2" style="height: 300px;">
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-xl-6 col-lg-6">
                                                 <div>
-                                                    <table class="table table-bordered" cellpadding="8" cellspacing="0"
-                                                        style="width: 100%; border-collapse: collapse;">
+                                                    <label class="form-label" for="product_name">
+                                                        Product Name <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input name="product_name" id="product_name" type="text"
+                                                        class="form-control" placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="sku">
+                                                        SKU <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="text" class="form-control" id="sku" name="sku"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="brand_name">
+                                                        Brand
+                                                    </label>
+                                                    <input type="text" class="form-control" id="brand_name" name="brand_name"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="model_no">
+                                                        Model No
+                                                    </label>
+                                                    <input type="text" class="form-control" id="model_no" name="model_no"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="serial_no">
+                                                        Serial No
+                                                    </label>
+                                                    <input type="text" class="form-control" id="serial_no" name="serial_no"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="category_name">
+                                                        Category
+                                                    </label>
+                                                    <input type="text" class="form-control" id="category_name" name="category_name"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="subcategory_name">
+                                                        Sub Category
+                                                    </label>
+                                                    <input type="text" class="form-control" id="subcategory_name" name="subcategory_name"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div>
+                                                    <label class="form-label" for="stock_quantity">
+                                                        Available Stock
+                                                    </label>
+                                                    <input type="text" class="form-control" id="stock_quantity" name="stock_quantity"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- E-commerce Product Details -->
+                                <div class="card pb-4">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            E-commerce Product Details
+                                        </h5>
+                                        <p class="text-muted mb-0">Customize descriptions for e-commerce display</p>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <div>
+                                                    <label for="ecommerce_short_description" class="form-label">E-commerce Short Description</label>
+                                                    <div id="quill-editor-short" style="height: 200px;">
+                                                        <p>Enter a compelling short description for e-commerce display...</p>
+                                                    </div>
+                                                    <input type="hidden" name="ecommerce_short_description" id="ecommerce_short_description">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <div>
+                                                    <label for="ecommerce_full_description" class="form-label">E-commerce Full Description</label>
+                                                    <div id="quill-editor-full" style="height: 300px;">
+                                                        <p>Enter detailed product description for e-commerce display...</p>
+                                                    </div>
+                                                    <input type="hidden" name="ecommerce_full_description" id="ecommerce_full_description">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <div>
+                                                    <label for="ecommerce_technical_specification" class="form-label">E-commerce Technical Specifications</label>
+                                                    <div id="quill-editor-tech" style="height: 300px;">
+                                                        <p>Enter technical specifications formatted for e-commerce display...</p>
+                                                    </div>
+                                                    <input type="hidden" name="ecommerce_technical_specification" id="ecommerce_technical_specification">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-6">
+                                                <div class="row justify-content-end align-items-end">
+                                                    <div class="col-11">
+                                                        <div class="mb-3">
+                                                            <label for="installation_option" class="form-label">With Installation Options</label>
+                                                            <input type="text" class="form-control" id="installation_option"
+                                                                placeholder="Enter installation option (e.g., Basic Installation, Premium Setup)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <div class="mb-3">
+                                                            <button type="button" class="btn btn-primary w-100 add-installation">Add</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <table class="table mt-4" id="installationTable" style="display: none;">
                                                         <thead>
-                                                            <tr style="background-color: #f2f2f2;">
-                                                                <th>Specification</th>
-                                                                <th>Details</th>
+                                                            <tr>
+                                                                <th>Installation Options</th>
+                                                                <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Identification Methods</td>
-                                                                <td>Fingerprint, Face Recognition, RFID Card, PIN</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Fingerprint Capacity</td>
-                                                                <td>5,000 templates</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Face Capacity</td>
-                                                                <td>1,000 templates</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Card Capacity</td>
-                                                                <td>5,000 (125kHz RFID)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Transaction Storage</td>
-                                                                <td>100,000 records</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Recognition Speed</td>
-                                                                <td>≤ 0.5 seconds</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Display</td>
-                                                                <td>2.8-inch TFT Color LCD</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Audio/Visual Indicators</td>
-                                                                <td>Voice Prompt &amp; LED Notification</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Communication Interface</td>
-                                                                <td>TCP/IP, USB Host, Wi-Fi (optional)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Access Control Interface</td>
-                                                                <td>Door Sensor, Exit Button, Electric Lock, Alarm</td>
-                                                            </tr>
-
+                                                            <!-- Selected values will appear here -->
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xl-12 col-lg-6">
-                                            <div class="row justify-content-end align-items-end">
-                                                <div class="col-11">
-                                                    <div class="mb-3">
-                                                        <label for="warranty" class="form-label">With Installation</label>
-                                                        <input type="text" class="form-control" id="warranty"
-                                                            name="warranty">
-                                                    </div>
-                                                </div>
-                                                <div class="col-1">
-                                                    <div class="mb-3">
-                                                        <button class="btn btn-primary w-100 add-warranty">Add</button>
-                                                    </div>
-                                                </div>
 
-                                                <table class="table mt-4" id="warrantyTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Installation Included</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- Selected values will appear here -->
-                                                    </tbody>
-                                                </table>
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="brand_warranty" class="form-label">Brand Warranty</label>
+                                                    <input type="text" class="form-control" id="brand_warranty"
+                                                        name="brand_warranty" placeholder="Auto-filled from warehouse" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="company_warranty" class="form-label">Company Warranty</label>
+                                                    <input type="text" class="form-control" id="company_warranty"
+                                                        name="company_warranty" placeholder="Enter company warranty">
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
+                                <!-- Pricing Information (Auto-filled from Warehouse) -->
+                                <div class="card pb-4">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            Pricing Information
+                                        </h5>
+                                        <p class="text-muted mb-0">Auto-filled from warehouse product</p>
+                                    </div>
 
-                                        <div class="col-xl-12  col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="brand_warranty_details" class="form-label">Brand
-                                                    Warranty</label>
-                                                <input type="text" class="form-control" id="brand_warranty_details"
-                                                    name="brand_warranty_details" required=""
-                                                    placeholder="Enter Brand Warranty">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="cost_price" class="form-label">Cost Price</label>
+                                                    <input name="cost_price" id="cost_price" type="text"
+                                                        class="form-control" placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="selling_price" class="form-label">Selling Price</label>
+                                                    <input name="selling_price" id="selling_price" type="text"
+                                                        class="form-control" placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="discount_price" class="form-label">Discount Price</label>
+                                                    <input name="discount_price" id="discount_price" type="text"
+                                                        class="form-control" placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="tax" class="form-label">Tax (%)</label>
+                                                    <input name="tax" id="tax" type="text" class="form-control"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="final_price" class="form-label">Final Price</label>
+                                                    <input name="final_price" id="final_price" type="text"
+                                                        class="form-control" placeholder="Select warehouse product first" readonly>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="col-xl-12  col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="crackteck_warranty_details" class="form-label">Company
-                                                    Warranty</label>
-                                                <input type="text" class="form-control"
-                                                    id="crackteck_warranty_details" name="crackteck_warranty_details"
-                                                    required="" placeholder="Enter Our Company Warranty">
+                                <!-- E-commerce Inventory Settings -->
+                                <div class="card pb-4">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            E-commerce Inventory Settings
+                                        </h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="warehouse_stock" class="form-label">Warehouse Stock</label>
+                                                    <input name="warehouse_stock" id="warehouse_stock" type="text" class="form-control"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="warehouse_stock_status" class="form-label">Stock Status</label>
+                                                    <input name="warehouse_stock_status" id="warehouse_stock_status" type="text" class="form-control"
+                                                        placeholder="Select warehouse product first" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="min_order_qty" class="form-label">Minimum Order Qty <span
+                                                            class="text-danger">*</span></label>
+                                                    <input name="min_order_qty" id="min_order_qty" type="number"
+                                                        class="form-control" placeholder="Enter Minimum Order Quantity"
+                                                        value="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    <label for="max_order_qty" class="form-label">Maximum Order Qty</label>
+                                                    <input name="max_order_qty" id="max_order_qty" type="number"
+                                                        class="form-control" placeholder="Enter Maximum Order Quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SEO Section -->
+                                <div class="card pb-4">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            SEO Settings
+                                        </h5>
+                                        <p class="text-muted mb-0">Optimize your product for search engines</p>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <div>
+                                                    <label for="meta_title" class="form-label">Meta Title</label>
+                                                    <input name="meta_title" id="meta_title" type="text"
+                                                        class="form-control" placeholder="Enter SEO meta title" maxlength="60">
+                                                    <small class="text-muted">Recommended: 50-60 characters</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <div>
+                                                    <label for="meta_description" class="form-label">Meta Description</label>
+                                                    <textarea name="meta_description" id="meta_description" rows="3"
+                                                        class="form-control" placeholder="Enter SEO meta description" maxlength="160"></textarea>
+                                                    <small class="text-muted">Recommended: 150-160 characters</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <div>
+                                                    <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                                    <input name="meta_keywords" id="meta_keywords" type="text"
+                                                        class="form-control" placeholder="Enter keywords separated by commas">
+                                                    <small class="text-muted">Separate keywords with commas</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <div>
+                                                    <label for="meta_product_url_slug" class="form-label">Product URL Slug</label>
+                                                    <input name="meta_product_url_slug" id="meta_product_url_slug" type="text"
+                                                        class="form-control" placeholder="Auto-generated from product name">
+                                                    <small class="text-muted">Leave empty to auto-generate</small>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -294,421 +391,461 @@
 
                             </div>
 
-                            <div class="card pb-4">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Pricing
-                                    </h5>
+                            <div class="col-lg-4">
+                                <!-- Product Images (Auto-filled from Warehouse) -->
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            Product Images & Media
+                                        </h5>
+                                        <p class="text-muted mb-0">Auto-filled from warehouse product</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="main_product_image_display" class="form-label">Main Product Image</label>
+                                            <div id="main_image_preview" class="border rounded p-3 text-center" style="min-height: 200px;">
+                                                <p class="text-muted">Select warehouse product to view image</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Additional Images</label>
+                                            <div id="additional_images_preview" class="border rounded p-3" style="min-height: 100px;">
+                                                <p class="text-muted">Select warehouse product to view additional images</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Product Manual/Datasheet</label>
+                                            <div id="datasheet_preview" class="border rounded p-3">
+                                                <p class="text-muted">Select warehouse product to view datasheet</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="cost_price" class="form-label">Cost Price <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="cost_price" id="cost_price" type="text"
-                                                    class="form-control" placeholder="Enter Cost Price" required="">
-                                            </div>
+                                <!-- E-commerce Settings -->
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            E-commerce Settings
+                                        </h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="ecommerce_status" class="form-label">E-commerce Status <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="ecommerce_status" id="ecommerce_status" class="form-select">
+                                                <option value="active" selected>Active</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="draft">Draft</option>
+                                            </select>
                                         </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="selling_price" class="form-label">Selling Price <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="selling_price" id="selling_price" type="text"
-                                                    class="form-control" placeholder="Enter Selling Price"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="discount_price" class="form-label">Discount Price <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="discount_price" id="discount_price" type="text"
-                                                    class="form-control" placeholder="Enter Discount Price"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="tax" class="form-label">Tax (%) <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="tax" id="tax" type="text" class="form-control"
-                                                    placeholder="Enter Tax" required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="final_price" class="form-label">Final Price (after discount)
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Product Flags</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured" value="1">
+                                                <label class="form-check-label" for="is_featured">
+                                                    Featured Product
                                                 </label>
-                                                <input name="final_price" id="final_price" type="text"
-                                                    class="form-control" placeholder="Enter Final Price" required="">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="is_best_seller" id="is_best_seller" value="1">
+                                                <label class="form-check-label" for="is_best_seller">
+                                                    Best Seller
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="is_suggested" id="is_suggested" value="1">
+                                                <label class="form-check-label" for="is_suggested">
+                                                    Suggested Item
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="is_todays_deal" id="is_todays_deal" value="1">
+                                                <label class="form-check-label" for="is_todays_deal">
+                                                    Today's Deal
+                                                </label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                            </div>
-
-                            <div class="card pb-4">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Inventory
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="stock" class="form-label">Stock <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="stock" id="stock" type="text" class="form-control"
-                                                    placeholder="Enter Stock" required="">
-                                                <div id="emailHelp" class="text-danger">Stock Should Be Less Than 50</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="stock_status" class="form-label">Stock Status <span
-                                                        class="text-danger">*</span></label>
-                                                <select class="form-select" id="stock_status" name="stock_status"
-                                                    required="">
-                                                    <option selected disabled>-- Select --</option>
-                                                    <option>In Stock</option>
-                                                    <option>Out of Stock</option>
-                                                    <option>Pre-order</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="min_order_qty" class="form-label">Minimum Order Qty<span
-                                                        class="text-danger">*</span></label>
-                                                <input name="min_order_qty" id="min_order_qty" type="number"
-                                                    class="form-control" placeholder="Enter Minimum Order Quantity"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="max_order_qty" class="form-label">Maximum Order Qty<span
-                                                        class="text-danger">*</span></label>
-                                                <input name="max_order_qty" id="max_order_qty" type="number"
-                                                    class="form-control" placeholder="Enter Maximum Order Quantity"
-                                                    required="">
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="product_tags_input" class="form-label">Product Tags</label>
+                                            <input type="text" class="form-control" id="product_tags_input"
+                                                   placeholder="Enter tags separated by commas">
+                                            <small class="text-muted">e.g., Best Seller, High-Speed, Premium</small>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="card pb-4">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        SEO
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="meta_title" class="form-label">Meta Title <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="meta_title" id="meta_title" type="text"
-                                                    class="form-control" placeholder="Enter Meta Title" required="">
-                                            </div>
+                                <!-- Shipping Details -->
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            Shipping Details
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="product_weight" class="form-label">Product Weight</label>
+                                            <input name="product_weight" id="product_weight" type="text" class="form-control"
+                                                placeholder="e.g., 2.5 kg">
                                         </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="meta_description" class="form-label">Meta Description <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="meta_description" id="meta_description" type="text"
-                                                    class="form-control" placeholder="Enter Meta Description"
-                                                    required="">
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="product_dimensions" class="form-label">Product Dimensions</label>
+                                            <input name="product_dimensions" id="product_dimensions" type="text" class="form-control"
+                                                placeholder="e.g., 30 × 20 × 15 cm">
                                         </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="meta_keywords" class="form-label">Meta Keywords<span
-                                                        class="text-danger">*</span></label>
-                                                <input name="meta_keywords" id="meta_keywords" type="text"
-                                                    class="form-control" placeholder="Enter Meta Keywords"
-                                                    required="">
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="shipping_charges" class="form-label">Shipping Charges</label>
+                                            <input name="shipping_charges" id="shipping_charges" type="number" step="0.01"
+                                                class="form-control" placeholder="0.00">
                                         </div>
-                                        <div class="col-6 mb-2">
-                                            <div>
-                                                <label for="url_slug" class="form-label">Product URL Slug <span
-                                                        class="text-danger">*</span></label>
-                                                <input name="url_slug" id="url_slug" type="text"
-                                                    class="form-control" placeholder="Enter Product URL Slug"
-                                                    required="">
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="shipping_class" class="form-label">Shipping Class</label>
+                                            <select class="form-select" id="shipping_class" name="shipping_class">
+                                                <option value="Light" selected>Light</option>
+                                                <option value="Heavy">Heavy</option>
+                                                <option value="Fragile">Fragile</option>
+                                            </select>
                                         </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Images and Media:
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="main_image" class="form-label">Main Product Image<span
-                                                class="text-danger">*</span></label>
-                                        <input type="file" name="main_image" id="main_image" class="form-control"
-                                            required="">
-                                        <div id="emailHelp" class="text-danger">Image Size Should Be
-                                            800x650
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="additional_images" class="form-label">Additional Product Images<span
-                                                class="text-danger">*</span></label>
-                                        <input type="file" name="additional_images" id="additional_images"
-                                            class="form-control" required="" multiple>
-                                        <div id="emailHelp" class="text-danger">Image Size Should Be
-                                            800x650
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="datasheet_doc" class="form-label">Product Datasheet or Manual <span
-                                                class="text-danger">*</span></label>
-                                        <input type="file" name="datasheet_doc" id="datasheet_doc"
-                                            class="form-control" required="">
-                                        <div id="emailHelp" class="text-danger">Image Size Should Be
-                                            800x650
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Product Variations
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div>
-                                        <label for="color_options" class="form-label">Color Options <span
-                                                class="text-danger">*</span></label>
-                                        <select required="" name="color_options" id="color_options"
-                                            class="form-select w-100">
-                                            <option selected disabled>-- Select --</option>
-                                            <option value="1">Black</option>
-                                            <option value="2">White</option>
-                                            <option value="3">Grey</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mt-3">
-                                        <label for="size_options" class="form-label">Size/Length Options <span
-                                                class="text-danger">*</span></label>
-                                        <select required="" name="size_options" id="size_options"
-                                            class="form-select w-100">
-                                            <option selected disabled>-- Select --</option>
-                                            <option value="1">Black</option>
-                                            <option value="2">White</option>
-                                            <option value="3">Grey</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Status
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div>
-                                        <label for="product_status" class="form-label">Product Status <span
-                                                class="text-danger">*</span></label>
-                                        <select required="" name="product_status" id="product_status"
-                                            class="form-select w-100">
-                                            <option disabled>-- Select --</option>
-                                            <option selected value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Shipping Details
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="weight" class="form-label">Product Weight (kg/gms) <span
-                                                class="text-danger">*</span></label>
-                                        <input name="weight" id="weight" type="text" class="form-control"
-                                            placeholder="Enter Weight" required="">
-                                    </div>
-                                    <div class="mt-3 mb-3">
-                                        <label for="dimensions" class="form-label">Product Dimensions (L × W × H
-                                            cm/mm)<span class="text-danger">*</span></label>
-                                        <input name="dimensions" id="dimensions" type="text" class="form-control"
-                                            placeholder="Enter Dimension" required="">
-                                    </div>
-                                    <div class="mt-3 mb-3">
-                                        <label for="shipping_charges" class="form-label">Shipping Charges<span
-                                                class="text-danger">*</span></label>
-                                        <input name="shipping_charges" id="shipping_charges" type="text"
-                                            class="form-control" placeholder="Enter Shipping Charges" required="">
-                                    </div>
-                                    <div class="mt-3 mb-3">
-                                        <label for="featured_image" class="form-label">Shipping Class<span
-                                                class="text-danger">*</span></label>
-                                        <select class="form-select" id="warranty" name="warranty" required="">
-                                            <option selected disabled>-- Select --</option>
-                                            <option>Light</option>
-                                            <option>Heavy</option>
-                                            <option>Fragile</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Other Information:
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="featured_image" class="form-label">Featured Product?<span
-                                                class="text-danger">*</span></label>
-                                        <select class="form-select" id="warranty" name="warranty" required="">
-                                            <option selected disabled>-- Select --</option>
-                                            <option>Yes</option>
-                                            <option>No</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="featured_image" class="form-label">Tags<span
-                                                class="text-danger">*</span></label>
-                                        <select class="form-select" id="warranty" name="warranty" required="">
-                                            <option selected disabled>-- Select --</option>
-                                            <option>Best Seller</option>
-                                            <option>High-Speed</option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-12">
-                            <div class="text-start mb-3">
-                                <a href="{{ route('ec.product.index') }}" class="btn btn-success w-sm waves ripple-light">
-                                    Submit
-                                </a>
+                            <div class="col-lg-12">
+                                <div class="text-start mb-3">
+                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                        <i class="fas fa-save me-1"></i> Create E-commerce Product
+                                    </button>
+                                    <a href="{{ route('ec.product.index') }}" class="btn btn-secondary w-sm ms-2">
+                                        <i class="fas fa-times me-1"></i> Cancel
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
+            </form>
         </div> <!-- container-fluid -->
     </div> <!-- content -->
 
+    <!-- Include Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Add engineer to table
-            $('#warrantyTable').hide();
-            $(".add-warranty").on("click", function() {
-                $('#warrantyTable').show();
-                const warrantyValue = $('#warranty').val();
-                const tableBody = $('#warrantyTable tbody');
-                console.log(warrantyValue);
-                const newRow = `
-                            <tr>
-                                <td>${warrantyValue}</td>
-                                <td>
-                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-warning-subtle me-1" data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                        <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                    </a>
-                                    <a aria-label="anchor" class="btn btn-icon btn-sm bg-danger-subtle delete-row" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        `;
-                console.log(warrantyValue);
-                tableBody.append(newRow);
-            });
-        });
+            let searchTimeout;
+            let selectedProductId = null;
+            let installationOptions = [];
 
-
-        $(document).ready(function() {
-            $(".warranty-list").hide();
-
-            $("#warranty").on('click', function() {
-                if ($(this)[0].checked) {
-                    $(".warranty-list").show();
-                } else {
-                    $(".warranty-list").hide();
+            // Initialize Quill editors
+            const quillShort = new Quill('#quill-editor-short', {
+                theme: 'snow',
+                placeholder: 'Enter short description for e-commerce...',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['clean']
+                    ]
                 }
             });
 
-            $("#reject-request").on('click', function() {
-                $(this).parent().hide();
-                $(".request-status").html("Rejected");
+            const quillFull = new Quill('#quill-editor-full', {
+                theme: 'snow',
+                placeholder: 'Enter full description for e-commerce...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                }
             });
-        });
-    </script>
 
-    <script>
-        $(document).ready(function() {
+            const quillTech = new Quill('#quill-editor-tech', {
+                theme: 'snow',
+                placeholder: 'Enter technical specifications for e-commerce...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        ['blockquote'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                }
+            });
 
-            // Parent -> Sub
-            $('select[name="parent_category"]').on('change', function() {
-                var id = $(this).val();
-                $.get('/parent-dependent?type=rack&id=' + id, function(data) {
-                    var select = $('select[name="warehouse_rack_name"]');
-                    select.empty().append('<option value="">--Select Rack--</option>');
-                    $.each(data, function(key, value) {
-                        select.append('<option value="' + key + '">' + value + '</option>');
+            // Warehouse Product Search
+            $('#warehouse_search').on('input', function() {
+                const query = $(this).val();
+
+                clearTimeout(searchTimeout);
+
+                if (query.length < 2) {
+                    $('#search_results').hide();
+                    return;
+                }
+
+                searchTimeout = setTimeout(function() {
+                    $.ajax({
+                        url: '{{ route("ec.product.search-warehouse") }}',
+                        method: 'GET',
+                        data: { query: query },
+                        success: function(data) {
+                            displaySearchResults(data);
+                        },
+                        error: function() {
+                            $('#search_results').html('<div class="p-2 text-danger">Error searching products</div>').show();
+                        }
                     });
+                }, 300);
+            });
+
+            // Display search results
+            function displaySearchResults(products) {
+                if (products.length === 0) {
+                    $('#search_results').html('<div class="p-2 text-muted">No products found</div>').show();
+                    return;
+                }
+
+                let html = '';
+                products.forEach(function(product) {
+                    html += `
+                        <div class="search-result-item p-2 border-bottom cursor-pointer" data-product-id="${product.id}">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold">${product.display_text}</div>
+                                    <small class="text-muted">Stock: ${product.stock_quantity} | Status: ${product.stock_status}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                $('#search_results').html(html).show();
+            }
+
+            // Handle search result selection
+            $(document).on('click', '.search-result-item', function() {
+                const productId = $(this).data('product-id');
+                selectedProductId = productId;
+
+                // Hide search results
+                $('#search_results').hide();
+                $('#warehouse_search').val('');
+
+                // Fetch and fill product details
+                fetchAndFillProductDetails(productId);
+            });
+
+            // Fetch and auto-fill product details
+            function fetchAndFillProductDetails(productId) {
+                $.ajax({
+                    url: `{{ route("ec.product.get-warehouse", ":id") }}`.replace(':id', productId),
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            fillProductDetails(response.product);
+                        }
+                    },
+                    error: function() {
+                        alert('Error fetching product details');
+                    }
+                });
+            }
+
+            // Fill product details in form
+            function fillProductDetails(product) {
+                // Set warehouse product ID
+                $('#warehouse_product_id').val(product.id);
+
+                // Fill basic information
+                $('#product_name').val(product.product_name);
+                $('#sku').val(product.sku);
+                $('#brand_name').val(product.brand_name);
+                $('#model_no').val(product.model_no);
+                $('#serial_no').val(product.serial_no);
+                $('#category_name').val(product.category_name);
+                $('#subcategory_name').val(product.subcategory_name);
+                $('#stock_quantity').val(product.stock_quantity);
+
+                // Fill pricing information
+                $('#cost_price').val(product.cost_price);
+                $('#selling_price').val(product.selling_price);
+                $('#discount_price').val(product.discount_price);
+                $('#tax').val(product.tax);
+                $('#final_price').val(product.final_price);
+
+                // Fill inventory
+                $('#warehouse_stock').val(product.stock_quantity);
+                $('#warehouse_stock_status').val(product.stock_status);
+
+                // Fill warranty
+                $('#brand_warranty').val(product.brand_warranty);
+
+                // Fill Quill editors with warehouse data
+                quillShort.root.innerHTML = product.short_description || '<p>Enter short description for e-commerce...</p>';
+                quillFull.root.innerHTML = product.full_description || '<p>Enter full description for e-commerce...</p>';
+                quillTech.root.innerHTML = product.technical_specification || '<p>Enter technical specifications for e-commerce...</p>';
+
+                // Show images
+                if (product.main_product_image) {
+                    $('#main_image_preview').html(`<img src="{{ asset('') }}${product.main_product_image}" class="img-fluid rounded" style="max-height: 200px;">`);
+                }
+
+                if (product.additional_product_images && product.additional_product_images.length > 0) {
+                    let additionalHtml = '';
+                    product.additional_product_images.forEach(function(image) {
+                        additionalHtml += `<img src="{{ asset('') }}${image}" class="img-thumbnail me-2 mb-2" style="width: 60px; height: 60px;">`;
+                    });
+                    $('#additional_images_preview').html(additionalHtml);
+                }
+
+                // Auto-generate SEO fields
+                $('#meta_title').val(product.product_name);
+                $('#meta_description').val(product.short_description ? product.short_description.substring(0, 160) : '');
+                $('#meta_keywords').val(product.brand_name + ', ' + product.category_name);
+
+                // Show selected product info
+                $('#selected_product_name').text(product.product_name + ' - ' + product.sku);
+                $('#selected_product_info').show();
+            }
+
+            // Clear selection
+            $('#clear_selection').on('click', function() {
+                selectedProductId = null;
+                $('#selected_product_info').hide();
+                $('#ecommerceProductForm')[0].reset();
+
+                // Clear Quill editors
+                quillShort.root.innerHTML = '<p>Enter short description for e-commerce...</p>';
+                quillFull.root.innerHTML = '<p>Enter full description for e-commerce...</p>';
+                quillTech.root.innerHTML = '<p>Enter technical specifications for e-commerce...</p>';
+
+                // Clear image previews
+                $('#main_image_preview').html('<p class="text-muted">Select warehouse product to view image</p>');
+                $('#additional_images_preview').html('<p class="text-muted">Select warehouse product to view additional images</p>');
+                $('#datasheet_preview').html('<p class="text-muted">Select warehouse product to view datasheet</p>');
+            });
+
+            // Installation options management
+            $('.add-installation').on('click', function(e) {
+                e.preventDefault();
+                const installationValue = $('#installation_option').val().trim();
+
+                if (installationValue && !installationOptions.includes(installationValue)) {
+                    installationOptions.push(installationValue);
+                    updateInstallationTable();
+                    $('#installation_option').val('');
+                }
+            });
+
+            function updateInstallationTable() {
+                if (installationOptions.length === 0) {
+                    $('#installationTable').hide();
+                    return;
+                }
+
+                let html = '';
+                installationOptions.forEach(function(option, index) {
+                    html += `
+                        <tr>
+                            <td>${option}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-danger remove-installation" data-index="${index}">
+                                    <i class="mdi mdi-delete"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                $('#installationTable tbody').html(html);
+                $('#installationTable').show();
+            }
+
+            // Remove installation option
+            $(document).on('click', '.remove-installation', function() {
+                const index = $(this).data('index');
+                installationOptions.splice(index, 1);
+                updateInstallationTable();
+            });
+
+            // Handle product tags
+            $('#product_tags_input').on('blur', function() {
+                const tags = $(this).val().split(',').map(tag => tag.trim()).filter(tag => tag);
+                // Store tags for form submission
+                $(this).data('tags', tags);
+            });
+
+            // Form submission
+            $('#ecommerceProductForm').on('submit', function(e) {
+                e.preventDefault();
+
+                if (!selectedProductId) {
+                    alert('Please select a warehouse product first.');
+                    return;
+                }
+
+                // Update hidden fields with Quill content
+                $('#ecommerce_short_description').val(quillShort.root.innerHTML);
+                $('#ecommerce_full_description').val(quillFull.root.innerHTML);
+                $('#ecommerce_technical_specification').val(quillTech.root.innerHTML);
+
+                // Add installation options to form data
+                const formData = new FormData(this);
+                installationOptions.forEach(function(option, index) {
+                    formData.append(`installation_options[${index}]`, option);
+                });
+
+                // Add product tags
+                const tags = $('#product_tags_input').val().split(',').map(tag => tag.trim()).filter(tag => tag);
+                tags.forEach(function(tag, index) {
+                    formData.append(`product_tags[${index}]`, tag);
+                });
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            if (response.redirect) {
+                                window.location.href = response.redirect;
+                            }
+                        } else {
+                            alert(response.message || 'An error occurred');
+                        }
+                    },
+                    error: function(xhr) {
+                        let message = 'An error occurred';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        alert(message);
+                    }
                 });
             });
 
-            // Rack -> Zone
-            $('select[name="warehouse_rack_name"]').on('change', function() {
-                var id = $(this).val();
-                $.get('/warehouse-dependent?type=zone&id=' + id, function(data) {
-                    var select = $('select[name="zone_area_id"]');
-                    select.empty().append('<option value="">--Select Zone--</option>');
-                    $.each(data, function(key, value) {
-                        select.append('<option value="' + key + '">' + value + '</option>');
-                    });
-                });
+            // Hide search results when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#warehouse_search, #search_results').length) {
+                    $('#search_results').hide();
+                }
             });
         });
     </script>
