@@ -165,12 +165,18 @@ Route::controller(SubscriberController::class)->group(function (){
     Route::get('/e-commerce/subscribers' ,'index')->name('subscriber.index');
     // Send Mail Page
     Route::get('/e-commerce/send-mail-subscriber' , 'sendMail')->name('subscriber.send-mail');
+    // Delete Subscriber
+    Route::delete('/e-commerce/delete-subscriber/{id}', 'delete')->name('subscriber.delete');
 });
 
 // ------------------------------------------------------------ E-Commerce Contact Page -------------------------------------------------------------
 
 // Contact Page 
 Route::get('/e-commerce/contacts', [ContactController::class, 'index'])->name('contact.index');
+// View Contact 
+Route::get('/e-commerce/view-contact/{id}', [ContactController::class, 'view'])->name('contact.view');
+// Delete Contact 
+Route::delete('/e-commerce/delete-contact/{id}', [ContactController::class, 'delete'])->name('contact.delete');
 
 // ---------------------------------------- E-Commerce Website Banner Page and Promotional Banner Page ------------------------------------------------
 
