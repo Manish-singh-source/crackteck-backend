@@ -113,93 +113,115 @@
                                 
                                 <div class="card pb-4">
                                     <div class="card-header border-bottom-dashed">
-                                        <h5 class="card-title mb-0">
-                                            Address/Branch Information
-                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title mb-0">
+                                                Address/Branch Information
+                                            </h5>
+                                            <button type="button" class="btn btn-primary btn-sm" id="add-branch-btn">
+                                                <i class="mdi mdi-plus"></i> Add Branch
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <div class="card-body">
-                                        <form method="post" id="branch-form">
-                                            <div class="row g-3">
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Branch Name',
-                                                        'name' => 'branch_name',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Name of Branch',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Address Line 1',
-                                                        'name' => 'address',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Address Line 1',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Address Line 2',
-                                                        'name' => 'address2',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Address Line 2',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'City',
-                                                        'name' => 'city',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter City',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'State',
-                                                        'name' => 'state',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter State',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Country',
-                                                        'name' => 'country',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Country',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Pincode',
-                                                        'name' => 'pincode',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Pincode',
-                                                        'model' => $customer->address,
-                                                    ])
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="text-end">
-                                                        <input type="submit" value="Add" class="btn btn-success">
-                                                        <!-- <button type="submit" class="btn btn-success">
-                                                        Add
-                                                    </button> -->
+                                        <div id="branches-container">
+                                            @if($customer->branches && $customer->branches->count() > 0)
+                                                @foreach($customer->branches as $index => $branch)
+                                                    <div class="branch-item border rounded p-3 mb-3" data-branch-index="{{ $index }}" data-branch-id="{{ $branch->id }}">
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <h6 class="mb-0 text-primary">Branch #{{ $index + 1 }}</h6>
+                                                            <div class="d-flex align-items-center gap-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="primary_branch" value="{{ $index }}" id="primary_{{ $index }}" {{ $branch->is_primary ? 'checked' : '' }}>
+                                                                    <label class="form-check-label" for="primary_{{ $index }}">
+                                                                        Primary Branch
+                                                                    </label>
+                                                                </div>
+                                                                @if($customer->branches->count() > 1)
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-branch-btn">
+                                                                        <i class="mdi mdi-delete"></i> Remove
+                                                                    </button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="row g-3">
+                                                            <input type="hidden" name="branches[{{ $index }}][id]" value="{{ $branch->id }}">
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_branch_name" class="form-label">Branch Name <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][branch_name]" id="branches_{{ $index }}_branch_name" class="form-control" placeholder="Enter Name of Branch" value="{{ $branch->branch_name }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][address]" id="branches_{{ $index }}_address" class="form-control" placeholder="Enter Address Line 1" value="{{ $branch->address }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_address2" class="form-label">Address Line 2</label>
+                                                                <input type="text" name="branches[{{ $index }}][address2]" id="branches_{{ $index }}_address2" class="form-control" placeholder="Enter Address Line 2" value="{{ $branch->address2 }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_city" class="form-label">City <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][city]" id="branches_{{ $index }}_city" class="form-control" placeholder="Enter City" value="{{ $branch->city }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_state" class="form-label">State <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][state]" id="branches_{{ $index }}_state" class="form-control" placeholder="Enter State" value="{{ $branch->state }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_country" class="form-label">Country <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][country]" id="branches_{{ $index }}_country" class="form-control" placeholder="Enter Country" value="{{ $branch->country }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="branches_{{ $index }}_pincode" class="form-label">Pincode <span class="text-danger">*</span></label>
+                                                                <input type="text" name="branches[{{ $index }}][pincode]" id="branches_{{ $index }}_pincode" class="form-control" placeholder="Enter Pincode" value="{{ $branch->pincode }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <!-- Default empty branch if no branches exist -->
+                                                <div class="branch-item border rounded p-3 mb-3" data-branch-index="0">
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <h6 class="mb-0 text-primary">Branch #1</h6>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="primary_branch" value="0" id="primary_0" checked>
+                                                            <label class="form-check-label" for="primary_0">
+                                                                Primary Branch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-3">
+                                                        <div class="col-6">
+                                                            <label for="branches_0_branch_name" class="form-label">Branch Name <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][branch_name]" id="branches_0_branch_name" class="form-control" placeholder="Enter Name of Branch">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][address]" id="branches_0_address" class="form-control" placeholder="Enter Address Line 1">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_address2" class="form-label">Address Line 2</label>
+                                                            <input type="text" name="branches[0][address2]" id="branches_0_address2" class="form-control" placeholder="Enter Address Line 2">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_city" class="form-label">City <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][city]" id="branches_0_city" class="form-control" placeholder="Enter City">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_state" class="form-label">State <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][state]" id="branches_0_state" class="form-control" placeholder="Enter State">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_country" class="form-label">Country <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][country]" id="branches_0_country" class="form-control" placeholder="Enter Country">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="branches_0_pincode" class="form-label">Pincode <span class="text-danger">*</span></label>
+                                                            <input type="text" name="branches[0][pincode]" id="branches_0_pincode" class="form-control" placeholder="Enter Pincode">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card branch-section">
@@ -219,7 +241,7 @@
                                                     <th>State</th>
                                                     <th>Country</th>
                                                     <th>Pincode</th>
-                                                    <th>Action</th>
+                                                    <!-- <th>Action</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -245,13 +267,13 @@
                                                         {{ $customer->address->country ?? 'Country Not Found' }}
                                                     </td>
                                                     <td>{{ $customer->address->pincode ?? 'No State Found' }}</td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <a aria-label="anchor"
                                                             class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                             data-bs-toggle="tooltip" data-bs-original-title="Delete">
                                                             <i class="mdi mdi-delete fs-14 text-danger"></i>
                                                         </a>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
 
                                                 @endforeach
@@ -379,13 +401,86 @@
 
     <script>
         $(document).ready(function() {
-            // $(".branch-section").hide();
+            let branchIndex = {{ $customer->branches ? $customer->branches->count() : 1 }};
 
-            $("#branch-form").on("submit", function(e) {
-                e.preventdefault();
-                let formData = e.serialize();
-                console.log(formData);
+            // Add new branch
+            $('#add-branch-btn').click(function() {
+                const branchHtml = `
+                    <div class="branch-item border rounded p-3 mb-3" data-branch-index="${branchIndex}">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0 text-primary">Branch #${branchIndex + 1}</h6>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="primary_branch" value="${branchIndex}" id="primary_${branchIndex}">
+                                    <label class="form-check-label" for="primary_${branchIndex}">
+                                        Primary Branch
+                                    </label>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-sm remove-branch-btn">
+                                    <i class="mdi mdi-delete"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_branch_name" class="form-label">Branch Name <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][branch_name]" id="branches_${branchIndex}_branch_name" class="form-control" placeholder="Enter Name of Branch">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_address" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][address]" id="branches_${branchIndex}_address" class="form-control" placeholder="Enter Address Line 1">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_address2" class="form-label">Address Line 2</label>
+                                <input type="text" name="branches[${branchIndex}][address2]" id="branches_${branchIndex}_address2" class="form-control" placeholder="Enter Address Line 2">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_city" class="form-label">City <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][city]" id="branches_${branchIndex}_city" class="form-control" placeholder="Enter City">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_state" class="form-label">State <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][state]" id="branches_${branchIndex}_state" class="form-control" placeholder="Enter State">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_country" class="form-label">Country <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][country]" id="branches_${branchIndex}_country" class="form-control" placeholder="Enter Country">
+                            </div>
+                            <div class="col-6">
+                                <label for="branches_${branchIndex}_pincode" class="form-label">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" name="branches[${branchIndex}][pincode]" id="branches_${branchIndex}_pincode" class="form-control" placeholder="Enter Pincode">
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $('#branches-container').append(branchHtml);
+                branchIndex++;
             });
+
+            // Remove branch
+            $(document).on('click', '.remove-branch-btn', function() {
+                const branchItem = $(this).closest('.branch-item');
+                const branchIndexToRemove = branchItem.data('branch-index');
+
+                // If this was the primary branch, make the first remaining branch primary
+                const wasPrimary = branchItem.find('input[name="primary_branch"]:checked').length > 0;
+
+                branchItem.remove();
+
+                if (wasPrimary) {
+                    $('.branch-item:first input[name="primary_branch"]').prop('checked', true);
+                }
+
+                // Update branch numbers
+                updateBranchNumbers();
+            });
+
+            function updateBranchNumbers() {
+                $('.branch-item').each(function(index) {
+                    $(this).find('h6').text(`Branch #${index + 1}`);
+                });
+            }
         });
     </script>
 @endsection

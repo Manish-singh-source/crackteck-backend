@@ -70,38 +70,53 @@
                                 </li>
                             </ul>
 
-                            <ul class="mt-4 list-group">
-                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
-                                    <span class="fw-semibold">
-                                        Address
-                                    </span>
-                                    <span>{{ $customer->address->address ?? 'No Address Found' }}</span>
-                                </li>
-                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
-                                    <span class="fw-semibold">
-                                        City
-                                    </span>
-                                    <span>{{ $customer->address->city ?? 'No City Found' }}</span>
-                                </li>
-                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
-                                    <span class="fw-semibold">
-                                        State
-                                    </span>
-                                    <span>{{ $customer->address->state ?? 'No City Found' }}</span>
-                                </li>
-                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
-                                    <span class="fw-semibold">
-                                        Country
-                                    </span>
-                                    <span>{{ $customer->address->country ?? 'No Country Found' }}</span>
-                                </li>
-                                <li class="d-flex justify-content-between align-items-center flex-wrap gap-2 list-group-item">
-                                    <span class="fw-semibold">
-                                        Pincode
-                                    </span>
-                                    <span>{{ $customer->address->pincode ?? 'No Pincode Found' }}</span>
-                                </li>
-                            </ul>
+                            <div class="mt-4">
+                                <h6 class="mb-3 fw-bold">Branch Information</h6>
+                                @if($customer->branches && $customer->branches->count() > 0)
+                                    @foreach($customer->branches as $branch)
+                                        <div class="card mb-3 border-start border-primary border-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="card-title mb-0 text-primary">{{ $branch->branch_name }}</h6>
+                                                    @if($branch->is_primary)
+                                                        <span class="badge bg-success">Primary Branch</span>
+                                                    @endif
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col-12">
+                                                        <small class="text-muted">Address:</small>
+                                                        <p class="mb-1">{{ $branch->address }}</p>
+                                                        @if($branch->address2)
+                                                            <p class="mb-1">{{ $branch->address2 }}</p>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted">City:</small>
+                                                        <p class="mb-0">{{ $branch->city }}</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted">State:</small>
+                                                        <p class="mb-0">{{ $branch->state }}</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted">Country:</small>
+                                                        <p class="mb-0">{{ $branch->country }}</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted">Pincode:</small>
+                                                        <p class="mb-0">{{ $branch->pincode }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="alert alert-info">
+                                        <i class="mdi mdi-information-outline"></i>
+                                        No branch information available for this customer.
+                                    </div>
+                                @endif
+                            </div>
 
                         </div>
                     </div>

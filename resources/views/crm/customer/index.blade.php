@@ -151,6 +151,7 @@
                                                                 <th>Last Name</th>
                                                                 <th>Email</th>
                                                                 <th>Contact Number</th>
+                                                                <th>Branches</th>
                                                                 <th>Number of Orders</th>
                                                                 <th>Status</th>
                                                                 <th>Joined At</th>
@@ -164,6 +165,26 @@
                                                                     <td>{{ $customer->last_name }}</td>
                                                                     <td>{{ $customer->email }}</td>
                                                                     <td>{{ $customer->phone }}</td>
+                                                                    <td>
+                                                                        @if($customer->branches && $customer->branches->count() > 0)
+                                                                            <div class="d-flex flex-column gap-1">
+                                                                                @foreach($customer->branches->take(2) as $branch)
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <small class="badge bg-light text-dark me-1">{{ $branch->branch_name }}</small>
+                                                                                        @if($branch->is_primary)
+                                                                                            <i class="mdi mdi-star text-warning" title="Primary Branch"></i>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <small class="text-muted">{{ $branch->city }}, {{ $branch->state }}</small>
+                                                                                @endforeach
+                                                                                @if($customer->branches->count() > 2)
+                                                                                    <small class="text-primary">+{{ $customer->branches->count() - 2 }} more</small>
+                                                                                @endif
+                                                                            </div>
+                                                                        @else
+                                                                            <span class="text-muted">No branches</span>
+                                                                        @endif
+                                                                    </td>
                                                                     <td>2</td>
                                                                     <td>
                                                                         <div class="form-check form-switch mb-2">
