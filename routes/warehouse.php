@@ -46,6 +46,8 @@ Route::controller(ProductListController::class)->group(function(){
     Route::post('/warehouse/restore-product/{scrapItemId}', 'restoreProduct')->name('product-list.restore-product');
     // Save Serial Number
     Route::post('/warehouse/save-serial', 'saveSerial')->name('product-list.save-serial');
+    // AJAX SKU Validation
+    Route::get('/warehouse/check-sku-unique', 'checkSkuUnique')->name('product-list.check-sku');
 });
 
 Route::get('/warehouse-dependent', [WarehouseRackController::class, 'getDependentData']);

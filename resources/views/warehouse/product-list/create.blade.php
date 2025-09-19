@@ -696,6 +696,46 @@
                 });
             });
 
+            // AJAX SKU Validation
+            let skuTimeout = null;
+            $('#sku').on('input', function() {
+                const sku = $(this).val().trim();
+                const $input = $(this);
+                const $feedback = $('#sku-ajax-feedback');
+
+                // Clear previous timeout
+                if (skuTimeout) {
+                    clearTimeout(skuTimeout);
+                }
+
+                // Remove existing feedback
+                $feedback.remove();
+                $input.removeClass('is-invalid is-valid');
+
+                if (sku.length >= 2) {
+                    skuTimeout = setTimeout(() => {
+                        $.ajax({
+                            url: '{{ route("product-list.check-sku") }}',
+                            method: 'GET',
+                            data: { sku: sku },
+                            success: function(response) {
+                                if (response.valid) {
+                                    $input.removeClass('is-invalid').addClass('is-valid');
+                                    $input.after('<div id="sku-ajax-feedback" class="valid-feedback">' + response.message + '</div>');
+                                } else {
+                                    $input.removeClass('is-valid').addClass('is-invalid');
+                                    $input.after('<div id="sku-ajax-feedback" class="invalid-feedback">' + response.message + '</div>');
+                                }
+                            },
+                            error: function() {
+                                $input.removeClass('is-valid').addClass('is-invalid');
+                                $input.after('<div id="sku-ajax-feedback" class="invalid-feedback">Error checking SKU availability</div>');
+                            }
+                        });
+                    }, 500);
+                }
+            });
+
         });
     </script>
 @endsection
