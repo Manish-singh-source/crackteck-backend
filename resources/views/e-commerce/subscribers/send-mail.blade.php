@@ -41,7 +41,7 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <!-- <textarea id="mail-composer" class="form-control text-editor" name="details" rows="5" placeholder="Enter Description"></textarea> -->
-                                            <div id="quill-editor1" style="height: 300px;">
+                                            <div id="quill-editor-full" style="height: 300px;">
                                                 <h1>Hello World</h1>
                                             </div>
                                         </div>
@@ -63,5 +63,34 @@
         </div>
     </div> <!-- container-fluid -->
 </div> <!-- content -->
+
+<!-- Include Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            let searchTimeout;
+            let selectedProductId = null;
+            let installationOptions = [];
+
+            
+            const quillFull = new Quill('#quill-editor-full', {
+                theme: 'snow',
+                placeholder: 'Enter full description for e-commerce...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                }
+            });
+
+        });
+    </script>
 
 @endsection
