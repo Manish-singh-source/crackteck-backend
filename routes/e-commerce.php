@@ -204,11 +204,23 @@ Route::controller(BannerController::class)->group(function (){
 
 Route::controller(ProductDealController::class)->group(function (){
     // Product Deals Page
-    Route::get('/e-commerce/product-deals' ,'index')->name('product-deals.index');
+    Route::get('/e-commerce/product-deals', 'index')->name('product-deals.index');
     // Add Product Deals Page
-    Route::get('/e-commerce/add-product-deals' ,'create')->name('product-deals.create');
+    Route::get('/e-commerce/add-product-deals', 'create')->name('product-deals.create');
+    // Store Product Deal
+    Route::post('/e-commerce/add-product-deals', 'store')->name('product-deals.store');
+    // View Product Deal
+    Route::get('/e-commerce/view-product-deal/{productDeal}', 'show')->name('product-deals.view');
     // Edit Product Deals Page
-    Route::get('/e-commerce/edit-product-deals' ,'edit')->name('product-deals.edit');
+    Route::get('/e-commerce/edit-product-deal/{productDeal}', 'edit')->name('product-deals.edit');
+    // Update Product Deal
+    Route::put('/e-commerce/edit-product-deal/{productDeal}', 'update')->name('product-deals.update');
+    // Delete Product Deal
+    Route::delete('/e-commerce/delete-product-deal/{productDeal}', 'destroy')->name('product-deals.delete');
+
+    // AJAX Routes for E-commerce Product Search
+    Route::get('/e-commerce/search-ecommerce-products', 'searchEcommerceProducts')->name('product-deals.search-products');
+    Route::get('/e-commerce/get-ecommerce-product/{id}', 'getEcommerceProduct')->name('product-deals.get-product');
 });
 
 // ------------------------------------------------------------ E-Commerce Collection Page -------------------------------------------------------------

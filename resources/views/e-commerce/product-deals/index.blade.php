@@ -3,18 +3,26 @@
 @section('content')
 
 <div class="content">
-
     <!-- Start Content-->
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Product Offers List</h4>
+                <h4 class="fs-18 fw-semibold m-0">Product Deals List</h4>
+                <p class="text-muted">Manage product deals and offers</p>
             </div>
             <div>
-                <a href="{{ route('product-deals.create') }}" class="btn btn-primary">Add New Product</a>
-                <!-- <button class="btn btn-primary">Add New Category</button> -->
+                <a href="{{ route('product-deals.create') }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Add New Deal
+                </a>
             </div>
         </div>
+
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
 
         <div class="row">
@@ -126,71 +134,143 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Laptop Pro 15</td>
-                                                        <td>Diwali Mega Offer</td>
-                                                        <td>₹45,000</td>
-                                                        <td>25%</td>
-                                                        <td>Oct 10 - Oct 20</td>
-                                                        <td>
-                                                            <span class="badge bg-info text-dark fw-semibold">03:12:45</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge bg-success-subtle text-success fw-semibold">Active</span>
-                                                        </td>
-                                                        <td>
-                                                            <a aria-label="Edit" href="{{ route('product-deals.edit') }}"
-                                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                            </a>
-                                                            <a aria-label="Delete"
-                                                                class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Smartwatch X</td>
-                                                        <td>Flash Deal</td>
-                                                        <td>₹1,999</td>
-                                                        <td>50%</td>
-                                                        <td>Oct 15 - Oct 18</td>
-                                                        <td>
-                                                            <span class="badge bg-warning text-dark fw-semibold">01:05:09</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge bg-danger-subtle text-danger fw-semibold">Inactive</span>
-                                                        </td>
-                                                        <td>
-                                                            <a aria-label="Edit" href="{{ route('product-deals.edit') }}"
-                                                                class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                            </a>
-                                                            <a aria-label="Delete"
-                                                                class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($deals as $index => $deal)
+                                                        <tr>
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="me-3">
+                                                                        @if($deal->ecommerceProduct->warehouseProduct->main_product_image)
+                                                                            <img src="{{ asset($deal->ecommerceProduct->warehouseProduct->main_product_image) }}"
+                                                                                 alt="{{ $deal->ecommerceProduct->warehouseProduct->product_name }}"
+                                                                                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                                                        @else
+                                                                            <div style="width: 40px; height: 40px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                                                                                <i class="fa fa-image text-muted"></i>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div>
+                                                                        <div class="fw-semibold">{{ $deal->ecommerceProduct->warehouseProduct->product_name }}</div>
+                                                                        <small class="text-muted">{{ $deal->ecommerceProduct->warehouseProduct->brand->brand_title ?? 'N/A' }}</small>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>{{ $deal->deal_title }}</td>
+                                                            <td>
+                                                                <div>
+                                                                    <span class="fw-semibold text-success">₹{{ number_format($deal->offer_price, 0) }}</span>
+                                                                    <br>
+                                                                    <small class="text-muted text-decoration-line-through">₹{{ number_format($deal->original_price, 0) }}</small>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge bg-primary-subtle text-primary">
+                                                                    {{ $deal->discount_display }}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <small>{{ $deal->offer_period }}</small>
+                                                            </td>
+                                                            <td>
+                                                                @php
+                                                                    $timeLeft = $deal->time_left;
+                                                                    $badgeClass = 'bg-info';
+                                                                    if (str_contains($timeLeft, 'Expired')) {
+                                                                        $badgeClass = 'bg-danger';
+                                                                    } elseif (str_contains($timeLeft, 'day')) {
+                                                                        $badgeClass = 'bg-success';
+                                                                    } elseif (str_contains($timeLeft, ':')) {
+                                                                        $badgeClass = 'bg-warning';
+                                                                    }
+                                                                @endphp
+                                                                <span class="badge {{ $badgeClass }} text-dark fw-semibold">{{ $timeLeft }}</span>
+                                                            </td>
+                                                            <td>
+                                                                @if($deal->status === 'active')
+                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Active</span>
+                                                                @else
+                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Inactive</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="View" href="{{ route('product-deals.view', $deal) }}"
+                                                                    class="btn btn-icon btn-sm bg-info-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                    <i class="mdi mdi-eye fs-14 text-info"></i>
+                                                                </a>
+                                                                <a aria-label="Edit" href="{{ route('product-deals.edit', $deal) }}"
+                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                </a>
+                                                                <form action="{{ route('product-deals.delete', $deal) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this deal?')">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" aria-label="Delete"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="9" class="text-center py-4">
+                                                                <div class="text-muted">
+                                                                    <i class="fa fa-inbox fa-3x mb-3"></i>
+                                                                    <h5>No Product Deals Found</h5>
+                                                                    <p>Start by creating your first product deal.</p>
+                                                                    <a href="{{ route('product-deals.create') }}" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i> Create Deal
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- Tab panes -->
+                        </div>
                     </div>
+
+                    <!-- Pagination -->
+                    @if($deals->hasPages())
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-muted mb-0">
+                                        Showing {{ $deals->firstItem() }} to {{ $deals->lastItem() }} of {{ $deals->total() }} results
+                                    </p>
+                                </div>
+                                <div>
+                                    {{ $deals->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-    </div> <!-- container-fluid -->
-</div> <!-- content -->
+    </div>
+</div>
 
+@endsection
+
+@section('script')
+<script>
+$(document).ready(function() {
+    // Initialize tooltips
+    $('[data-bs-toggle="tooltip"]').tooltip();
+
+    // Auto-hide success alerts
+    setTimeout(function() {
+        $('.alert-success').fadeOut();
+    }, 5000);
+});
+</script>
 @endsection
