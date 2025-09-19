@@ -13,4 +13,9 @@ class Customer extends Model
     {
         return $this->hasOne(CustomerAddressDetails::class, 'customer_id');
     }
+
+    public function branches()
+    {
+        return $this->hasMany(CustomerAddressDetails::class, 'customer_id');
+    }
 }
