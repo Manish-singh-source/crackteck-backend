@@ -173,21 +173,21 @@
                                     </a>
                                 </li>
                                 <!-- <li class="nav-item">
-                                        <a class="nav-link p-2" id="active_engineer_tab" data-bs-toggle="tab" href="#active_engineer"
-                                            role="tab">
-                                            <span class="d-block d-sm-none"><i
-                                                    class="mdi mdi-sitemap-outline"></i></span>
-                                            <span class="d-none d-sm-block">Active Engineer</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link p-2" id="banned_engineers_tab" data-bs-toggle="tab"
-                                            href="#banned_engineers" role="tab">
-                                            <span class="d-block d-sm-none"><i
-                                                    class="mdi mdi-sitemap-outline"></i></span>
-                                            <span class="d-none d-sm-block">Banned Engineer</span>
-                                        </a>
-                                    </li> -->
+                                                <a class="nav-link p-2" id="active_engineer_tab" data-bs-toggle="tab" href="#active_engineer"
+                                                    role="tab">
+                                                    <span class="d-block d-sm-none"><i
+                                                            class="mdi mdi-sitemap-outline"></i></span>
+                                                    <span class="d-none d-sm-block">Active Engineer</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link p-2" id="banned_engineers_tab" data-bs-toggle="tab"
+                                                    href="#banned_engineers" role="tab">
+                                                    <span class="d-block d-sm-none"><i
+                                                            class="mdi mdi-sitemap-outline"></i></span>
+                                                    <span class="d-none d-sm-block">Banned Engineer</span>
+                                                </a>
+                                            </li> -->
                             </ul>
 
                             <div class="tab-content text-muted">
@@ -228,7 +228,8 @@
                                                                         </div>
                                                                     </td> --}}
                                                                     <td>
-                                                                        {{ $engineer->first_name }} {{ $engineer->last_name }}
+                                                                        {{ $engineer->first_name }}
+                                                                        {{ $engineer->last_name }}
                                                                     </td>
                                                                     <td>{{ $engineer->email }}</td>
                                                                     <td>{{ $engineer->phone }}</td>
@@ -236,8 +237,14 @@
                                                                         <a href="{{ route('engineers.task') }}">3</a>
                                                                     </td>
                                                                     <td>{{ $engineer->primary_skills }}</td>
-                                                                    <td><span
-                                                                            class="badge bg-danger-subtle text-danger fw-semibold">Unverified</span>
+                                                                    <td>
+                                                                        <span
+                                                                            class="badge fw-semibold 
+                                                                            {{ $engineer->police_verification_status === 'Completed'
+                                                                            ? 'bg-success-subtle text-success'
+                                                                            : 'bg-danger-subtle text-danger' }}">
+                                                                            {{ $engineer->police_verification_status }}
+                                                                        </span>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-check form-switch mb-2">
@@ -257,7 +264,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <a aria-label="anchor"
-                                                                            href="{{ route('engineer.view', $engineer->id) }}" 
+                                                                            href="{{ route('engineer.view', $engineer->id) }}"
                                                                             class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-original-title="View">
@@ -279,8 +286,7 @@
                                                                             onsubmit="return confirm('Are you sure?')">
                                                                             @csrf
                                                                             @method('DELETE')
-                                                                            <button
-                                                                            type="submit"
+                                                                            <button type="submit"
                                                                                 class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-original-title="Delete"><i
@@ -288,8 +294,8 @@
                                                                             </button>
                                                                         </form>
                                                                     </td>
-                                                                </tr>
-                                                                @endforeach
+                                                            </tr>
+                                                            @endforeach
 
                                                         </tbody>
                                                     </table>
@@ -375,9 +381,9 @@
                                         <div class="col-12">
                                             <div class="card shadow-none">
                                                 <!-- <div class="card-header">
-                                                                    <h5 class="card-title mb-0">Tables</h5>
-                                                                </div>
-                                                                -->
+                                                                            <h5 class="card-title mb-0">Tables</h5>
+                                                                        </div>
+                                                                        -->
                                                 <div class="card-body">
                                                     <table id="responsive-datatable"
                                                         class="table table-striped table-borderless dt-responsive nowrap">
@@ -450,9 +456,9 @@
                                         <div class="col-12">
                                             <div class="card shadow-none">
                                                 <!-- <div class="card-header">
-                                                                    <h5 class="card-title mb-0">Tables</h5>
-                                                                </div>
-                                                                -->
+                                                                            <h5 class="card-title mb-0">Tables</h5>
+                                                                        </div>
+                                                                        -->
                                                 <div class="card-body">
                                                     <table id="responsive-datatable"
                                                         class="table table-striped table-borderless dt-responsive nowrap">
