@@ -171,10 +171,10 @@
                                                             </td>
                                                             <td>
                                                                 @if($product->parentCategorie)
-                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">{{ $product->parentCategorie->name }}</span>
+                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">{{ $product->parentCategorie->id }}</span>
                                                                 @endif
                                                                 @if($product->subCategorie)
-                                                                    <div class="small text-muted">{{ $product->subCategorie->name }}</div>
+                                                                    <div class="small text-muted">{{ $product->subCategorie->id }}</div>
                                                                 @endif
                                                             </td>
                                                             <td>
