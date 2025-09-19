@@ -11,6 +11,7 @@ class EcommerceProduct extends Model
 
     protected $fillable = [
         'warehouse_product_id',
+        'sku',
         'meta_title',
         'meta_description',
         'meta_keywords',
