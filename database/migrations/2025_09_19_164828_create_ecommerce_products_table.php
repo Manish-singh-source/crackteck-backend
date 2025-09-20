@@ -16,6 +16,7 @@ return new class extends Migration
             
             // Reference to warehouse product
             $table->foreignId('warehouse_product_id')->constrained('products')->onDelete('cascade');
+            $table->string('sku')->unique();
             
             // E-commerce specific fields
             // SEO Fields
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->string('meta_product_url_slug')->unique()->nullable();
-            
             // Installation Options (JSON array for multiple entries)
             $table->json('with_installation')->nullable();
             
@@ -63,6 +63,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Indexes for better performance
+            $table->index('sku', 'ec_products_sku_idx');
             $table->index(['warehouse_product_id', 'ecommerce_status'], 'ec_products_warehouse_status_idx');
             $table->index('meta_product_url_slug', 'ec_products_url_slug_idx');
             $table->index(['is_featured', 'is_best_seller', 'is_todays_deal'], 'ec_products_flags_idx');
