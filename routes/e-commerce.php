@@ -48,11 +48,19 @@ Route::controller(CustomerController::class)->group(function (){
 // ------------------------------------------------------------ E-Commerce Order Page -------------------------------------------------------------
 
 Route::controller(OrderController::class)->group(function (){
-    // Order Page 
+    // Order Page
     Route::get('/e-commerce/order' ,'index')->name('order.index');
     // Create Order Page
     Route::get('/e-commerce/create-order' ,'create')->name('order.create');
-    // View Order Page
+    // Store Order
+    Route::post('/e-commerce/order', 'store')->name('order.store');
+    // Edit Order Page
+    Route::get('/e-commerce/order/{id}/edit', 'edit')->name('order.edit');
+    // Update Order
+    Route::put('/e-commerce/order/{id}', 'update')->name('order.update');
+    // Delete Order
+    Route::delete('/e-commerce/order/{id}', 'destroy')->name('order.delete');
+    // View Order Page (legacy)
     Route::get('/e-commerce/view-order' ,'view')->name('order.view');
 });
 
@@ -66,7 +74,7 @@ Route::controller(EcommerceProductController::class)->group(function (){
     // Store Product
     Route::post('/e-commerce/create-product', 'store')->name('ec.product.store');
     // View Product Page
-    Route::get('/e-commerce/view-product/{id}', 'show')->name('ec.product.view');
+    Route::get('/e-commerce/view-product', 'show')->name('ec.product.view');
     // Edit Product Page
     Route::get('/e-commerce/edit-product/{id}', 'edit')->name('ec.product.edit');
     // Update Product

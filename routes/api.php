@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('/login', [ApiAuthController::class, 'login']);
 });
+
+// Order-related API routes (public for now, can be protected later)
+Route::get('/search-product', [OrderController::class, 'searchProducts']);
+Route::get('/search-customer', [OrderController::class, 'searchCustomers']);
 
 // Protected API routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {

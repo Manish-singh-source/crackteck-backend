@@ -10,7 +10,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('order.index') }}">Orders</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Order</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Order</li>
                     </ol>
                 </nav>
             </div>
@@ -18,7 +18,7 @@
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Create New Order</h4>
+                <h4 class="fs-18 fw-semibold m-0">Edit Order #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</h4>
             </div>
         </div>
 
@@ -27,6 +27,7 @@
 
         <form id="orderForm" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-12">
                     <div class="row">
@@ -39,20 +40,22 @@
                                 <div class="card-body">
                                     <div class="mb-3">
                                         <label for="product_search" class="form-label">Search Product <span class="text-danger">*</span></label>
-                                        <input type="text" id="product_search" class="form-control" placeholder="Type to search products..." autocomplete="off">
-                                        <input type="hidden" id="product_id" name="product_id" required>
+                                        <input type="text" id="product_search" class="form-control" 
+                                               value="{{ $order->product->warehouseProduct->product_name ?? '' }}" 
+                                               placeholder="Type to search products..." autocomplete="off">
+                                        <input type="hidden" id="product_id" name="product_id" value="{{ $order->product_id }}" required>
                                         <div id="product_suggestions" class="dropdown-menu w-100" style="display: none;"></div>
                                         <div class="invalid-feedback" id="product_id_error"></div>
                                     </div>
-
+                                    
                                     <!-- Selected Product Details -->
-                                    <div id="selected_product" style="display: none;">
+                                    <div id="selected_product" style="{{ $order->product ? 'display: block;' : 'display: none;' }}">
                                         <div class="alert alert-info">
                                             <h6>Selected Product:</h6>
-                                            <p class="mb-1"><strong>Name:</strong> <span id="selected_product_name"></span></p>
-                                            <p class="mb-1"><strong>SKU:</strong> <span id="selected_product_sku"></span></p>
-                                            <p class="mb-1"><strong>Brand:</strong> <span id="selected_product_brand"></span></p>
-                                            <p class="mb-0"><strong>Price:</strong> ₹<span id="selected_product_price"></span></p>
+                                            <p class="mb-1"><strong>Name:</strong> <span id="selected_product_name">{{ $order->product->warehouseProduct->product_name ?? '' }}</span></p>
+                                            <p class="mb-1"><strong>SKU:</strong> <span id="selected_product_sku">{{ $order->product->warehouseProduct->sku ?? '' }}</span></p>
+                                            <p class="mb-1"><strong>Brand:</strong> <span id="selected_product_brand">{{ $order->product->warehouseProduct->brand->brand_title ?? 'N/A' }}</span></p>
+                                            <p class="mb-0"><strong>Price:</strong> ₹<span id="selected_product_price">{{ $order->product->warehouseProduct->selling_price ?? '' }}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -68,34 +71,40 @@
                                 <div class="card-body">
                                     <div class="mb-3">
                                         <label for="customer_search" class="form-label">Search Customer <span class="text-danger">*</span></label>
-                                        <input type="text" id="customer_search" class="form-control" placeholder="Type to search customers..." autocomplete="off">
-                                        <input type="hidden" id="customer_id" name="customer_id" required>
+                                        <input type="text" id="customer_search" class="form-control" 
+                                               value="{{ $order->customer->first_name ?? '' }} {{ $order->customer->last_name ?? '' }}" 
+                                               placeholder="Type to search customers..." autocomplete="off">
+                                        <input type="hidden" id="customer_id" name="customer_id" value="{{ $order->customer_id }}" required>
                                         <div id="customer_suggestions" class="dropdown-menu w-100" style="display: none;"></div>
                                         <div class="invalid-feedback" id="customer_id_error"></div>
                                     </div>
-
+                                    
                                     <!-- Customer Details (Auto-filled) -->
-                                    <div id="customer_details" style="display: none;">
+                                    <div id="customer_details" style="{{ $order->customer ? 'display: block;' : 'display: none;' }}">
                                         <div class="row g-3">
                                             <div class="col-6">
                                                 <label class="form-label">Name</label>
-                                                <input type="text" id="customer_name" class="form-control" readonly>
+                                                <input type="text" id="customer_name" class="form-control" 
+                                                       value="{{ $order->customer->first_name ?? '' }} {{ $order->customer->last_name ?? '' }}" readonly>
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label">Email</label>
-                                                <input type="email" id="customer_email" class="form-control" readonly>
+                                                <input type="email" id="customer_email" class="form-control" 
+                                                       value="{{ $order->customer->email ?? '' }}" readonly>
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label">Phone</label>
-                                                <input type="text" id="customer_phone" class="form-control" readonly>
+                                                <input type="text" id="customer_phone" class="form-control" 
+                                                       value="{{ $order->customer->phone ?? '' }}" readonly>
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label">Company</label>
-                                                <input type="text" id="customer_company" class="form-control" readonly>
+                                                <input type="text" id="customer_company" class="form-control" 
+                                                       value="{{ $order->customer->company_name ?? '' }}" readonly>
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label">Address</label>
-                                                <textarea id="customer_address" class="form-control" rows="2" readonly></textarea>
+                                                <textarea id="customer_address" class="form-control" rows="2" readonly>{{ $order->customer->company_addr ?? '' }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -112,10 +121,19 @@
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="invoice_file" class="form-label">Invoice File <span class="text-danger">*</span></label>
-                                    <input type="file" id="invoice_file" name="invoice_file" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <div class="form-text">Accepted formats: PDF, JPG, PNG (Max: 2MB)</div>
+                                    <label for="invoice_file" class="form-label">Invoice File</label>
+                                    <input type="file" id="invoice_file" name="invoice_file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                                    <div class="form-text">Accepted formats: PDF, JPG, PNG (Max: 2MB). Leave empty to keep current file.</div>
                                     <div class="invalid-feedback" id="invoice_file_error"></div>
+                                    
+                                    @if($order->invoice_file)
+                                        <div class="mt-2">
+                                            <small class="text-muted">Current file: </small>
+                                            <a href="{{ asset('storage/' . $order->invoice_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-file-alt me-1"></i> View Current Invoice
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -132,7 +150,9 @@
                                     <label for="amount" class="form-label">Amount <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">₹</span>
-                                        <input type="number" id="amount" name="amount" class="form-control" step="0.01" min="0.01" placeholder="0.00" required>
+                                        <input type="number" id="amount" name="amount" class="form-control" 
+                                               step="0.01" min="0.01" value="{{ $order->amount }}" 
+                                               placeholder="0.00" required>
                                     </div>
                                     <div class="invalid-feedback" id="amount_error"></div>
                                 </div>
@@ -145,7 +165,7 @@
                         <div class="text-start mb-3">
                             <button type="submit" class="btn btn-success me-2" id="submitBtn">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display: none;"></span>
-                                Create Order
+                                Update Order
                             </button>
                             <a href="{{ route('order.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
@@ -296,7 +316,7 @@ $(document).ready(function() {
         const formData = new FormData(this);
 
         $.ajax({
-            url: '{{ route("order.store") }}',
+            url: '{{ route("order.update", $order->id) }}',
             method: 'POST',
             data: formData,
             processData: false,
@@ -327,7 +347,7 @@ $(document).ready(function() {
                         errorDiv.text(errors[field][0]);
                     });
                 } else {
-                    const message = xhr.responseJSON?.message || 'An error occurred while creating the order.';
+                    const message = xhr.responseJSON?.message || 'An error occurred while updating the order.';
                     $('#alert-container').html(`
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             ${message}
