@@ -31,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
         Route::middleware('web')
             ->group(base_path('routes/warehouse.php'));
+            
+        Route::middleware('web')
+            ->group(base_path('routes/frontend.php'));
     }
 }
