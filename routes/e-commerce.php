@@ -60,8 +60,12 @@ Route::controller(OrderController::class)->group(function (){
     Route::put('/e-commerce/order/{id}', 'update')->name('order.update');
     // Delete Order
     Route::delete('/e-commerce/order/{id}', 'destroy')->name('order.delete');
+    // Bulk Delete Orders
+    Route::post('/e-commerce/orders/bulk-delete', 'bulkDestroy')->name('order.bulk-delete');
     // View Order Page
     Route::get('/e-commerce/view-order/{id}' ,'show')->name('order.view');
+    // Generate PDF Invoice
+    Route::get('/order/{id}/invoice', 'generateInvoice')->name('order.invoice');
     // AJAX Routes for Order Management
     Route::get('/e-commerce/delivery-men-by-city/{city}', 'getDeliveryMenByCity')->name('order.delivery-men-by-city');
     Route::post('/e-commerce/order/{id}/assign-delivery-man', 'assignDeliveryMan')->name('order.assign-delivery-man');
