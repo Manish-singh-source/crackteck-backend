@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -182,6 +183,86 @@ class OrderController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while deleting the order: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove multiple orders from storage.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_ids' => 'required|array|min:1',
+            'order_ids.*' => 'required|integer|exists:orders,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid order selection.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $orderIds = $request->order_ids;
+            $deletedCount = 0;
+            $errors = [];
+
+            foreach ($orderIds as $orderId) {
+                try {
+                    $order = Order::find($orderId);
+
+                    if ($order) {
+                        // Delete associated file if exists
+                        if ($order->invoice_file && Storage::disk('public')->exists($order->invoice_file)) {
+                            Storage::disk('public')->delete($order->invoice_file);
+                        }
+
+                        $order->delete();
+                        $deletedCount++;
+                    }
+                } catch (\Exception $e) {
+                    $errors[] = "Failed to delete order ID {$orderId}: " . $e->getMessage();
+                    Log::error("Error deleting order {$orderId}: " . $e->getMessage());
+                }
+            }
+
+            DB::commit();
+
+            if ($deletedCount > 0) {
+                $message = $deletedCount === 1
+                    ? '1 order deleted successfully!'
+                    : "{$deletedCount} orders deleted successfully!";
+
+                if (!empty($errors)) {
+                    $message .= ' However, some orders could not be deleted.';
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'message' => $message,
+                    'deleted_count' => $deletedCount,
+                    'errors' => $errors
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No orders were deleted.',
+                    'errors' => $errors
+                ], 400);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error('Error in bulk delete: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while deleting orders: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -363,5 +444,154 @@ class OrderController extends Controller
                 'message' => 'Failed to update order status'
             ], 500);
         }
+    }
+
+    /**
+     * Generate and download PDF invoice for an order
+     */
+    public function generateInvoice($id)
+    {
+        try {
+            // Fetch order with all related data
+            $order = Order::with([
+                'product.warehouseProduct',
+                'customer.address',
+                'deliveryMan'
+            ])->findOrFail($id);
+
+            // Calculate tax and totals
+            $subtotal = $order->amount;
+            $taxRate = 18; // Default GST rate - you can make this configurable
+            $taxAmount = ($subtotal * $taxRate) / 100;
+            $total = $subtotal + $taxAmount;
+
+            // Prepare data for the invoice template
+            $invoiceData = [
+                'order' => $order,
+                'invoice_number' => 'INV-' . str_pad($order->id, 6, '0', STR_PAD_LEFT),
+                'invoice_date' => $order->created_at->format('d/m/Y'),
+                'subtotal' => $subtotal,
+                'tax_rate' => $taxRate,
+                'tax_amount' => $taxAmount,
+                'total' => $total,
+                'amount_in_words' => $this->convertNumberToWords($total),
+                'company' => [
+                    'name' => 'CrackTeck Solutions Pvt. Ltd.',
+                    'address' => 'Tech Park, Mumbai - 400001',
+                    'gstin' => '27AABCC1234M1Z2',
+                    'phone' => '+91 98765 43210',
+                    'email' => 'info@crackteck.com'
+                ]
+            ];
+
+            // Generate PDF
+            $pdf = Pdf::loadView('invoice', $invoiceData);
+
+            // Set paper size and orientation
+            $pdf->setPaper('A4', 'portrait');
+
+            // Set options for better rendering
+            $pdf->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+                'defaultFont' => 'Arial'
+            ]);
+
+            // Generate filename
+            $filename = 'invoice-' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . '.pdf';
+
+            // Return PDF download response
+            return $pdf->download($filename);
+
+        } catch (\Exception $e) {
+            Log::error('Error generating invoice: ' . $e->getMessage());
+
+            return redirect()->back()->with('error', 'Failed to generate invoice. Please try again.');
+        }
+    }
+
+    /**
+     * Convert number to words (Indian format)
+     */
+    private function convertNumberToWords($number)
+    {
+        $number = (int) $number;
+
+        if ($number == 0) {
+            return 'Zero Rupees Only';
+        }
+
+        $words = [
+            0 => '', 1 => 'One', 2 => 'Two', 3 => 'Three', 4 => 'Four', 5 => 'Five',
+            6 => 'Six', 7 => 'Seven', 8 => 'Eight', 9 => 'Nine', 10 => 'Ten',
+            11 => 'Eleven', 12 => 'Twelve', 13 => 'Thirteen', 14 => 'Fourteen', 15 => 'Fifteen',
+            16 => 'Sixteen', 17 => 'Seventeen', 18 => 'Eighteen', 19 => 'Nineteen', 20 => 'Twenty',
+            30 => 'Thirty', 40 => 'Forty', 50 => 'Fifty', 60 => 'Sixty', 70 => 'Seventy',
+            80 => 'Eighty', 90 => 'Ninety'
+        ];
+
+        $result = '';
+
+        if ($number >= 10000000) { // Crores
+            $crores = intval($number / 10000000);
+            $result .= $this->convertHundreds($crores, $words) . ' Crore ';
+            $number %= 10000000;
+        }
+
+        if ($number >= 100000) { // Lakhs
+            $lakhs = intval($number / 100000);
+            $result .= $this->convertHundreds($lakhs, $words) . ' Lakh ';
+            $number %= 100000;
+        }
+
+        if ($number >= 1000) { // Thousands
+            $thousands = intval($number / 1000);
+            $result .= $this->convertHundreds($thousands, $words) . ' Thousand ';
+            $number %= 1000;
+        }
+
+        if ($number >= 100) { // Hundreds
+            $hundreds = intval($number / 100);
+            $result .= $words[$hundreds] . ' Hundred ';
+            $number %= 100;
+        }
+
+        if ($number >= 20) {
+            $tens = intval($number / 10) * 10;
+            $result .= $words[$tens] . ' ';
+            $number %= 10;
+        }
+
+        if ($number > 0) {
+            $result .= $words[$number] . ' ';
+        }
+
+        return trim($result) . ' Rupees Only';
+    }
+
+    /**
+     * Helper method to convert hundreds
+     */
+    private function convertHundreds($number, $words)
+    {
+        $result = '';
+
+        if ($number >= 100) {
+            $hundreds = intval($number / 100);
+            $result .= $words[$hundreds] . ' Hundred ';
+            $number %= 100;
+        }
+
+        if ($number >= 20) {
+            $tens = intval($number / 10) * 10;
+            $result .= $words[$tens] . ' ';
+            $number %= 10;
+        }
+
+        if ($number > 0) {
+            $result .= $words[$number] . ' ';
+        }
+
+        return trim($result);
     }
 }
