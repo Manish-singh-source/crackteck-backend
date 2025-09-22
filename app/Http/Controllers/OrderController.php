@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\EcommerceProduct;
 use App\Models\Customer;
+use App\Models\DeliveryMan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['product.warehouseProduct', 'customer'])
+        $orders = Order::with(['product.warehouseProduct', 'customer', 'deliveryMan'])
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -258,10 +259,109 @@ class OrderController extends Controller
     }
 
     /**
-     * Legacy view method for backward compatibility
+     * Display the specified order.
      */
-    public function view()
+    public function show($id)
     {
-        return view('e-commerce.order.view');
+        $order = Order::with(['product.warehouseProduct', 'customer', 'deliveryMan'])
+            ->findOrFail($id);
+
+        // Get all Indian cities for the dropdown
+        $indianCities = [
+            'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Ahmedabad', 'Chennai', 'Kolkata',
+            'Surat', 'Pune', 'Jaipur', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane',
+            'Bhopal', 'Visakhapatnam', 'Pimpri-Chinchwad', 'Patna', 'Vadodara', 'Ghaziabad',
+            'Ludhiana', 'Agra', 'Nashik', 'Faridabad', 'Meerut', 'Rajkot', 'Kalyan-Dombivli',
+            'Vasai-Virar', 'Varanasi', 'Srinagar', 'Aurangabad', 'Dhanbad', 'Amritsar',
+            'Navi Mumbai', 'Allahabad', 'Ranchi', 'Howrah', 'Coimbatore', 'Jabalpur'
+        ];
+
+        return view('e-commerce.order.view', compact('order', 'indianCities'));
+    }
+
+    /**
+     * Get delivery men by city for AJAX request
+     */
+    public function getDeliveryMenByCity($city)
+    {
+        $deliveryMen = DeliveryMan::where('city', $city)
+            ->where('status', 'Active')
+            ->select('id', 'first_name', 'last_name', 'current_address')
+            ->get();
+
+        return response()->json($deliveryMen);
+    }
+
+    /**
+     * Assign delivery man to order
+     */
+    public function assignDeliveryMan(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'delivery_man_id' => 'required|exists:delivery_men,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $order = Order::findOrFail($id);
+            $order->delivery_man_id = $request->delivery_man_id;
+            $order->status = 'Assigned';
+            $order->save();
+
+            $deliveryMan = DeliveryMan::find($request->delivery_man_id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Delivery man assigned successfully',
+                'delivery_man' => [
+                    'name' => $deliveryMan->full_name,
+                    'address' => $deliveryMan->current_address
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign delivery man'
+            ], 500);
+        }
+    }
+
+    /**
+     * Update order status
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:Pending,Assigned,Out for Delivery,Delivered',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $order = Order::findOrFail($id);
+            $order->status = $request->status;
+            $order->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order status updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update order status'
+            ], 500);
+        }
     }
 }

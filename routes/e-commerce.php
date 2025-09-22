@@ -60,8 +60,12 @@ Route::controller(OrderController::class)->group(function (){
     Route::put('/e-commerce/order/{id}', 'update')->name('order.update');
     // Delete Order
     Route::delete('/e-commerce/order/{id}', 'destroy')->name('order.delete');
-    // View Order Page (legacy)
-    Route::get('/e-commerce/view-order' ,'view')->name('order.view');
+    // View Order Page
+    Route::get('/e-commerce/view-order/{id}' ,'show')->name('order.view');
+    // AJAX Routes for Order Management
+    Route::get('/e-commerce/delivery-men-by-city/{city}', 'getDeliveryMenByCity')->name('order.delivery-men-by-city');
+    Route::post('/e-commerce/order/{id}/assign-delivery-man', 'assignDeliveryMan')->name('order.assign-delivery-man');
+    Route::post('/e-commerce/order/{id}/update-status', 'updateStatus')->name('order.update-status');
 });
 
 // ------------------------------------------------------------ E-Commerce Products Page -------------------------------------------------------------
