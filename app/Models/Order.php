@@ -13,11 +13,16 @@ class Order extends Model
         'product_id',
         'customer_id',
         'invoice_file',
-        'amount'
+        'amount',
+        'quantity',
+        'delivery',
+        'delivery_man_id',
+        'status'
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
+        'quantity' => 'integer',
     ];
 
     /**
@@ -34,5 +39,13 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    /**
+     * Get the delivery man that belongs to the order.
+     */
+    public function deliveryMan()
+    {
+        return $this->belongsTo(DeliveryMan::class, 'delivery_man_id');
     }
 }
