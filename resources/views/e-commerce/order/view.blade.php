@@ -187,7 +187,7 @@
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex">
                             <h5 class="card-title flex-grow-1 mb-0">
-                                Engineer Location
+                                Delivery Man Location
                             </h5>
                         </div>
                     </div>
@@ -207,22 +207,9 @@
                 <div class="card hide-assign-eng-section" id="mySection">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex pb-3">
-                            <h5 class="card-title flex-grow-1 mb-0">Assign Engineer</h5>
+                            <h5 class="card-title flex-grow-1 mb-0">Assign Delivery Man</h5>
                         </div>
-                        <div class="col-sm-10 d-flex gap-2">
-                            <div class="form-check">
-                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="individualRadio" value="individual" checked>
-                                <label class="form-check-label" for="individualRadio">
-                                    Individual Engineer
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input eng-assign" type="radio" name="gridRadios" id="groupRadio" value="group">
-                                <label class="form-check-label" for="groupRadio">
-                                    Group Engineer
-                                </label>
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <div class="card-body">
@@ -230,35 +217,10 @@
                         <div id="individualDropdown">
                             <select required name="status" class="form-select w-100">
                                 <option value="" selected disabled>---- Select Individual Engineer ----</option>
-                                <option value="engineer1">Engineer 1</option>
-                                <option value="engineer2">Engineer 2</option>
-                                <option value="engineer3">Engineer 3</option>
+                                <option value="engineer1">Delivery Man 1</option>
+                                <option value="engineer2">Delivery Man 2</option>
+                                <option value="engineer3">Delivery Man 3</option>
                             </select>
-                        </div>
-
-                        <!-- Group Engineer Dropdown -->
-                        <div id="groupDropdown" style="display: none;">
-                            <select id="groupDropdown1" class="form-select w-100">
-                                <option value="" selected disabled>---- Select Group Engineer ----</option>
-                                <option value="group2">Engineer 1</option>
-                                <option value="group3">Engineer 2</option>
-                                <option value="group3">Engineer 3</option>
-                            </select>
-                            <!-- Button to display selected options -->
-                            <button class="btn btn-primary mt-2 add-engineer">Add Engineer</button>
-
-                            <!-- Table to display selected values with checkboxes -->
-                            <table class="table mt-4" id="selectedTable">
-                                <thead>
-                                    <tr>
-                                        <th>Group Name</th>
-                                        <th>Admin</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Selected values will appear here -->
-                                </tbody>
-                            </table>
                         </div>
 
                     </div>
@@ -273,7 +235,7 @@
                 <div class="card hide-selected-engineers-section">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex  ">
-                            <h5 class="card-title flex-grow-1 mb-0">Assigned Engineer List</h5>
+                            <h5 class="card-title flex-grow-1 mb-0">Assigned Delivery Man</h5>
                         </div>
                     </div>
                     <div class="card-body">
@@ -282,80 +244,21 @@
                                 <ul class="list-group list-group-flush">
 
                                     <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Engineer 1:
+                                        <span class="fw-semibold text-break">Delivery Man:
                                         </span>
                                         <span>
-                                            Supervisor
+                                            Manish
                                         </span>
                                     </li>
 
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Engineer 2 :
-                                        </span>
-                                    </li>
-
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Engineer 3 :
-                                        </span>
-                                    </li>
+                                   
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card hide-report-section">
-
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
-                            <h5 class="card-title flex-grow-1 mb-0">
-                                Engineer Report Details
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <ul class="list-group list-group-flush">
-
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Before Service:
-                                        </span>
-                                        <span>
-                                            <button class="btn btn-sm btn-primary show-report">View</button>
-                                            <div id="popupOverlay">
-                                                <span class="closeBtn hide-report">&times;</span>
-                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                            </div>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">After Service:
-                                        </span>
-                                        <span>
-                                            <button class="btn btn-sm btn-primary show-report">View</button>
-                                            <div id="popupOverlay">
-                                                <span class="closeBtn hide-report">&times;</span>
-                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                            </div>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Service Report:
-                                        </span>
-                                        <span>
-                                            <button class="btn btn-sm btn-primary show-report">View</button>
-                                            <div id="popupOverlay">
-                                                <span class="closeBtn hide-report">&times;</span>
-                                                <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                            </div>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="card">
                     <div class="card-body p-4">
