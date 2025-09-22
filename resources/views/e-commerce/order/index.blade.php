@@ -34,14 +34,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <h5 class="card-title mb-0">Orders List</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Orders List</h5>
+                            <button type="button" class="btn btn-danger btn-sm" id="deleteSelectedBtn" style="display: none;">
+                                <i class="fas fa-trash me-1"></i> Delete Selected
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if($orders->count() > 0)
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover align-middle">
+                                <table  id="responsive-datatable" class="table table-striped table-hover align-middle">
                                     <thead class="table-light">
                                         <tr>
+                                            <th style="width: 40px;">
+                                                <input type="checkbox" id="selectAll" class="form-check-input">
+                                            </th>
                                             <th>Order ID</th>
                                             <th>Product Name</th>
                                             <th>Customer Name</th>
@@ -58,6 +66,9 @@
                                     <tbody>
                                         @foreach($orders as $order)
                                             <tr>
+                                                <td>
+                                                    <input type="checkbox" class="form-check-input order-checkbox" value="{{ $order->id }}">
+                                                </td>
                                                 <td>
                                                     <span class="fw-semibold">#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</span>
                                                 </td>
@@ -139,6 +150,10 @@
                                                            class="btn btn-sm btn-outline-info" title="View">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
+                                                        <a href="{{ route('order.invoice', $order->id) }}"
+                                                           class="btn btn-sm btn-outline-success" title="Download Invoice" target="_blank">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
                                                         <a href="{{ route('order.edit', $order->id) }}"
                                                            class="btn btn-sm btn-outline-primary" title="Edit">
                                                             <i class="fas fa-edit"></i>
@@ -204,11 +219,95 @@
     </div>
 </div>
 
+<!-- Bulk Delete Confirmation Modal -->
+<div class="modal fade" id="bulkDeleteModal" tabindex="-1" aria-labelledby="bulkDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulkDeleteModalLabel">Confirm Bulk Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <span id="selectedCount">0</span> selected order(s)? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmBulkDelete">Delete Selected</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function() {
     let orderToDelete = null;
 
-    // Delete order functionality
+    // Select All functionality
+    $('#selectAll').on('change', function() {
+        $('.order-checkbox').prop('checked', this.checked);
+        toggleDeleteButton();
+    });
+
+    // Individual checkbox functionality
+    $('.order-checkbox').on('change', function() {
+        const totalCheckboxes = $('.order-checkbox').length;
+        const checkedCheckboxes = $('.order-checkbox:checked').length;
+
+        $('#selectAll').prop('checked', totalCheckboxes === checkedCheckboxes);
+        toggleDeleteButton();
+    });
+
+    // Toggle delete selected button visibility
+    function toggleDeleteButton() {
+        const checkedCount = $('.order-checkbox:checked').length;
+        if (checkedCount > 0) {
+            $('#deleteSelectedBtn').show();
+        } else {
+            $('#deleteSelectedBtn').hide();
+        }
+    }
+
+    // Delete selected orders functionality
+    $('#deleteSelectedBtn').on('click', function() {
+        const selectedOrders = $('.order-checkbox:checked');
+        if (selectedOrders.length > 0) {
+            $('#selectedCount').text(selectedOrders.length);
+            $('#bulkDeleteModal').modal('show');
+        }
+    });
+
+    // Confirm bulk delete
+    $('#confirmBulkDelete').on('click', function() {
+        const selectedOrderIds = [];
+        $('.order-checkbox:checked').each(function() {
+            selectedOrderIds.push($(this).val());
+        });
+
+        if (selectedOrderIds.length > 0) {
+            $.ajax({
+                url: '/e-commerce/orders/bulk-delete',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    order_ids: selectedOrderIds
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#bulkDeleteModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert(response.message || 'An error occurred while deleting orders.');
+                    }
+                },
+                error: function(xhr) {
+                    const message = xhr.responseJSON?.message || 'An error occurred while deleting orders.';
+                    alert(message);
+                }
+            });
+        }
+    });
+
+    // Delete single order functionality
     $('.delete-order').on('click', function() {
         orderToDelete = $(this).data('id');
         $('#deleteModal').modal('show');
