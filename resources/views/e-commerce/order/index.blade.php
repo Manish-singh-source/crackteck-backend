@@ -46,6 +46,10 @@
                                             <th>Product Name</th>
                                             <th>Customer Name</th>
                                             <th>Amount</th>
+                                            <th>Quantity</th>
+                                            <th>Delivery</th>
+                                            <th>Delivery Man</th>
+                                            <th>Status</th>
                                             <th>Invoice</th>
                                             <th>Created Date</th>
                                             <th>Actions</th>
@@ -60,7 +64,7 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         @if($order->product && $order->product->warehouseProduct && $order->product->warehouseProduct->main_product_image)
-                                                            <img src="{{ asset('storage/' . $order->product->warehouseProduct->main_product_image) }}"
+                                                            <img src="{{ asset( $order->product->warehouseProduct->main_product_image) }}"
                                                                  alt="Product" class="rounded me-2" width="40" height="40">
                                                         @else
                                                             <div class="bg-light rounded me-2 d-flex align-items-center justify-content-center"
@@ -88,6 +92,34 @@
                                                     <span class="fw-semibold text-success">₹{{ number_format($order->amount, 2) }}</span>
                                                 </td>
                                                 <td>
+                                                    <span class="fw-medium">{{ $order->quantity ?? 'N/A' }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted">{{ $order->delivery ?? 'N/A' }}</span>
+                                                </td>
+                                                <td>
+                                                    @if($order->deliveryMan)
+                                                        <div>
+                                                            <div class="fw-medium">{{ $order->deliveryMan->full_name }}</div>
+                                                            <small class="text-muted">{{ $order->deliveryMan->current_address }}</small>
+                                                        </div>
+                                                    @else
+                                                        <span class="text-muted">Not Assigned</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $statusColors = [
+                                                            'Pending' => 'warning',
+                                                            'Assigned' => 'info',
+                                                            'Out for Delivery' => 'primary',
+                                                            'Delivered' => 'success'
+                                                        ];
+                                                        $statusColor = $statusColors[$order->status] ?? 'secondary';
+                                                    @endphp
+                                                    <span class="badge bg-{{ $statusColor }}">{{ $order->status }}</span>
+                                                </td>
+                                                <td>
                                                     @if($order->invoice_file)
                                                         <a href="{{ asset('storage/' . $order->invoice_file) }}"
                                                            target="_blank" class="btn btn-sm btn-outline-primary">
@@ -102,11 +134,11 @@
                                                     <small class="text-muted">{{ $order->created_at->format('h:i A') }}</small>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('order.view', $order->id) }}"
-                                                       class="btn btn-sm btn-outline-primary" title="View">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
                                                     <div class="btn-group" role="group">
+                                                        <a href="{{ route('order.view', $order->id) }}"
+                                                           class="btn btn-sm btn-outline-info" title="View">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
                                                         <a href="{{ route('order.edit', $order->id) }}"
                                                            class="btn btn-sm btn-outline-primary" title="Edit">
                                                             <i class="fas fa-edit"></i>
