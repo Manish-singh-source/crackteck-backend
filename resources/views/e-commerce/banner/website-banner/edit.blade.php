@@ -27,10 +27,40 @@
                                 <div class="row g-3">
                                     <div class="col-lg-6">
                                         @include('components.form.input', [
-                                            'label' => 'Title',
+                                            'label' => 'Banner Title',
                                             'name' => 'banner_title',
                                             'type' => 'text',
-                                            'placeholder' => 'Enter Title',
+                                            'placeholder' => 'Enter Banner Title',
+                                            'model' => $website,
+                                        ])
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        @include('components.form.input', [
+                                            'label' => 'Banner Heading',
+                                            'name' => 'banner_heading',
+                                            'type' => 'text',
+                                            'placeholder' => 'Enter Banner Heading',
+                                            'model' => $website,
+                                        ])
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        @include('components.form.input', [
+                                            'label' => 'Banner Sub Heading',
+                                            'name' => 'banner_sub_heading',
+                                            'type' => 'text',
+                                            'placeholder' => 'Enter Banner Sub Heading',
+                                            'model' => $website,
+                                        ])
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        @include('components.form.input', [
+                                            'label' => 'Button Text',
+                                            'name' => 'button_text',
+                                            'type' => 'text',
+                                            'placeholder' => 'Enter Button Text',
                                             'model' => $website,
                                         ])
                                     </div>
@@ -40,7 +70,7 @@
                                             'label' => 'Button URL',
                                             'name' => 'banner_url',
                                             'type' => 'text',
-                                            'placeholder' => 'Enter URL',
+                                            'placeholder' => 'Enter Button URL',
                                             'model' => $website,
                                         ])
                                     </div>
@@ -49,8 +79,8 @@
                                         @include('components.form.input', [
                                             'label' => 'Description',
                                             'name' => 'banner_description',
-                                            'type' => 'text',
-                                            'placeholder' => 'Enter Description',
+                                            'type' => 'textarea',
+                                            'placeholder' => 'Enter Banner Description',
                                             'model' => $website,
                                         ])
                                     </div>
@@ -75,7 +105,7 @@
 
                                     <div class="text-start mt-4">
                                         <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                            Add
+                                            Update
                                         </button>
                                     </div>
 

@@ -102,57 +102,65 @@
 
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-
-            <!-- Slide 1 -->
-            <div class="carousel-item active"
-                style="background-image: url('{{ asset('frontend-assets/images/banner/main-banner-1.jpg') }}');">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h5>Deals And Promotions</h5>
-                        <h1>ThinkPad <br>E16 40.64cms <br> 13th Gen Intel i3</h1>
-                        <p>Today's Deal</p>
-                        <a href="#" class="btn btn-outline-light">EXPLORE NOW</a>
+            @if($banners->count() > 0)
+                @foreach($banners as $index => $banner)
+                    <!-- Slide {{ $index + 1 }} -->
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}"
+                        style="background-image: url('{{ $banner->banner_image_url }}');">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                @if($banner->banner_sub_heading)
+                                    <h5>{{ $banner->banner_sub_heading }}</h5>
+                                @endif
+                                @if($banner->banner_heading)
+                                    <h1>{!! nl2br(e($banner->banner_heading)) !!}</h1>
+                                @endif
+                                @if($banner->banner_description)
+                                    <p>{{ $banner->banner_description }}</p>
+                                @endif
+                                @if($banner->button_text && $banner->banner_url)
+                                    <a href="{{ $banner->banner_url }}" class="btn btn-outline-light">{{ $banner->button_text }}</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <!-- Default slide when no banners are available -->
+                <div class="carousel-item active"
+                    style="background-image: url('{{ asset('frontend-assets/images/banner/main-banner-1.jpg') }}');">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h5>Welcome to CrackTeck</h5>
+                            <h1>Your Technology Partner</h1>
+                            <p>Discover our latest products and services</p>
+                            <a href="{{ route('shop') }}" class="btn btn-outline-light">EXPLORE NOW</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="carousel-item"
-                style="background-image: url('{{ asset('frontend-assets/images/banner/main-banner-2.jpg') }}');">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h5>News And Inspiration</h5>
-                        <h1>TP Link<br>Tapo C500</h1>
-                        <p>Sale up to Off</p>
-                        <a href="#" class="btn btn-outline-light">EXPLORE NOW</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="carousel-item"
-                style="background-image: url('{{ asset('frontend-assets/images/banner/main-banner-3.jpg') }}');">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h5>Top Monthly Seller</h5>
-                        <h1>Canon Pixma E3370<br>Smart LED Printer</h1>
-                        <p>Onlu until the end of this week</p>
-                        <a href="#" class="btn btn-outline-light">EXPLORE NOW</a>
-                    </div>
-                </div>
-            </div>
-
+            @endif
         </div>
 
-        <!-- Navigation buttons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon p-3" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon p-3" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <!-- Navigation buttons - only show if there are multiple banners -->
+        @if($banners->count() > 1)
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <!-- Carousel indicators -->
+            <div class="carousel-indicators">
+                @foreach($banners as $index => $banner)
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="{{ $index }}"
+                            class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                            aria-label="Slide {{ $index + 1 }}"></button>
+                @endforeach
+            </div>
+        @endif
     </div>
 
     <!-- /Banner Product -->

@@ -6,6 +6,7 @@ use App\Models\PromotionalBanner;
 use App\Models\WebsiteBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class BannerController extends Controller
@@ -13,7 +14,7 @@ class BannerController extends Controller
     //
     public function websiteBanner()
     {
-        $website = WebsiteBanner::all();
+        $website = WebsiteBanner::ordered()->get();
         return view('/e-commerce/banner/website-banner/index', compact('website'));
     }
 
@@ -27,8 +28,11 @@ class BannerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'banner_title' => 'required|min:3',
+            'banner_heading' => 'nullable|string|max:255',
+            'banner_sub_heading' => 'nullable|string|max:255',
             'banner_url' => 'required|min:3',
             'banner_description' => 'required|min:15',
+            'button_text' => 'nullable|string|max:100',
             'website_banner' => 'required',
             'status' => 'required',
         ]);
@@ -37,10 +41,17 @@ class BannerController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        // Get the next sort order
+        $maxSortOrder = WebsiteBanner::max('sort_order') ?? 0;
+
         $websiteBanner = new WebsiteBanner();
         $websiteBanner->banner_title = $request->banner_title;
+        $websiteBanner->banner_heading = $request->banner_heading;
+        $websiteBanner->banner_sub_heading = $request->banner_sub_heading;
         $websiteBanner->banner_url = $request->banner_url;
         $websiteBanner->banner_description = $request->banner_description;
+        $websiteBanner->button_text = $request->button_text;
+        $websiteBanner->sort_order = $maxSortOrder + 1;
         
         if ($request->hasFile('website_banner')) {
             $file = $request->file('website_banner');
@@ -57,7 +68,7 @@ class BannerController extends Controller
         if (!$websiteBanner) {
             return back()->with('error', 'Something went wrong.');
         }
-        return redirect()->route('website.banner.index')->with('success', 'Customer added successfully.');
+        return redirect()->route('website.banner.index')->with('success', 'Banner added successfully.');
     }
 
     public function editWebsiteBanner($id)
@@ -70,8 +81,11 @@ class BannerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'banner_title' => 'required|min:3',
+            'banner_heading' => 'nullable|string|max:255',
+            'banner_sub_heading' => 'nullable|string|max:255',
             'banner_url' => 'required|min:3',
             'banner_description' => 'required|min:15',
+            'button_text' => 'nullable|string|max:100',
             'status' => 'required',
         ]);
 
@@ -81,8 +95,11 @@ class BannerController extends Controller
 
         $websiteBanner = WebsiteBanner::findOrFail($id);
         $websiteBanner->banner_title = $request->banner_title;
+        $websiteBanner->banner_heading = $request->banner_heading;
+        $websiteBanner->banner_sub_heading = $request->banner_sub_heading;
         $websiteBanner->banner_url = $request->banner_url;
         $websiteBanner->banner_description = $request->banner_description;
+        $websiteBanner->button_text = $request->button_text;
         
         if ($request->hasFile('website_banner')) {
 
@@ -226,5 +243,28 @@ class BannerController extends Controller
         $promotionalBanner->delete();
 
         return redirect()->route('promotional.banner.index')->with('success', 'Promotional Banner deleted successfully.');
+    }
+
+    /**
+     * Update banner sort order via AJAX for drag & drop functionality
+     */
+    public function updateSortOrder(Request $request)
+    {
+        $bannerIds = $request->input('banner_ids');
+
+        if (!$bannerIds || !is_array($bannerIds)) {
+            return response()->json(['success' => false, 'message' => 'Invalid data provided']);
+        }
+
+        try {
+            foreach ($bannerIds as $index => $bannerId) {
+                WebsiteBanner::where('id', $bannerId)->update(['sort_order' => $index + 1]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Banner order updated successfully']);
+        } catch (\Exception $e) {
+            Log::error('Banner sort order update failed: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to update banner order']);
+        }
     }
 }
