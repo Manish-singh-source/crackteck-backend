@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 // Home
-Route::get('/website', function () {
-    return view('frontend/index');
-})->name('website');
+Route::get('/website', [FrontendController::class, 'index'])->name('website');
 
 // Shop
 Route::get('/shop', function () {

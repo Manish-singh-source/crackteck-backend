@@ -82,7 +82,7 @@ Route::controller(EcommerceProductController::class)->group(function (){
     // Store Product
     Route::post('/e-commerce/create-product', 'store')->name('ec.product.store');
     // View Product Page
-    Route::get('/e-commerce/view-product', 'show')->name('ec.product.view');
+    Route::get('/e-commerce/view-product/{id}', 'show')->name('ec.product.view');
     // Edit Product Page
     Route::get('/e-commerce/edit-product/{id}', 'edit')->name('ec.product.edit');
     // Update Product
@@ -207,8 +207,10 @@ Route::controller(BannerController::class)->group(function (){
     Route::get('/e-commerce/edit-banner/{id}' ,'editWebsiteBanner')->name('website.banner.edit');
     // Update website Banner Page 
     Route::put('/e-commerce/update-banner/{id}' ,'updateWebsiteBanner')->name('website.banner.update');
-    // Delete Website Banner Page 
+    // Delete Website Banner Page
     Route::delete('/e-commerce/delete-banner/{id}', 'deleteWebsiteBanner')->name('website.banner.delete');
+    // Update Banner Sort Order (AJAX)
+    Route::post('/e-commerce/update-banner-sort-order', 'updateSortOrder')->name('website.banner.update-sort-order');
 
     // Promotional Banner Page
     Route::get('/e-commerce/promotional-banner' ,'promotionalBanner')->name('promotional.banner.index');

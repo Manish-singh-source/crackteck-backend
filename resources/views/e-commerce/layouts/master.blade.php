@@ -13,6 +13,7 @@
 
     <meta name="author" content="Technofra" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="#"> -->
