@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class EcommerceProduct extends Model
 {
@@ -174,7 +175,8 @@ class EcommerceProduct extends Model
      */
     public function generateUrlSlug()
     {
-        $slug = \Str::slug($this->product_name);
+        $productName = $this->warehouseProduct ? $this->warehouseProduct->product_name : 'product';
+        $slug = Str::slug($productName);
         $originalSlug = $slug;
         $counter = 1;
 
