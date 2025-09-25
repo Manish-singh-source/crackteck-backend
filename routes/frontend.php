@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriberController;
 
 // Home
 Route::get('/website', [FrontendController::class, 'index'])->name('website');
@@ -129,4 +130,9 @@ Route::get('/order-details', function () {
 
 Route::fallback( function () {
     return view('frontend/404');
+});
+
+
+Route::controller(SubscriberController::class)->group(function (){
+    Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.subscribe');
 });
