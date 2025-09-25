@@ -1,15 +1,21 @@
 <?php
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\FrontendEcommerceController;
 use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/website', [FrontendController::class, 'index'])->name('website');
 
 // Shop
-Route::get('/shop', function () {
-    return view('frontend/shop');
-})->name('shop');
+// Route::get('/shop', function () {
+//     return view('frontend/shop');
+// })->name('shop');
+
+// E-commerce Routes
+Route::get('/e-commerce/shop', [FrontendEcommerceController::class, 'shop'])->name('shop');
+Route::get('/e-commerce/product/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('ecommerce.product.detail');
+Route::get('/product-detail/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('product.detail');
 
 // About US
 Route::get('/about-us', function () {

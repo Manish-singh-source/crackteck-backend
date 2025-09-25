@@ -112,7 +112,7 @@
                         <div class="col-md-3 col-7 d-flex align-items-center">
                             <div class="logo-site">
                                 <a href="{{ route('website') }}">
-                                    <img src="frontend-assets/images/logo/header-logo.png" alt="Logo">
+                                    <img src="{{ asset('frontend-assets/images/logo/header-logo.png') }}" alt="Logo">
                                 </a>
                             </div>
                         </div>
@@ -1260,34 +1260,6 @@
         </div>
     </div>
     <!-- /modal Quick View -->
-
-    <!-- Newsletter -->
-    <div class="modal modalCentered fade auto-popup modal-def modal-newleter">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <span class="icon icon-close icon-close-popup link" data-bs-dismiss="modal"></span>
-                <div class="heading">
-                    <h5 class="fw-semibold">Join our newsletter for ₹10 offs</h5>
-                    <p class="body-md-2">Register now to get latest updates on promotions & coupons. <br>
-                        Don’t worry, we not spam!</p>
-                </div>
-                <form class="form-sub">
-                    <div class="form-content">
-                        <fieldset>
-                            <input type="email" id="mail" name="mail"
-                                placeholder="Enter Your Email Address" aria-required="true" required>
-                        </fieldset>
-                    </div>
-                    <div class="box-btn">
-                        <button type="submit" class="tf-btn w-100">
-                            <span class="text-white">Subcribe</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- /Newsletter -->
 
     <!-- Product Compare -->
     <div class="offcanvas offcanvas-bottom offcanvas-compare" id="compare">
