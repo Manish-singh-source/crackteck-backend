@@ -3490,30 +3490,125 @@
 
 
     <!-- Newsletter -->
-    <div class="modal modalCentered fade auto-popup modal-def modal-newleter">
+    <div class="modal modalCentered fade auto-popup modal-def modal-newleter" id="newsletterModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center">
-                <span class="icon icon-close icon-close-popup link" data-bs-dismiss="modal"></span>
+                <span class="icon icon-close icon-close-popup link btn-hide-popup" data-bs-dismiss="modal"></span>
                 <div class="heading">
                     <h5 class="fw-semibold">Join our newsletter for ₹10 offs</h5>
                     <p class="body-md-2">Register now to get latest updates on promotions & coupons. <br>
                         Don’t worry, we not spam!</p>
                 </div>
-                <form class="form-sub">
+                <form class="form-sub" id="newsletterForm">
+                    @csrf
                     <div class="form-content">
                         <fieldset>
-                            <input type="email" id="mail" name="mail"
+                            <input type="email" id="newsletter-email" name="email"
                                 placeholder="Enter Your Email Address" aria-required="true" required>
                         </fieldset>
                     </div>
                     <div class="box-btn">
-                        <button type="submit" class="tf-btn w-100">
-                            <span class="text-white">Subcribe</span>
+                        <button type="submit" class="tf-btn w-100" id="newsletter-submit-btn">
+                            <span class="text-white">Subscribe</span>
                         </button>
                     </div>
+                    <div id="newsletter-message" class="mt-3" style="display: none;"></div>
                 </form>
             </div>
         </div>
     </div>
     <!-- /Newsletter -->
+
+@endsection
+
+@section('script')
+
+
+    <script>
+        $(document).ready(function() {
+            // Newsletter subscription form handling
+            $('#newsletterForm').on('submit', function(e) {
+                e.preventDefault();
+
+                const form = $(this);
+                const submitBtn = $('#newsletter-submit-btn');
+                const messageDiv = $('#newsletter-message');
+                const email = $('#newsletter-email').val();
+
+                // Disable submit button and show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.find('span').text('Subscribing...');
+                messageDiv.hide();
+
+                // AJAX request to subscribe
+                $.ajax({
+                    url: '{{ route("newsletter.subscribe") }}',
+                    type: 'POST',
+                    data: {
+                        email: email,
+                        _token: $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+                    },
+                    success: function(response) {
+                        
+                        if (response.success) {
+                            // Show success message
+                            messageDiv.html('<div class="alert alert-success">' + response.message + '</div>').show();
+
+                            // Clear form
+                            form[0].reset();
+
+                            // Set localStorage to prevent popup from showing again
+                            localStorage.setItem('newsletterSubscribed', 'true');
+                            sessionStorage.setItem('showPopup', 'true');
+
+                            // Close modal after 3 seconds
+                            setTimeout(function() {
+                                $('#newsletterModal').modal('hide');
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'Something went wrong. Please try again.';
+                        
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        // Show error message
+                        messageDiv.html('<div class="alert alert-danger">' + errorMessage + '</div>').show();
+                    },
+                    complete: function() {
+                        // Re-enable submit button
+                        submitBtn.prop('disabled', false);
+                        submitBtn.find('span').text('Subscribe');
+                    }
+                });
+            });
+
+            // Enhanced auto-popup functionality with localStorage check
+            function initNewsletterPopup() {
+                if ($(".auto-popup").length > 0) {
+                    // Check if user has already subscribed
+                    const hasSubscribed = localStorage.getItem('newsletterSubscribed');
+                    const showPopup = sessionStorage.getItem('showPopup');
+
+                    // Only show popup if user hasn't subscribed and session flag is not set
+                    if (!hasSubscribed && !JSON.parse(showPopup)) {
+                        setTimeout(function() {
+                            $(".auto-popup").modal("show");
+                        }, 3000);
+                    }
+                }
+            }
+
+            // Initialize popup
+            initNewsletterPopup();
+
+            // Handle popup close button
+            $(".btn-hide-popup").on("click", function() {
+                sessionStorage.setItem("showPopup", true);
+            });
+        });
+    </script>
+
 @endsection

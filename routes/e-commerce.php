@@ -183,6 +183,8 @@ Route::controller(SubscriberController::class)->group(function (){
     Route::get('/e-commerce/send-mail-subscriber' , 'sendMail')->name('subscriber.send-mail');
     // Delete Subscriber
     Route::delete('/e-commerce/delete-subscriber/{id}', 'delete')->name('subscriber.delete');
+    // Newsletter Subscription (AJAX)
+    Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.subscribe');
 });
 
 // ------------------------------------------------------------ E-Commerce Contact Page -------------------------------------------------------------
