@@ -167,6 +167,7 @@
 <!-- App js-->
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
+@yield('scripts')
 
 </body>
 

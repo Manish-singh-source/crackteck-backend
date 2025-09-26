@@ -32,32 +32,80 @@
                                     @method('POST')
                                     <div class="modal-body">
                                         <div class="mx-3 py-3">
-                                            <div class="mb-3">
-                                                @include('components.form.input', [
-                                                    'label' => 'Parent Categories',
-                                                    'name' => 'parent_categories',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Parent Categories',
-                                                ])
+                                            <div class="row">
+                                                <div class="mb-3 col-6">
+                                                    @include('components.form.input', [
+                                                        'label' => 'Category Name',
+                                                        'name' => 'parent_categories',
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Enter Category Name',
+                                                        'required' => true,
+                                                    ])
+                                                </div>
+                                                <div class="mb-3 col-6">
+                                                    @include('components.form.input', [
+                                                        'label' => 'Category URL',
+                                                        'name' => 'url',
+                                                        'type' => 'url',
+                                                        'placeholder' => 'Enter Category URL',
+                                                        'required' => true,
+                                                    ])
+                                                </div>
                                             </div>
 
-                                            <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Status',
-                                                    'name' => 'status',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        'Active' => 'Active',
-                                                        'Inactive' => 'Inactive',
-                                                    ],
-                                                ])
+                                            <div class="row">
+                                                <div class="mb-3 col-6">
+                                                    <label for="category_image" class="form-label">Category Image <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control" id="category_image"
+                                                        name="category_image" accept="image/*" required>
+                                                    <small class="text-muted">Upload category image (JPEG, PNG, JPG, GIF -
+                                                        Max: 2MB)</small>
+                                                </div>
+                                                <div class="mb-3 col-6">
+                                                    @include('components.form.input', [
+                                                        'label' => 'Sort Order',
+                                                        'name' => 'sort_order',
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Enter Sort Order',
+                                                        'value' => '0',
+                                                        'min' => '0',
+                                                    ])
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="mb-3 col-6">
+                                                    @include('components.form.select', [
+                                                        'label' => 'General Status',
+                                                        'name' => 'status',
+                                                        'options' => [
+                                                            '0' => '--Select--',
+                                                            'Active' => 'Active',
+                                                            'Inactive' => 'Inactive',
+                                                        ],
+                                                        'required' => true,
+                                                    ])
+                                                </div>
+                                                <div class="mb-3 col-6">
+                                                    <div class="form-check form-switch mt-4">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="category_status_ecommerce" name="category_status_ecommerce"
+                                                            value="1">
+                                                        <label class="form-check-label" for="category_status_ecommerce">
+                                                            Show on E-commerce Website
+                                                        </label>
+                                                        <small class="d-block text-muted">Enable to display this category on
+                                                            the frontend website</small>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-md btn-danger"
                                             data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-md btn-success">Add Parent</button>
+                                        <button type="submit" class="btn btn-md btn-success" id="addParentCategory">Add Parent</button>
                                     </div>
                                 </form>
                             </div>
@@ -272,57 +320,79 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Sr. No.</th>
-                                                            <th>Parent Category</th>
-                                                            <th>Top Category</th>
-                                                            <th>Status</th>
+                                                            <th>Category Image</th>
+                                                            <th>Category Name</th>
+                                                            <th>URL</th>
+                                                            <th>E-commerce Status</th>
+                                                            <th>General Status</th>
+                                                            <th>Sort Order</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($parentCategorie as $parentCategorie)
-                                                            <tr>
-                                                                <td>{{ $parentCategorie->id }}</td>
-                                                                <td>{{ $parentCategorie->parent_categories }}</td>
-
+                                                        @foreach ($parentCategorie as $category)
+                                                            <tr data-category-id="{{ $category->id }}">
+                                                                <td>{{ $category->id }}</td>
                                                                 <td>
-                                                                    <a href="#" class="text-success">
-                                                                        <i class="fa-solid fa-check-double"></i>
+                                                                    @if ($category->category_image)
+                                                                        <img src="{{ asset($category->category_image) }}"
+                                                                            alt="{{ $category->parent_categories }}"
+                                                                            style="width: 50px; height: 50px; object-fit: cover;"
+                                                                            class="rounded">
+                                                                    @else
+                                                                        <span class="text-muted">No Image</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $category->parent_categories }}</td>
+                                                                <td>
+                                                                    <a href="{{ $category->url }}" target="_blank"
+                                                                        class="text-primary">
+                                                                        {{ Str::limit($category->url, 30) }}
                                                                     </a>
                                                                 </td>
                                                                 <td>
                                                                     <span
-                                                                        class="badge fw-semibold {{ $parentCategorie->status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
-                                                                        {{ $parentCategorie->status }}
+                                                                        class="badge fw-semibold {{ $category->category_status_ecommerce ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' }}">
+                                                                        {{ $category->category_status_ecommerce ? 'Active' : 'Inactive' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>
+                                                                    <span
+                                                                        class="badge fw-semibold {{ $category->status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                                                        {{ $category->status }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span
+                                                                        class="badge bg-info-subtle text-info">{{ $category->sort_order }}</span>
+                                                                </td>
+                                                                <td>
                                                                     <a aria-label="anchor"
-                                                                        href="{{ route('categorie.view', $parentCategorie->id) }}"
+                                                                        href="{{ route('categorie.view', $category->id) }}"
                                                                         class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                         data-bs-toggle="tooltip"
-                                                                        data-bs-original-title="View">
+                                                                        data-bs-original-title="View Child Categories">
                                                                         <i
                                                                             class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                     </a>
                                                                     <a aria-label="anchor"
-                                                                        href="{{ route('variant.update', $parentCategorie->id) }}"
+                                                                        href="{{ route('category.edit', $category->id) }}"
                                                                         class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-original-title="Edit"
-                                                                        data-bs-target=".attribute-edit">
+                                                                        data-bs-toggle="tooltip"
+                                                                        data-bs-original-title="Edit Parent Category">
                                                                         <i
                                                                             class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                     </a>
                                                                     <form style="display: inline-block"
-                                                                        action="{{ route('category.delete', $parentCategorie->id) }}"
+                                                                        action="{{ route('category.delete', $category->id) }}"
                                                                         method="POST"
-                                                                        onsubmit="return confirm('Are you sure?')">
+                                                                        onsubmit="return confirm('Are you sure you want to delete this category and all its sub-categories?')">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit"
                                                                             class="btn btn-icon btn-sm bg-danger-subtle delete-row"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-original-title="Delete"><i
+                                                                            data-bs-original-title="Delete Category"><i
                                                                                 class="mdi mdi-delete fs-14 text-danger"></i>
                                                                         </button>
                                                                     </form>
@@ -352,4 +422,44 @@
             </div>
         </div> <!-- container-fluid -->
     </div> <!-- content -->
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            // Sort order editing is disabled on index page as per requirements
+            // Sort order can only be modified from the edit page
+
+            $('#sort_order').on('change', function() {
+                let sortId = $('#sort_order').val();
+                console.log(sortId);
+
+                $.ajax({
+                    url: '{{ route('category.check-sort-order') }}',
+                    method: 'GET',
+                    data: {
+                        sort_order: sortId
+                        // _token: '{{ csrf_token() }}' // Uncomment if POST request is needed
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.exists) {
+                            
+                            $('#sort_order').val('');
+                            $('#sort_order').focus();
+                            $('#addParentCategory').prop('disabled', true);
+                            $('#sort_order').parent().append('<small class="text-danger">Sort order value already exists. Please provide a unique value.</small>');
+
+                        }else{
+                            $('#addParentCategory').prop('disabled', false);
+                            $('#sort_order').parent().find('.text-danger').remove();
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching child category data:', xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
