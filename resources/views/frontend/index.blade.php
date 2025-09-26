@@ -8,90 +8,27 @@
                     data-mobile="3" data-pagination="2" data-pagination-sm="4" data-pagination-md="7"
                     data-pagination-lg="10">
                     <div class="category-track swiper-wrapper">
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-1.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Printer</span>
+                        @if(isset($categories) && $categories->count() > 0)
+                            @foreach($categories as $category)
+                                <div class="category-item swiper-slide">
+                                    <a href="{{ $category->url }}" class="hover-img" style="text-decoration: none;">
+                                        <img src="{{ $category->category_image ? asset($category->category_image) : asset('frontend-assets/images/new-products/default-category.png') }}"
+                                             alt="{{ $category->parent_categories }}"
+                                             style="width: 100%; height: auto; object-fit: cover;">
+                                        <span style="color: #ffffff;">{{ $category->parent_categories }}</span>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+                            <!-- Fallback content when no categories are available -->
+                            <div class="category-item swiper-slide">
+                                <div class="hover-img">
+                                    <img src="{{ asset('frontend-assets/images/new-products/header-product-1.png') }}"
+                                        alt="Default Category">
+                                    <span style="color: #ffffff;">No Categories Available</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-2.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Monitor</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-3.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Laptop</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-4.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">CCTV</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-5.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Bio-metric</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-6.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Router</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-7.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">SSD</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-8.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Scanner</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-9.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Server</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-10.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Keyboard</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-11.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Mouse</span>
-                            </div>
-                        </div>
-                        <div class="category-item swiper-slide">
-                            <div class=" hover-img">
-                                <img src="{{ asset('frontend-assets/images/new-products/header-product-12.png') }}"
-                                    alt="">
-                                <span style="color: #ffffff;">Webcam</span>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

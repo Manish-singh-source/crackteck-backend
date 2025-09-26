@@ -175,3 +175,17 @@ Ensure your database has:
 
 ## Support
 For any issues or questions regarding the Product Detail Page implementation, please refer to the code comments or contact the development team.
+
+
+
+
+
+
+**3. Category Edit Page (`/e-commerce/edit-categorie/`)**
+- **Data Display**: Show both parent category details and all associated child categories
+- **Data Source**: All form fields must be autofilled and populated directly from database (no hardcoded values)
+- **Edit Functionality**: Allow modification of any field for both parent and child categories
+- **Sort Order Validation**:
+  - Before saving changes, check if new `sort_order` value already exists for other categories
+  - If duplicate exists: Display error "Sort order value already exists."
+  - Prevent saving until unique value is provided
