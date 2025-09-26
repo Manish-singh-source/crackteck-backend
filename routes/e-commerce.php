@@ -122,8 +122,20 @@ Route::controller(CategorieController::class)->group(function (){
     Route::get('/e-commerce/edit-categorie/{id}' ,'edit')->name('category.edit');
     // Update Categorie Page 
     Route::put('/e-commerce/update-categorie/{id}' , 'update')->name('category.update');
-    // Delete Categorie Page 
+    // Delete Categorie Page
     Route::delete('/e-commerce/delete-categorie/{id}' ,'delete')->name('category.delete');
+    // Edit Child Category
+    Route::get('/e-commerce/edit-child-categorie/{id}' ,'editChild')->name('child.category.edit');
+    // Update Child Category
+    Route::put('/e-commerce/update-child-categorie/{id}' ,'updateChild')->name('child.category.update');
+    // Delete Child Category
+    Route::delete('/e-commerce/delete-child-categorie/{id}' ,'destroyChild')->name('child.category.delete');
+    // Update Category Order
+    Route::post('/e-commerce/update-category-order' ,'updateOrder')->name('category.update.order');
+    // Get Child Category Data for AJAX
+    Route::get('/e-commerce/get-child-category-data/{id}' ,'getChildCategoryData')->name('child.category.data');
+
+    Route::get('/e-commerce/check-sort-order-unique', 'checkSortOrderUnique')->name('category.check-sort-order');
 });
 
 Route::get('/categorie-dependent', [CategorieController::class, 'getDependentData']);
