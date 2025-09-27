@@ -343,7 +343,9 @@
                                     </li>
                                     <li class="wishlist">
                                         <a href="#;"
-                                            class="box-icon btn-icon-action hover-tooltip tooltip-left">
+                                            class="box-icon btn-icon-action hover-tooltip tooltip-left add-to-wishlist-btn"
+                                            data-product-id="{{ $product->id }}"
+                                            data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
                                             <span class="icon icon-heart2"></span>
                                             <span class="tooltip">Add to Wishlist</span>
                                         </a>
@@ -456,4 +458,152 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script>
+$(document).ready(function() {
+    // CSRF token setup for AJAX requests
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // Add to Wishlist functionality
+    $('.add-to-wishlist-btn').on('click', function(e) {
+        e.preventDefault();
+
+        const $button = $(this);
+        const productId = $button.data('product-id');
+        const productName = $button.data('product-name');
+
+        // Check if user is authenticated (you can customize this check)
+        @guest
+            // Show login message for unauthenticated users
+            showNotification('Please login to add products to your wishlist.', 'warning');
+            return;
+        @endguest
+
+        // Show loading state
+        const originalIcon = $button.find('.icon').attr('class');
+        const originalTooltip = $button.find('.tooltip').text();
+
+        $button.find('.icon').attr('class', 'icon icon-loading');
+        $button.find('.tooltip').text('Adding...');
+        $button.prop('disabled', true);
+
+        // Make AJAX request
+        $.ajax({
+            url: '{{ route("wishlist.add") }}',
+            method: 'POST',
+            data: {
+                ecommerce_product_id: productId
+            },
+            success: function(response) {
+                if (response.success) {
+                    showNotification(response.message, 'success');
+
+                    // Update button state to show it's in wishlist
+                    $button.find('.icon').attr('class', 'icon icon-heart-fill');
+                    $button.find('.tooltip').text('In Wishlist');
+                    $button.addClass('in-wishlist');
+
+                    // Update wishlist count if there's a counter
+                    updateWishlistCount();
+                } else {
+                    showNotification(response.message, 'error');
+                    // Reset button state
+                    $button.find('.icon').attr('class', originalIcon);
+                    $button.find('.tooltip').text(originalTooltip);
+                }
+            },
+            error: function(xhr) {
+                let message = 'An error occurred while adding the product to your wishlist.';
+
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    message = xhr.responseJSON.message;
+                } else if (xhr.status === 401) {
+                    message = 'Please login to add products to your wishlist.';
+                } else if (xhr.status === 409) {
+                    message = 'This product is already in your wishlist.';
+                }
+
+                showNotification(message, 'error');
+
+                // Reset button state
+                $button.find('.icon').attr('class', originalIcon);
+                $button.find('.tooltip').text(originalTooltip);
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+
+    // Function to show notifications
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = $(`
+            <div class="notification notification-${type}" style="
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 9999;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                max-width: 300px;
+                word-wrap: break-word;
+            ">
+                ${message}
+            </div>
+        `);
+
+        // Add to body
+        $('body').append(notification);
+
+        // Auto remove after 5 seconds
+        setTimeout(function() {
+            notification.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 5000);
+
+        // Allow manual close on click
+        notification.on('click', function() {
+            $(this).fadeOut(300, function() {
+                $(this).remove();
+            });
+        });
+    }
+
+    // Function to update wishlist count
+    function updateWishlistCount() {
+        $.ajax({
+            url: '{{ route("wishlist.count") }}',
+            method: 'GET',
+            success: function(response) {
+                // Update wishlist counter in header if it exists
+                $('.wishlist-count, .wishlist-counter').text(response.count);
+
+                // Show/hide counter based on count
+                if (response.count > 0) {
+                    $('.wishlist-count, .wishlist-counter').show();
+                } else {
+                    $('.wishlist-count, .wishlist-counter').hide();
+                }
+            },
+            error: function() {
+                console.log('Error updating wishlist count');
+            }
+        });
+    }
+
+    // Initialize wishlist count on page load
+    updateWishlistCount();
+});
+</script>
 @endsection
