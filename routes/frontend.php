@@ -3,8 +3,27 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CustomerAuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SubscriberController;
+
+// Customer Authentication Routes
+Route::controller(CustomerAuthController::class)->group(function () {
+    // Login Routes
+    Route::get('/e-commerce/login', 'showLogin')->name('customer.login');
+    Route::post('/e-commerce/login', 'login')->name('customer.login.submit');
+
+    // Signup Routes
+    Route::get('/e-commerce/signup', 'showSignup')->name('customer.signup');
+    Route::post('/e-commerce/signup', 'signup')->name('customer.signup.submit');
+
+    // Logout Route
+    Route::post('/e-commerce/logout', 'logout')->name('customer.logout');
+
+    // AJAX Route to get authenticated customer data
+    Route::get('/e-commerce/auth-status', 'getAuthenticatedCustomer')->name('customer.auth.status');
+});
 
 // Home
 Route::get('/website', [FrontendController::class, 'index'])->name('website');
@@ -41,11 +60,11 @@ Route::get('/amc-detail', function () {
 
 // Wishlist Routes
 Route::controller(WishlistController::class)->group(function () {
-    // Display wishlist page (requires authentication)
-    Route::get('/wishlist', 'index')->name('wishlist')->middleware('auth');
+    // Display wishlist page (requires customer authentication)
+    Route::get('/wishlist', 'index')->name('wishlist')->middleware('customer.auth');
 
-    // AJAX routes for wishlist operations (require authentication)
-    Route::middleware('auth')->group(function () {
+    // AJAX routes for wishlist operations (require customer authentication)
+    Route::middleware('customer.auth')->group(function () {
         Route::post('/wishlist/add', 'store')->name('wishlist.add');
         Route::delete('/wishlist/{id}', 'destroy')->name('wishlist.remove');
         Route::post('/wishlist/{id}/move-to-cart', 'moveToCart')->name('wishlist.move-to-cart');
@@ -148,3 +167,24 @@ Route::fallback( function () {
 Route::controller(SubscriberController::class)->group(function (){
     Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.subscribe');
 });
+
+// Test route for customer authentication
+Route::get('/test-auth', function () {
+    if (Auth::guard('customer')->check()) {
+        $customer = Auth::guard('customer')->user();
+        return response()->json([
+            'authenticated' => true,
+            'customer' => [
+                'id' => $customer->id,
+                'email' => $customer->email,
+                'first_name' => $customer->first_name,
+                'last_name' => $customer->last_name,
+            ]
+        ]);
+    } else {
+        return response()->json([
+            'authenticated' => false,
+            'message' => 'Not authenticated'
+        ]);
+    }
+})->name('test.auth');
