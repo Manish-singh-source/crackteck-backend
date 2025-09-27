@@ -115,6 +115,23 @@ class EcommerceProduct extends Model
     }
 
     /**
+     * Get the wishlist items for this product.
+     */
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * Get the users who have this product in their wishlist.
+     */
+    public function wishlistUsers()
+    {
+        return $this->belongsToMany(User::class, 'wishlists', 'ecommerce_product_id', 'user_id')
+                    ->withTimestamps();
+    }
+
+    /**
      * Get the product name from warehouse product.
      */
     public function getProductNameAttribute()
