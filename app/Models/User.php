@@ -48,4 +48,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the wishlist items for the user.
+     */
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * Get the e-commerce products in the user's wishlist.
+     */
+    public function wishlistProducts()
+    {
+        return $this->belongsToMany(EcommerceProduct::class, 'wishlists', 'user_id', 'ecommerce_product_id')
+                    ->withTimestamps();
+    }
 }
