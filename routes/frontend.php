@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 
@@ -38,10 +39,21 @@ Route::get('/amc-detail', function () {
     return view('frontend/amc-details');
 })->name('amc-details');
 
-// Wishlist
-Route::get('/wishlist', function () {
-    return view('frontend/wishlist');
-})->name('wishlist');
+// Wishlist Routes
+Route::controller(WishlistController::class)->group(function () {
+    // Display wishlist page (requires authentication)
+    Route::get('/wishlist', 'index')->name('wishlist')->middleware('auth');
+
+    // AJAX routes for wishlist operations (require authentication)
+    Route::middleware('auth')->group(function () {
+        Route::post('/wishlist/add', 'store')->name('wishlist.add');
+        Route::delete('/wishlist/{id}', 'destroy')->name('wishlist.remove');
+        Route::post('/wishlist/{id}/move-to-cart', 'moveToCart')->name('wishlist.move-to-cart');
+    });
+
+    // Wishlist count (can be accessed without auth, returns 0 for guests)
+    Route::get('/wishlist/count', 'getWishlistCount')->name('wishlist.count');
+});
 
 // Compare
 Route::get('/compare', function () {
