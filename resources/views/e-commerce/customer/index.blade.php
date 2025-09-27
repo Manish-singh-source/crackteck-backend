@@ -139,6 +139,7 @@
                                                                 <th>Email</th>
                                                                 <th>Contact Number</th>
                                                                 <th>Number of Orders</th>
+                                                                <th>Auth Enabled</th>
                                                                 <th>Status</th>
                                                                 <th>Joined At</th>
                                                                 <th>Action</th>
@@ -151,7 +152,14 @@
                                                                     <td>{{ $customer->last_name }}</td>
                                                                     <td>{{ $customer->email }}</td>
                                                                     <td>{{ $customer->phone }}</td>
-                                                                    <td>2</td>
+                                                                    <td>{{ $customer->orders->count() ?? 0 }}</td>
+                                                                    <td>
+                                                                        @if($customer->password)
+                                                                            <span class="badge bg-success">Yes</span>
+                                                                        @else
+                                                                            <span class="badge bg-secondary">No</span>
+                                                                        @endif
+                                                                    </td>
                                                                     <td>
                                                                         <div class="form-check form-switch mb-2">
                                                                             <input class="form-check-input"
