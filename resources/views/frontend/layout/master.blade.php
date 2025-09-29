@@ -93,25 +93,12 @@
                                     </select>
                                 </div>
                             </div> -->
-
-                            <!-- Customer Authentication -->
-                                <div class="customer-auth-section">
-                                    @auth('customer')
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="text-primary">{{ Auth::guard('customer')->user()->email }}</span>
-                                            <form method="POST" action="{{ route('customer.logout') }}" class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-link text-danger p-0 text-decoration-none">
-                                                    Logout
-                                                </button>
-                                            </form>
-                                        </div>
-                                    @else
-                                        <a href="#log" data-bs-toggle="modal" class="text-primary text-decoration-none">
-                                            Login / Signup
-                                        </a>
-                                    @endauth
-                                </div>
+                            <a href="#log" data-bs-toggle="modal" class="tf-cur-item link">
+                                <!-- <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/person-male.png" alt="person-male" /> -->
+                                <i class="fa-solid fa-user" style="color: #1987ff;"></i>
+                                <span class="body-small text-black">My Account:</span>
+                                <i class="icon-arrow-down" style="color:rgb(0, 0, 0);"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -170,7 +157,7 @@
                         </div>
                         <!-- Right Side -->
                         <div class="col-md-4 col-lg-4 d-none d-xl-block email-phone">
-                            <div class="d-flex align-items-center justify-content-between gap-3">
+                            <div class="d-flex align-items-center justify-content-center gap-3">
                                 <div class="d-none d-md-block d-lg-flex text-center">
                                     <div>
                                         <i class="fa-solid fa-envelope ps-4 pe-1 text-primary fa-lg"></i>
@@ -179,8 +166,6 @@
                                     <strong> <i class="fa-solid fa-phone-volume ps-4 pe-1 text-primary fa-lg"></i> +91
                                         9607 78 8836</strong>
                                 </div>
-
-                                
                                 <!-- <a href="#" class="special-btn d-none d-md-block">SPECIAL OFFERS!</a> -->
                             </div>
                         </div>
@@ -393,35 +378,23 @@
                                 </ul>
                                 <ul class="nav-icon justify-content-xl-center d-xl-none">
                                     <li class="nav-account">
-                                        @auth('customer')
-                                            <div class="d-flex flex-column align-items-center text-center">
-                                                <span class="text-primary small">{{ Auth::guard('customer')->user()->email }}</span>
-                                                <form method="POST" action="{{ route('customer.logout') }}" class="d-inline">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-link text-danger p-0 small">
-                                                        Logout
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        @else
-                                            <a href="#log" data-bs-toggle="modal" class="link nav-icon-item">
-                                                <span>
-                                                    <svg width="22" height="23" viewBox="0 0 22 23"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M10.9998 11.5283C5.20222 11.5283 0.485352 16.2452 0.485352 22.0428C0.485352 22.2952 0.69017 22.5 0.942518 22.5C1.19487 22.5 1.39968 22.2952 1.39968 22.0428C1.39968 16.749 5.70606 12.4426 10.9999 12.4426C16.2937 12.4426 20.6001 16.749 20.6001 22.0428C20.6001 22.2952 20.8049 22.5 21.0572 22.5C21.3096 22.5 21.5144 22.2952 21.5144 22.0428C21.5144 16.2443 16.7975 11.5283 10.9998 11.5283Z"
-                                                            fill="#333E48" stroke="#333E48" stroke-width="0.3"></path>
-                                                        <path
-                                                            d="M10.9999 0.5C8.22767 0.5 5.97119 2.75557 5.97119 5.52866C5.97119 8.30174 8.22771 10.5573 10.9999 10.5573C13.772 10.5573 16.0285 8.30174 16.0285 5.52866C16.0285 2.75557 13.772 0.5 10.9999 0.5ZM10.9999 9.64303C8.73146 9.64303 6.88548 7.79705 6.88548 5.52866C6.88548 3.26027 8.73146 1.41429 10.9999 1.41429C13.2682 1.41429 15.1142 3.26027 15.1142 5.52866C15.1142 7.79705 13.2682 9.64303 10.9999 9.64303Z"
-                                                            fill="#333E48" stroke="#333E48" stroke-width="0.3"></path>
-                                                    </svg>
+                                        <a href="#log" data-bs-toggle="modal" class="link nav-icon-item">
+                                            <span>
+                                                <svg width="22" height="23" viewBox="0 0 22 23"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M10.9998 11.5283C5.20222 11.5283 0.485352 16.2452 0.485352 22.0428C0.485352 22.2952 0.69017 22.5 0.942518 22.5C1.19487 22.5 1.39968 22.2952 1.39968 22.0428C1.39968 16.749 5.70606 12.4426 10.9999 12.4426C16.2937 12.4426 20.6001 16.749 20.6001 22.0428C20.6001 22.2952 20.8049 22.5 21.0572 22.5C21.3096 22.5 21.5144 22.2952 21.5144 22.0428C21.5144 16.2443 16.7975 11.5283 10.9998 11.5283Z"
+                                                        fill="#333E48" stroke="#333E48" stroke-width="0.3"></path>
+                                                    <path
+                                                        d="M10.9999 0.5C8.22767 0.5 5.97119 2.75557 5.97119 5.52866C5.97119 8.30174 8.22771 10.5573 10.9999 10.5573C13.772 10.5573 16.0285 8.30174 16.0285 5.52866C16.0285 2.75557 13.772 0.5 10.9999 0.5ZM10.9999 9.64303C8.73146 9.64303 6.88548 7.79705 6.88548 5.52866C6.88548 3.26027 8.73146 1.41429 10.9999 1.41429C13.2682 1.41429 15.1142 3.26027 15.1142 5.52866C15.1142 7.79705 13.2682 9.64303 10.9999 9.64303Z"
+                                                        fill="#333E48" stroke="#333E48" stroke-width="0.3"></path>
+                                                </svg>
 
-                                                </span>
-                                                <p class="body-small">
-                                                    Sign in
-                                                </p>
-                                            </a>
-                                        @endauth
+                                            </span>
+                                            <p class="body-small">
+                                                Sign in
+                                            </p>
+                                        </a>
                                     </li>
                                     <li class="nav-cart">
                                         <a href="#shoppingCart" data-bs-toggle="offcanvas"
@@ -809,43 +782,31 @@
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
                 <div class="modal-log-wrap list-file-delete">
                     <h5 class="title fw-semibold">Log In</h5>
-                    <div id="login-error-message" class="alert alert-danger d-none"></div>
-                    <div id="login-success-message" class="alert alert-success d-none"></div>
-                    <form class="form-log" id="customer-login-form" action="{{ route('customer.login.submit') }}" method="POST">
-                        @csrf
+                    <form class="form-log">
                         <div class="form-content">
                             <fieldset>
-                                <label class="fw-semibold body-md-2" for="login-email">
+                                <label class="fw-semibold body-md-2" id="email">
                                     Email Id *
                                 </label>
-                                <input type="email" id="login-email" placeholder="Your email" autocomplete="off" name="email" required>
+                                <input type="text" placeholder="Your email" autocomplete="off" name="email">
                             </fieldset>
                             <fieldset>
-                                <label class="fw-semibold body-md-2" for="login-password">
+                                <label class="fw-semibold body-md-2" id="password">
                                     Password *
                                 </label>
-                                <input type="password" id="login-password" placeholder="Enter your password" autocomplete="off"
-                                    name="password" required minlength="6">
+                                <input type="password" placeholder="Enter your password" autocomplete="off"
+                                    name="password">
                             </fieldset>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                    <label class="form-check-label body-text-3" for="remember">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#" class="link text-end body-text-3">
-                                    Forgot password ?
-                                </a>
-                            </div>
+                            <a href="#" class="link text-end body-text-3">
+                                Forgot password ?
+                            </a>
                         </div>
-                        <button type="submit" class="tf-btn w-100 text-white" id="login-submit-btn">
-                            <span class="btn-text">Login</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        <button type="submit" class="tf-btn w-100 text-white">
+                            Login
                         </button>
                         <p class="body-text-3 text-center">
                             Don't you have an account?
-                            <a href="#register" data-bs-toggle="modal" data-bs-dismiss="modal" class="text-primary">
+                            <a href="#register" data-bs-toggle="modal" class="text-primary">
                                 Register
                             </a>
                         </p>
@@ -883,39 +844,21 @@
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
                 <div class="modal-log-wrap list-file-delete">
                     <h5 class="title fw-semibold">Sign Up</h5>
-                    <div id="signup-error-message" class="alert alert-danger d-none"></div>
-                    <div id="signup-success-message" class="alert alert-success d-none"></div>
-                    <form class="form-log" id="customer-signup-form" action="{{ route('customer.signup.submit') }}" method="POST">
-                        @csrf
+                    <form class="form-log">
                         <div class="form-content">
                             <fieldset>
-                                <label class="fw-semibold body-md-2" for="signup-email">
+                                <label class="fw-semibold body-md-2">
                                     Email Id *
                                 </label>
-                                <input type="email" id="signup-email" placeholder="Your email" autocomplete="off" name="email" required>
-                            </fieldset>
-                            <fieldset>
-                                <label class="fw-semibold body-md-2" for="signup-password">
-                                    Password *
-                                </label>
-                                <input type="password" id="signup-password" placeholder="Enter your password" autocomplete="off"
-                                    name="password" required minlength="6">
-                            </fieldset>
-                            <fieldset>
-                                <label class="fw-semibold body-md-2" for="signup-password-confirmation">
-                                    Confirm Password *
-                                </label>
-                                <input type="password" id="signup-password-confirmation" placeholder="Confirm your password" autocomplete="off"
-                                    name="password_confirmation" required minlength="6">
+                                <input type="text" placeholder="Your email" autocomplete="off">
                             </fieldset>
                         </div>
-                        <button type="submit" class="tf-btn w-100 text-white" id="signup-submit-btn">
-                            <span class="btn-text">Sign Up</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        <button type="submit" class="tf-btn w-100 text-white">
+                            Sign Up
                         </button>
                         <p class="body-text-3 text-center">
                             Already have an account?
-                            <a href="#log" data-bs-toggle="modal" data-bs-dismiss="modal" class="text-primary">
+                            <a href="#log" data-bs-toggle="modal" class="text-primary">
                                 Sign in
                             </a>
                         </p>
@@ -2085,114 +2028,6 @@
 </script> --}}
 
     @yield('script')
-
-    <!-- Customer Authentication Scripts -->
-    <script>
-        $(document).ready(function() {
-            // Handle login form submission
-            $('#customer-login-form').on('submit', function(e) {
-                e.preventDefault();
-
-                const form = $(this);
-                const submitBtn = $('#login-submit-btn');
-                const btnText = submitBtn.find('.btn-text');
-                const spinner = submitBtn.find('.spinner-border');
-                const errorDiv = $('#login-error-message');
-                const successDiv = $('#login-success-message');
-
-                // Show loading state
-                btnText.text('Logging in...');
-                spinner.removeClass('d-none');
-                submitBtn.prop('disabled', true);
-                errorDiv.addClass('d-none');
-                successDiv.addClass('d-none');
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            successDiv.text(response.message).removeClass('d-none');
-                            setTimeout(function() {
-                                window.location.reload();
-                            }, 1000);
-                        }
-                    },
-                    error: function(xhr) {
-                        const response = xhr.responseJSON;
-                        if (response && response.message) {
-                            errorDiv.text(response.message).removeClass('d-none');
-                        } else {
-                            errorDiv.text('An error occurred. Please try again.').removeClass('d-none');
-                        }
-                    },
-                    complete: function() {
-                        // Reset loading state
-                        btnText.text('Login');
-                        spinner.addClass('d-none');
-                        submitBtn.prop('disabled', false);
-                    }
-                });
-            });
-
-            // Handle signup form submission
-            $('#customer-signup-form').on('submit', function(e) {
-                e.preventDefault();
-
-                const form = $(this);
-                const submitBtn = $('#signup-submit-btn');
-                const btnText = submitBtn.find('.btn-text');
-                const spinner = submitBtn.find('.spinner-border');
-                const errorDiv = $('#signup-error-message');
-                const successDiv = $('#signup-success-message');
-
-                // Show loading state
-                btnText.text('Signing up...');
-                spinner.removeClass('d-none');
-                submitBtn.prop('disabled', true);
-                errorDiv.addClass('d-none');
-                successDiv.addClass('d-none');
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            successDiv.text(response.message).removeClass('d-none');
-                            form[0].reset();
-                            setTimeout(function() {
-                                $('#register').modal('hide');
-                                $('#log').modal('show');
-                            }, 2000);
-                        }
-                    },
-                    error: function(xhr) {
-                        const response = xhr.responseJSON;
-                        console.log(response);
-                        if (response && response.message) {
-                            errorDiv.text(response.message).removeClass('d-none');
-                        } else if (response && response.errors) {
-                            let errorMessages = [];
-                            for (let field in response.errors) {
-                                errorMessages = errorMessages.concat(response.errors[field]);
-                            }
-                            errorDiv.text(errorMessages.join(' ')).removeClass('d-none');
-                        } else {
-                            errorDiv.text('An error occurred. Please try again.').removeClass('d-none');
-                        }
-                    },
-                    complete: function() {
-                        // Reset loading state
-                        btnText.text('Sign Up');
-                        spinner.addClass('d-none');
-                        submitBtn.prop('disabled', false);
-                    }
-                });
-            });
-        });
-    </script>
 
 </body>
 

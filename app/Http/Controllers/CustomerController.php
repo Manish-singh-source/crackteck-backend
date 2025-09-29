@@ -212,7 +212,7 @@ class CustomerController extends Controller
 
     public function ec_index()
     {
-        $customers = Customer::with('orders')->get();
+        $customers = Customer::all();
         return view('/e-commerce/customer/index', compact('customers'));
     }
 
