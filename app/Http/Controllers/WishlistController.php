@@ -16,18 +16,18 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        // Check if customer is authenticated
-        if (!Auth::guard('customer')->check()) {
-            return redirect()->route('customer.login')->with('error', 'Please login to view your wishlist.');
+        // Check if user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view your wishlist.');
         }
 
-        // Get customer's wishlist items with product relationships
+        // Get user's wishlist items with product relationships
         $wishlistItems = Wishlist::with([
             'ecommerceProduct.warehouseProduct.brand',
             'ecommerceProduct.warehouseProduct.parentCategorie',
             'ecommerceProduct.warehouseProduct.subCategorie'
         ])
-        ->where('user_id', Auth::guard('customer')->id())
+        ->where('user_id', Auth::id())
         ->orderBy('created_at', 'desc')
         ->get();
 
@@ -40,7 +40,7 @@ class WishlistController extends Controller
     public function store(StoreWishlistRequest $request): JsonResponse
     {
         try {
-            $userId = Auth::guard('customer')->id();
+            $userId = Auth::id();
             $ecommerceProductId = $request->validated()['ecommerce_product_id'];
 
             // Check if the e-commerce product exists and is active
@@ -82,7 +82,7 @@ class WishlistController extends Controller
         try {
             // Find the wishlist item and ensure it belongs to the authenticated user
             $wishlistItem = Wishlist::where('id', $id)
-                                   ->where('user_id', Auth::guard('customer')->id())
+                                   ->where('user_id', Auth::id())
                                    ->first();
 
             if (!$wishlistItem) {
@@ -119,7 +119,7 @@ class WishlistController extends Controller
             // Find the wishlist item and ensure it belongs to the authenticated user
             $wishlistItem = Wishlist::with('ecommerceProduct')
                                    ->where('id', $id)
-                                   ->where('user_id', Auth::guard('customer')->id())
+                                   ->where('user_id', Auth::id())
                                    ->first();
 
             if (!$wishlistItem) {
@@ -166,11 +166,11 @@ class WishlistController extends Controller
     public function getWishlistCount(): JsonResponse
     {
         try {
-            if (!Auth::guard('customer')->check()) {
+            if (!Auth::check()) {
                 return response()->json(['count' => 0]);
             }
 
-            $count = Wishlist::where('user_id', Auth::guard('customer')->id())->count();
+            $count = Wishlist::where('user_id', Auth::id())->count();
 
             return response()->json(['count' => $count]);
 
