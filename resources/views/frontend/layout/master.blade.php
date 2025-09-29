@@ -93,12 +93,18 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <a href="#log" data-bs-toggle="modal" class="tf-cur-item link">
-                                <!-- <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/person-male.png" alt="person-male" /> -->
-                                <i class="fa-solid fa-user" style="color: #1987ff;"></i>
-                                <span class="body-small text-black">My Account:</span>
-                                <i class="icon-arrow-down" style="color:rgb(0, 0, 0);"></i>
-                            </a>
+                            @if (Auth::check())
+                                <a href="{{ route('my-account') }}" class="tf-cur-item link">My
+                                    Account</a>
+                            @else
+                                <a href="#log " data-bs-toggle="modal" class="tf-cur-item link">
+                                    <!-- <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/person-male.png" alt="person-male" /> -->
+                                    <i class="fa-solid fa-user" style="color: #1987ff;"></i>
+                                    <span class="body-small text-black">My Account:
+                                        {{ Auth::user()->name ?? 'Guest' }}</span>
+                                    <i class="icon-arrow-down" style="color:rgb(0, 0, 0);"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -113,7 +119,8 @@
                         <div class="col-md-3 col-7 d-flex align-items-center">
                             <div class="logo-site">
                                 <a href="{{ route('website') }}">
-                                    <img src="{{ asset('frontend-assets/images/logo/header-logo.png') }}" alt="Logo">
+                                    <img src="{{ asset('frontend-assets/images/logo/header-logo.png') }}"
+                                        alt="Logo">
                                 </a>
                             </div>
                         </div>
@@ -125,14 +132,14 @@
                                             <span class="text-uppercase">Home</span>
                                             <!-- <i class="icon icon-arrow-down"></i> -->
                                         </a>
-                                        
+
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('shop') }}" class="item-link body-md-2 fw-semibold">
                                             <span class="text-uppercase">Shop</span>
                                             <!-- <i class="icon icon-arrow-down"></i> -->
                                         </a>
-                                        
+
                                     </li>
                                     <li class="nav-item relative">
                                         <a href="{{ route('about') }}" class="item-link body-md-2 fw-semibold">
@@ -510,8 +517,10 @@
                                     <h6 class="ft-heading footer-heading-mobile fw-semibold">Quick Links</h6>
                                     <div class="tf-collapse-content">
                                         <ul class="ft-menu-list">
-                                            <li><a href="{{ route('my-account') }}" class="link">My Account</a></li>
-                                            <li><a href="{{ route('track-your-order') }}" class="link">Track your Order</a>
+                                            <li><a href="{{ route('my-account') }}" class="link">My Account</a>
+                                            </li>
+                                            <li><a href="{{ route('track-your-order') }}" class="link">Track your
+                                                    Order</a>
                                             </li>
                                             <li><a href="{{ route('contact') }}" class="link">Contact US</a></li>
                                             <li><a href="{{ route('about') }}" class="link">About US</a></li>
@@ -717,11 +726,13 @@
                                     </div> -->
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Desktops & All-in-One
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Desktops &
+                                                All-in-One
                                                 PCs</span></a>
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Computer Components</span></a>
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Computer
+                                                Components</span></a>
                                     </li>
                                     <li class="nav-mb-item">
                                         <a href="{{ route('shop') }}" class="mb-menu-link"><span>Monitors</span></a>
@@ -731,19 +742,23 @@
                                                 Accessories</span></a>
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Storage Devices</span></a>
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Storage
+                                                Devices</span></a>
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Networking Devices</span></a>
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Networking
+                                                Devices</span></a>
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Printers & Scanners</span></a>
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Printers &
+                                                Scanners</span></a>
                                     </li>
                                     <li class="nav-mb-item">
                                         <a href="{{ route('shop') }}" class="mb-menu-link"><span>Software</span></a>
                                     </li>
                                     <li class="nav-mb-item">
-                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Gaming Gear</span></a>
+                                        <a href="{{ route('shop') }}" class="mb-menu-link"><span>Gaming
+                                                Gear</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -782,20 +797,22 @@
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
                 <div class="modal-log-wrap list-file-delete">
                     <h5 class="title fw-semibold">Log In</h5>
-                    <form class="form-log">
+                    <form class="form-log" action="{{ route('frontend.login') }}" method="POST">
+                        @csrf
                         <div class="form-content">
                             <fieldset>
                                 <label class="fw-semibold body-md-2" id="email">
-                                    Email Id *
+                                    Email Id
                                 </label>
-                                <input type="text" placeholder="Your email" autocomplete="off" name="email">
+                                <input type="email" name="email" placeholder="Your email" autocomplete="off"
+                                    required>
                             </fieldset>
                             <fieldset>
                                 <label class="fw-semibold body-md-2" id="password">
-                                    Password *
+                                    Password
                                 </label>
                                 <input type="password" placeholder="Enter your password" autocomplete="off"
-                                    name="password">
+                                    name="password" required>
                             </fieldset>
                             <a href="#" class="link text-end body-text-3">
                                 Forgot password ?
@@ -811,7 +828,7 @@
                             </a>
                         </p>
                     </form>
-                    <div class=" orther-log text-center">
+                    {{-- <div class=" orther-log text-center">
                         <span class="br-line bg-gray-5"></span>
                         <p class="caption text-main-2 ">
                             Or login with
@@ -830,7 +847,7 @@
                                 <span class="body-md-2 fw-semibold">Google</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>
@@ -844,13 +861,36 @@
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
                 <div class="modal-log-wrap list-file-delete">
                     <h5 class="title fw-semibold">Sign Up</h5>
-                    <form class="form-log">
+                    <form class="form-log" action="{{ route('frontend.register') }}" method="POST">
+                        @csrf
                         <div class="form-content">
                             <fieldset>
                                 <label class="fw-semibold body-md-2">
-                                    Email Id *
+                                    Name
                                 </label>
-                                <input type="text" placeholder="Your email" autocomplete="off">
+                                <input type="text" name="name" placeholder="Enter Your Name"
+                                    autocomplete="off" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="fw-semibold body-md-2">
+                                    Email Id
+                                </label>
+                                <input type="email" name="email" placeholder="Enter Your email"
+                                    autocomplete="off" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="fw-semibold body-md-2">
+                                    Password
+                                </label>
+                                <input type="password" name="password" placeholder="Enter Your Password"
+                                    autocomplete="off" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="fw-semibold body-md-2">
+                                    Confirm Password
+                                </label>
+                                <input type="password" name="password_confirmation"
+                                    placeholder="Confirm Your Password" autocomplete="off" required>
                             </fieldset>
                         </div>
                         <button type="submit" class="tf-btn w-100 text-white">
@@ -859,11 +899,11 @@
                         <p class="body-text-3 text-center">
                             Already have an account?
                             <a href="#log" data-bs-toggle="modal" class="text-primary">
-                                Sign in
+                                Login
                             </a>
                         </p>
                     </form>
-                    <div class="orther-log text-center">
+                    {{-- <div class="orther-log text-center">
                         <span class="br-line bg-gray-5"></span>
                         <p class="caption text-main-2 ">
                             Or login with
@@ -882,7 +922,7 @@
                                 <span class="body-md-2 fw-semibold">Google</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>
@@ -922,10 +962,14 @@
                     <div class="card-product style-row row-small-2 align-items-center">
                         <div class="card-product-wrapper">
                             <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload" src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}" alt="image-product">
-                                <img class="img-hover lazyload" src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}" alt="image-product">
+                                <img class="img-product lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
+                                    alt="image-product">
+                                <img class="img-hover lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}"
+                                    alt="image-product">
                             </a>
                         </div>
                         <div class="card-product-info">
@@ -947,10 +991,14 @@
                     <div class="card-product style-row row-small-2 align-items-center">
                         <div class="card-product-wrapper">
                             <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload" src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}" alt="image-product">
-                                <img class="img-hover lazyload" src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}" alt="image-product">
+                                <img class="img-product lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
+                                    alt="image-product">
+                                <img class="img-hover lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}"
+                                    alt="image-product">
                             </a>
                         </div>
                         <div class="card-product-info">
@@ -972,10 +1020,14 @@
                     <div class="card-product style-row row-small-2 align-items-center">
                         <div class="card-product-wrapper">
                             <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload" src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}" alt="image-product">
-                                <img class="img-hover lazyload" src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}" alt="image-product">
+                                <img class="img-product lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
+                                    alt="image-product">
+                                <img class="img-hover lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}"
+                                    alt="image-product">
                             </a>
                         </div>
                         <div class="card-product-info">
@@ -998,10 +1050,14 @@
                     <div class="card-product style-row row-small-2 align-items-center">
                         <div class="card-product-wrapper">
                             <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload" src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}" alt="image-product">
-                                <img class="img-hover lazyload" src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}" alt="image-product">
+                                <img class="img-product lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                    alt="image-product">
+                                <img class="img-hover lazyload"
+                                    src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                    alt="image-product">
                             </a>
                         </div>
                         <div class="card-product-info">
@@ -1059,40 +1115,40 @@
                                 <div class="swiper-slide">
                                     <a href="{{ route('product-detail') }}" class="d-block tf-image-view">
                                         <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
-                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt=""
-                                            class="lazyload">
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
                                     </a>
                                 </div>
                                 <!-- item 2 -->
                                 <div class="swiper-slide">
                                     <a href="{{ route('product-detail') }}" class="d-block tf-image-view">
                                         <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
-                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt=""
-                                            class="lazyload">
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
                                     </a>
                                 </div>
                                 <!-- item 3 -->
                                 <div class="swiper-slide">
                                     <a href="{{ route('product-detail') }}" class="d-block tf-image-view">
                                         <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
-                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt=""
-                                            class="lazyload">
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
                                     </a>
                                 </div>
                                 <!-- item 4 -->
                                 <div class="swiper-slide">
                                     <a href="{{ route('product-detail') }}" class="d-block tf-image-view">
                                         <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
-                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt=""
-                                            class="lazyload">
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
                                     </a>
                                 </div>
                                 <!-- item 5 -->
                                 <div class="swiper-slide">
                                     <a href="{{ route('product-detail') }}" class="d-block tf-image-view">
                                         <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
-                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt=""
-                                            class="lazyload">
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
                                     </a>
                                 </div>
                             </div>
@@ -1104,31 +1160,36 @@
                                 <!-- item 1 -->
                                 <div class="swiper-slide">
                                     <div class="item">
-                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt="">
+                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                                 <!-- item 2 -->
                                 <div class="swiper-slide">
                                     <div class="item">
-                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt="">
+                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                                 <!-- item 3 -->
                                 <div class="swiper-slide">
                                     <div class="item">
-                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt="">
+                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                                 <!-- item 4 -->
                                 <div class="swiper-slide">
                                     <div class="item">
-                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt="">
+                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                                 <!-- item 5 -->
                                 <div class="swiper-slide">
                                     <div class="item">
-                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}" alt="">
+                                        <img src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -1311,8 +1372,10 @@
                                 </span>
                                 <span class="icon-close remove"></span>
                                 <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload" src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}" alt="">
+                                    <img class=" lazyload"
+                                        src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
+                                        data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
+                                        alt="">
                                 </a>
                                 <div class="content">
                                     <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
@@ -1355,8 +1418,10 @@
                                 </span>
                                 <span class="icon-close remove"></span>
                                 <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload" src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}" alt="">
+                                    <img class=" lazyload"
+                                        src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                        data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
+                                        alt="">
                                 </a>
                                 <div class="content">
                                     <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
@@ -1399,8 +1464,10 @@
                                 </span>
                                 <span class="icon-close remove"></span>
                                 <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload" src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}" alt="">
+                                    <img class=" lazyload"
+                                        src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
+                                        data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
+                                        alt="">
                                 </a>
                                 <div class="content">
                                     <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
@@ -1443,8 +1510,10 @@
                                 </span>
                                 <span class="icon-close remove"></span>
                                 <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload" src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}" alt="">
+                                    <img class=" lazyload"
+                                        src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
+                                        data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
+                                        alt="">
                                 </a>
                                 <div class="content">
                                     <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
@@ -1592,10 +1661,14 @@
                             <div class="popular-searches justify-content-md-center">
                                 <span class="text fw-semibold body-text-3">Popular searches:</span>
                                 <ul>
-                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">Featured</a></li>
-                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">Trendy</a></li>
-                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">New</a></li>
-                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">Sale</a></li>
+                                    <li><a class="link body-text-3 fw-medium"
+                                            href="{{ route('shop') }}">Featured</a></li>
+                                    <li><a class="link body-text-3 fw-medium"
+                                            href="{{ route('shop') }}">Trendy</a></li>
+                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">New</a>
+                                    </li>
+                                    <li><a class="link body-text-3 fw-medium" href="{{ route('shop') }}">Sale</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

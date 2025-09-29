@@ -45,17 +45,17 @@ use App\Http\Controllers\TrackProductController;
 
 Route::controller(AuthController::class)->group(function () {
     // Login Page 
-    Route::get('/', 'login')->name('login');
-    Route::post('/', 'loginStore')->name('loginStore');
+    Route::get('/admin/login', 'login')->name('login');
+    Route::post('/admin/login', 'loginStore')->name('loginStore');
     // Sign Up Page
-    Route::get('/signup', 'signup')->name('signup');
-    Route::post('/signup', 'register')->name('register');
+    Route::get('/admin/signup', 'signup')->name('signup');
+    Route::post('/admin/signup', 'register')->name('register');
     // Forgot Password 
-    Route::get('/recover-password', 'recover_password')->name('recover-password');
+    Route::get('/admin/recover-password', 'recover_password')->name('recover-password');
     // Profile Page 
     Route::get('/crm/profile', 'profile')->name('profile');
     // Logout Page 
-    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/admin/logout', 'logout')->name('logout');
 });
 
 // Route::get('/', function () {

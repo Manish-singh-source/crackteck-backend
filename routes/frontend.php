@@ -1,10 +1,22 @@
 <?php
 
+use App\Http\Controllers\FrontendAuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
+
+// Login routes
+// Route::get('/register', [FrontendAuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [FrontendAuthController::class, 'register'])->name('frontend.register');
+
+// Route::get('/login', [FrontendAuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [FrontendAuthController::class, 'login'])->name('frontend.login');
+
+Route::post('/frontend-logout', [FrontendAuthController::class, 'logout'])->name('frontend.logout');
+
+
 
 // Home
 Route::get('/website', [FrontendController::class, 'index'])->name('website');
