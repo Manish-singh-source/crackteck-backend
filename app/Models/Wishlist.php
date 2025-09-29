@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Customer;
 
 class Wishlist extends Model
 {
@@ -21,20 +20,11 @@ class Wishlist extends Model
     ];
 
     /**
-     * Get the customer that owns the wishlist item.
-     */
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'user_id');
-    }
-
-    /**
      * Get the user that owns the wishlist item.
-     * @deprecated Use customer() instead
      */
     public function user()
     {
-        return $this->belongsTo(Customer::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     /**
