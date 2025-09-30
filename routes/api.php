@@ -32,17 +32,47 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [ApiAuthController::class, 'logout']);
         Route::get('/user', [ApiAuthController::class, 'user']);
     });
-    
+
     // Example protected routes with role-based access
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/users', function () {
             return response()->json(['message' => 'Admin only endpoint']);
         });
     });
-    
+
     Route::middleware('role:user,admin')->group(function () {
         Route::get('/user/profile', function () {
             return response()->json(['message' => 'User or Admin endpoint']);
         });
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| SDUI API Routes for Flutter App
+|--------------------------------------------------------------------------
+|
+| These routes provide Server-Driven UI configuration for the Flutter app.
+| They can be accessed with or without authentication based on settings.
+|
+*/
+
+use App\Http\Controllers\Api\SDUIController;
+
+// SDUI Public Routes (can be protected via settings)
+Route::prefix('sdui')->group(function () {
+    // Get SDUI configuration for a specific screen/role (returns complete JSON schema)
+    Route::get('/config', [SDUIController::class, 'getConfig']);
+
+    // Get all available screens for a role
+    Route::get('/screens', [SDUIController::class, 'getScreens']);
+
+    // Get component types and schemas (reference documentation)
+    Route::get('/component-types', [SDUIController::class, 'getComponentTypes']);
+});
+
+// SDUI Protected Routes (admin only)
+Route::prefix('sdui')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    // Clear SDUI cache
+    Route::post('/clear-cache', [SDUIController::class, 'clearCache']);
 });
