@@ -113,32 +113,32 @@
                 </li>
 
                 {{-- @can('Customer List') --}}
-                    <li>
-                        <a class='tp-link' href="{{ route('customer.index') }}">
-                            <i class="fas fa-users"></i>
-                            <span class="ps-1"> Customers </span>
-                        </a>
-                    </li>
+                <li>
+                    <a class='tp-link' href="{{ route('customer.index') }}">
+                        <i class="fas fa-users"></i>
+                        <span class="ps-1"> Customers </span>
+                    </a>
+                </li>
                 {{-- @endcan --}}
 
                 {{-- @can('Engineer List') --}}
-                    <li>
-                        <a class='tp-link' href="{{ route('engineers.index') }}">
-                            <!-- <i data-feather="columns"></i> -->
-                            <i class="fas fa-user-cog"></i>
-                            <span class="ps-1"> Engineers </span>
-                        </a>
-                    </li>
+                <li>
+                    <a class='tp-link' href="{{ route('engineers.index') }}">
+                        <!-- <i data-feather="columns"></i> -->
+                        <i class="fas fa-user-cog"></i>
+                        <span class="ps-1"> Engineers </span>
+                    </a>
+                </li>
                 {{-- @endcan --}}
 
                 {{-- @can('Delivery Man List') --}}
-                    <li>
-                        <a class='tp-link' href="{{ route('delivery-man.index') }}">
-                            <!-- <i data-feather="columns"></i> -->
-                            <i class="fas fa-shipping-fast"></i>
-                            <span class="ps-1"> Delivery Man </span>
-                        </a>
-                    </li>
+                <li>
+                    <a class='tp-link' href="{{ route('delivery-man.index') }}">
+                        <!-- <i data-feather="columns"></i> -->
+                        <i class="fas fa-shipping-fast"></i>
+                        <span class="ps-1"> Delivery Man </span>
+                    </a>
+                </li>
                 {{-- @endcan --}}
                 <li class="menu-title mt-2">Sales Person</li>
 
@@ -282,6 +282,26 @@
                         <i class="fas fa-file-invoice"></i>
                         <span class="ps-1"> Invoice </span>
                     </a>
+                </li>
+
+                <li class="menu-title mt-2">App UI Settings</li>
+
+                <li>
+                    <a href="#sduiMenu" data-bs-toggle="collapse">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class="ps-1"> SDUI Management </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sduiMenu">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a class='tp-link' href="{{ route('admin.sdui.pages.index') }}">Pages</a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href="{{ route('admin.sdui.settings.index') }}">Settings</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
 

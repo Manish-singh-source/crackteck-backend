@@ -1,0 +1,148 @@
+You are tasked with building a full-featured Laravel SDUI admin panel for a Flutter app. The system must manage SDUI pages, components, role-based visibility, and provide a dynamic UI for configuration and control. The admin panel should be usable by non-technical users and allow safe versioning, soft delete, and restore functionality.
+
+Requirements:
+
+1. Database Schemas:
+   - pages: id, title, slug, description, created_by, updated_by, deleted_at (soft delete), timestamps
+   - components: id, page_id, type, props (JSON), order, created_by, updated_by, deleted_at (soft delete), timestamps
+   - page_role: id, page_id, role_id (which pages are visible to each role), timestamps
+   - component_role: id, component_id, role_id (optional granular role assignment), timestamps
+   - SDUI versioning: track versions of each page/component so updates can be reverted
+
+2. Admin Panel Functionalities:
+   - Pages CRUD: List, filter, create, edit, delete SDUI pages
+       - Soft delete: deleted pages/components are not permanently removed
+       - Restore functionality: restore deleted pages/components
+       - Versioning: revert to previous versions if updated
+       - Assign roles per page
+   - Components CRUD: Add, edit, delete, reorder components per page
+       - Type selection and JSON props editor
+       - Optional role assignment per component
+   - Role Assignment: Assign roles to both pages and components
+   - Users & Roles: List, create, edit, assign roles to users (already implemented)
+   - Settings: Manage general SDUI settings, default behaviors, validation, API keys
+   - Authentication: Secure login, admin-only access, role-based middleware
+
+3. Admin Panel UI Design (add new tab side to top navigation as App UI Settings):
+   - Sidebar: Pages, Components, Users & Roles, Settings
+   - Pages List Screen:
+       - Table with title, slug, assigned roles, version info, Edit/Delete/Restore buttons
+       - Search, sorting, bulk actions
+       - Button to create page
+   - Page Editor (Create/Edit):
+       - Form: title, slug, description
+       - Role selector (multi-select)
+       - List of attached components; add/reorder/delete inline
+       - Version history with revert option
+       - Save/Cancel actions
+   - Component Builder Screen:
+       - Type dropdown: header, text, button, form, list, image, etc.
+       - JSON props editor with validation
+       - Drag-and-drop reorder grid
+       - Optional role assignment
+   - Settings Screen:
+       - System behaviors, validation options
+       - SDUI default values
+       - API keys or configuration management
+   - Error and Success Handling:
+       - Toast notifications for actions
+       - Validation feedback on forms
+       - Clear modals/dialogs for confirmation (delete, restore, revert)
+
+4. SDUI for Flutter App:
+   - Hybrid SDUI: support dynamic and partially static screens
+   - Role-specific screens: Field Executive, Engineer, Delivery Man
+   - Each screen (login, OTP, location, dashboard, etc.) has separate SDUI JSON per role
+   - API endpoints for Flutter:
+       GET /api/sdui?role={role_slug}&screen={screen_slug}
+       - Returns the latest active version of the SDUI JSON for the role+screen
+       - Handles revert/restore if page/component deleted or updated
+
+5. API & Backend Logic:
+   - Soft delete: mark pages/components as deleted (deleted_at)
+   - Restore: undo soft delete
+   - Versioning: save previous versions whenever a page/component is updated
+   - JSON validation for props
+   - Role middleware: protect API endpoints based on role
+   - Admin panel routes for CRUD, restore, revert
+   - Example routes:
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('pages', PageController::class);
+    Route::resource('components', ComponentController::class);
+    Route::get('pages/restore/{id}', [PageController::class, 'restore'])->name('pages.restore');
+    Route::get('components/restore/{id}', [ComponentController::class, 'restore'])->name('components.restore');
+    Route::get('pages/revert/{id}/{version}', [PageController::class, 'revert'])->name('pages.revert');
+    Route::get('components/revert/{id}/{version}', [ComponentController::class, 'revert'])->name('components.revert');
+});
+
+6. Extensibility:
+   - Adding new screens or components is modular
+   - Add new routes in web.php or api.php
+   - Add new controllers or methods in PageController/ComponentController
+   - Extend JSON component types and Flutter app rendering
+   - Optional: multi-language support, conditional component visibility based on roles
+
+7. Example Workflow:
+   - Admin selects Field Executive → Login screen → edits SDUI components
+   - Adds a header, text input, and button
+   - Sets component properties (action_endpoint, API call, visibility)
+   - Saves page → new version is created
+   - If mistake occurs, admin can revert to previous version
+   - Deleted page/component can be restored via restore button
+   - Flutter app fetches latest SDUI JSON dynamically
+
+The system should be **user-friendly, scalable, role-based, and robust** for non-technical admins while supporting full CRUD, soft delete, restore, and versioning for SDUI pages and components.
+```
+
+---
+
+## **Suggested Laravel Structure for This**
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/
+│   │   │   ├── PageController.php          # CRUD + soft delete + restore + revert
+│   │   │   ├── ComponentController.php     # CRUD + soft delete + restore + revert
+│   │   │   ├── AssignRoleController.php          # Assign roles
+│   │   │   └── SettingController.php       # SDUI settings
+│   │   └── Api/
+│   │       └── SDUIController.php          # Endpoint for Flutter SDUI JSON
+│   └── Middleware/
+│       └── RoleMiddleware.php
+├── Models/
+│   ├── Page.php          # SoftDeletes, versioning
+│   ├── Component.php     # SoftDeletes, versioning
+│   └── SDUIConfig.php
+routes/
+├── web.php               # Admin panel routes
+├── api.php               # Flutter API endpoints
+resources/views/admin/
+├── pages/
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+├── components/
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+└── settings.blade.php
+database/migrations/
+├── create_pages_table.php
+├── create_components_table.php
+├── create_page_role_table.php
+├── create_component_role_table.php
+```
+
+---
+
+✅ This augmented prompt and structure now covers:
+
+* **Full CRUD** for pages and components
+* **Soft delete and restore**
+* **Versioning and revert**
+* **Role-based screen-specific SDUI**
+* **Non-technical admin usability**
+* **Hybrid SDUI support for Flutter app**

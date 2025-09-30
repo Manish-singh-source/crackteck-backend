@@ -1,0 +1,787 @@
+You are tasked with building a comprehensive Laravel-based Server-Driven UI (SDUI) admin panel for managing dynamic Flutter app interfaces. The system must provide full CRUD operations for SDUI pages and components, implement role-based access control with granular visibility rules, support version control with rollback capabilities, and offer soft delete/restore functionality. The admin panel must be intuitive enough for non-technical users while maintaining enterprise-grade robustness.
+
+## **1. Database Schema Requirements**
+
+Create the following database tables with specified columns and relationships:
+
+### **pages table:**
+- `id` (primary key, auto-increment)
+- `title` (string, required, max 255 characters)
+- `slug` (string, required, unique, max 255 characters)
+- `description` (text, nullable)
+- `created_by` (foreign key to users table)
+- `updated_by` (foreign key to users table)
+- `deleted_at` (timestamp, nullable - for soft deletes)
+- `created_at`, `updated_at` (timestamps)
+
+### **components table:**
+- `id` (primary key, auto-increment)
+- `page_id` (foreign key to pages table, cascade on delete)
+- `type` (string, required - e.g., 'header', 'text', 'button', 'form', 'list', 'image')
+- `props` (JSON, required - stores component configuration)
+- `order` (integer, required, default 0 - for component ordering within page)
+- `created_by` (foreign key to users table)
+- `updated_by` (foreign key to users table)
+- `deleted_at` (timestamp, nullable - for soft deletes)
+- `created_at`, `updated_at` (timestamps)
+
+### **page_role pivot table:**
+- `id` (primary key, auto-increment)
+- `page_id` (foreign key to pages table, cascade on delete)
+- `role_id` (foreign key to roles table, cascade on delete)
+- `created_at`, `updated_at` (timestamps)
+- Unique constraint on (`page_id`, `role_id`)
+
+### **component_role pivot table (optional granular control):**
+- `id` (primary key, auto-increment)
+- `component_id` (foreign key to components table, cascade on delete)
+- `role_id` (foreign key to roles table, cascade on delete)
+- `created_at`, `updated_at` (timestamps)
+- Unique constraint on (`component_id`, `role_id`)
+
+### **page_versions table (for versioning):**
+- `id` (primary key, auto-increment)
+- `page_id` (foreign key to pages table, cascade on delete)
+- `version_number` (integer, required)
+- `title` (string)
+- `slug` (string)
+- `description` (text, nullable)
+- `snapshot_data` (JSON - stores complete page state including components)
+- `created_by` (foreign key to users table)
+- `created_at` (timestamp)
+
+### **component_versions table (for versioning):**
+- `id` (primary key, auto-increment)
+- `component_id` (foreign key to components table, cascade on delete)
+- `version_number` (integer, required)
+- `type` (string)
+- `props` (JSON)
+- `order` (integer)
+- `created_by` (foreign key to users table)
+- `created_at` (timestamp)
+
+## **2. Admin Panel Core Functionalities**
+
+### **2.1 Pages Management (CRUD + Advanced Features):**
+- **List View:** Display all pages (including soft-deleted with filter toggle)
+- **Create:** Form to create new page with title, slug (auto-generated from title with manual override), description
+- **Edit:** Update existing page details
+- **Soft Delete:** Mark pages as deleted without permanent removal (set `deleted_at` timestamp)
+- **Restore:** Recover soft-deleted pages (clear `deleted_at` timestamp)
+- **Permanent Delete:** Option to permanently remove soft-deleted pages (admin confirmation required)
+- **Version Management:** 
+  - Automatically create version snapshot on every update
+  - Display version history with timestamps and author
+  - Revert to any previous version with confirmation dialog
+- **Role Assignment:** Multi-select interface to assign which roles can view this page
+- **Filtering & Search:** Filter by status (active/deleted), search by title/slug, sort by date/title
+- **Bulk Actions:** Select multiple pages for bulk delete/restore operations
+
+### **2.2 Components Management (CRUD + Advanced Features):**
+- **List View:** Display components grouped by parent page
+- **Create:** Add new component to a page with type selection and props configuration
+- **Edit:** Update component type, props, and order
+- **Soft Delete:** Mark components as deleted without permanent removal
+- **Restore:** Recover soft-deleted components
+- **Reorder:** Drag-and-drop interface or up/down arrows to change component order within page
+- **Version Management:** Track component changes with rollback capability
+- **JSON Props Editor:** 
+  - Code editor with syntax highlighting for JSON editing
+  - Real-time validation with error messages
+  - Schema validation based on component type
+  - Preview of component rendering (optional)
+- **Role Assignment (Optional):** Assign specific roles that can view individual components
+- **Component Types:** Support for header, text, button, form, input, list, image, card, divider, spacer (extensible)
+
+### **2.3 Role Assignment Interface:**
+- Dedicated screen for managing page-role and component-role relationships
+- Visual matrix showing pages/components vs roles with checkboxes
+- Bulk assignment capabilities
+- Inheritance rules (component roles inherit from page roles by default, with override option)
+
+### **2.4 Users & Roles Management:**
+- Note: Assume basic user and role CRUD is already implemented
+- Integration point: Link to existing user/role management
+- Display which users have access to which SDUI pages based on their roles
+
+### **2.5 Settings Management:**
+- **General SDUI Settings:**
+  - Default component types and their base props schemas
+  - Global validation rules for JSON props
+  - API rate limiting configuration
+  - Cache duration for SDUI responses
+- **API Configuration:**
+  - API keys management for Flutter app authentication
+  - Endpoint versioning settings
+  - CORS configuration
+- **System Behaviors:**
+  - Auto-versioning toggle (enable/disable automatic version creation)
+  - Soft delete retention period
+  - Maximum versions to retain per page/component
+
+### **2.6 Authentication & Authorization:**
+- Secure admin login with Laravel's built-in authentication
+- Middleware: `auth` (authenticated users only) and `admin` (admin role required)
+- Role-based middleware for granular access control
+- Session management with CSRF protection
+- Optional: Two-factor authentication for admin users
+
+## **3. Admin Panel UI/UX Design Specifications**
+
+### **3.1 Navigation Structure:**
+- **Top Navigation Bar:** Add new tab labeled "App UI Settings" or "SDUI Manager"
+- **Sidebar Menu (within SDUI Manager section):**
+  - Pages (with badge showing count)
+  - Components (with badge showing count)
+  - Role Assignment
+  - Users & Roles (link to existing module)
+  - Settings
+  - Version History (global view)
+
+### **3.2 Pages List Screen:**
+- **Layout:** Responsive table with columns:
+  - Checkbox (for bulk selection)
+  - Title (clickable, links to edit)
+  - Slug
+  - Assigned Roles (comma-separated or badges)
+  - Components Count
+  - Current Version Number
+  - Status (Active/Deleted badge)
+  - Last Updated (date + author)
+  - Actions (Edit, Delete/Restore, View Versions icons)
+- **Top Bar:**
+  - Search input (searches title, slug, description)
+  - Filter dropdown (All/Active/Deleted)
+  - Sort dropdown (Title A-Z, Date Created, Last Updated)
+  - "Create New Page" button (primary action, top-right)
+  - Bulk Actions dropdown (appears when items selected)
+- **Pagination:** Standard Laravel pagination with configurable items per page
+
+### **3.3 Page Editor (Create/Edit Screen):**
+- **Form Fields:**
+  - Title (text input, required, max 255 chars)
+  - Slug (text input, auto-generated from title, editable, unique validation)
+  - Description (textarea, optional, rich text editor)
+- **Role Assignment Section:**
+  - Multi-select dropdown or checkbox list of available roles
+  - Visual indicator of currently assigned roles
+- **Components Section:**
+  - Heading: "Page Components" with "Add Component" button
+  - List/Grid of attached components showing:
+    - Component type icon
+    - Component order number
+    - Brief props summary
+    - Reorder handles (drag-and-drop)
+    - Edit/Delete inline actions
+  - Inline component editor (modal or expandable panel) for quick edits
+  - Empty state message when no components exist
+- **Version History Panel (collapsible):**
+  - List of previous versions with:
+    - Version number
+    - Created date and author
+    - "Revert to this version" button
+    - "View diff" option (shows changes from previous version)
+- **Action Buttons:**
+  - "Save" (primary button, validates and saves)
+  - "Save & Continue Editing" (saves without leaving page)
+  - "Cancel" (returns to list, warns if unsaved changes)
+  - "Delete/Restore" (context-dependent, with confirmation)
+
+### **3.4 Component Builder/Editor Screen:**
+- **Component Type Selection:**
+  - Dropdown with all available component types
+  - Each type shows icon and brief description
+  - Changing type shows relevant props schema
+- **JSON Props Editor:**
+  - Code editor (e.g., CodeMirror or Monaco Editor) with:
+    - Syntax highlighting for JSON
+    - Line numbers
+    - Auto-completion based on component type schema
+    - Real-time validation with error highlighting
+    - Format/beautify button
+  - Side-by-side: Schema documentation panel showing expected props structure
+  - Example templates for each component type (quick insert)
+- **Component Order:**
+  - Numeric input or drag-and-drop in parent page context
+  - Visual preview of component position in page
+- **Role Assignment (Optional):**
+  - Checkbox: "Override page-level roles"
+  - Multi-select for specific roles (only shown if override enabled)
+- **Preview Panel (Optional):**
+  - Live preview of component rendering based on props
+  - Mobile device frame simulation
+- **Action Buttons:**
+  - "Save Component"
+  - "Cancel"
+  - "Delete" (if editing existing component)
+
+### **3.5 Settings Screen:**
+- **Tabbed Interface:**
+  - **General Tab:**
+    - Default component types management
+    - Auto-versioning toggle
+    - Soft delete retention period (days)
+  - **Validation Tab:**
+    - JSON schema validation rules
+    - Custom validation rules editor
+  - **API Configuration Tab:**
+    - API keys list with generate/revoke actions
+    - Endpoint base URL configuration
+    - Rate limiting settings
+  - **Advanced Tab:**
+    - Cache settings
+    - Debug mode toggle
+    - Export/Import SDUI configuration
+
+### **3.6 User Feedback & Error Handling:**
+- **Toast Notifications:**
+  - Success: "Page created successfully", "Component updated", "Version reverted"
+  - Error: "Failed to save page", "Invalid JSON props", "Slug already exists"
+  - Warning: "Unsaved changes will be lost"
+  - Info: "Page restored from trash"
+- **Form Validation:**
+  - Inline error messages below fields
+  - Red border on invalid fields
+  - Summary of errors at top of form
+- **Confirmation Modals:**
+  - Delete: "Are you sure you want to delete this page? It can be restored later."
+  - Permanent Delete: "This action cannot be undone. Permanently delete this page?"
+  - Revert: "Revert to version X? Current version will be saved in history."
+  - Restore: "Restore this page? It will become active again."
+- **Loading States:**
+  - Skeleton loaders for tables
+  - Spinner overlays for save operations
+  - Progress indicators for bulk actions
+
+## **4. SDUI API for Flutter App**
+
+### **4.1 Hybrid SDUI Architecture:**
+- Support fully dynamic screens (100% server-driven)
+- Support partially static screens (static layout with dynamic data)
+- Component-level caching strategy for performance
+
+### **4.2 Role-Specific Screens:**
+- Predefined roles: Field Executive, Engineer, Delivery Man (extensible)
+- Predefined screens per role:
+  - **Common:** Login, OTP Verification, Forgot Password, Profile
+  - **Field Executive:** Dashboard, Task List, Task Detail, Location Tracking, Report Submission
+  - **Engineer:** Dashboard, Work Orders, Inventory, Technical Reports
+  - **Delivery Man:** Dashboard, Delivery Queue, Route Map, Delivery Confirmation
+- Each role-screen combination has unique SDUI configuration
+
+### **4.3 API Endpoint Specification:**
+
+**Endpoint:** `GET /api/sdui`
+
+**Query Parameters:**
+- `role` (required, string): Role slug (e.g., 'field-executive', 'engineer', 'delivery-man')
+- `screen` (required, string): Screen slug (e.g., 'login', 'dashboard', 'task-list')
+- `version` (optional, integer): Specific version number (defaults to latest active version)
+
+**Response Format (Success - 200 OK):**
+```json
+{
+  "success": true,
+  "data": {
+    "page": {
+      "id": 1,
+      "title": "Field Executive Login",
+      "slug": "field-executive-login",
+      "description": "Login screen for field executives",
+      "version": 3
+    },
+    "components": [
+      {
+        "id": 1,
+        "type": "header",
+        "order": 1,
+        "props": {
+          "title": "Welcome Back",
+          "subtitle": "Sign in to continue",
+          "logo_url": "https://example.com/logo.png"
+        }
+      },
+      {
+        "id": 2,
+        "type": "form",
+        "order": 2,
+        "props": {
+          "fields": [
+            {
+              "name": "email",
+              "type": "email",
+              "label": "Email Address",
+              "required": true,
+              "validation": "email"
+            },
+            {
+              "name": "password",
+              "type": "password",
+              "label": "Password",
+              "required": true,
+              "min_length": 8
+            }
+          ],
+          "submit_button": {
+            "text": "Login",
+            "action_endpoint": "/api/auth/login",
+            "method": "POST"
+          }
+        }
+      }
+    ]
+  },
+  "meta": {
+    "cached": false,
+    "generated_at": "2025-09-30T10:30:00Z"
+  }
+}
+```
+
+**Response Format (Error - 404 Not Found):**
+```json
+{
+  "success": false,
+  "error": {
+    "code": "PAGE_NOT_FOUND",
+    "message": "No active SDUI page found for role 'field-executive' and screen 'login'"
+  }
+}
+```
+
+**Response Format (Error - 403 Forbidden):**
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ROLE_NOT_AUTHORIZED",
+    "message": "Your role does not have access to this screen"
+  }
+}
+```
+
+### **4.4 API Behavior:**
+- Returns only the latest active (non-deleted) version by default
+- Excludes soft-deleted pages and components
+- Filters components based on role assignments (both page-level and component-level)
+- Handles version reverts transparently (Flutter app always gets current active version)
+- Implements response caching with configurable TTL
+- Supports ETags for efficient cache validation
+
+---
+
+## **5. Backend Logic & Implementation Details**
+
+### **5.1 Soft Delete Implementation:**
+- Use Laravel's `SoftDeletes` trait on Page and Component models
+- Soft delete behavior:
+  - Sets `deleted_at` timestamp
+  - Excludes from default queries automatically
+  - Maintains referential integrity (soft-deleted pages hide their components in API)
+- Query scopes:
+  - `withTrashed()`: Include soft-deleted records
+  - `onlyTrashed()`: Only soft-deleted records
+  - Default: Only active records
+
+### **5.2 Restore Functionality:**
+- Restore method clears `deleted_at` timestamp
+- Cascade behavior: Restoring a page optionally restores its components (user choice)
+- Validation: Ensure slug uniqueness when restoring (handle conflicts)
+- Audit log: Record who restored and when
+
+### **5.3 Versioning System:**
+- **Automatic Versioning:**
+  - Create version snapshot before every update operation
+  - Increment version number sequentially
+  - Store complete state (for pages: include all component data)
+- **Version Storage:**
+  - Use separate `page_versions` and `component_versions` tables
+  - Store JSON snapshot of complete state for easy rollback
+  - Include metadata: version number, created_by, created_at
+- **Revert Operation:**
+  - Load version snapshot
+  - Create new version from current state (before revert)
+  - Apply snapshot data to current record
+  - Increment version number
+  - Maintain audit trail
+- **Version Retention:**
+  - Configurable maximum versions per entity
+  - Auto-prune old versions beyond retention limit
+  - Option to mark specific versions as "protected" (never auto-delete)
+
+### **5.4 JSON Props Validation:**
+- Define JSON schemas for each component type
+- Validate props against schema on save
+- Custom validation rules:
+  - Required fields
+  - Data types (string, number, boolean, array, object)
+  - Format validation (URL, email, color code)
+  - Enum values for specific fields
+  - Nested object validation
+- Return detailed validation errors with field paths
+
+### **5.5 Role-Based Middleware:**
+- Create custom middleware: `RoleMiddleware`
+- Check user's role against required roles for route
+- Apply to both admin panel routes and API endpoints
+- Support multiple role requirements (AND/OR logic)
+- Return 403 Forbidden for unauthorized access
+
+### **5.6 Admin Panel Routes (web.php):**
+```php
+Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
+    // Pages Management
+    Route::resource('pages', PageController::class);
+    Route::post('pages/{id}/restore', [PageController::class, 'restore'])->name('pages.restore');
+    Route::delete('pages/{id}/force-delete', [PageController::class, 'forceDelete'])->name('pages.forceDelete');
+    Route::post('pages/{id}/revert/{version}', [PageController::class, 'revert'])->name('pages.revert');
+    Route::get('pages/{id}/versions', [PageController::class, 'versions'])->name('pages.versions');
+    
+    // Components Management
+    Route::resource('components', ComponentController::class);
+    Route::post('components/{id}/restore', [ComponentController::class, 'restore'])->name('components.restore');
+    Route::delete('components/{id}/force-delete', [ComponentController::class, 'forceDelete'])->name('components.forceDelete');
+    Route::post('components/{id}/revert/{version}', [ComponentController::class, 'revert'])->name('components.revert');
+    Route::post('components/reorder', [ComponentController::class, 'reorder'])->name('components.reorder');
+    
+    // Role Assignment
+    Route::get('role-assignment', [RoleAssignmentController::class, 'index'])->name('roles.index');
+    Route::post('role-assignment/pages', [RoleAssignmentController::class, 'assignPageRoles'])->name('roles.assignPages');
+    Route::post('role-assignment/components', [RoleAssignmentController::class, 'assignComponentRoles'])->name('roles.assignComponents');
+    
+    // Settings
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
+});
+```
+
+### **5.7 API Routes (api.php):**
+```php
+Route::prefix('sdui')->middleware(['api', 'auth:sanctum'])->group(function () {
+    Route::get('/', [SDUIController::class, 'getPage'])->name('api.sdui.get');
+    Route::get('/roles', [SDUIController::class, 'getRoles'])->name('api.sdui.roles');
+    Route::get('/screens/{role}', [SDUIController::class, 'getScreens'])->name('api.sdui.screens');
+});
+```
+
+---
+
+## **6. Extensibility & Scalability**
+
+### **6.1 Adding New Screens:**
+1. Create new page record in admin panel with unique slug
+2. Assign appropriate roles
+3. Add components with configured props
+4. Flutter app automatically fetches via existing API endpoint
+
+### **6.2 Adding New Component Types:**
+1. Define component type constant in config file
+2. Create JSON schema for component props validation
+3. Add component type to dropdown in admin panel
+4. Implement Flutter widget for rendering new component type
+5. No backend code changes required (fully data-driven)
+
+### **6.3 Adding New Routes/Controllers:**
+- Follow Laravel RESTful conventions
+- Place admin controllers in `App\Http\Controllers\Admin` namespace
+- Place API controllers in `App\Http\Controllers\Api` namespace
+- Use route groups for consistent middleware application
+- Document new endpoints in API documentation
+
+### **6.4 Multi-Language Support (Optional):**
+- Add `locale` column to pages and components tables
+- Create language-specific versions of pages
+- API accepts `locale` query parameter
+- Fallback to default language if translation not available
+
+### **6.5 Conditional Component Visibility (Optional):**
+- Add `visibility_rules` JSON column to components table
+- Define rules based on:
+  - User attributes (role, permissions, subscription tier)
+  - Device attributes (platform, OS version, app version)
+  - Time-based conditions (date ranges, time of day)
+  - Feature flags
+- Evaluate rules server-side before returning components in API
+
+---
+
+## **7. Example Workflow Walkthrough**
+
+### **Scenario: Admin configures Field Executive Login Screen**
+
+1. **Admin logs into admin panel** → Navigates to "App UI Settings" → "Pages"
+
+2. **Creates new page:**
+   - Title: "Field Executive Login"
+   - Slug: "field-executive-login" (auto-generated)
+   - Description: "Login screen for field executive role"
+   - Assigns role: "Field Executive"
+   - Clicks "Save & Add Components"
+
+3. **Adds header component:**
+   - Type: "header"
+   - Props JSON:
+     ```json
+     {
+       "title": "Welcome Back",
+       "subtitle": "Sign in to continue",
+       "logo_url": "https://cdn.example.com/logo.png",
+       "background_color": "#1E88E5"
+     }
+     ```
+   - Order: 1
+   - Saves component
+
+4. **Adds form component:**
+   - Type: "form"
+   - Props JSON:
+     ```json
+     {
+       "fields": [
+         {
+           "name": "email",
+           "type": "email",
+           "label": "Email Address",
+           "placeholder": "Enter your email",
+           "required": true,
+           "validation": "email"
+         },
+         {
+           "name": "password",
+           "type": "password",
+           "label": "Password",
+           "placeholder": "Enter your password",
+           "required": true,
+           "min_length": 8
+         }
+       ],
+       "submit_button": {
+         "text": "Login",
+         "action_endpoint": "/api/auth/login",
+         "method": "POST",
+         "loading_text": "Signing in..."
+       }
+     }
+     ```
+   - Order: 2
+   - Saves component
+
+5. **Adds button component (Forgot Password):**
+   - Type: "button"
+   - Props JSON:
+     ```json
+     {
+       "text": "Forgot Password?",
+       "style": "text",
+       "action_type": "navigate",
+       "action_target": "forgot-password-screen"
+     }
+     ```
+   - Order: 3
+   - Saves component
+
+6. **Reviews page** → Version 1 is automatically created → Saves page
+
+7. **Later, admin realizes typo in header subtitle:**
+   - Edits page → Edits header component
+   - Changes subtitle to "Sign in to your account"
+   - Saves → Version 2 is automatically created
+
+8. **Admin accidentally deletes form component:**
+   - Realizes mistake
+   - Goes to Components list → Filters "Deleted"
+   - Finds form component → Clicks "Restore"
+   - Component is restored with all props intact
+
+9. **Admin wants to revert header changes:**
+   - Opens page editor → Expands "Version History"
+   - Sees Version 1 and Version 2 with timestamps
+   - Clicks "Revert to Version 1" → Confirms
+   - Header subtitle reverts to "Sign in to continue"
+   - New Version 3 is created (revert is versioned)
+
+10. **Flutter app fetches SDUI:**
+    - Field Executive user opens app
+    - App calls: `GET /api/sdui?role=field-executive&screen=login`
+    - Receives latest version (Version 3) with all components
+    - Renders UI dynamically based on JSON response
+
+---
+
+## **8. Suggested Laravel Project Structure**
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/
+│   │   │   ├── PageController.php          # CRUD, soft delete, restore, revert, versions
+│   │   │   ├── ComponentController.php     # CRUD, soft delete, restore, revert, reorder
+│   │   │   ├── RoleAssignmentController.php # Assign roles to pages/components
+│   │   │   └── SettingController.php       # SDUI system settings management
+│   │   └── Api/
+│   │       └── SDUIController.php          # API endpoint for Flutter app
+│   ├── Middleware/
+│   │   ├── AdminMiddleware.php             # Check if user is admin
+│   │   └── RoleMiddleware.php              # Check user role for access control
+│   ├── Requests/
+│   │   ├── StorePageRequest.php            # Validation for creating pages
+│   │   ├── UpdatePageRequest.php           # Validation for updating pages
+│   │   ├── StoreComponentRequest.php       # Validation for creating components
+│   │   └── UpdateComponentRequest.php      # Validation for updating components
+│   └── Resources/
+│       ├── PageResource.php                # API resource for pages
+│       └── ComponentResource.php           # API resource for components
+├── Models/
+│   ├── Page.php                            # SoftDeletes, relationships, versioning methods
+│   ├── Component.php                       # SoftDeletes, relationships, versioning methods
+│   ├── PageVersion.php                     # Version history for pages
+│   ├── ComponentVersion.php                # Version history for components
+│   ├── Role.php                            # User roles (may already exist)
+│   └── SDUIConfig.php                      # System settings and configuration
+├── Services/
+│   ├── VersioningService.php               # Handle version creation and revert logic
+│   ├── JSONValidationService.php           # Validate component props against schemas
+│   └── SDUIService.php                     # Business logic for SDUI API responses
+└── Traits/
+    └── Versionable.php                     # Reusable trait for versioning functionality
+
+config/
+└── sdui.php                                # SDUI configuration (component types, schemas, etc.)
+
+database/
+├── migrations/
+│   ├── 2025_01_01_000001_create_pages_table.php
+│   ├── 2025_01_01_000002_create_components_table.php
+│   ├── 2025_01_01_000003_create_page_role_table.php
+│   ├── 2025_01_01_000004_create_component_role_table.php
+│   ├── 2025_01_01_000005_create_page_versions_table.php
+│   ├── 2025_01_01_000006_create_component_versions_table.php
+│   └── 2025_01_01_000007_create_sdui_configs_table.php
+├── seeders/
+│   ├── RoleSeeder.php                      # Seed default roles
+│   ├── PageSeeder.php                      # Seed example pages
+│   └── ComponentTypeSeeder.php             # Seed component type definitions
+└── factories/
+    ├── PageFactory.php
+    └── ComponentFactory.php
+
+resources/
+├── views/
+│   └── admin/
+│       ├── layouts/
+│       │   ├── app.blade.php               # Main admin layout with sidebar
+│       │   └── partials/
+│       │       ├── sidebar.blade.php
+│       │       └── header.blade.php
+│       ├── pages/
+│       │   ├── index.blade.php             # Pages list with search/filter
+│       │   ├── create.blade.php            # Create new page form
+│       │   ├── edit.blade.php              # Edit page form with components
+│       │   └── versions.blade.php          # Version history view
+│       ├── components/
+│       │   ├── index.blade.php             # Components list
+│       │   ├── create.blade.php            # Create component form
+│       │   ├── edit.blade.php              # Edit component form with JSON editor
+│       │   └── partials/
+│       │       └── component-card.blade.php # Reusable component display card
+│       ├── roles/
+│       │   └── assignment.blade.php        # Role assignment matrix
+│       └── settings/
+│           └── index.blade.php             # Settings management interface
+└── js/
+    └── admin/
+        ├── components.js                   # Component management JS (drag-drop, JSON editor)
+        ├── pages.js                        # Page management JS
+        └── json-editor.js                  # JSON editor initialization and validation
+
+routes/
+├── web.php                                 # Admin panel routes
+├── api.php                                 # Flutter API endpoints
+└── admin.php                               # Optional: Separate admin routes file
+
+tests/
+├── Feature/
+│   ├── Admin/
+│   │   ├── PageManagementTest.php          # Test CRUD, soft delete, restore
+│   │   ├── ComponentManagementTest.php     # Test component operations
+│   │   ├── VersioningTest.php              # Test version creation and revert
+│   │   └── RoleAssignmentTest.php          # Test role assignment logic
+│   └── Api/
+│       └── SDUIApiTest.php                 # Test API endpoint responses
+└── Unit/
+    ├── Services/
+    │   ├── VersioningServiceTest.php
+    │   └── JSONValidationServiceTest.php
+    └── Models/
+        ├── PageTest.php
+        └── ComponentTest.php
+```
+
+---
+
+## **9. Key Success Criteria**
+
+The system should be:
+
+✅ **User-Friendly:** Non-technical admins can create and manage SDUI pages without developer assistance
+
+✅ **Scalable:** Easily add new roles, screens, and component types without major refactoring
+
+✅ **Role-Based:** Granular control over which roles see which pages and components
+
+✅ **Robust:** Full versioning with rollback, soft delete with restore, comprehensive validation
+
+✅ **Performant:** Efficient API responses with caching, optimized database queries
+
+✅ **Maintainable:** Clean code structure, comprehensive tests, clear documentation
+
+✅ **Secure:** Proper authentication, authorization, CSRF protection, input validation
+
+✅ **Extensible:** Modular architecture allows adding features without breaking existing functionality
+
+---
+
+## **10. Implementation Priority Order**
+
+1. **Phase 1 - Foundation:**
+   - Database migrations for all tables
+   - Models with relationships and SoftDeletes
+   - Basic authentication and admin middleware
+
+2. **Phase 2 - Core CRUD:**
+   - Pages CRUD (without versioning)
+   - Components CRUD (without versioning)
+   - Basic admin panel UI with Blade templates
+
+3. **Phase 3 - Advanced Features:**
+   - Soft delete and restore functionality
+   - Versioning system implementation
+   - Role assignment interface
+
+4. **Phase 4 - API & Integration:**
+   - SDUI API endpoint for Flutter
+   - JSON validation service
+   - Response caching
+
+5. **Phase 5 - Polish & UX:**
+   - Drag-and-drop component reordering
+   - JSON editor with syntax highlighting
+   - Toast notifications and confirmation modals
+   - Comprehensive error handling
+
+6. **Phase 6 - Testing & Documentation:**
+   - Unit and feature tests
+   - API documentation
+   - Admin user guide
+
+---
+
+This specification provides a complete blueprint for building a production-ready Laravel SDUI admin panel with all requested features, clear implementation guidance, and extensibility for future enhancements.
+
+
+// urls for testing
+// role: user roles field executive, engineer, delivery man 
+// screen: screen name (slug)
+// page_id: page id in json_scema
+http://127.0.0.1:8000/api/sdui/config?role=admin&screen=home-page1&page_id=2
