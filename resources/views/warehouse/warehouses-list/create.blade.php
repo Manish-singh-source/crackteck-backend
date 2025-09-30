@@ -316,9 +316,8 @@
                                                 'label' => 'Default Warehouse',
                                                 'name' => 'default_warehouse',
                                                 'options' => [
-                                                    '0' => '--Select--',
                                                     '1' => 'Active',
-                                                    '2' => 'Inactive',
+                                                    '0' => 'Inactive',
                                                 ],
                                             ])
                                         </div>
@@ -330,9 +329,8 @@
                                                 'label' => 'Status',
                                                 'name' => 'status',
                                                 'options' => [
-                                                    '0' => '--Select--',
                                                     '1' => 'Verified',
-                                                    '2' => 'Unverified',
+                                                    '0' => 'Unverified',
                                                 ],
                                             ])
                                         </div>

@@ -180,7 +180,7 @@
                                                                     <td>{{ $warehouse->phone_number }}</td>
                                                                     <td>
                                                                         <span
-                                                                            class="badge {{ $warehouse->status == 2 ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success' }} fw-semibold">{{ $warehouse->status == 1 ? 'Verified' : 'Unverified' }}</span>
+                                                                            class="badge {{ $warehouse->status == 0 ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success' }} fw-semibold">{{ $warehouse->status == 1 ? 'Verified' : 'Unverified' }}</span>
                                                                     </td>
                                                                     <td>
                                                                         <a aria-label="anchor"

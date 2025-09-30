@@ -21,7 +21,7 @@
                         <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('POST')
-                            
+
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="col-12">
@@ -66,7 +66,7 @@
                                                 @include('components.form.select', [
                                                     'label' => 'Status',
                                                     'name' => 'status',
-                                                    'options' => ['Active' => 'Active', 'Inactive' => 'Inactive'],
+                                                    'options' => ['1' => 'Active', '0' => 'Inactive'],
                                                 ])
                                             </div>
                                         </div>

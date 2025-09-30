@@ -40,9 +40,8 @@
                                                     'label' => 'Status',
                                                     'name' => 'status',
                                                     'options' => [
-                                                        '0' => '--Select--',
-                                                        'Active' => 'Active',
-                                                        'Inactive' => 'Inactive',
+                                                        '1' => 'Active',
+                                                        '0' => 'Inactive',
                                                     ],
                                                 ])
                                             </div>
@@ -278,8 +277,8 @@
                                                                 <td>{{ $attribute->attribute_name }}</td>
                                                                 <td>
                                                                     <span
-                                                                        class="badge {{ $attribute->status == 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} fw-semibold">
-                                                                        {{ $attribute->status }}
+                                                                        class="badge {{ $attribute->status == '1' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} fw-semibold">
+                                                                        {{ $attribute->status == '1' ? 'Active' : 'Inactive' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>

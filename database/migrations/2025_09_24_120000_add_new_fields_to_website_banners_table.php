@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('banner_heading')->nullable()->after('banner_title');
             $table->string('banner_sub_heading')->nullable()->after('banner_heading');
             $table->string('button_text')->nullable()->after('banner_description');
-            $table->integer('sort_order')->default(0)->after('status');
+            $table->boolean('sort_order')->after('status')->default('1');
             
             // Add index for better performance when ordering
             $table->index('sort_order');

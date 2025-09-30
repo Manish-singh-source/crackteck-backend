@@ -98,7 +98,7 @@
                                         @include('components.form.select', [
                                             'label' => 'Status',
                                             'name' => 'status',
-                                            'options' => ['Active' => 'Active', 'Inactive' => 'Inactive'],
+                                            'options' => ['1' => 'Active', '0' => 'Inactive'],
                                             'model' => $website,
                                         ])
                                     </div>
