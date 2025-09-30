@@ -20,6 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'support@technofra.com',
             'password' => '123456'
         ]);
+
+        $this->call([
+            ProductVariantAttributesSeeder::class,
+            ProductVariantAttributeValuesSeeder::class,
+            BrandsSeeder::class,
+            ParentCategoriesSeeder::class,
+            WebsiteBannersSeeder::class,
+            WarehousesSeeder::class,
+            WarehouseRacksSeeder::class,
+            SubCategoriesSeeder::class,
+        ]);
       
     }
 }

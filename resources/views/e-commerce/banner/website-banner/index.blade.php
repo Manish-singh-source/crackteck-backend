@@ -89,8 +89,8 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    <span class="badge bg-{{ $banner->status == 'Active' ? 'success' : 'danger' }}-subtle text-{{ $banner->status == 'Active' ? 'success' : 'danger' }} fw-semibold">
-                                                                        {{ ucfirst($banner->status) }}
+                                                                    <span class="badge bg-{{ $banner->status == '1' ? 'success' : 'danger' }}-subtle text-{{ $banner->status == '1' ? 'success' : 'danger' }} fw-semibold">
+                                                                        {{ ucfirst($banner->status) == '1' ? 'Active' : 'Inactive' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>

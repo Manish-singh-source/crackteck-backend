@@ -286,7 +286,7 @@
                                         <option value="1"
                                             {{ $warehouse->default_warehouse == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="2"
-                                            {{ $warehouse->default_warehouse == '2' ? 'selected' : '' }}>Inactive</option>
+                                            {{ $warehouse->default_warehouse == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -307,7 +307,7 @@
                                         <option value="0" selected disabled>---- Select ----</option>
                                         <option value="1" {{ $warehouse->status == 1 ? 'selected' : '' }}>Verified
                                         </option>
-                                        <option value="2" {{ $warehouse->status == 2 ? 'selected' : '' }}>
+                                        <option value="2" {{ $warehouse->status == 0 ? 'selected' : '' }}>
                                             Unverified</option>
                                     </select>
                                 </div>
