@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('banner_url');
             $table->string('banner_description');
             $table->string('website_banner');
-            $table->string('status');
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

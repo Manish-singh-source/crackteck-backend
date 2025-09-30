@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parent_categories', function (Blueprint $table) {
             $table->id();
             $table->string('parent_categories');
-            $table->string('status');
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

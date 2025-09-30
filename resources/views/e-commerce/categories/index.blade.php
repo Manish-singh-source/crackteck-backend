@@ -80,9 +80,8 @@
                                                         'label' => 'General Status',
                                                         'name' => 'status',
                                                         'options' => [
-                                                            '0' => '--Select--',
-                                                            'Active' => 'Active',
-                                                            'Inactive' => 'Inactive',
+                                                            '1' => 'Active',
+                                                            '0' => 'Inactive',
                                                         ],
                                                         'required' => true,
                                                     ])
@@ -358,8 +357,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <span
-                                                                        class="badge fw-semibold {{ $category->status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
-                                                                        {{ $category->status }}
+                                                                        class="badge fw-semibold {{ $category->status === '1' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                                                        {{ $category->status == '1' ? 'Active' : 'Inactive' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>

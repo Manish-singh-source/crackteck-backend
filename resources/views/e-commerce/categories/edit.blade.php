@@ -71,8 +71,8 @@
                                             'label' => 'General Status',
                                             'name' => 'status',
                                             'options' => [
-                                                'Active' => 'Active',
-                                                'Inactive' => 'Inactive',
+                                                '1' => 'Active',
+                                                '0' => 'Inactive',
                                             ],
                                             'model' => $parentCategorie,
                                             'required' => true,
