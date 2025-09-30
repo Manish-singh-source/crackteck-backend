@@ -163,8 +163,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <span
-                                                                        class="badge fw-semibold {{ $brand->status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
-                                                                        {{ $brand->status }}
+                                                                        class="badge fw-semibold {{ $brand->status === '1' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                                                        {{ $brand->status == '1' ? 'Active' : 'Inactive' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>

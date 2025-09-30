@@ -161,6 +161,7 @@
                                                                 <th>Level No</th>
                                                                 <th>Position No</th>
                                                                 <th>Storage Quantity</th>
+                                                                <th>Filled Quantity</th>
                                                                 <th>Stored Date</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
@@ -179,10 +180,11 @@
                                                                     <td>{{ $warehouse_rack->level_no }}</td>
                                                                     <td>{{ $warehouse_rack->position_no }}</td>
                                                                     <td>{{ $warehouse_rack->quantity }}</td>
-                                                                    <td>{{ $warehouse_rack->created_at }}</td>
+                                                                    <td>{{ $warehouse_rack->filled_quantity ?? 0 }}</td>
+                                                                    <td>{{ $warehouse_rack->created_at?->format('d M Y') ?? '' }}</td>
                                                                     <td>
                                                                         <span
-                                                                            class="badge bg-danger-subtle text-danger fw-semibold">Filled</span>
+                                                                            class="badge bg-success-subtle text-success fw-semibold">Filled</span>
                                                                     </td>
                                                                     <td>
                                                                         <!-- <a aria-label="anchor" href="#"
