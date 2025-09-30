@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_variant_attributes', function (Blueprint $table) {
             $table->id();
             $table->string('attribute_name');
-            $table->string('status');
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

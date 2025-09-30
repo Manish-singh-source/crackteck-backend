@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string('gst_no')->nullable();
             $table->string('licence_no')->nullable();
             $table->string('licence_doc')->nullable();
-            $table->boolean('default_warehouse')->default(false);
-            $table->boolean('status')->default(true);
+            $table->boolean('default_warehouse')->default('1');
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }
