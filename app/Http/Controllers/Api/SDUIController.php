@@ -295,4 +295,46 @@ class SDUIController extends Controller
             ], 500);
         }
     }
+
+    public function handleLoginSchema(Request $request)
+    {
+        try {
+            $request->validate([
+                'role_id' => 'required|exists:roles,id',
+            ]);
+
+            if($request->role_id == 1){
+                $screen_type = 'field_login';
+            }elseif($request->role_id == 2){
+                $screen_type = 'delivery_login';
+            }elseif($request->role_id == 3){
+                $screen_type = 'sales_login';
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid role id.',
+                ], 404);
+            }
+
+            $loginPage = SduiPage::where('screen_type', $screen_type)->forRole($request->role_id)->first();
+            if (!$loginPage) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Login page not found.',
+                ], 404);
+            }
+            return response()->json([
+                'success' => true,
+                'data' => $loginPage->json_schema ?? [],
+            ]);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching login schema.',
+                'error' => config('app.debug') ? $e->getMessage() : null,
+            ], 500);
+        }
+    }
+
 }
