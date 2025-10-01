@@ -62,6 +62,7 @@ use App\Http\Controllers\Api\SDUIController;
 // SDUI Public Routes (can be protected via settings)
 Route::prefix('ui')->group(function () {
     Route::get('/role-selection', [SDUIController::class, 'handleRoleSelectionSchema']);
+    Route::get('/login', [SDUIController::class, 'handleLoginSchema']);
     // Get SDUI configuration for a specific screen/role (returns complete JSON schema)
     Route::get('/config', [SDUIController::class, 'getConfig']);
 
