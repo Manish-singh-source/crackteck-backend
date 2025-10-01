@@ -60,7 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
 use App\Http\Controllers\Api\SDUIController;
 
 // SDUI Public Routes (can be protected via settings)
-Route::prefix('sdui')->group(function () {
+Route::prefix('ui')->group(function () {
+    Route::get('/role-selection', [SDUIController::class, 'handleRoleSelectionSchema']);
     // Get SDUI configuration for a specific screen/role (returns complete JSON schema)
     Route::get('/config', [SDUIController::class, 'getConfig']);
 
@@ -72,7 +73,7 @@ Route::prefix('sdui')->group(function () {
 });
 
 // SDUI Protected Routes (admin only)
-Route::prefix('sdui')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
+Route::prefix('ui')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
     // Clear SDUI cache
     Route::post('/clear-cache', [SDUIController::class, 'clearCache']);
 });
