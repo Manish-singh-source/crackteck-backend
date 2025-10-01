@@ -19,7 +19,7 @@ Route::post('/frontend-logout', [FrontendAuthController::class, 'logout'])->name
 
 
 // Home
-Route::get('/website', [FrontendController::class, 'index'])->name('website');
+Route::get('/', [FrontendController::class, 'index'])->name('website');
 
 // Shop
 // Route::get('/shop', function () {
