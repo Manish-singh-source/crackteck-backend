@@ -205,7 +205,7 @@
                                                     @include('components.form.select', [
                                                         'label' => 'Subcategory',
                                                         'name' => 'sub_category_id',
-                                                        'options' => ['' => '--Select Subcategory--'] + $subCategories->toArray(),
+                                                        'options' => ['' => '--Select Category First--'],
                                                     ])
                                                 </div>
                                             </div>
@@ -310,11 +310,13 @@
                                             <div class="col-6 mb-2">
                                                 <div>
                                                     @include('components.form.input', [
-                                                        'label' => 'Final Price (after discount)',
+                                                        'label' => 'Final Price (Calculated)',
                                                         'name' => 'final_price',
                                                         'type' => 'number',
-                                                        'placeholder' => 'Enter Final Price',
+                                                        'placeholder' => 'Auto-calculated',
+                                                        'readonly' => true,
                                                     ])
+                                                    <small class="text-muted">This field is automatically calculated based on selling price, discount, and tax</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -473,14 +475,19 @@
 
                                     <div class="card-body">
 
-                                        @foreach($variationOptions as $key => $value)
-                                            <div class="mb-2">
-                                                @include('components.form.select', [
-                                                    'label' => $value,
-                                                    'name' => 'variation_options[]',
-                                                    'options' => ['' => '--Select--'] + $variationOptions->toArray(),
-                                                    'model' => isset($product) ? $product : null,
-                                                ])
+                                        @foreach($variationAttributes as $attribute)
+                                            <div class="mb-3">
+                                                <label for="variation_{{ $attribute->id }}" class="form-label">{{ $attribute->attribute_name }}</label>
+                                                <select
+                                                    id="variation_{{ $attribute->id }}"
+                                                    name="variations[{{ $attribute->id }}][]"
+                                                    class="form-select w-100"
+                                                    multiple>
+                                                    @foreach($attribute->values as $value)
+                                                        <option value="{{ $value->id }}">{{ $value->attribute_value }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <small class="text-muted">Hold Ctrl/Cmd to select multiple values</small>
                                             </div>
                                         @endforeach
 
@@ -690,6 +697,84 @@
                     }, 500);
                 }
             });
+
+            // ========================================
+            // Task 2: Category-Dependent Subcategory Filtering
+            // ========================================
+            $('select[name="parent_category_id"]').on('change', function() {
+                var parentId = $(this).val();
+                var subcategorySelect = $('select[name="sub_category_id"]');
+
+                // Clear current subcategory selection
+                subcategorySelect.empty();
+
+                if (!parentId) {
+                    subcategorySelect.append('<option value="">--Select Category First--</option>');
+                    return;
+                }
+
+                // Show loading state
+                subcategorySelect.append('<option value="">Loading...</option>');
+
+                // Fetch subcategories via AJAX
+                $.ajax({
+                    url: '/category-dependent',
+                    method: 'GET',
+                    data: { parent_id: parentId },
+                    success: function(data) {
+                        subcategorySelect.empty().append('<option value="">--Select Subcategory--</option>');
+                        $.each(data, function(key, value) {
+                            subcategorySelect.append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    },
+                    error: function() {
+                        subcategorySelect.empty().append('<option value="">Error loading subcategories</option>');
+                        console.error('Error fetching subcategories');
+                    }
+                });
+            });
+
+            // ========================================
+            // Task 3: Real-time Pricing Calculation
+            // ========================================
+            function calculateFinalPrice() {
+                var sellingPrice = parseFloat($('input[name="selling_price"]').val()) || 0;
+                var discountPrice = parseFloat($('input[name="discount_price"]').val()) || 0;
+                var taxPercentage = parseFloat($('input[name="tax"]').val()) || 0;
+
+                // Validation: discount price cannot be greater than selling price
+                if (discountPrice > sellingPrice && sellingPrice > 0) {
+                    alert('Discount price cannot be greater than selling price');
+                    $('input[name="discount_price"]').val('');
+                    discountPrice = 0;
+                }
+
+                // Validation: tax percentage cannot exceed 100%
+                if (taxPercentage > 100) {
+                    alert('Tax percentage cannot exceed 100%');
+                    $('input[name="tax"]').val('');
+                    taxPercentage = 0;
+                }
+
+                // Calculate base price
+                // If discount price is entered: base_price = selling_price - discount_price
+                // Otherwise: base_price = selling_price
+                var basePrice = discountPrice > 0 ? (sellingPrice - discountPrice) : sellingPrice;
+
+                // Apply tax: final_price = base_price + (base_price * tax_percentage / 100)
+                var finalPrice = basePrice + (basePrice * taxPercentage / 100);
+
+                // Update final price field (rounded to 2 decimal places)
+                $('input[name="final_price"]').val(finalPrice.toFixed(2));
+            }
+
+            // Attach event listeners to pricing fields
+            $('input[name="selling_price"], input[name="discount_price"], input[name="tax"]').on('keyup change', function() {
+                calculateFinalPrice();
+            });
+
+            // Calculate on page load if values exist
+            calculateFinalPrice();
 
         });
     </script>
