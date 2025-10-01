@@ -33,7 +33,8 @@ class ProductListController extends Controller
     {
         $brands = Brand::pluck('brand_title', 'id');
         $parentCategories = ParentCategorie::pluck('parent_categories', 'id');
-        $subCategories = SubCategorie::pluck('sub_categorie', 'id');
+        // Don't load all subcategories - will be loaded dynamically based on parent category
+        $subCategories = [];
         $warehouses = Warehouse::pluck('warehouse_name', 'id');
         $warehouseRacks = WarehouseRack::pluck('rack_name', 'id');
 
@@ -42,35 +43,27 @@ class ProductListController extends Controller
         $levelNo = WarehouseRack::pluck('level_no', 'id');
         $positionNo = WarehouseRack::pluck('position_no', 'id');
 
-        // Get variation options
-        $variationOptions = ProductVariantAttribute::pluck('attribute_name', 'id');
-        
-        // $colorOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-        //     $query->where('attribute_name', 'Color');
-        // })->pluck('attribute_value', 'id');
-        
-        // $sizeOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-        //     $query->where('attribute_name', 'Size');
-        // })->pluck('attribute_value', 'id');
-
-        // $lengthOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-        //     $query->where('attribute_name', 'Length');
-        // })->pluck('attribute_value', 'id');
+        // Get variation attributes with their values
+        $variationAttributes = ProductVariantAttribute::with('values')->get();
 
         return view('/warehouse/product-list/create', compact(
             'brands', 'parentCategories', 'subCategories', 'warehouses', 'warehouseRacks',
-            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationOptions',
-            
+            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationAttributes',
         ));
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
 
         // dd($request->all());
         $product = new Product();
-        $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual', 'warehouse_id', 'warehouse_rack_id',	'rack_zone_area', 'rack_no', 'level_no', 'position_no']));
-
+        $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual', 'warehouse_rack_name', 'zone_area_id', 'rack_no_id', 'level_no_id', 'position_no_id']));
+        $product->warehouse_rack_id = $request->warehouse_rack_name;
+        $product->rack_zone_area = $request->zone_area_id;
+        $product->rack_no = $request->rack_no_id;
+        $product->level_no = $request->level_no_id; 
+        $product->position_no = $request->position_no_id;
+        $product->variation_options = json_encode($request->variations);
         // Handle file uploads
         if ($request->hasFile('main_product_image')) {
             $file = $request->file('main_product_image');
@@ -104,26 +97,27 @@ class ProductListController extends Controller
         }
 
         // Calculate final price
-        $finalPrice = $product->selling_price;
-        if ($product->discount_price) {
-            $finalPrice = $product->discount_price;
-        }
-        if ($product->tax) {
-            $finalPrice = $finalPrice + ($finalPrice * $product->tax / 100);
-        }
-        $product->final_price = $finalPrice;
-
-        $product->warehouse_id = $request->warehouse_id;
-        $product->warehouse_rack_id = $request->warehouse_rack_id;
-        $product->rack_zone_area = $request->rack_zone_area;
-        $product->rack_no = $request->rack_no;
-        $product->level_no = $request->level_no;
-        $product->position_no = $request->position_no;
-        $product->expiry_date = $request->expiry_date;
-        $product->rack_status = $request->rack_status;
-        $product->status = $request->status;
+        // $finalPrice = $product->selling_price;
+        // if ($product->discount_price) {
+        //     $finalPrice = $product->discount_price;
+        // }
+        // if ($product->tax) {
+        //     $finalPrice = $finalPrice + ($finalPrice * $product->tax / 100);
+        // }
+        // $product->final_price = $finalPrice;
 
 
+        // $product->cost_price = $request->cost_price;
+        // $product->selling_price = $request->selling_price;
+        // $product->discount_price = $request->discount_price;
+        // $product->tax = $request->tax;
+        // $product->final_price = $product->final_price;
+        // $product->warehouse_id = $request->warehouse_id;
+        // $product->warehouse_rack_id = $request->warehouse_rack_id;
+        // $product->rack_zone_area = $request->rack_zone_area;
+        // $product->rack_no = $request->rack_no;
+        // $product->level_no = $request->level_no;
+        // $product->position_no = $request->position_no;
         $product->save();
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
@@ -576,6 +570,23 @@ class ProductListController extends Controller
             'valid' => !$exists,
             'message' => $exists ? 'Product with this SKU already exists' : 'SKU is available'
         ]);
+    }
+
+    /**
+     * Get subcategories based on parent category via AJAX
+     */
+    public function getSubcategoriesByParent(Request $request): JsonResponse
+    {
+        $parentId = $request->input('parent_id');
+
+        if (empty($parentId)) {
+            return response()->json([]);
+        }
+
+        $subcategories = SubCategorie::where('parent_category_id', $parentId)
+            ->pluck('sub_categorie', 'id');
+
+        return response()->json($subcategories);
     }
 
 }
