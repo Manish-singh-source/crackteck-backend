@@ -27,7 +27,6 @@ class StoreProductRequest extends FormRequest
             'po_number' => 'nullable|string|max:100',
             'invoice_number' => 'nullable|string|max:100',
             'invoice_pdf' => 'nullable|mimes:pdf|max:10240',
-            'invoice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'purchase_date' => 'nullable|date',
             'bill_due_date' => 'nullable|date',
             'bill_amount' => 'nullable|numeric|min:0',
@@ -60,13 +59,11 @@ class StoreProductRequest extends FormRequest
             
             // Rack Details
             'warehouse_id' => 'nullable|exists:warehouses,id',
-            'warehouse_rack_id' => 'nullable|exists:warehouse_racks,id',
+            'warehouse_rack_name' => 'nullable|exists:warehouse_racks,id',
             'rack_zone_area' => 'nullable|string|max:100',
             'rack_no' => 'nullable|string|max:100',
             'level_no' => 'nullable|string|max:50',
             'position_no' => 'nullable|string|max:50',
-            'expiry_date' => 'nullable|date',
-            'rack_status' => 'nullable|in:Available,Blocked,Reserved',
             
             // Images & Media
             'main_product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -74,9 +71,9 @@ class StoreProductRequest extends FormRequest
             'datasheet_manual' => 'nullable|mimes:pdf|max:10240',
             
             // Product Variations
-            'color_options' => 'nullable|string|max:255',
-            'size_options' => 'nullable|string|max:255',
-            'length_options' => 'nullable|string|max:255',
+            'variations' => 'nullable|array',
+            'variations.*' => 'nullable|exists:product_variant_attributes,id',
+            'variations.*.*' => 'nullable|exists:product_variant_attribute_values,id',
             
             // Product Status
             'status' => 'nullable|in:Active,Inactive',
