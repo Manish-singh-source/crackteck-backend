@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             WarehouseRacksSeeder::class,
             SubCategoriesSeeder::class,
             ProductsSeeder::class,
+            EcommerceProductsSeeder::class,
         ]);
       
     }
