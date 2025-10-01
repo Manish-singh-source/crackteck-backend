@@ -76,17 +76,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- <div class="col-xl-6 col-lg-6">
-                                                <div>
-                                                    @include('components.form.input', [
-                                                        'label' => 'Invoice Image',
-                                                        'name' => 'invoice_image',
-                                                        'type' => 'file',
-                                                        'placeholder' => 'Upload Invoice Image',
-                                                    ])
-                                                </div>
-                                            </div> --}}
-
                                             <div class="col-xl-6 col-lg-6">
                                                 <div>
                                                     @include('components.form.input', [
@@ -291,16 +280,6 @@
                                             <div class="col-6 mb-2">
                                                 <div>
                                                     @include('components.form.input', [
-                                                        'label' => 'Selling Price',
-                                                        'name' => 'selling_price',
-                                                        'type' => 'number',
-                                                        'placeholder' => 'Enter Selling Price',
-                                                    ])
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <div>
-                                                    @include('components.form.input', [
                                                         'label' => 'Discount Price',
                                                         'name' => 'discount_price',
                                                         'type' => 'number',
@@ -315,6 +294,16 @@
                                                         'name' => 'tax',
                                                         'type' => 'number',
                                                         'placeholder' => 'Enter Tax',
+                                                    ])
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    @include('components.form.input', [
+                                                        'label' => 'Selling Price',
+                                                        'name' => 'selling_price',
+                                                        'type' => 'number',
+                                                        'placeholder' => 'Enter Selling Price',
                                                     ])
                                                 </div>
                                             </div>
@@ -430,29 +419,6 @@
                                                     'model' => isset($product) ? $product : null,
                                                 ])
                                             </div>
-
-                                            <div class="col-xl-6 col-lg-6">
-                                                <div>
-                                                    @include('components.form.input', [
-                                                        'label' => 'Expiry Date',
-                                                        'name' => 'expiry_date',
-                                                        'type' => 'date',
-                                                        'placeholder' => 'Enter Expiry Date',
-                                                    ])
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xl-6 col-lg-6">
-                                                @include('components.form.select', [
-                                                    'label' => 'Status',
-                                                    'name' => 'status',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        'Active' => 'Active',
-                                                        'Inactive' => 'Inactive',
-                                                    ],
-                                                ])
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -507,29 +473,17 @@
 
                                     <div class="card-body">
 
-                                        <div>
-                                            @include('components.form.select', [
-                                                'label' => 'Color Options',
-                                                'name' => 'color_options',
-                                                'options' => ['' => '--Select Color--'] + $colorOptions->toArray(),
-                                            ])
-                                        </div>
+                                        @foreach($variationOptions as $key => $value)
+                                            <div class="mb-2">
+                                                @include('components.form.select', [
+                                                    'label' => $value,
+                                                    'name' => 'variation_options[]',
+                                                    'options' => ['' => '--Select--'] + $variationOptions->toArray(),
+                                                    'model' => isset($product) ? $product : null,
+                                                ])
+                                            </div>
+                                        @endforeach
 
-                                        <div class="mt-3">
-                                            @include('components.form.select', [
-                                                'label' => 'Size Options',
-                                                'name' => 'size_options',
-                                                'options' => ['' => '--Select Size--'] + $sizeOptions->toArray(),
-                                            ])
-                                        </div>
-
-                                        <div class="mt-3">
-                                            @include('components.form.select', [
-                                                'label' => 'Length Options',
-                                                'name' => 'length_options',
-                                                'options' => ['' => '--Select Length--'] + $lengthOptions->toArray(),
-                                            ])
-                                        </div>
                                     </div>
 
                                 </div>
@@ -640,6 +594,7 @@
             $('select[name="warehouse_id"]').on('change', function() {
                 var id = $(this).val();
                 $.get('/warehouse-dependent?type=rack&id=' + id, function(data) {
+                    console.log(data);
                     var select = $('select[name="warehouse_rack_name"]');
                     select.empty().append('<option value="">--Select Rack--</option>');
                     $.each(data, function(key, value) {

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('po_number')->nullable();
             $table->string('invoice_number')->nullable();
             $table->string('invoice_pdf')->nullable();
-            $table->string('invoice_image')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('bill_due_date')->nullable();
             $table->decimal('bill_amount', 15, 2)->nullable();
@@ -42,9 +41,9 @@ return new class extends Migration
 
             // Pricing
             $table->decimal('cost_price', 15, 2)->nullable();
-            $table->decimal('selling_price', 15, 2)->nullable();
             $table->decimal('discount_price', 15, 2)->nullable();
             $table->decimal('tax', 5, 2)->nullable();
+            $table->decimal('selling_price', 15, 2)->nullable();
             $table->decimal('final_price', 15, 2)->nullable();
 
             // Inventory Details
@@ -58,8 +57,6 @@ return new class extends Migration
             $table->string('rack_no')->nullable();
             $table->string('level_no')->nullable();
             $table->string('position_no')->nullable();
-            $table->date('expiry_date')->nullable();
-            $table->enum('rack_status', ['Available', 'Blocked', 'Reserved'])->default('Available');
 
             // Images & Media
             $table->string('main_product_image')->nullable();
@@ -67,9 +64,7 @@ return new class extends Migration
             $table->string('datasheet_manual')->nullable();
 
             // Product Variations
-            $table->string('color_options')->nullable();
-            $table->string('size_options')->nullable();
-            $table->string('length_options')->nullable();
+            $table->string('variation_options')->nullable();
 
             // Product Status
             $table->enum('status', ['Active', 'Inactive'])->default('Active');

@@ -43,31 +43,33 @@ class ProductListController extends Controller
         $positionNo = WarehouseRack::pluck('position_no', 'id');
 
         // Get variation options
-        $colorOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Color');
-        })->pluck('attribute_value', 'id');
-        // dd($colorOptions);
+        $variationOptions = ProductVariantAttribute::pluck('attribute_name', 'id');
+        
+        // $colorOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Color');
+        // })->pluck('attribute_value', 'id');
+        
+        // $sizeOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Size');
+        // })->pluck('attribute_value', 'id');
 
-        $sizeOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Size');
-        })->pluck('attribute_value', 'id');
-
-        $lengthOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Length');
-        })->pluck('attribute_value', 'id');
+        // $lengthOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Length');
+        // })->pluck('attribute_value', 'id');
 
         return view('/warehouse/product-list/create', compact(
             'brands', 'parentCategories', 'subCategories', 'warehouses', 'warehouseRacks',
-            'zoneAreas', 'rackNo', 'levelNo', 'positionNo',
-            'colorOptions', 'sizeOptions', 'lengthOptions'
+            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationOptions',
+            
         ));
     }
 
     public function store(StoreProductRequest $request)
     {
 
+        // dd($request->all());
         $product = new Product();
-        $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual']));
+        $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual', 'warehouse_id', 'warehouse_rack_id',	'rack_zone_area', 'rack_no', 'level_no', 'position_no']));
 
         // Handle file uploads
         if ($request->hasFile('main_product_image')) {
@@ -110,6 +112,17 @@ class ProductListController extends Controller
             $finalPrice = $finalPrice + ($finalPrice * $product->tax / 100);
         }
         $product->final_price = $finalPrice;
+
+        $product->warehouse_id = $request->warehouse_id;
+        $product->warehouse_rack_id = $request->warehouse_rack_id;
+        $product->rack_zone_area = $request->rack_zone_area;
+        $product->rack_no = $request->rack_no;
+        $product->level_no = $request->level_no;
+        $product->position_no = $request->position_no;
+        $product->expiry_date = $request->expiry_date;
+        $product->rack_status = $request->rack_status;
+        $product->status = $request->status;
+
 
         $product->save();
 
