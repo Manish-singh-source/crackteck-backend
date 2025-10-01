@@ -51,6 +51,7 @@ Route::controller(ProductListController::class)->group(function(){
 });
 
 Route::get('/warehouse-dependent', [WarehouseRackController::class, 'getDependentData']);
+Route::get('/category-dependent', [ProductListController::class, 'getSubcategoriesByParent']);
 
 
 // ------------------------------------------------------------ Track Product List -------------------------------------------------------------
