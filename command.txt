@@ -1,148 +1,95 @@
-You are tasked with building a full-featured Laravel SDUI admin panel for a Flutter app. The system must manage SDUI pages, components, role-based visibility, and provide a dynamic UI for configuration and control. The admin panel should be usable by non-technical users and allow safe versioning, soft delete, and restore functionality.
+# API Endpoints Documentation
 
-Requirements:
+### 🔹 **UI Schema Endpoints**
 
-1. Database Schemas:
-   - pages: id, title, slug, description, created_by, updated_by, deleted_at (soft delete), timestamps
-   - components: id, page_id, type, props (JSON), order, created_by, updated_by, deleted_at (soft delete), timestamps
-   - page_role: id, page_id, role_id (which pages are visible to each role), timestamps
-   - component_role: id, component_id, role_id (optional granular role assignment), timestamps
-   - SDUI versioning: track versions of each page/component so updates can be reverted
+| Endpoint               | Handler                                    | Parameters                                |
+| ---------------------- | ------------------------------------------ | ----------------------------------------- |
+| `/ui/role_selection`   | `handleRoleSelectionSchema()`              | None                                      |
 
-2. Admin Panel Functionalities:
-   - Pages CRUD: List, filter, create, edit, delete SDUI pages
-       - Soft delete: deleted pages/components are not permanently removed
-       - Restore functionality: restore deleted pages/components
-       - Versioning: revert to previous versions if updated
-       - Assign roles per page
-   - Components CRUD: Add, edit, delete, reorder components per page
-       - Type selection and JSON props editor
-       - Optional role assignment per component
-   - Role Assignment: Assign roles to both pages and components
-   - Users & Roles: List, create, edit, assign roles to users (already implemented)
-   - Settings: Manage general SDUI settings, default behaviors, validation, API keys
-   - Authentication: Secure login, admin-only access, role-based middleware
 
-3. Admin Panel UI Design (add new tab side to top navigation as App UI Settings):
-   - Sidebar: Pages, Components, Users & Roles, Settings
-   - Pages List Screen:
-       - Table with title, slug, assigned roles, version info, Edit/Delete/Restore buttons
-       - Search, sorting, bulk actions
-       - Button to create page
-   - Page Editor (Create/Edit):
-       - Form: title, slug, description
-       - Role selector (multi-select)
-       - List of attached components; add/reorder/delete inline
-       - Version history with revert option
-       - Save/Cancel actions
-   - Component Builder Screen:
-       - Type dropdown: header, text, button, form, list, image, etc.
-       - JSON props editor with validation
-       - Drag-and-drop reorder grid
-       - Optional role assignment
-   - Settings Screen:
-       - System behaviors, validation options
-       - SDUI default values
-       - API keys or configuration management
-   - Error and Success Handling:
-       - Toast notifications for actions
-       - Validation feedback on forms
-       - Clear modals/dialogs for confirmation (delete, restore, revert)
+| `/ui/field_login`      | `handleLoginSchema('Field Executive', 1)`  | Role = `"Field Executive"`, Role ID = `1` |
+| `/ui/delivery_login`   | `handleLoginSchema('Delivery Person', 2)`  | Role = `"Delivery Person"`, Role ID = `2` |
+| `/ui/sales_login`      | `handleLoginSchema('Sales Person', 3)`     | Role = `"Sales Person"`, Role ID = `3`    |
 
-4. SDUI for Flutter App:
-   - Hybrid SDUI: support dynamic and partially static screens
-   - Role-specific screens: Field Executive, Engineer, Delivery Man
-   - Each screen (login, OTP, location, dashboard, etc.) has separate SDUI JSON per role
-   - API endpoints for Flutter:
-       GET /api/sdui?role={role_slug}&screen={screen_slug}
-       - Returns the latest active version of the SDUI JSON for the role+screen
-       - Handles revert/restore if page/component deleted or updated
 
-5. API & Backend Logic:
-   - Soft delete: mark pages/components as deleted (deleted_at)
-   - Restore: undo soft delete
-   - Versioning: save previous versions whenever a page/component is updated
-   - JSON validation for props
-   - Role middleware: protect API endpoints based on role
-   - Admin panel routes for CRUD, restore, revert
-   - Example routes:
-
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('pages', PageController::class);
-    Route::resource('components', ComponentController::class);
-    Route::get('pages/restore/{id}', [PageController::class, 'restore'])->name('pages.restore');
-    Route::get('components/restore/{id}', [ComponentController::class, 'restore'])->name('components.restore');
-    Route::get('pages/revert/{id}/{version}', [PageController::class, 'revert'])->name('pages.revert');
-    Route::get('components/revert/{id}/{version}', [ComponentController::class, 'revert'])->name('components.revert');
-});
-
-6. Extensibility:
-   - Adding new screens or components is modular
-   - Add new routes in web.php or api.php
-   - Add new controllers or methods in PageController/ComponentController
-   - Extend JSON component types and Flutter app rendering
-   - Optional: multi-language support, conditional component visibility based on roles
-
-7. Example Workflow:
-   - Admin selects Field Executive → Login screen → edits SDUI components
-   - Adds a header, text input, and button
-   - Sets component properties (action_endpoint, API call, visibility)
-   - Saves page → new version is created
-   - If mistake occurs, admin can revert to previous version
-   - Deleted page/component can be restored via restore button
-   - Flutter app fetches latest SDUI JSON dynamically
-
-The system should be **user-friendly, scalable, role-based, and robust** for non-technical admins while supporting full CRUD, soft delete, restore, and versioning for SDUI pages and components.
-```
+| `/ui/otp_verification` | `handleOTPVerificationSchema()`            | None                                      |
+| `/ui/field_signup`     | `handleSignupSchema('Field Executive', 1)` | Role = `"Field Executive"`, Role ID = `1` |
+| `/ui/delivery_signup`  | `handleSignupSchema('Delivery Person', 2)` | Role = `"Delivery Person"`, Role ID = `2` |
+| `/ui/sales_signup`     | `handleSignupSchema('Sales Person', 3)`    | Role = `"Sales Person"`, Role ID = `3`    |
 
 ---
 
-## **Suggested Laravel Structure for This**
+### 🔹 **Authentication API Endpoints**
 
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── Admin/
-│   │   │   ├── PageController.php          # CRUD + soft delete + restore + revert
-│   │   │   ├── ComponentController.php     # CRUD + soft delete + restore + revert
-│   │   │   ├── AssignRoleController.php          # Assign roles
-│   │   │   └── SettingController.php       # SDUI settings
-│   │   └── Api/
-│   │       └── SDUIController.php          # Endpoint for Flutter SDUI JSON
-│   └── Middleware/
-│       └── RoleMiddleware.php
-├── Models/
-│   ├── Page.php          # SoftDeletes, versioning
-│   ├── Component.php     # SoftDeletes, versioning
-│   └── SDUIConfig.php
-routes/
-├── web.php               # Admin panel routes
-├── api.php               # Flutter API endpoints
-resources/views/admin/
-├── pages/
-│   ├── index.blade.php
-│   ├── create.blade.php
-│   └── edit.blade.php
-├── components/
-│   ├── index.blade.php
-│   ├── create.blade.php
-│   └── edit.blade.php
-└── settings.blade.php
-database/migrations/
-├── create_pages_table.php
-├── create_components_table.php
-├── create_page_role_table.php
-├── create_component_role_table.php
-```
+| Endpoint           | Handler             | Parameters                                                                      |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------- |
+| `/auth/login`      | `handleLogin()`     | Expected: `{ phone, password }` (not visible here, inferred from context) |
+| `/auth/signup`     | `handleSignup()`    | Expected: `{ name, phone, password, roleId }`                             |
+| `/auth/verify-otp` | `handleVerifyOTP()` | Expected: `{ phone, otp }`                                                |
+| `/auth/resend-otp` | `handleResendOTP()` | Expected: `{ phone }`                                                     |
 
 ---
 
-✅ This augmented prompt and structure now covers:
+### 🔹 **Location UI Schema**
 
-* **Full CRUD** for pages and components
-* **Soft delete and restore**
-* **Versioning and revert**
-* **Role-based screen-specific SDUI**
-* **Non-technical admin usability**
-* **Hybrid SDUI support for Flutter app**
+| Endpoint       | Handler                  | Parameters |
+| -------------- | ------------------------ | ---------- |
+| `/ui/location` | `handleLocationSchema()` | None       |
+
+---
+
+### 🔹 **Dashboard UI Schemas**
+
+| Endpoint                     | Handler                              | Parameters |
+| ---------------------------- | ------------------------------------ | ---------- |
+| `/ui/sales-person-dashboard` | `handleSalesPersonDashboardSchema()` | None       |
+| `/ui/notification-screen`    | `handleNotificationScreenSchema()`   | None       |
+| `/ui/tasks-screen`           | `handleTasksScreenSchema()`          | None       |
+| `/ui/sales-overview-screen`  | `handleSalesOverviewScreenSchema()`  | None       |
+
+---
+
+### 🔹 **Lead Management UI Schemas**
+
+| Endpoint                 | Handler                          | Parameters |
+| ------------------------ | -------------------------------- | ---------- |
+| `/ui/leads-screen`       | `handleLeadsScreenSchema()`      | None       |
+| `/ui/new-lead-screen`    | `handleNewLeadScreenSchema()`    | None       |
+| `/ui/lead-details-modal` | `handleLeadDetailsModalSchema()` | None       |
+
+---
+
+### 🔹 **Follow-Up Management UI Schemas**
+
+| Endpoint                      | Handler                              | Parameters |
+| ----------------------------- | ------------------------------------ | ---------- |
+| `/ui/follow-up-screen`        | `handleFollowUpScreenSchema()`       | None       |
+| `/ui/new-follow-up-screen`    | `handleNewFollowUpScreenSchema()`    | None       |
+| `/ui/follow-up-details-modal` | `handleFollowUpDetailsModalSchema()` | None       |
+
+---
+
+### 🔹 **Meeting Management UI Schemas**
+
+| Endpoint                    | Handler                             | Parameters |
+| --------------------------- | ----------------------------------- | ---------- |
+| `/ui/meeting-screen`        | `handleMeetingScreenSchema()`       | None       |
+| `/ui/new-meeting-screen`    | `handleNewMeetingScreenSchema()`    | None       |
+| `/ui/meeting-details-modal` | `handleMeetingDetailsModalSchema()` | None       |
+
+---
+
+### 🔹 **Profile Management UI Schema**
+
+| Endpoint             | Handler                       | Parameters |
+| -------------------- | ----------------------------- | ---------- |
+| `/ui/profile-screen` | `handleProfileScreenSchema()` | None       |
+
+---
+
+### 🔹 **Location Data Endpoints**
+
+| Endpoint                      | Handler                                                             | Method     | Parameters                                 |
+| ----------------------------- | ------------------------------------------------------------------- | ---------- | ------------------------------------------ |
+| `/data/user/location`         | `handleStoreLocation()` (POST) / `handleGetLocationHistory()` (GET) | POST / GET | POST: `{ lat, lng, timestamp }` (inferred) |
+| `/data/user/location/current` | `handleGetCurrentLocation()`                                        | GET        | None                                       |

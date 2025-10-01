@@ -270,4 +270,29 @@ class SDUIController extends Controller
             'data' => $componentTypes,
         ]);
     }
+
+
+    public function handleRoleSelectionSchema()
+    {
+        try {
+            $roleSelectionPage = SduiPage::where('screen_type', 'role_selection')->first();
+            if (!$roleSelectionPage) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Role selection page not found.',
+                ], 404);
+            }
+            return response()->json([
+                'success' => true,
+                'data' => $roleSelectionPage->json_schema ?? [],
+            ]);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching role selection schema.',
+                'error' => config('app.debug') ? $e->getMessage() : null,
+            ], 500);
+        }
+    }
 }
