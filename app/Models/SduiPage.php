@@ -186,25 +186,25 @@ class SduiPage extends Model
             $errors[] = 'JSON schema must include a "version" field';
         }
 
-        if (!isset($schema['components']) || !is_array($schema['components'])) {
-            $errors[] = 'JSON schema must include a "components" array';
-        } else {
-            // Validate each component
-            foreach ($schema['components'] as $index => $component) {
-                if (!isset($component['id'])) {
-                    $errors[] = "Component at index {$index} is missing required 'id' field";
-                }
-                if (!isset($component['type'])) {
-                    $errors[] = "Component at index {$index} is missing required 'type' field";
-                }
-                if (!isset($component['order']) && $component['order'] !== 0) {
-                    $errors[] = "Component at index {$index} is missing required 'order' field";
-                }
-                if (!isset($component['props'])) {
-                    $errors[] = "Component at index {$index} is missing required 'props' field";
-                }
-            }
-        }
+        // if (!isset($schema['components']) || !is_array($schema['components'])) {
+        //     $errors[] = 'JSON schema must include a "components" array';
+        // } else {
+        //     // Validate each component
+        //     foreach ($schema['components'] as $index => $component) {
+        //         if (!isset($component['id'])) {
+        //             $errors[] = "Component at index {$index} is missing required 'id' field";
+        //         }
+        //         if (!isset($component['type'])) {
+        //             $errors[] = "Component at index {$index} is missing required 'type' field";
+        //         }
+        //         if (!isset($component['order']) && $component['order'] !== 0) {
+        //             $errors[] = "Component at index {$index} is missing required 'order' field";
+        //         }
+        //         if (!isset($component['props'])) {
+        //             $errors[] = "Component at index {$index} is missing required 'props' field";
+        //         }
+        //     }
+        // }
 
         return $errors;
     }
