@@ -347,8 +347,9 @@
                                                 </div>
                                             </div> --}}
                                             <div class="product-box-btn">
-                                                <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                    class="tf-btn text-white">
+                                                <a href="#;" class="tf-btn text-white add-to-cart-btn"
+                                                   data-product-id="{{ $product->id }}"
+                                                   data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
                                                     Add to cart
                                                     <i class="icon-cart-2"></i>
                                                 </a>
@@ -1215,26 +1216,60 @@
             $('.add-to-cart-btn, .add-to-cart').on('click', function(e) {
                 e.preventDefault();
 
-                const productId = $(this).data('product-id');
+                const $button = $(this);
+                const productId = $button.data('product-id');
                 const quantity = $('.quantity-input').val() || 1;
 
+                // Check if user is authenticated
+                @guest
+                    // Show login modal for unauthenticated users
+                    showLoginModal();
+                    return;
+                @endguest
+
                 // Show loading state
-                const originalText = $(this).html();
-                $(this).html('<i class="spinner-border spinner-border-sm me-2"></i>Adding...');
-                $(this).prop('disabled', true);
+                const originalText = $button.html();
+                $button.html('<i class="spinner-border spinner-border-sm me-2"></i>Adding...');
+                $button.prop('disabled', true);
 
-                // Simulate AJAX call (replace with actual endpoint)
-                setTimeout(() => {
-                    // Show success message
-                    showNotification('Product added to cart successfully!', 'success');
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route("cart.add") }}',
+                    method: 'POST',
+                    data: {
+                        ecommerce_product_id: productId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showNotification(response.message, 'success');
 
-                    // Reset button
-                    $(this).html(originalText);
-                    $(this).prop('disabled', false);
+                            // Update button state
+                            $button.html('Added to Cart <i class="icon-cart-2"></i>');
+                            $button.addClass('in-cart');
 
-                    // Update cart count (if you have a cart counter)
-                    updateCartCount();
-                }, 1000);
+                            // Update cart count and sidebar
+                            updateCartCount();
+                            updateCartSidebar();
+                        } else {
+                            showNotification(response.message, 'error');
+                            // Reset button state
+                            $button.html(originalText);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
+                            showLoginModal();
+                        } else {
+                            showNotification('Error adding product to cart. Please try again.', 'error');
+                            // Reset button state
+                            $button.html(originalText);
+                        }
+                    },
+                    complete: function() {
+                        $button.prop('disabled', false);
+                    }
+                });
             });
 
             // Buy Now functionality
@@ -1420,6 +1455,76 @@
         function quickView(productId) {
             // Implement quick view modal
             showNotification('Opening quick view...', 'info');
+        }
+
+        // Function to update cart count
+        function updateCartCount() {
+            $.ajax({
+                url: '{{ route("cart.count") }}',
+                method: 'GET',
+                success: function(response) {
+                    // Update cart counter in header
+                    $('.count-box').text(response.cart_count);
+
+                    // Show/hide counter based on count
+                    if (response.cart_count > 0) {
+                        $('.count-box').show();
+                    } else {
+                        $('.count-box').hide();
+                    }
+                },
+                error: function() {
+                    console.log('Error updating cart count');
+                }
+            });
+        }
+
+        // Function to update cart sidebar
+        function updateCartSidebar() {
+            $.ajax({
+                url: '{{ route("cart.data") }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Update cart sidebar content
+                        updateCartSidebarContent(response);
+                    }
+                },
+                error: function() {
+                    console.log('Error updating cart sidebar');
+                }
+            });
+        }
+
+        // Function to show login modal
+        function showLoginModal() {
+            // Create and show login modal
+            const modalHtml = `
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>Please login to add products to your cart.</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="{{ route('ecommerce.login') }}" class="btn btn-primary">Login</a>
+                                    <a href="{{ route('ecommerce.signup') }}" class="btn btn-outline-primary">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove existing modal if any
+            $('#loginModal').remove();
+
+            // Add modal to body and show
+            $('body').append(modalHtml);
+            $('#loginModal').modal('show');
         }
     </script>
 @endsection

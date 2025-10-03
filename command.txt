@@ -25,6 +25,7 @@
 | ------------------ | ------------------- | ------------------------------------------------------------------------------- |
 | `/auth/login`      | `handleLogin()`     | Expected: `{ phone, password }` (not visible here, inferred from context) |
 | `/auth/signup`     | `handleSignup()`    | Expected: `{ name, phone, password, roleId }`                             |
+| `/auth/send-otp`   | `handleSendOTP()`   | Expected: `{ phone }`                                                     |
 | `/auth/verify-otp` | `handleVerifyOTP()` | Expected: `{ phone, otp }`                                                |
 | `/auth/resend-otp` | `handleResendOTP()` | Expected: `{ phone }`                                                     |
 

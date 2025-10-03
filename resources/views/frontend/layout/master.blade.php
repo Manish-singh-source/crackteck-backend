@@ -348,7 +348,7 @@
                                         <a href="{{ route('wishlist') }}" class="nav-icon-item">
                                             <span class="icon position-relative">
                                                 <i class="icon-hearth"></i>
-                                                <span class="count-box">4</span>
+                                                <span class="count-box">0</span>
                                             </span>
                                             <!-- <div class="infor text-start d-none d-xxl-flex">
                                                 <span class="body-text-3 text-main-2">wishlist:</span>
@@ -357,10 +357,10 @@
                                         </a>
                                     </li>
                                     <li class="d-none d-xl-block">
-                                        <a href="#shoppingCart" data-bs-toggle="offcanvas" class="nav-icon-item">
+                                        <a href="{{ route('shop-cart') }}" class="nav-icon-item">
                                             <span class="icon position-relative">
                                                 <i class="icon-cart"></i>
-                                                <span class="count-box">10</span>
+                                                <span class="count-box">0</span>
                                             </span>
                                             <!-- <div class="infor text-start d-none d-xxl-flex">
                                                 <span class="body-text-3 text-main-2">Your cart:</span>
@@ -936,7 +936,7 @@
                 <h5 class="title fw-semibold">Shopping cart</h5>
                 <span class="icon-close icon-close-popup link" data-bs-dismiss="offcanvas"></span>
             </div>
-            <div class="minicart-empty text-center">
+            <div class="minicart-empty text-center" id="cart-empty-state">
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -957,129 +957,14 @@
                     <span class="text-white">Show All Shop</span>
                 </a>
             </div>
-            <ul class="popup-body product-list-wrap">
-                <li class="file-delete">
-                    <div class="card-product style-row row-small-2 align-items-center">
-                        <div class="card-product-wrapper">
-                            <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                    alt="image-product">
-                                <img class="img-hover lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-1-2.png') }}"
-                                    alt="image-product">
-                            </a>
-                        </div>
-                        <div class="card-product-info">
-                            <div class="box-title">
-                                <a href="{{ route('product-detail') }}"
-                                    class="name-product body-md-2 fw-semibold text-secondary link">
-                                    Qubo Smart Cam 360 1296p WiFi CCTV
-                                </a>
-                                <p class="price-wrap fw-medium">
-                                    <span class="new-price price-text fw-medium">₹80.000</span>
-                                </p>
-                                <p class="body-md-2">X1</p>
-                            </div>
-                        </div>
-                        <span class="icon-close remove link"></span>
-                    </div>
-                </li>
-                <li class="file-delete">
-                    <div class="card-product style-row row-small-2 align-items-center">
-                        <div class="card-product-wrapper">
-                            <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                    alt="image-product">
-                                <img class="img-hover lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-3-2.png') }}"
-                                    alt="image-product">
-                            </a>
-                        </div>
-                        <div class="card-product-info">
-                            <div class="box-title">
-                                <a href="{{ route('product-detail') }}"
-                                    class="name-product body-md-2 fw-semibold text-secondary link">
-                                    RICH POLO Biometric Time & Attendance (Fingerprint)
-                                </a>
-                                <p class="price-wrap fw-medium">
-                                    <span class="new-price price-text fw-medium">₹45.100</span>
-                                </p>
-                                <p class="body-md-2">X1</p>
-                            </div>
-                        </div>
-                        <span class="icon-close remove link"></span>
-                    </div>
-                </li>
-                <li class="file-delete">
-                    <div class="card-product style-row row-small-2 align-items-center">
-                        <div class="card-product-wrapper">
-                            <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                    alt="image-product">
-                                <img class="img-hover lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-4-2.png') }}"
-                                    alt="image-product">
-                            </a>
-                        </div>
-                        <div class="card-product-info">
-                            <div class="box-title">
-                                <a href="{{ route('product-detail') }}"
-                                    class="name-product body-md-2 fw-semibold text-secondary link">
-                                    HP Victus Intel Core i5 13th Gen 13420H - (16 GB/512 GB SSD/Windows 11 Home/6 GB
-                                    Graphics/NVIDIA GeForce RTX 4050/144 Hz) fa1278TX Gaming Laptop
-                                </a>
-                                <p class="price-wrap fw-medium">
-                                    <span class="new-price price-text fw-medium">₹11.000</span>
-                                </p>
-                                <p class="body-md-2">X1</p>
-                            </div>
-                        </div>
-                        <span class="icon-close remove link"></span>
-                    </div>
-                </li>
-                <li class="file-delete">
-                    <div class="card-product style-row row-small-2 align-items-center">
-                        <div class="card-product-wrapper">
-                            <a href="{{ route('product-detail') }}" class="product-img">
-                                <img class="img-product lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    alt="image-product">
-                                <img class="img-hover lazyload"
-                                    src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                    alt="image-product">
-                            </a>
-                        </div>
-                        <div class="card-product-info">
-                            <div class="box-title">
-                                <a href="{{ route('product-detail') }}"
-                                    class="name-product body-md-2 fw-semibold text-secondary link">
-                                    HP MFP 1188W Multi-function WiFi Monochrome Laser Printer
-                                </a>
-                                <p class="price-wrap fw-medium">
-                                    <span class="new-price price-text fw-medium">₹28.000</span>
-                                </p>
-                                <p class="body-md-2">X1</p>
-                            </div>
-                        </div>
-                        <span class="icon-close remove link"></span>
-                    </div>
-                </li>
+            <ul class="popup-body product-list-wrap" id="cart-items-container">
+                <!-- Dynamic cart items will be loaded here -->
             </ul>
-            <div class="popup-footer">
+
+            <div class="popup-footer" id="cart-footer">
                 <p class="cart-total fw-semibold">
                     <span>Subtotal:</span>
-                    <span class="price-amount product-title text-primary">₹1637</span>
+                    <span class="price-amount product-title text-primary" id="cart-subtotal">₹0</span>
                 </p>
                 <div class="box-btn">
                     <a href="{{ route('shop-cart') }}" class="tf-btn btn-gray">
@@ -2099,6 +1984,117 @@
         }
     });
 </script> --}}
+
+    <script>
+        // CSRF token setup for AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Function to update cart sidebar content
+        function updateCartSidebarContent(response) {
+            const cartContainer = $('#cart-items-container');
+            const cartEmpty = $('#cart-empty-state');
+            const cartFooter = $('#cart-footer');
+            const cartSubtotal = $('#cart-subtotal');
+
+            if (response.cart_items && response.cart_items.length > 0) {
+                // Hide empty state and show cart items
+                cartEmpty.hide();
+                cartContainer.show();
+                cartFooter.show();
+
+                // Clear existing items
+                cartContainer.empty();
+
+                // Add cart items
+                response.cart_items.forEach(function(item) {
+                    const cartItemHtml = `
+                        <li class="file-delete" data-cart-id="${item.id}">
+                            <div class="card-product style-row row-small-2 align-items-center">
+                                <div class="card-product-wrapper">
+                                    <a href="#" class="product-img">
+                                        <img class="img-product lazyload"
+                                            src="${item.product_image || '{{ asset('frontend-assets/images/new-products/default.png') }}'}"
+                                            alt="${item.product_name}">
+                                    </a>
+                                </div>
+                                <div class="card-product-info">
+                                    <div class="box-title">
+                                        <a href="#" class="name-product body-md-2 fw-semibold text-secondary link">
+                                            ${item.product_name}
+                                        </a>
+                                        <p class="price-wrap fw-medium">
+                                            <span class="new-price price-text fw-medium">₹${item.price}</span>
+                                        </p>
+                                        <p class="body-md-2">X${item.quantity}</p>
+                                    </div>
+                                </div>
+                                <span class="icon-close remove link cart-remove-btn" data-cart-id="${item.id}"></span>
+                            </div>
+                        </li>
+                    `;
+                    cartContainer.append(cartItemHtml);
+                });
+
+                // Update subtotal
+                cartSubtotal.text('₹' + response.cart_total);
+            } else {
+                // Show empty state
+                cartEmpty.show();
+                cartContainer.hide();
+                cartFooter.hide();
+            }
+        }
+
+        // Handle cart item removal
+        $(document).on('click', '.cart-remove-btn', function(e) {
+            e.preventDefault();
+
+            const cartId = $(this).data('cart-id');
+            const $cartItem = $(this).closest('.file-delete');
+
+            $.ajax({
+                url: '{{ route("cart.remove", ":id") }}'.replace(':id', cartId),
+                method: 'DELETE',
+                success: function(response) {
+                    if (response.success) {
+                        // Remove item from DOM
+                        $cartItem.fadeOut(300, function() {
+                            $(this).remove();
+                        });
+
+                        // Update cart count and sidebar
+                        updateCartCount();
+                        updateCartSidebar();
+
+                        // Show notification
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'success');
+                        }
+                    }
+                },
+                error: function() {
+                    if (typeof showNotification === 'function') {
+                        showNotification('Error removing item from cart', 'error');
+                    }
+                }
+            });
+        });
+
+        // Load cart data on page load
+        $(document).ready(function() {
+            // Update cart count and sidebar
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
+            if (typeof updateCartSidebar === 'function') {
+                updateCartSidebar();
+            }
+        });
+    </script>
 
     @yield('script')
 

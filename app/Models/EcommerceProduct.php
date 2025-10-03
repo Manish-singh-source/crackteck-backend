@@ -132,6 +132,24 @@ class EcommerceProduct extends Model
     }
 
     /**
+     * Get the cart items for this product.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get the users who have this product in their cart.
+     */
+    public function cartUsers()
+    {
+        return $this->belongsToMany(User::class, 'carts', 'ecommerce_product_id', 'user_id')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
+
+    /**
      * Get the product name from warehouse product.
      */
     public function getProductNameAttribute()
