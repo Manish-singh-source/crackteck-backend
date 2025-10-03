@@ -4,6 +4,7 @@ use App\Http\Controllers\FrontendAuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 
@@ -15,6 +16,12 @@ Route::post('/register', [FrontendAuthController::class, 'register'])->name('fro
 Route::post('/login', [FrontendAuthController::class, 'login'])->name('frontend.login');
 
 Route::post('/frontend-logout', [FrontendAuthController::class, 'logout'])->name('frontend.logout');
+
+// E-commerce Authentication Routes
+Route::get('/e-commerce/login', [FrontendAuthController::class, 'showEcommerceLogin'])->name('ecommerce.login');
+Route::get('/e-commerce/signup', [FrontendAuthController::class, 'showEcommerceSignup'])->name('ecommerce.signup');
+Route::post('/e-commerce/login', [FrontendAuthController::class, 'ecommerceLogin'])->name('ecommerce.login.post');
+Route::post('/e-commerce/signup', [FrontendAuthController::class, 'ecommerceSignup'])->name('ecommerce.signup.post');
 
 
 
@@ -67,6 +74,24 @@ Route::controller(WishlistController::class)->group(function () {
     Route::get('/wishlist/count', 'getWishlistCount')->name('wishlist.count');
 });
 
+// Cart Routes
+Route::controller(CartController::class)->group(function () {
+    // Display cart page (requires authentication)
+    Route::get('/shop-cart', 'index')->name('shop-cart')->middleware('auth');
+
+    // AJAX routes for cart operations (require authentication)
+    Route::middleware('auth')->group(function () {
+        Route::post('/cart/add', 'store')->name('cart.add');
+        Route::put('/cart/update/{id}', 'update')->name('cart.update');
+        Route::delete('/cart/remove/{id}', 'destroy')->name('cart.remove');
+        Route::get('/cart/data', 'getCartData')->name('cart.data');
+        Route::post('/cart/check-status', 'checkCartStatus')->name('cart.check-status');
+    });
+
+    // Cart count (can be accessed without auth, returns 0 for guests)
+    Route::get('/cart/count', 'getCartCount')->name('cart.count');
+});
+
 // Compare
 Route::get('/compare', function () {
     return view('frontend/compare');
@@ -96,11 +121,6 @@ Route::get('/privacy', function () {
 Route::get('/faq', function () {
     return view('frontend/faq');
 })->name('faq');
-
-// Shop Cart
-Route::get('/shop-cart', function () {
-    return view('frontend/shop-cart');
-})->name('shop-cart');
 
 // Checkout
 Route::get('/checkout', function () {

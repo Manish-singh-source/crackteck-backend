@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Wishlist;
 use App\Models\EcommerceProduct;
 use App\Http\Requests\StoreWishlistRequest;
+use COM;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -140,6 +141,11 @@ class WishlistController extends Controller
             // TODO: Implement cart functionality here
             // For now, we'll just remove from wishlist and return success
             // In a real implementation, you would add the product to the cart system
+            $cartController = new CartController();
+            $cartController->store(request()->merge([
+                'ecommerce_product_id' => $wishlistItem->ecommerce_product_id,
+                'quantity' => 1
+            ]));
 
             // Remove from wishlist
             $wishlistItem->delete();

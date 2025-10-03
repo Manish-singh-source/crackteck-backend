@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SduiPage;
 use App\Models\SduiSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Role;
 
@@ -276,6 +277,7 @@ class SDUIController extends Controller
     {
         try {
             $roleSelectionPage = SduiPage::where('screen_type', 'role_selection')->first();
+
             if (!$roleSelectionPage) {
                 return response()->json([
                     'success' => false,
