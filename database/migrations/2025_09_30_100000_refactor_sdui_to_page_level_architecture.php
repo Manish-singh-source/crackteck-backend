@@ -22,9 +22,9 @@ return new class extends Migration
 
         // Mark component tables as deprecated by adding a comment
         // We're not dropping them yet to allow for data migration if needed
-        DB::statement("ALTER TABLE sdui_components COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
-        DB::statement("ALTER TABLE sdui_component_role COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
-        DB::statement("ALTER TABLE sdui_component_versions COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
+        // DB::statement("ALTER TABLE sdui_components COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
+        // DB::statement("ALTER TABLE sdui_component_role COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
+        // DB::statement("ALTER TABLE sdui_component_versions COMMENT 'DEPRECATED: Use json_schema in sdui_pages instead'");
     }
 
     /**
@@ -38,9 +38,9 @@ return new class extends Migration
         });
 
         // Remove deprecation comments
-        DB::statement("ALTER TABLE sdui_components COMMENT ''");
-        DB::statement("ALTER TABLE sdui_component_role COMMENT ''");
-        DB::statement("ALTER TABLE sdui_component_versions COMMENT ''");
+        // DB::statement("ALTER TABLE sdui_components COMMENT ''");
+        // DB::statement("ALTER TABLE sdui_component_role COMMENT ''");
+        // DB::statement("ALTER TABLE sdui_component_versions COMMENT ''");
     }
 };
 

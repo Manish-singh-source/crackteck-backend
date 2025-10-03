@@ -335,8 +335,10 @@
                                 </a>
                                 <ul class="list-product-btn top-0 end-0">
                                     <li>
-                                        <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                            class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
+                                        <a href="#;"
+                                            class="box-icon add-to-cart-btn btn-icon-action hover-tooltip tooltip-left"
+                                            data-product-id="{{ $product->id }}"
+                                            data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
                                             <span class="icon icon-cart2"></span>
                                             <span class="tooltip">Add to Cart</span>
                                         </a>
@@ -417,7 +419,9 @@
                                 </div>
                             </div>
                             <div class="card-product-btn">
-                                <a href="#shoppingCart" data-bs-toggle="offcanvas" class="tf-btn btn-line w-100">
+                                <a href="#;" class="tf-btn btn-line w-100 add-to-cart-btn"
+                                   data-product-id="{{ $product->id }}"
+                                   data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
                                     <span>Add to cart</span>
                                     <i class="icon-cart-2"></i>
                                 </a>
@@ -602,8 +606,139 @@ $(document).ready(function() {
         });
     }
 
-    // Initialize wishlist count on page load
+    // Add to Cart functionality
+    $('.add-to-cart-btn').on('click', function(e) {
+        e.preventDefault();
+
+        const $button = $(this);
+        const productId = $button.data('product-id');
+        const productName = $button.data('product-name');
+
+        // Check if user is authenticated
+        @guest
+            // Show login modal for unauthenticated users
+            showLoginModal();
+            return;
+        @endguest
+
+        // Show loading state
+        const originalText = $button.find('span').text();
+        $button.find('span').text('Adding...');
+        $button.prop('disabled', true);
+
+        // Make AJAX request
+        $.ajax({
+            url: '{{ route("cart.add") }}',
+            method: 'POST',
+            data: {
+                ecommerce_product_id: productId,
+                quantity: 1
+            },
+            success: function(response) {
+                if (response.success) {
+                    showNotification(response.message, 'success');
+
+                    // Update button state
+                    $button.find('span').text('Added to Cart');
+                    $button.addClass('in-cart');
+
+                    // Update cart count and sidebar
+                    updateCartCount();
+                    updateCartSidebar();
+                } else {
+                    showNotification(response.message, 'error');
+                    // Reset button state
+                    $button.find('span').text(originalText);
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
+                    showLoginModal();
+                } else {
+                    showNotification('Error adding product to cart. Please try again.', 'error');
+                    // Reset button state
+                    $button.find('span').text(originalText);
+                }
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+
+    // Function to update cart count
+    function updateCartCount() {
+        $.ajax({
+            url: '{{ route("cart.count") }}',
+            method: 'GET',
+            success: function(response) {
+                // Update cart counter in header
+                $('.count-box').text(response.cart_count);
+
+                // Show/hide counter based on count
+                if (response.cart_count > 0) {
+                    $('.count-box').show();
+                } else {
+                    $('.count-box').hide();
+                }
+            },
+            error: function() {
+                console.log('Error updating cart count');
+            }
+        });
+    }
+
+    // Function to update cart sidebar
+    function updateCartSidebar() {
+        $.ajax({
+            url: '{{ route("cart.data") }}',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // Update cart sidebar content
+                    updateCartSidebarContent(response);
+                }
+            },
+            error: function() {
+                console.log('Error updating cart sidebar');
+            }
+        });
+    }
+
+    // Function to show login modal
+    function showLoginModal() {
+        // Create and show login modal
+        const modalHtml = `
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>Please login to add products to your cart.</p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ route('ecommerce.login') }}" class="btn btn-primary">Login</a>
+                                <a href="{{ route('ecommerce.signup') }}" class="btn btn-outline-primary">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Remove existing modal if any
+        $('#loginModal').remove();
+
+        // Add modal to body and show
+        $('body').append(modalHtml);
+        $('#loginModal').modal('show');
+    }
+
+    // Initialize counts on page load
     updateWishlistCount();
+    updateCartCount();
 });
 </script>
 @endsection

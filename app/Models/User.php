@@ -65,4 +65,22 @@ class User extends Authenticatable
         return $this->belongsToMany(EcommerceProduct::class, 'wishlists', 'user_id', 'ecommerce_product_id')
                     ->withTimestamps();
     }
+
+    /**
+     * Get the cart items for the user.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get the e-commerce products in the user's cart.
+     */
+    public function cartProducts()
+    {
+        return $this->belongsToMany(EcommerceProduct::class, 'carts', 'user_id', 'ecommerce_product_id')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
 }
