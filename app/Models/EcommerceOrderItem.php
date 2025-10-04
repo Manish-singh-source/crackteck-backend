@@ -18,6 +18,11 @@ class EcommerceOrderItem extends Model
         'unit_price',
         'quantity',
         'total_price',
+        'hsn_sac_code',
+        'tax_percentage',
+        'taxable_value',
+        'igst_amount',
+        'final_amount',
         'shipping_charges',
         'free_shipping'
     ];
@@ -26,20 +31,22 @@ class EcommerceOrderItem extends Model
         'unit_price' => 'decimal:2',
         'quantity' => 'integer',
         'total_price' => 'decimal:2',
+        'tax_percentage' => 'decimal:2',
+        'taxable_value' => 'decimal:2',
+        'igst_amount' => 'decimal:2',
+        'final_amount' => 'decimal:2',
         'shipping_charges' => 'decimal:2',
         'free_shipping' => 'boolean',
     ];
 
     /**
-     * Boot method to calculate total price.
+     * Boot method for model events.
      */
     protected static function boot()
     {
         parent::boot();
 
-        static::saving(function ($orderItem) {
-            $orderItem->total_price = $orderItem->unit_price * $orderItem->quantity;
-        });
+        // Remove automatic total_price calculation since we handle it manually with tax calculations
     }
 
     /**
@@ -101,12 +108,37 @@ class EcommerceOrderItem extends Model
     }
 
     /**
+     * Calculate tax information for order item.
+     */
+    private static function calculateTaxInfo($warehouseProduct, $quantity)
+    {
+        $unitPrice = $warehouseProduct->selling_price;
+        $totalPrice = $unitPrice * $quantity;
+        $taxPercentage = $warehouseProduct->tax ?? 18; // Default to 18% GST
+        $hsnCode = $warehouseProduct->hsn_code ?? 'N/A';
+
+        $taxableValue = $totalPrice;
+        $igstAmount = ($taxableValue * $taxPercentage) / 100;
+        $finalAmount = $taxableValue + $igstAmount;
+
+        return [
+            'total_price' => $totalPrice,
+            'hsn_sac_code' => $hsnCode,
+            'tax_percentage' => $taxPercentage,
+            'taxable_value' => $taxableValue,
+            'igst_amount' => $igstAmount,
+            'final_amount' => $finalAmount
+        ];
+    }
+
+    /**
      * Create order item from cart item.
      */
     public static function createFromCartItem(Cart $cartItem, $orderId)
     {
         $product = $cartItem->ecommerceProduct;
         $warehouseProduct = $product->warehouseProduct;
+        $taxInfo = self::calculateTaxInfo($warehouseProduct, $cartItem->quantity);
 
         return self::create([
             'ecommerce_order_id' => $orderId,
@@ -116,6 +148,12 @@ class EcommerceOrderItem extends Model
             'product_image' => $warehouseProduct->main_product_image,
             'unit_price' => $warehouseProduct->selling_price,
             'quantity' => $cartItem->quantity,
+            'total_price' => $taxInfo['total_price'],
+            'hsn_sac_code' => $taxInfo['hsn_sac_code'],
+            'tax_percentage' => $taxInfo['tax_percentage'],
+            'taxable_value' => $taxInfo['taxable_value'],
+            'igst_amount' => $taxInfo['igst_amount'],
+            'final_amount' => $taxInfo['final_amount'],
             'shipping_charges' => $product->shipping_charges ?? 0,
             'free_shipping' => ($product->shipping_charges ?? 0) == 0
         ]);
@@ -127,6 +165,7 @@ class EcommerceOrderItem extends Model
     public static function createFromProduct(EcommerceProduct $product, $quantity, $orderId)
     {
         $warehouseProduct = $product->warehouseProduct;
+        $taxInfo = self::calculateTaxInfo($warehouseProduct, $quantity);
 
         return self::create([
             'ecommerce_order_id' => $orderId,
@@ -136,6 +175,12 @@ class EcommerceOrderItem extends Model
             'product_image' => $warehouseProduct->main_product_image,
             'unit_price' => $warehouseProduct->selling_price,
             'quantity' => $quantity,
+            'total_price' => $taxInfo['total_price'],
+            'hsn_sac_code' => $taxInfo['hsn_sac_code'],
+            'tax_percentage' => $taxInfo['tax_percentage'],
+            'taxable_value' => $taxInfo['taxable_value'],
+            'igst_amount' => $taxInfo['igst_amount'],
+            'final_amount' => $taxInfo['final_amount'],
             'shipping_charges' => $product->shipping_charges ?? 0,
             'free_shipping' => ($product->shipping_charges ?? 0) == 0
         ]);
