@@ -71,6 +71,8 @@ Route::controller(OrderController::class)->group(function (){
     Route::get('/e-commerce/delivery-men-by-city/{city}', 'getDeliveryMenByCity')->name('order.delivery-men-by-city');
     Route::post('/e-commerce/order/{id}/assign-delivery-man', 'assignDeliveryMan')->name('order.assign-delivery-man');
     Route::post('/e-commerce/order/{id}/update-status', 'updateStatus')->name('order.update-status');
+    Route::get('/e-commerce/search-users', 'searchUsers')->name('order.search-users');
+    Route::get('/e-commerce/search-products', 'searchProducts')->name('order.search-products');
 });
 
 // ------------------------------------------------------------ E-Commerce Orders Management -------------------------------------------------------------
