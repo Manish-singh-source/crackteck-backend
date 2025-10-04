@@ -134,6 +134,9 @@ Route::controller(CheckoutController::class)->group(function () {
         Route::get('/checkout/addresses', 'getUserAddresses')->name('checkout.addresses');
         Route::post('/checkout/save-address', 'saveAddress')->name('checkout.save-address');
     });
+
+    // Order details page (requires authentication)
+    Route::get('/order-details/{orderNumber}', 'orderDetails')->name('order-details')->middleware('auth');
 });
 
 // Product Detail
@@ -147,9 +150,8 @@ Route::get('/track-your-order', function () {
 })->name('track-your-order');
 
 // My Account order
-Route::get('/my-account-orders', function () {
-    return view('frontend/my-account-orders');
-})->name('my-account-orders');
+Route::get('/my-account-orders', [CheckoutController::class, 'myAccountOrders'])
+    ->name('my-account-orders')->middleware('auth');
 
 // My Account Address
 Route::get('/my-account-address', function () {
@@ -176,10 +178,7 @@ Route::get('/my-account', function () {
 //     return view('frontend/404');
 // })->name('404');
 
-// Order Details
-Route::get('/order-details', function () {
-    return view('frontend/order-details');
-})->name('order-details');
+// Order Details route is now handled by CheckoutController
 
 Route::fallback( function () {
     return view('frontend/404');

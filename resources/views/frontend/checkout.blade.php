@@ -31,20 +31,20 @@
                         <span class="icon">
                             <i class="icon-shop-cart-1"></i>
                         </span>
-                        <a href="{{ route('shop-cart') }}" class="link body-text-3">Shopping Cart</a>
+                        <a href="" class="link body-text-3">Shopping Cart</a>
                     </div>
                     <div class="step-payment">
                         <span class="icon">
                             <i class="icon-shop-cart-2"></i>
                         </span>
-                        <a href="{{ route('checkout') }}" class="text-secondary link body-text-3">Shopping & Checkout</a>
+                        <a href="" class="text-secondary link body-text-3">Shopping & Checkout</a>
 
                     </div>
                     <div class="step-payment">
                         <span class="icon">
                             <i class="icon-shop-cart-3"></i>
                         </span>
-                        <a href="{{ route('order-details') }}" class="link body-text-3">Confirmation</a>
+                        <a href="" class="link body-text-3">Confirmation</a>
                     </div>
                 </div>
             </div>
@@ -90,11 +90,11 @@
                                                         data-first-name="{{ $address->first_name }}"
                                                         data-last-name="{{ $address->last_name }}"
                                                         data-country="{{ $address->country }}"
-                                                        data-state="{{ $address->state }}"
-                                                        data-city="{{ $address->city }}"
+                                                        data-state="{{ $address->state }}" data-city="{{ $address->city }}"
                                                         data-zipcode="{{ $address->zipcode }}"
                                                         data-address-line-1="{{ $address->address_line_1 }}"
-                                                        data-address-line-2="{{ $address->address_line_2 }}">
+                                                        data-address-line-2="{{ $address->address_line_2 }}"
+                                                        data-phone="{{ $address->phone }}">
                                                         {{ $address->label ?? 'Address ' . $address->id }} -
                                                         {{ $address->formatted_address }}
                                                     </option>
@@ -120,23 +120,31 @@
                                         <input type="text" name="shipping_last_name" placeholder="e.g. Doe" required>
                                     </fieldset>
                                 </div>
-                                <fieldset>
-                                    <label>Country/Region</label>
-                                    <div class="tf-select">
-                                        <select name="shipping_country" required>
-                                            <option value="">Select your Country/Region</option>
-                                            <option value="India" selected>India</option>
-                                            <option value="USA">United States</option>
-                                            <option value="UK">United Kingdom</option>
-                                            <option value="Canada">Canada</option>
-                                            <option value="Australia">Australia</option>
-                                        </select>
-                                    </div>
-                                </fieldset>
+                                <div class="cols">
+                                    <fieldset>
+                                        <label>Country/Region</label>
+                                        <div class="tf-select">
+                                            <select name="shipping_country" required>
+                                                <option value="">Select your Country/Region</option>
+                                                <option value="India" selected>India</option>
+                                                <option value="USA">United States</option>
+                                                <option value="UK">United Kingdom</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Australia">Australia</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <label>Phone Number</label>
+                                        <input type="tel" name="shipping_phone" placeholder="e.g. +91 98765 43210"
+                                            required>
+                                    </fieldset>
+                                </div>
                                 <div class="cols">
                                     <fieldset>
                                         <label>State</label>
-                                        <input type="text" name="shipping_state" placeholder="e.g. Maharashtra" required>
+                                        <input type="text" name="shipping_state" placeholder="e.g. Maharashtra"
+                                            required>
                                     </fieldset>
                                     <fieldset>
                                         <label>City</label>
@@ -167,8 +175,8 @@
                             <!-- Same as shipping checkbox -->
                             <div class="payment-item mb-3">
                                 <label for="billing-same-as-shipping" class="payment-header radio-item">
-                                    <input type="checkbox" name="billing_same_as_shipping" value="1" class="tf-check-rounded"
-                                        id="billing-same-as-shipping" checked>
+                                    <input type="checkbox" name="billing_same_as_shipping" value="1"
+                                        class="tf-check-rounded" id="billing-same-as-shipping" checked>
                                     <span class="body-text-3">Same as shipping address</span>
                                 </label>
                             </div>
@@ -185,19 +193,25 @@
                                         <input type="text" name="billing_last_name" placeholder="e.g. Doe">
                                     </fieldset>
                                 </div>
-                                <fieldset>
-                                    <label>Country/Region</label>
-                                    <div class="tf-select">
-                                        <select name="billing_country">
-                                            <option value="">Select your Country/Region</option>
-                                            <option value="India" selected>India</option>
-                                            <option value="USA">United States</option>
-                                            <option value="UK">United Kingdom</option>
-                                            <option value="Canada">Canada</option>
-                                            <option value="Australia">Australia</option>
-                                        </select>
-                                    </div>
-                                </fieldset>
+                                <div class="cols">
+                                    <fieldset>
+                                        <label>Country/Region</label>
+                                        <div class="tf-select">
+                                            <select name="billing_country">
+                                                <option value="">Select your Country/Region</option>
+                                                <option value="India" selected>India</option>
+                                                <option value="USA">United States</option>
+                                                <option value="UK">United Kingdom</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Australia">Australia</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <label>Phone Number</label>
+                                        <input type="tel" name="billing_phone" placeholder="e.g. +91 98765 43210">
+                                    </fieldset>
+                                </div>
                                 <div class="cols">
                                     <fieldset>
                                         <label>State</label>
@@ -222,6 +236,7 @@
                                     <input type="text" name="billing_address_line_2"
                                         placeholder="Apartment, suite, etc. (optional)">
                                 </fieldset>
+
                             </div>
                         </div>
 
@@ -327,9 +342,9 @@
                             <form class="ip-discount-code style-2">
                                 <div class="d-flex gap-2">
                                     <input type="text" class="def" placeholder="Your code" disabled>
-                                <button type="button" class="tf-btn btn-gray-2" disabled>
-                                    <span>Apply</span>
-                                </button>
+                                    <button type="button" class="tf-btn btn-gray-2" disabled>
+                                        <span>Apply</span>
+                                    </button>
                                 </div>
                             </form>
                             <small class="text-muted">Discount codes will be available soon</small>
@@ -396,6 +411,7 @@
                     $('input[name="shipping_zipcode"]').val(selectedOption.data('zipcode'));
                     $('input[name="shipping_address_line_1"]').val(selectedOption.data('address-line-1'));
                     $('input[name="shipping_address_line_2"]').val(selectedOption.data('address-line-2'));
+                    $('input[name="shipping_phone"]').val(selectedOption.data('phone'));
                 }
             });
 
@@ -407,11 +423,33 @@
                 if ($(this).is(':checked')) {
                     billingForm.hide();
                     billingInputs.prop('required', false);
+                    // Copy shipping data to billing fields (for form submission)
+                    copyShippingToBilling();
                 } else {
                     billingForm.show();
                     billingInputs.filter(
-                        '[name$="_first_name"], [name$="_last_name"], [name$="_country"], [name$="_state"], [name$="_city"], [name$="_zipcode"], [name$="_address_line_1"]'
+                        '[name$="_first_name"], [name$="_last_name"], [name$="_country"], [name$="_state"], [name$="_city"], [name$="_zipcode"], [name$="_address_line_1"], [name$="_phone"]'
                     ).prop('required', true);
+                }
+            });
+
+            // Function to copy shipping address to billing address
+            function copyShippingToBilling() {
+                $('input[name="billing_first_name"]').val($('input[name="shipping_first_name"]').val());
+                $('input[name="billing_last_name"]').val($('input[name="shipping_last_name"]').val());
+                $('select[name="billing_country"]').val($('select[name="shipping_country"]').val());
+                $('input[name="billing_state"]').val($('input[name="shipping_state"]').val());
+                $('input[name="billing_city"]').val($('input[name="shipping_city"]').val());
+                $('input[name="billing_zipcode"]').val($('input[name="shipping_zipcode"]').val());
+                $('input[name="billing_address_line_1"]').val($('input[name="shipping_address_line_1"]').val());
+                $('input[name="billing_address_line_2"]').val($('input[name="shipping_address_line_2"]').val());
+                $('input[name="billing_phone"]').val($('input[name="shipping_phone"]').val());
+            }
+
+            // Copy shipping to billing when shipping fields change (if checkbox is checked)
+            $('input[name^="shipping_"], select[name^="shipping_"]').on('input change', function() {
+                if ($('#billing-same-as-shipping').is(':checked')) {
+                    copyShippingToBilling();
                 }
             });
 

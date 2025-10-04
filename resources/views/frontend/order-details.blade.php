@@ -32,20 +32,20 @@
                     <span class="icon">
                         <i class="icon-shop-cart-1"></i>
                     </span>
-                    <a href="{{ route('shop-cart') }}" class="link-secondary body-text-3">Shopping Cart</a>
+                    <a href="" class="link-secondary body-text-3">Shopping Cart</a>
                 </div>
                 <div class="step-payment">
                     <span class="icon">
                         <i class="icon-shop-cart-2"></i>
                     </span>
-                    <a href="{{ route('checkout') }}" class="link-secondary body-text-3">Shopping & Checkout</a>
+                    <a href="" class="link-secondary body-text-3">Shopping & Checkout</a>
 
                 </div>
                 <div class="step-payment">
                     <span class="icon">
                         <i class="icon-shop-cart-3"></i>
                     </span>
-                    <a href="{{ route('order-details') }}" class="text-secondary body-text-3">Confirmation</a>
+                    <a href="" class="text-secondary body-text-3">Confirmation</a>
                 </div>
             </div>
         </div>
@@ -62,169 +62,13 @@
                 <p>Thank you. Your order has been received.</p>
             </div>
             <ul class="order-overview-list">
-                <li>Order number: <strong>6284</strong></li>
-                <li>Date: <strong>March 6, 2025</strong></li>
-                <li>Total: <strong>₹109.91</strong></li>
-                <li>Payment method: <strong>Direct bank transfer</strong></li>
+                <li>Order number: <strong>{{ $order->order_number }}</strong></li>
+                <li>Date: <strong>{{ $order->created_at->format('F j, Y') }}</strong></li>
+                <li>Total: <strong>₹{{ number_format($totals['rounded_total'], 2) }}</strong></li>
+                <li>Payment method: <strong>{{ $order->payment_method === 'mastercard' ? 'Credit Card' : 'Cash on Delivery' }}</strong></li>
             </ul>
             <div class="order-detail-wrap">
                 <h5 class="fw-bold">Order details</h5>
-                <!-- <table class="tf-table-order-detail">
-                    <thead>
-                        <tr>
-                            <td>
-                                <h6 class="fw-semibold">Product</h6>
-                            </td>
-                            <td>
-                                <h6 class="fw-semibold">Total</h6>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="tf-order-item">
-                            <td class="tf-order-item_product">
-                                <a href="" class="link fw-normal">
-                                    SAMSUNG 34-Inch Odyssey G5 Ultra-Wide Gaming Monitor with 1000R Curved
-                                    Screen, Black
-                                    <span class="text-black">×1</span>
-                                </a>
-                            </td>
-                            <td>
-                                <span class="fw-medium ">10.00₹</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th><span>Subtotal:</span></th>
-                            <td><span>10.00₹</span></td>
-                        </tr>
-                        <tr>
-                            <th><span>Shipping:</span></th>
-                            <td><span>Free shipping</span></td>
-                        </tr>
-                        <tr>
-                            <th><span>Payment method:</span></th>
-                            <td><span>Direct bank transfer</span></td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p class="fw-semibold product-title text-uppercase">Total:</p>
-                            </th>
-                            <td><span class="fw-semibold">10.00₹</span></td>
-                        </tr>
-                    </tfoot>
-                </table> -->
-                <!-- <div class="customer-table">
-                    <div class="tf-order_history-table">
-                        <table id="table_def" class="table table-striped">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Item Description</th>
-                                    <th>HSN/SAC</th>
-                                    <th>QTY</th>
-                                    <th>Price</th>
-                                    <th>Taxable Value</th>
-                                    <th>IGST</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Qubo Smart Cam 360 1296p WiFi CCTV
-                                    </td>
-                                    <td>7015845</td>
-                                    <td>4 SET</td>
-                                    <td>360</td>
-                                    <td>1598</td>
-                                    <td>256</td>
-                                    <td>1560</td>
-
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>RICH POLO Biometric Time & Attendance (Fingerprint)
-                                    </td>
-                                    <td>7015845</td>
-                                    <td>4 SET</td>
-                                    <td>360</td>
-                                    <td>1598</td>
-                                    <td>256</td>
-                                    <td>1560</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>HP Victus Intel Core i5 13th Gen 13420H - (16 GB/512 GB)
-                                    </td>
-                                    <td>7015845</td>
-                                    <td>4 SET</td>
-                                    <td>360</td>
-                                    <td>1598</td>
-                                    <td>256</td>
-                                    <td>1560</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td>12 SET</td>
-                                    <td>4785</td>
-                                    <td>4785</td>
-                                    <td>768</td>
-                                    <td>4680</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-                <div class="row border-bottom mt-2 mb-3">
-                    <div class="col-md-5">
-                        <div class="d-flex">
-                            <p class="me-2">Account Holder Name : </p>
-                            <p class="text-dark fw-medium">Technofra</p>
-                        </div>
-                        <div class="d-flex">
-                            <p class="me-2">Bank Name : </p>
-                            <p class="text-dark fw-medium">RBL</p>
-                        </div>
-                        <div class="d-flex">
-                            <p class="me-2">Account Number : </p>
-                            <p class="text-dark fw-medium">75519687</p>
-                        </div>
-                        <div class="d-flex">
-                            <p class="me-2">Branch Name : </p>
-                            <p class="text-dark fw-medium"> Kandivali</p>
-                        </div>
-                        <div class="d-flex">
-                            <p class="me-2">IFSC Code : </p>
-                            <p class="text-dark fw-medium">RBL185181</p>
-                        </div>
-                    </div>
-                    <div class="col-md-5 ms-auto mb-3">
-                        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pe-3">
-                            <p class="mb-0">Total Taxable Value</p>
-                            <p class="text-dark fw-medium mb-2">INR </p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pe-3">
-                            <p class="mb-0">Total Taxable Amount</p>
-                            <p class="text-dark fw-medium mb-2">INR</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
-                            <p class="mb-0">Rounded Off</p>
-                            <p class="text-dark fw-medium mb-2">(-) 0.47</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
-                            <p class="mb-0">Total Value (in figure)</p>
-                            <p class="text-dark fw-medium mb-2">INR</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
-                            <p class="mb-0">Total Value (in Word)</p>
-                            <p class="text-dark fw-medium mb-2">Five thousand Seven Seventy Five</p>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="tf-order_history-table">
                     <table class="table_def">
                         <thead class="table-light text-start">
@@ -240,49 +84,27 @@
                             </tr>
                         </thead>
                         <tbody class="text-start">
+                            @foreach($order->orderItems as $index => $item)
                             <tr>
-                                <td>1</td>
-                                <td>Qubo Smart Cam 360 1296p WiFi CCTV
-                                </td>
-                                <td>7015845</td>
-                                <td>4 SET</td>
-                                <td>360</td>
-                                <td>1598</td>
-                                <td>256</td>
-                                <td>1560</td>
-
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->hsn_sac_code }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>₹{{ number_format($item->unit_price, 2) }}</td>
+                                <td>₹{{ number_format($item->taxable_value, 2) }} ({{ $item->tax_percentage }}%)</td>
+                                <td>₹{{ number_format($item->igst_amount, 2) }}</td>
+                                <td>₹{{ number_format($item->final_amount, 2) }}</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>RICH POLO Biometric Time & Attendance (Fingerprint)
-                                </td>
-                                <td>7015845</td>
-                                <td>4 SET</td>
-                                <td>360</td>
-                                <td>1598</td>
-                                <td>256</td>
-                                <td>1560</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>HP Victus Intel Core i5 13th Gen 13420H - (16 GB/512 GB)
-                                </td>
-                                <td>7015845</td>
-                                <td>4 SET</td>
-                                <td>360</td>
-                                <td>1598</td>
-                                <td>256</td>
-                                <td>1560</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                         <tfoot class="text-start">
                             <tr>
-                                <td colspan="3"></td>
-                                <td>12 SET</td>
-                                <td>4785</td>
-                                <td>4785</td>
-                                <td>768</td>
-                                <td>4680</td>
+                                <td colspan="3"><strong>Total</strong></td>
+                                <td><strong>{{ $order->orderItems->sum('quantity') }}</strong></td>
+                                <td><strong>₹{{ number_format($order->orderItems->sum('total_price'), 2) }}</strong></td>
+                                <td><strong>₹{{ number_format($totals['subtotal'], 2) }}</strong></td>
+                                <td><strong>₹{{ number_format($totals['total_tax'], 2) }}</strong></td>
+                                <td><strong>₹{{ number_format($totals['total_amount'], 2) }}</strong></td>
                             </tr>
                         </tfoot>
                     </table>                    
@@ -290,47 +112,54 @@
 
                 <div class="row mt-2 mb-3" style="max-width: 1420px;">
                         <div class="col-md-5">
-                            <div class="d-flex">
-                                <p class="me-2">Account Holder Name : </p>
-                                <p class="text-dark fw-medium">Technofra</p>
-                            </div>
-                            <div class="d-flex">
-                                <p class="me-2">Bank Name : </p>
-                                <p class="text-dark fw-medium">RBL</p>
-                            </div>
-                            <div class="d-flex">
-                                <p class="me-2">Account Number : </p>
-                                <p class="text-dark fw-medium">75519687</p>
-                            </div>
-                            <div class="d-flex">
-                                <p class="me-2">Branch Name : </p>
-                                <p class="text-dark fw-medium"> Kandivali</p>
-                            </div>
-                            <div class="d-flex">
-                                <p class="me-2">IFSC Code : </p>
-                                <p class="text-dark fw-medium">RBL185181</p>
-                            </div>
+                            <h6 class="fw-bold mb-3">Payment Mode</h6>
+                            @if($order->payment_method === 'mastercard')
+                                <div class="d-flex">
+                                    <p class="me-2">Payment Method : </p>
+                                    <p class="text-dark fw-medium">Credit Card</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="me-2">Name on Card : </p>
+                                    <p class="text-dark fw-medium">{{ $order->card_name }}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="me-2">Card Number : </p>
+                                    <p class="text-dark fw-medium">xxxx xxxx xxxx {{ $order->card_last_four }}</p>
+                                </div>
+                            @else
+                                <div class="d-flex">
+                                    <p class="me-2">Payment Method : </p>
+                                    <p class="text-dark fw-medium">Cash on Delivery</p>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-5 mt-2 mb-3 ms-auto mb-3">
+                            <h6 class="fw-bold mb-3">Total Price</h6>
                             <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pe-3">
                                 <p class="mb-0">Total Taxable Value</p>
-                                <p class="text-dark fw-medium mb-2">INR </p>
+                                <p class="text-dark fw-medium mb-2">₹{{ number_format($totals['subtotal'], 2) }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pe-3">
-                                <p class="mb-0">Total Taxable Amount</p>
-                                <p class="text-dark fw-medium mb-2">INR</p>
+                                <p class="mb-0">Total Tax Amount</p>
+                                <p class="text-dark fw-medium mb-2">₹{{ number_format($totals['total_tax'], 2) }}</p>
                             </div>
+                            @if($totals['shipping_charges'] > 0)
+                            <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pe-3">
+                                <p class="mb-0">Shipping Charges</p>
+                                <p class="text-dark fw-medium mb-2">₹{{ number_format($totals['shipping_charges'], 2) }}</p>
+                            </div>
+                            @endif
                             <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
                                 <p class="mb-0">Rounded Off</p>
-                                <p class="text-dark fw-medium mb-2">(-) 0.47</p>
+                                <p class="text-dark fw-medium mb-2">{{ $totals['rounding_off'] >= 0 ? '+' : '' }}{{ number_format($totals['rounding_off'], 2) }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
                                 <p class="mb-0">Total Value (in figure)</p>
-                                <p class="text-dark fw-medium mb-2">INR</p>
+                                <p class="text-dark fw-medium mb-2">₹{{ number_format($totals['rounded_total'], 2) }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
                                 <p class="mb-0">Total Value (in Word)</p>
-                                <p class="text-dark fw-medium mb-2">Five thousand Seven Seventy Five</p>
+                                <p class="text-dark fw-medium mb-2">{{ $totals['total_in_words'] }}</p>
                             </div>
                         </div>
                     </div>
@@ -340,29 +169,41 @@
                     <div class="order-detail-wrap">
                         <h5 class="fw-bold">Billing Address</h5>
                         <div class="billing-info">
-                            <p>Crackteck</p>
-                            <p>info@crackteck.com</p>
-                            <p>Company</p>
-                            <p> Gala No.5, Sheetal Swapna</p>
-                            <p>Industrial Estate, Sativali Road,</p>
-                            <p>Bhoidapada, Vasai East,</p>
-                            <p>Palghar - 401208.</p>
-                            <p>+91 9607 78 8836</p>
+                            <p>{{ $order->billing_first_name }} {{ $order->billing_last_name }}</p>
+                            <p>{{ $order->user->email }}</p>
+                            @if($order->billing_company)
+                                <p>{{ $order->billing_company }}</p>
+                            @endif
+                            <p>{{ $order->billing_address_line_1 }}</p>
+                            @if($order->billing_address_line_2)
+                                <p>{{ $order->billing_address_line_2 }}</p>
+                            @endif
+                            <p>{{ $order->billing_city }}, {{ $order->billing_state }}</p>
+                            <p>{{ $order->billing_country }} - {{ $order->billing_postal_code }}</p>
+                            @if($order->billing_phone)
+                                <p>{{ $order->billing_phone }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-12">
                     <div class="order-detail-wrap">
-                        <h5 class="fw-bold">Shipping address</h5>
+                        <h5 class="fw-bold">Shipping Address</h5>
                         <div class="billing-info">
-                            <p>Technofra</p>
-                            <p>Technofra@support.com</p>
-                            <p>Company</p>
-                            <p>Office No. 501,</p>
-                            <p>5th Floor, Ghanshyam Enclave,</p>
-                            <p>New Link Road, Kandivali (West),</p>
-                            <p>Mumbai - 400067.</p>
-                            <p>+91 8080 80 3374</p>
+                            <p>{{ $order->shipping_first_name }} {{ $order->shipping_last_name }}</p>
+                            <p>{{ $order->user->email }}</p>
+                            @if($order->shipping_company)
+                                <p>{{ $order->shipping_company }}</p>
+                            @endif
+                            <p>{{ $order->shipping_address_line_1 }}</p>
+                            @if($order->shipping_address_line_2)
+                                <p>{{ $order->shipping_address_line_2 }}</p>
+                            @endif
+                            <p>{{ $order->shipping_city }}, {{ $order->shipping_state }}</p>
+                            <p>{{ $order->shipping_country }} - {{ $order->shipping_postal_code }}</p>
+                            @if($order->shipping_phone)
+                                <p>{{ $order->shipping_phone }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
