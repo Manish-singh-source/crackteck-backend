@@ -353,7 +353,10 @@
                                                     Add to cart
                                                     <i class="icon-cart-2"></i>
                                                 </a>
-                                                <a href="checkout.php" class="tf-btn text-white btn-gray">
+                                                {{-- <a href="checkout.php" class="tf-btn text-white btn-gray">
+                                                    Buy now
+                                                </a> --}}
+                                                <a href="{{ route('checkout') }}" class="tf-btn text-white btn-gray">
                                                     Buy now
                                                 </a>
                                             </div>
