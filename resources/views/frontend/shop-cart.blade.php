@@ -26,20 +26,20 @@
                         <span class="icon">
                             <i class="icon-shop-cart-1"></i>
                         </span>
-                        <a href="{{ route('shop-cart') }}" class="text-secondary body-text-3">Shopping Cart</a>
+                        <a href="" class="text-secondary body-text-3">Shopping Cart</a>
                     </div>
                     <div class="step-payment">
                         <span class="icon">
                             <i class="icon-shop-cart-2"></i>
                         </span>
-                        <a href="{{ route('checkout') }}" class="link-secondary body-text-3">Shopping & Checkout</a>
+                        <a href="" class="link-secondary body-text-3">Shopping & Checkout</a>
 
                     </div>
                     <div class="step-payment">
                         <span class="icon">
                             <i class="icon-shop-cart-3"></i>
                         </span>
-                        <a href="{{ route('order-details') }}" class="link-secondary body-text-3">Confirmation</a>
+                        <a href="" class="link-secondary body-text-3">Confirmation</a>
                     </div>
                 </div>
             </div>

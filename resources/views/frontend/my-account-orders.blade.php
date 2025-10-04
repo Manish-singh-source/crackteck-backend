@@ -63,39 +63,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($orders as $order)
                                     <tr class="td-order-item">
-                                        <td class="body-text-3">#12345</td>
-                                        <td class="body-text-3">15 May 2024 </td>
-                                        <td class="body-text-3 text-delivered">Delivered</td>
-                                        <td class="body-text-3">₹690 / 3 items</td>
-                                        <td><a href="{{ route('order-details') }}" class="tf-btn btn-small d-inline-flex">
+                                        <td class="body-text-3">#{{ $order->order_number }}</td>
+                                        <td class="body-text-3">{{ $order->created_at->format('d M Y') }}</td>
+                                        <td class="body-text-3 text-{{ $order->status === 'delivered' ? 'delivered' : ($order->status === 'shipped' ? 'on-the-way' : 'pending') }}">
+                                            {{ ucfirst($order->status) }}
+                                        </td>
+                                        <td class="body-text-3">₹{{ number_format($order->total_amount, 2) }} / {{ $order->orderItems->count() }} items</td>
+                                        <td>
+                                            <a href="{{ route('order-details', ['orderNumber' => $order->order_number]) }}"
+                                               class="tf-btn btn-small d-inline-flex">
                                                 <span class="text-white">Detail</span>
-
-                                            </a></td>
+                                            </a>
+                                        </td>
                                     </tr>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#12345</td>
-                                        <td class="body-text-3">15 May 2024 </td>
-                                        <td class="body-text-3 text-delivered">Delivered</td>
-                                        <td class="body-text-3">₹690 / 3 items</td>
-                                        <td><a href="{{ route('order-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4">
+                                            <p class="body-text-3">No orders found. <a href="{{ route('website') }}" class="link">Start shopping</a></p>
+                                        </td>
                                     </tr>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#12345</td>
-                                        <td class="body-text-3">15 May 2024 </td>
-                                        <td class="body-text-3 text-on-the-way">On The Way</td>
-                                        <td class="body-text-3">₹690 / 3 items</td>
-                                        <td><a href="{{ route('order-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
-                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Pagination -->
+                        @if($orders->hasPages())
+                        <div class="d-flex justify-content-center mt-4">
+                            {{ $orders->links() }}
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
