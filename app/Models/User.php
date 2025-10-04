@@ -83,4 +83,40 @@ class User extends Authenticatable
                     ->withPivot('quantity')
                     ->withTimestamps();
     }
+
+    /**
+     * Get the user's addresses.
+     */
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    /**
+     * Get the user's e-commerce orders.
+     */
+    public function ecommerceOrders()
+    {
+        return $this->hasMany(EcommerceOrder::class);
+    }
+
+    /**
+     * Get the user's default shipping address.
+     */
+    public function defaultShippingAddress()
+    {
+        return $this->hasOne(UserAddress::class)
+                    ->where('address_type', 'shipping')
+                    ->where('is_default', true);
+    }
+
+    /**
+     * Get the user's default billing address.
+     */
+    public function defaultBillingAddress()
+    {
+        return $this->hasOne(UserAddress::class)
+                    ->where('address_type', 'billing')
+                    ->where('is_default', true);
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontendEcommerceController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 
@@ -122,10 +123,18 @@ Route::get('/faq', function () {
     return view('frontend/faq');
 })->name('faq');
 
-// Checkout
-Route::get('/checkout', function () {
-    return view('frontend/checkout');
-})->name('checkout');
+// Checkout Routes
+Route::controller(CheckoutController::class)->group(function () {
+    // Display checkout page (requires authentication)
+    Route::get('/checkout', 'index')->name('checkout')->middleware('auth');
+
+    // AJAX routes for checkout operations (require authentication)
+    Route::middleware('auth')->group(function () {
+        Route::post('/checkout/place-order', 'store')->name('checkout.store');
+        Route::get('/checkout/addresses', 'getUserAddresses')->name('checkout.addresses');
+        Route::post('/checkout/save-address', 'saveAddress')->name('checkout.save-address');
+    });
+});
 
 // Product Detail
 Route::get('/product-detail', function () {
