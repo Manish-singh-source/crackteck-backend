@@ -112,49 +112,6 @@
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex align-items-center">
                             <h5 class="card-title mb-0 flex-grow-1">
-                                Current AMC
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="table-responsive mb-2">
-                            <table class="table table-hover table-nowrap align-middle">
-                                <thead class="text-muted table-light">
-                                    <tr class="text-uppercase">
-                                        <th>AMC ID</th>
-                                        <th>Service Id</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody class="list form-check-all">
-                                    <tr>
-                                        <td data-label="Order Number - Time">
-                                            crackteck1001
-                                        </td>
-                                        <td data-label="Status">
-                                            <span>#1001</span>
-                                        </td>
-                                        <td data-label="Status">
-                                            <span>15-May-2025</span>
-                                        </td>
-                                        <td data-label="Status">
-                                            <span class="badge badge-soft-success">Active</span>
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header border-bottom-dashed">
-                        <div class="d-flex align-items-center">
-                            <h5 class="card-title mb-0 flex-grow-1">
                                 Orders
                             </h5>
                         </div>
@@ -165,9 +122,11 @@
                             <table class="table table-hover table-nowrap align-middle">
                                 <thead class="text-muted table-light">
                                     <tr class="text-uppercase">
-                                        <th>AMC ID</th>
-                                        <th>Service Id</th>
-                                        <th>Date</th>
+                                        <th>Order Id</th>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Order Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -175,16 +134,16 @@
                                 <tbody class="list form-check-all">
                                     <tr>
                                         <td data-label="Order Number - Time">
-                                            crackteck1001
+                                            
                                         </td>
                                         <td data-label="Status">
-                                            <span>#1001</span>
+                                            <span></span>
                                         </td>
                                         <td data-label="Status">
-                                            <span>15-May-2025</span>
+                                            <span></span>
                                         </td>
                                         <td data-label="Status">
-                                            <span class="badge badge-soft-warning">Shipped</span>
+                                            <span class="badge badge-soft-warning"></span>
                                         </td>
 
                                     </tr>
