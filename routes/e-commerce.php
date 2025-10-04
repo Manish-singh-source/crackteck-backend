@@ -7,6 +7,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EcommerceOrderController;
 use App\Http\Controllers\EcommerceProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductDealController;
@@ -70,6 +71,21 @@ Route::controller(OrderController::class)->group(function (){
     Route::get('/e-commerce/delivery-men-by-city/{city}', 'getDeliveryMenByCity')->name('order.delivery-men-by-city');
     Route::post('/e-commerce/order/{id}/assign-delivery-man', 'assignDeliveryMan')->name('order.assign-delivery-man');
     Route::post('/e-commerce/order/{id}/update-status', 'updateStatus')->name('order.update-status');
+});
+
+// ------------------------------------------------------------ E-Commerce Orders Management -------------------------------------------------------------
+
+Route::controller(EcommerceOrderController::class)->group(function (){
+    // Ecommerce Orders List Page
+    Route::get('/e-commerce/ecommerce-orders', 'index')->name('ecommerce-order.index');
+    // View Ecommerce Order Details
+    Route::get('/e-commerce/ecommerce-order/{id}', 'show')->name('ecommerce-order.show');
+    // Update Order Status (AJAX)
+    Route::post('/e-commerce/ecommerce-order/{id}/update-status', 'updateStatus')->name('ecommerce-order.update-status');
+    // Generate PDF Invoice
+    Route::get('/e-commerce/ecommerce-order/{id}/invoice', 'generateInvoice')->name('ecommerce-order.invoice');
+    // Bulk Delete Orders (AJAX)
+    Route::post('/e-commerce/ecommerce-orders/bulk-delete', 'bulkDestroy')->name('ecommerce-order.bulk-delete');
 });
 
 // ------------------------------------------------------------ E-Commerce Products Page -------------------------------------------------------------

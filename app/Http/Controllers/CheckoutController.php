@@ -190,10 +190,10 @@ class CheckoutController extends Controller
 
         // Validate request
         $validated = $request->validate([
-            
+
             'source' => 'required|in:cart,buy_now',
             'email' => 'required|email',
-            
+
             // Shipping address
             'shipping_first_name' => 'required|string|max:255',
             'shipping_last_name' => 'required|string|max:255',
@@ -203,7 +203,8 @@ class CheckoutController extends Controller
             'shipping_zipcode' => 'required|string|max:20',
             'shipping_address_line_1' => 'required|string',
             'shipping_address_line_2' => 'nullable|string',
-            
+            'shipping_phone' => 'required|string|max:20',
+
             // Billing address
             'billing_same_as_shipping' => 'boolean',
             'billing_first_name' => 'nullable|string|max:255',
@@ -214,6 +215,7 @@ class CheckoutController extends Controller
             'billing_zipcode' => 'nullable|string|max:20',
             'billing_address_line_1' => 'nullable|string',
             'billing_address_line_2' => 'nullable|string',
+            'billing_phone' => 'nullable|string|max:20',
             
             // Payment
             'payment_method' => 'required|in:mastercard,cod',
@@ -257,7 +259,7 @@ class CheckoutController extends Controller
                 'success' => true,
                 'message' => 'Order placed successfully!',
                 'order_number' => $order->order_number,
-                'redirect' => route('order-details', ['order' => $order->order_number])
+                'redirect' => route('order-details', ['orderNumber' => $order->order_number])
             ]);
 
         } catch (\Exception $e) {
@@ -295,6 +297,7 @@ class CheckoutController extends Controller
             'shipping_zipcode' => $validated['shipping_zipcode'],
             'shipping_address_line_1' => $validated['shipping_address_line_1'],
             'shipping_address_line_2' => $validated['shipping_address_line_2'],
+            'shipping_phone' => $validated['shipping_phone'],
 
             // Billing address
             'billing_same_as_shipping' => $validated['billing_same_as_shipping'],
@@ -322,6 +325,7 @@ class CheckoutController extends Controller
                 'billing_zipcode' => $validated['billing_zipcode'],
                 'billing_address_line_1' => $validated['billing_address_line_1'],
                 'billing_address_line_2' => $validated['billing_address_line_2'],
+                'billing_phone' => $validated['billing_phone'],
             ]);
         }else{
             $orderData = array_merge($orderData, [
@@ -333,6 +337,7 @@ class CheckoutController extends Controller
                 'billing_zipcode' => $validated['shipping_zipcode'],
                 'billing_address_line_1' => $validated['shipping_address_line_1'],
                 'billing_address_line_2' => $validated['shipping_address_line_2'],
+                'billing_phone' => $validated['shipping_phone'],
             ]);
         }
 
@@ -389,6 +394,7 @@ class CheckoutController extends Controller
             'zipcode' => 'required|string|max:20',
             'address_line_1' => 'required|string',
             'address_line_2' => 'nullable|string',
+            'phone' => 'required|string|max:20',
             'label' => 'nullable|string|max:255',
             'is_default' => 'boolean'
         ]);
@@ -421,5 +427,132 @@ class CheckoutController extends Controller
         }
     }
 
-    
+    /**
+     * Display order details page.
+     */
+    public function orderDetails($orderNumber)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view order details.');
+        }
+
+        // Find order by order number and ensure it belongs to the authenticated user
+        $order = EcommerceOrder::with(['orderItems.ecommerceProduct.warehouseProduct', 'user'])
+            ->where('order_number', $orderNumber)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if (!$order) {
+            return redirect()->route('my-account-orders')->with('error', 'Order not found.');
+        }
+
+        // Calculate totals
+        $totals = $this->calculateOrderTotals($order);
+
+        return view('frontend.order-details', compact('order', 'totals'));
+    }
+
+    /**
+     * Calculate order totals including tax information.
+     */
+    private function calculateOrderTotals($order)
+    {
+        $subtotal = $order->orderItems->sum('taxable_value');
+        $totalTax = $order->orderItems->sum('igst_amount');
+        $totalAmount = $order->orderItems->sum('final_amount');
+        $shippingCharges = $order->shipping_charges;
+        $grandTotal = $totalAmount + $shippingCharges;
+
+        // Calculate rounding off
+        $roundedTotal = round($grandTotal);
+        $roundingOff = $roundedTotal - $grandTotal;
+
+        return [
+            'subtotal' => $subtotal,
+            'total_tax' => $totalTax,
+            'total_amount' => $totalAmount,
+            'shipping_charges' => $shippingCharges,
+            'grand_total' => $grandTotal,
+            'rounded_total' => $roundedTotal,
+            'rounding_off' => $roundingOff,
+            'total_in_words' => $this->convertNumberToWords($roundedTotal)
+        ];
+    }
+
+    /**
+     * Convert number to words (Indian format).
+     */
+    private function convertNumberToWords($number)
+    {
+        $number = (int) $number;
+
+        if ($number == 0) {
+            return 'Zero Rupees Only';
+        }
+
+        $words = array(
+            0 => '', 1 => 'One', 2 => 'Two', 3 => 'Three', 4 => 'Four', 5 => 'Five',
+            6 => 'Six', 7 => 'Seven', 8 => 'Eight', 9 => 'Nine', 10 => 'Ten',
+            11 => 'Eleven', 12 => 'Twelve', 13 => 'Thirteen', 14 => 'Fourteen', 15 => 'Fifteen',
+            16 => 'Sixteen', 17 => 'Seventeen', 18 => 'Eighteen', 19 => 'Nineteen', 20 => 'Twenty',
+            30 => 'Thirty', 40 => 'Forty', 50 => 'Fifty', 60 => 'Sixty', 70 => 'Seventy',
+            80 => 'Eighty', 90 => 'Ninety'
+        );
+
+        $result = '';
+
+        if ($number >= 10000000) { // Crores
+            $crores = (int)($number / 10000000);
+            $result .= $this->convertNumberToWords($crores) . ' Crore ';
+            $number %= 10000000;
+        }
+
+        if ($number >= 100000) { // Lakhs
+            $lakhs = (int)($number / 100000);
+            $result .= $this->convertNumberToWords($lakhs) . ' Lakh ';
+            $number %= 100000;
+        }
+
+        if ($number >= 1000) { // Thousands
+            $thousands = (int)($number / 1000);
+            $result .= $this->convertNumberToWords($thousands) . ' Thousand ';
+            $number %= 1000;
+        }
+
+        if ($number >= 100) { // Hundreds
+            $hundreds = (int)($number / 100);
+            $result .= $words[$hundreds] . ' Hundred ';
+            $number %= 100;
+        }
+
+        if ($number >= 20) {
+            $tens = (int)($number / 10) * 10;
+            $result .= $words[$tens] . ' ';
+            $number %= 10;
+        }
+
+        if ($number > 0) {
+            $result .= $words[$number] . ' ';
+        }
+
+        return trim($result) . ' Rupees Only';
+    }
+
+    /**
+     * Display user's order history page.
+     */
+    public function myAccountOrders()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view your orders.');
+        }
+
+        // Get user's orders with pagination
+        $orders = EcommerceOrder::with(['orderItems'])
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('frontend.my-account-orders', compact('orders'));
+    }
 }

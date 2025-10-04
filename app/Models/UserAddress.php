@@ -20,6 +20,7 @@ class UserAddress extends Model
         'zipcode',
         'address_line_1',
         'address_line_2',
+        'phone',
         'is_default',
         'label'
     ];
