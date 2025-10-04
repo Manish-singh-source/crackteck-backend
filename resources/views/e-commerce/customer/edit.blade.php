@@ -205,9 +205,9 @@
                                                     'name' => 'customer_type',
                                                     'options' => [
                                                         '0' => '--Select--',
-                                                        'Retail' => 'Retail',
-                                                        'Wholesale' => 'Wholesale',
-                                                        'Corporate' => 'Corporate',
+                                                        'E-commerce Customer' => 'E-commerce Customer',
+                                                        'AMC Customer' => 'AMC Customer',
+                                                        'Both' => 'Both',
                                                     ],
                                                     'model' => $customer,
                                                 ])
