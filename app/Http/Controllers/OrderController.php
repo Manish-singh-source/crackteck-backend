@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
+use App\Models\EcommerceOrder;
+use App\Models\EcommerceOrderItem;
 use App\Models\EcommerceProduct;
-use App\Models\Customer;
-use App\Models\DeliveryMan;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,13 +17,55 @@ class OrderController extends Controller
     /**
      * Display a listing of orders.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with(['product.warehouseProduct', 'customer', 'deliveryMan'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $query = EcommerceOrder::with(['user', 'orderItems.ecommerceProduct.warehouseProduct']);
 
-        return view('e-commerce.order.index', compact('orders'));
+        // Search functionality
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                  ->orWhere('total_amount', 'like', "%{$search}%")
+                  ->orWhere('shipping_first_name', 'like', "%{$search}%")
+                  ->orWhere('shipping_last_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('shipping_phone', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($userQuery) use ($search) {
+                      $userQuery->where('name', 'like', "%{$search}%")
+                               ->orWhere('email', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Status filter
+        if ($request->has('status') && !empty($request->status)) {
+            $query->where('status', $request->status);
+        }
+
+        // Date range filter
+        if ($request->has('date_from') && !empty($request->date_from)) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->has('date_to') && !empty($request->date_to)) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        $orders = $query->orderBy('created_at', 'desc')->paginate(15);
+
+        // Get status counts for filter tabs
+        $statusCounts = [
+            'all' => EcommerceOrder::count(),
+            'pending' => EcommerceOrder::where('status', 'pending')->count(),
+            'confirmed' => EcommerceOrder::where('status', 'confirmed')->count(),
+            'processing' => EcommerceOrder::where('status', 'processing')->count(),
+            'shipped' => EcommerceOrder::where('status', 'shipped')->count(),
+            'delivered' => EcommerceOrder::where('status', 'delivered')->count(),
+            'cancelled' => EcommerceOrder::where('status', 'cancelled')->count(),
+        ];
+
+        return view('e-commerce.order.index', compact('orders', 'statusCounts'));
     }
 
     /**
@@ -40,51 +81,114 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'product_id' => 'required|exists:ecommerce_products,id',
-            'customer_id' => 'required|exists:customers,id',
-            'amount' => 'required|numeric|min:0.01',
-            'invoice_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        $request->validate([
+            'email' => 'required|email',
+            'shipping_first_name' => 'required|string|max:255',
+            'shipping_last_name' => 'required|string|max:255',
+            'shipping_phone' => 'required|string|max:20',
+            'shipping_address_line_1' => 'required|string|max:255',
+            'shipping_address_line_2' => 'nullable|string|max:255',
+            'shipping_city' => 'required|string|max:100',
+            'shipping_state' => 'required|string|max:100',
+            'shipping_zipcode' => 'required|string|max:20',
+            'shipping_country' => 'required|string|max:100',
+            'payment_method' => 'required|in:cod,visa,mastercard',
+            'card_last_four' => 'nullable|string|size:4',
+            'card_name' => 'nullable|string|max:255',
+            'shipping_charges' => 'nullable|numeric|min:0',
+            'discount_amount' => 'nullable|numeric|min:0',
+            'status' => 'required|in:pending,confirmed,processing',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'required|integer',
+            'items.*.product_name' => 'required|string',
+            'items.*.product_sku' => 'required|string',
+            'items.*.hsn_sac_code' => 'nullable|string',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.unit_price' => 'required|numeric|min:0',
+            'items.*.tax_percentage' => 'nullable|numeric|min:0|max:100',
+            'items.*.taxable_value' => 'required|numeric|min:0',
+            'items.*.igst_amount' => 'required|numeric|min:0',
+            'items.*.total_price' => 'required|numeric|min:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
 
         try {
             DB::beginTransaction();
 
-            $data = $request->only(['product_id', 'customer_id', 'amount']);
+            // Calculate totals
+            $subtotal = collect($request->items)->sum('taxable_value');
+            $taxAmount = collect($request->items)->sum('igst_amount');
+            $shippingCharges = $request->shipping_charges ?? 0;
+            $discountAmount = $request->discount_amount ?? 0;
+            $totalAmount = $subtotal + $taxAmount + $shippingCharges - $discountAmount;
 
-            // Handle file upload
-            if ($request->hasFile('invoice_file')) {
-                $file = $request->file('invoice_file');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('invoices', $filename, 'public');
-                $data['invoice_file'] = $path;
+            // Generate order number
+            $orderNumber = 'ORD-' . date('Ymd') . '-' . str_pad(EcommerceOrder::count() + 1, 4, '0', STR_PAD_LEFT);
+
+            // Create the order
+            $order = EcommerceOrder::create([
+                'user_id' => $request->user_id,
+                'order_number' => $orderNumber,
+                'order_source' => 'admin',
+                'email' => $request->email,
+                'shipping_first_name' => $request->shipping_first_name,
+                'shipping_last_name' => $request->shipping_last_name,
+                'shipping_phone' => $request->shipping_phone,
+                'shipping_address_line_1' => $request->shipping_address_line_1,
+                'shipping_address_line_2' => $request->shipping_address_line_2,
+                'shipping_city' => $request->shipping_city,
+                'shipping_state' => $request->shipping_state,
+                'shipping_zipcode' => $request->shipping_zipcode,
+                'shipping_country' => $request->shipping_country,
+                'billing_same_as_shipping' => true, // Default for admin created orders
+                'billing_first_name' => $request->shipping_first_name,
+                'billing_last_name' => $request->shipping_last_name,
+                'billing_address_line_1' => $request->shipping_address_line_1,
+                'billing_address_line_2' => $request->shipping_address_line_2,
+                'billing_city' => $request->shipping_city,
+                'billing_state' => $request->shipping_state,
+                'billing_zipcode' => $request->shipping_zipcode,
+                'billing_country' => $request->shipping_country,
+                'payment_method' => $request->payment_method,
+                'card_name' => $request->card_name,
+                'card_last_four' => $request->card_last_four,
+                'subtotal' => $subtotal,
+                'shipping_charges' => $shippingCharges,
+                'discount_amount' => $discountAmount,
+                'total_amount' => $totalAmount,
+                'status' => $request->status,
+                'confirmed_at' => $request->status === 'confirmed' ? now() : null,
+            ]);
+
+            // Create order items
+            foreach ($request->items as $itemData) {
+                EcommerceOrderItem::create([
+                    'ecommerce_order_id' => $order->id,
+                    'ecommerce_product_id' => $itemData['product_id'],
+                    'product_name' => $itemData['product_name'],
+                    'product_sku' => $itemData['product_sku'],
+                    'hsn_sac_code' => $itemData['hsn_sac_code'],
+                    'quantity' => $itemData['quantity'],
+                    'unit_price' => $itemData['unit_price'],
+                    'total_price' => $itemData['total_price'],
+                    'tax_percentage' => $itemData['tax_percentage'] ?? 0,
+                    'taxable_value' => $itemData['taxable_value'],
+                    'igst_amount' => $itemData['igst_amount'],
+                    'final_amount' => $itemData['total_price'],
+                    'shipping_charges' => 0, // Individual item shipping charges
+                    'free_shipping' => false,
+                ]);
             }
-
-            $order = Order::create($data);
 
             DB::commit();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Order created successfully!',
-                'redirect' => route('order.index')
-            ]);
+            return redirect()->route('order.view', $order->id)
+                ->with('success', 'E-commerce order created successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
-            Log::error('Error creating order: ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while creating the order: ' . $e->getMessage()
-            ], 500);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to create order: ' . $e->getMessage());
         }
     }
 
@@ -93,7 +197,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::with(['product.warehouseProduct', 'customer'])->findOrFail($id);
+        $order = EcommerceOrder::with(['user', 'orderItems.ecommerceProduct.warehouseProduct'])
+            ->findOrFail($id);
         return view('e-commerce.order.edit', compact('order'));
     }
 
@@ -102,58 +207,61 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
+        $order = EcommerceOrder::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'product_id' => 'required|exists:ecommerce_products,id',
-            'customer_id' => 'required|exists:customers,id',
-            'amount' => 'required|numeric|min:0.01',
-            'invoice_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        $request->validate([
+            'status' => 'required|in:pending,confirmed,processing,shipped,delivered,cancelled',
+            'shipping_first_name' => 'required|string|max:255',
+            'shipping_last_name' => 'required|string|max:255',
+            'shipping_phone' => 'required|string|max:20',
+            'shipping_address_line_1' => 'required|string|max:255',
+            'shipping_address_line_2' => 'nullable|string|max:255',
+            'shipping_city' => 'required|string|max:100',
+            'shipping_state' => 'required|string|max:100',
+            'shipping_zipcode' => 'required|string|max:20',
+            'notes' => 'nullable|string|max:1000',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
 
         try {
             DB::beginTransaction();
 
-            $data = $request->only(['product_id', 'customer_id', 'amount']);
+            // Check if order can be edited
+            if (in_array($order->status, ['shipped', 'delivered'])) {
+                return redirect()->back()
+                    ->with('error', 'Cannot modify orders that have been shipped or delivered.');
+            }
 
-            // Handle file upload
-            if ($request->hasFile('invoice_file')) {
-                // Delete old file if exists
-                if ($order->invoice_file && Storage::disk('public')->exists($order->invoice_file)) {
-                    Storage::disk('public')->delete($order->invoice_file);
+            $data = $request->only([
+                'status', 'shipping_first_name', 'shipping_last_name', 'shipping_phone',
+                'shipping_address_line_1', 'shipping_address_line_2', 'shipping_city',
+                'shipping_state', 'shipping_zipcode', 'notes'
+            ]);
+
+            // Update status timestamps
+            if ($request->status !== $order->status) {
+                if ($request->status === 'confirmed' && $order->status !== 'confirmed') {
+                    $data['confirmed_at'] = now();
+                } elseif ($request->status === 'shipped' && $order->status !== 'shipped') {
+                    $data['shipped_at'] = now();
+                } elseif ($request->status === 'delivered' && $order->status !== 'delivered') {
+                    $data['delivered_at'] = now();
                 }
-
-                $file = $request->file('invoice_file');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('invoices', $filename, 'public');
-                $data['invoice_file'] = $path;
             }
 
             $order->update($data);
 
             DB::commit();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Order updated successfully!',
-                'redirect' => route('order.index')
-            ]);
+            return redirect()->route('order.view', $order->id)
+                ->with('success', 'Order updated successfully!');
 
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error updating order: ' . $e->getMessage());
 
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while updating the order: ' . $e->getMessage()
-            ], 500);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An error occurred while updating the order: ' . $e->getMessage());
         }
     }
 
@@ -163,13 +271,20 @@ class OrderController extends Controller
     public function destroy($id)
     {
         try {
-            $order = Order::findOrFail($id);
+            $order = EcommerceOrder::findOrFail($id);
 
-            // Delete associated file if exists
-            if ($order->invoice_file && Storage::disk('public')->exists($order->invoice_file)) {
-                Storage::disk('public')->delete($order->invoice_file);
+            // Check if order can be deleted (business logic)
+            if (in_array($order->status, ['shipped', 'delivered'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Cannot delete orders that have been shipped or delivered.'
+                ], 400);
             }
 
+            // Delete order items first
+            $order->orderItems()->delete();
+
+            // Delete the order
             $order->delete();
 
             return response()->json([
@@ -194,7 +309,7 @@ class OrderController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'order_ids' => 'required|array|min:1',
-            'order_ids.*' => 'required|integer|exists:orders,id'
+            'order_ids.*' => 'required|integer|exists:ecommerce_orders,id'
         ]);
 
         if ($validator->fails()) {
@@ -214,14 +329,19 @@ class OrderController extends Controller
 
             foreach ($orderIds as $orderId) {
                 try {
-                    $order = Order::find($orderId);
+                    $order = EcommerceOrder::find($orderId);
 
                     if ($order) {
-                        // Delete associated file if exists
-                        if ($order->invoice_file && Storage::disk('public')->exists($order->invoice_file)) {
-                            Storage::disk('public')->delete($order->invoice_file);
+                        // Check if order can be deleted
+                        if (in_array($order->status, ['shipped', 'delivered'])) {
+                            $errors[] = "Cannot delete order #{$order->order_number} - already shipped/delivered";
+                            continue;
                         }
 
+                        // Delete order items first
+                        $order->orderItems()->delete();
+
+                        // Delete the order
                         $order->delete();
                         $deletedCount++;
                     }
@@ -302,9 +422,9 @@ class OrderController extends Controller
     }
 
     /**
-     * Search customers for Ajax autocomplete
+     * Search users for Ajax autocomplete
      */
-    public function searchCustomers(Request $request)
+    public function searchUsers(Request $request)
     {
         $query = $request->get('q', '');
 
@@ -312,106 +432,62 @@ class OrderController extends Controller
             return response()->json([]);
         }
 
-        $customers = Customer::where('status', 'active')
-            ->where(function ($q) use ($query) {
-                $q->where('first_name', 'LIKE', "%{$query}%")
-                  ->orWhere('last_name', 'LIKE', "%{$query}%")
-                  ->orWhere('email', 'LIKE', "%{$query}%")
-                  ->orWhere('phone', 'LIKE', "%{$query}%")
-                  ->orWhere('company_name', 'LIKE', "%{$query}%");
+        $users = User::where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('email', 'LIKE', "%{$query}%");
             })
             ->limit(10)
             ->get()
-            ->map(function ($customer) {
+            ->map(function ($user) {
                 return [
-                    'id' => $customer->id,
-                    'name' => $customer->first_name . ' ' . $customer->last_name,
-                    'email' => $customer->email,
-                    'phone' => $customer->phone,
-                    'company_name' => $customer->company_name,
-                    'company_addr' => $customer->company_addr,
-                    'gst_no' => $customer->gst_no,
-                    'pan_no' => $customer->pan_no,
-                    'display' => $customer->first_name . ' ' . $customer->last_name . ' (' . $customer->email . ')'
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'display' => $user->name . ' (' . $user->email . ')'
                 ];
             });
 
-        return response()->json($customers);
+        return response()->json($users);
     }
+
+
 
     /**
      * Display the specified order.
      */
     public function show($id)
     {
-        $order = Order::with(['product.warehouseProduct', 'customer', 'deliveryMan'])
+        $order = EcommerceOrder::with(['user', 'orderItems.ecommerceProduct.warehouseProduct'])
             ->findOrFail($id);
 
-        // Get all Indian cities for the dropdown
-        $indianCities = [
-            'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Ahmedabad', 'Chennai', 'Kolkata',
-            'Surat', 'Pune', 'Jaipur', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane',
-            'Bhopal', 'Visakhapatnam', 'Pimpri-Chinchwad', 'Patna', 'Vadodara', 'Ghaziabad',
-            'Ludhiana', 'Agra', 'Nashik', 'Faridabad', 'Meerut', 'Rajkot', 'Kalyan-Dombivli',
-            'Vasai-Virar', 'Varanasi', 'Srinagar', 'Aurangabad', 'Dhanbad', 'Amritsar',
-            'Navi Mumbai', 'Allahabad', 'Ranchi', 'Howrah', 'Coimbatore', 'Jabalpur'
+        // Calculate totals
+        $totals = $this->calculateOrderTotals($order);
+
+        return view('e-commerce.order.view', compact('order', 'totals'));
+    }
+
+    /**
+     * Calculate order totals.
+     */
+    private function calculateOrderTotals($order)
+    {
+        $subtotal = $order->orderItems->sum('total_price');
+        $taxAmount = $order->orderItems->sum('igst_amount');
+        $shippingCharges = $order->shipping_charges;
+        $discountAmount = $order->discount_amount;
+        $grandTotal = $order->total_amount;
+
+        return [
+            'subtotal' => $subtotal,
+            'tax_amount' => $taxAmount,
+            'shipping_charges' => $shippingCharges,
+            'discount_amount' => $discountAmount,
+            'grand_total' => $grandTotal,
+            'rounded_total' => round($grandTotal)
         ];
-
-        return view('e-commerce.order.view', compact('order', 'indianCities'));
     }
 
-    /**
-     * Get delivery men by city for AJAX request
-     */
-    public function getDeliveryMenByCity($city)
-    {
-        $deliveryMen = DeliveryMan::where('city', $city)
-            ->where('status', 'Active')
-            ->select('id', 'first_name', 'last_name', 'current_address')
-            ->get();
 
-        return response()->json($deliveryMen);
-    }
-
-    /**
-     * Assign delivery man to order
-     */
-    public function assignDeliveryMan(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'delivery_man_id' => 'required|exists:delivery_men,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        try {
-            $order = Order::findOrFail($id);
-            $order->delivery_man_id = $request->delivery_man_id;
-            $order->status = 'Assigned';
-            $order->save();
-
-            $deliveryMan = DeliveryMan::find($request->delivery_man_id);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Delivery man assigned successfully',
-                'delivery_man' => [
-                    'name' => $deliveryMan->full_name,
-                    'address' => $deliveryMan->current_address
-                ]
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to assign delivery man'
-            ], 500);
-        }
-    }
 
     /**
      * Update order status
@@ -419,7 +495,7 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'status' => 'required|in:Pending,Assigned,Out for Delivery,Delivered',
+            'status' => 'required|in:pending,confirmed,processing,shipped,delivered,cancelled',
         ]);
 
         if ($validator->fails()) {
@@ -430,8 +506,21 @@ class OrderController extends Controller
         }
 
         try {
-            $order = Order::findOrFail($id);
-            $order->status = $request->status;
+            $order = EcommerceOrder::findOrFail($id);
+            $oldStatus = $order->status;
+            $newStatus = $request->status;
+
+            // Update status with timestamps
+            $order->status = $newStatus;
+
+            if ($newStatus === 'confirmed' && $oldStatus !== 'confirmed') {
+                $order->confirmed_at = now();
+            } elseif ($newStatus === 'shipped' && $oldStatus !== 'shipped') {
+                $order->shipped_at = now();
+            } elseif ($newStatus === 'delivered' && $oldStatus !== 'delivered') {
+                $order->delivered_at = now();
+            }
+
             $order->save();
 
             return response()->json([
@@ -439,6 +528,7 @@ class OrderController extends Controller
                 'message' => 'Order status updated successfully'
             ]);
         } catch (\Exception $e) {
+            Log::error('Error updating order status: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to update order status'
@@ -453,28 +543,19 @@ class OrderController extends Controller
     {
         try {
             // Fetch order with all related data
-            $order = Order::with([
-                'product.warehouseProduct',
-                'customer.address',
-                'deliveryMan'
-            ])->findOrFail($id);
+            $order = EcommerceOrder::with(['user', 'orderItems.ecommerceProduct.warehouseProduct'])
+                ->findOrFail($id);
 
-            // Calculate tax and totals
-            $subtotal = $order->amount;
-            $taxRate = 18; // Default GST rate - you can make this configurable
-            $taxAmount = ($subtotal * $taxRate) / 100;
-            $total = $subtotal + $taxAmount;
+            // Calculate totals
+            $totals = $this->calculateOrderTotals($order);
 
             // Prepare data for the invoice template
             $invoiceData = [
                 'order' => $order,
-                'invoice_number' => 'INV-' . str_pad($order->id, 6, '0', STR_PAD_LEFT),
+                'totals' => $totals,
+                'invoice_number' => 'INV-' . $order->order_number,
                 'invoice_date' => $order->created_at->format('d/m/Y'),
-                'subtotal' => $subtotal,
-                'tax_rate' => $taxRate,
-                'tax_amount' => $taxAmount,
-                'total' => $total,
-                'amount_in_words' => $this->convertNumberToWords($total),
+                'amount_in_words' => $this->convertNumberToWords($totals['grand_total']),
                 'company' => [
                     'name' => 'CrackTeck Solutions Pvt. Ltd.',
                     'address' => 'Tech Park, Mumbai - 400001',
@@ -484,8 +565,8 @@ class OrderController extends Controller
                 ]
             ];
 
-            // Generate PDF
-            $pdf = Pdf::loadView('invoice', $invoiceData);
+            // Generate PDF using the existing invoice view
+            $pdf = Pdf::loadView('e-commerce.ecommerce-orders.invoice', $invoiceData);
 
             // Set paper size and orientation
             $pdf->setPaper('A4', 'portrait');
@@ -498,7 +579,7 @@ class OrderController extends Controller
             ]);
 
             // Generate filename
-            $filename = 'invoice-' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . '.pdf';
+            $filename = 'invoice-' . $order->order_number . '.pdf';
 
             // Return PDF download response
             return $pdf->download($filename);
