@@ -281,7 +281,7 @@
                                         Add to cart
                                         <i class="icon-cart-2"></i>
                                     </a>
-                                    <a href="{{ route('checkout') }}" class="tf-btn text-white btn-gray">
+                                    <a href="{{ route('checkout' , ['source' => 'buy_now']) }}" class="tf-btn text-white btn-gray">
                                         Buy now
                                     </a>
                                 </div>

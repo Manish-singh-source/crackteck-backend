@@ -147,8 +147,8 @@
                                                         class="table table-striped table-borderless dt-responsive nowrap">
                                                         <thead>
                                                             <tr>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
+                                                                <th>Name</th>
+                                                                <th>Username</th>
                                                                 <th>Email</th>
                                                                 <th>Contact Number</th>
                                                                 <th>Branches</th>
@@ -161,8 +161,8 @@
                                                         <tbody>
                                                             @foreach ($customers as $customer)
                                                                 <tr>
-                                                                    <td>{{ $customer->first_name }}</td>
-                                                                    <td>{{ $customer->last_name }}</td>
+                                                                    <td>{{ $customer->full_name }}</td>
+                                                                    <td>{{ $customer->display_username }}</td>
                                                                     <td>{{ $customer->email }}</td>
                                                                     <td>{{ $customer->phone }}</td>
                                                                     <td>
@@ -185,14 +185,15 @@
                                                                             <span class="text-muted">No branches</span>
                                                                         @endif
                                                                     </td>
-                                                                    <td>2</td>
+                                                                    <td>{{ $customer->total_orders_count }}</td>
                                                                     <td>
                                                                         <div class="form-check form-switch mb-2">
                                                                             <input class="form-check-input"
                                                                                 type="checkbox" role="switch"
-                                                                                id="flexSwitchCheckChecked" checked>
+                                                                                id="flexSwitchCheckChecked_{{ $customer->id }}"
+                                                                                {{ $customer->status === 'active' ? 'checked' : '' }}>
                                                                             <label class="form-check-label"
-                                                                                for="flexSwitchCheckChecked"></label>
+                                                                                for="flexSwitchCheckChecked_{{ $customer->id }}"></label>
                                                                         </div>
                                                                     </td>
                                                                     <td>{{ $customer->created_at->toDateString() }}</td>

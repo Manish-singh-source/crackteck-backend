@@ -13,7 +13,10 @@ class CustomerController extends Controller
     //
     public function index()
     {
-        $customers = Customer::with('branches')->get();
+        // Filter to show only CRM customers (Retail, Wholesale, Corporate, AMC Customer)
+        $customers = Customer::with('branches')
+            ->crm()
+            ->get();
         return view('/crm/customer/index', compact('customers'));
     }
 
@@ -56,7 +59,8 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->dob = $request->dob;
         $customer->gender = $request->gender;
-        $customer->customer_type = $request->customer_type;
+        // Set customer type based on request, defaulting to AMC Customer if not specified
+        $customer->customer_type = $request->customer_type ?: 'AMC Customer';
         $customer->company_name = $request->company_name;
         $customer->company_addr = $request->company_addr;
         $customer->gst_no = $request->gst_no;
@@ -212,7 +216,10 @@ class CustomerController extends Controller
 
     public function ec_index()
     {
-        $customers = Customer::all();
+        // Filter to show only E-commerce customers
+        $customers = Customer::with('branches')
+            ->ecommerce()
+            ->get();
         return view('/e-commerce/customer/index', compact('customers'));
     }
 
@@ -228,18 +235,24 @@ class CustomerController extends Controller
             // Personal details
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
-            'phone' => 'required|digits:10',
+            'phone' => 'nullable|min:10',
             'email' => 'required|email|unique:customers,email',
-            'dob' => 'required',
-            'gender' => 'required',
+            'dob' => 'nullable|date',
+            'gender' => 'nullable|in:male,female',
 
-            // Address details
-            'address' => 'required',
-            'address2' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-            'pincode' => 'required|min:6'
+            // Address details (optional for e-commerce customers)
+            'address' => 'nullable',
+            'address2' => 'nullable',
+            'city' => 'nullable',
+            'state' => 'nullable',
+            'country' => 'nullable',
+            'pincode' => 'nullable|min:6',
+
+            // Business details (optional for e-commerce customers)
+            'company_name' => 'nullable',
+            'company_addr' => 'nullable',
+            'gst_no' => 'nullable',
+            'pan_no' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -253,11 +266,12 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->dob = $request->dob;
         $customer->gender = $request->gender;
-        $customer->customer_type = $request->customer_type;
+        $customer->customer_type = 'E-commerce Customer'; // Fixed customer type for e-commerce
         $customer->company_name = $request->company_name;
         $customer->company_addr = $request->company_addr;
         $customer->gst_no = $request->gst_no;
         $customer->pan_no = $request->pan_no;
+        $customer->status = 'active';
         if ($request->hasFile('pic')) {
             $file = $request->file('pic');
             $filename = time() . '.' . $file->getClientOriginalExtension();

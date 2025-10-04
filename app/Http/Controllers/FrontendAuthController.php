@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,11 +20,14 @@ class FrontendAuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Create corresponding customer record for e-commerce customer
+        $this->createEcommerceCustomer($user, $request);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
@@ -134,6 +138,9 @@ class FrontendAuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Create corresponding customer record for e-commerce customer
+        $this->createEcommerceCustomer($user, $request);
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
@@ -157,5 +164,26 @@ class FrontendAuthController extends Controller
         }
 
         return redirect()->back()->with('success', 'Registration successful.');
+    }
+
+    /**
+     * Create a customer record for e-commerce user registration.
+     */
+    private function createEcommerceCustomer(User $user, Request $request)
+    {
+        // Split name into first and last name
+        $nameParts = explode(' ', $user->name, 2);
+        $firstName = $nameParts[0];
+        $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+
+        Customer::create([
+            'user_id' => $user->id,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $user->email,
+            'customer_type' => 'E-commerce Customer',
+            'status' => 'active',
+            // All other fields will be nullable and filled later when user updates profile or places order
+        ]);
     }
 }

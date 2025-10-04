@@ -149,7 +149,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div> 
 
                 <div class="cart-bottom d-flex align-items-center justify-content-end">
                     {{-- <div class="ip-discount-code">
@@ -165,7 +165,7 @@
             <div class="box-btn">
                 <a href="{{ route('shop') }}" class="tf-btn btn-gray"><span class="text-white">Continue
                         shopping</span></a>
-                <a href="{{ route('checkout') }}" class="tf-btn"><span class="text-white">Proceed to checkout</span></a>
+                <a href="{{ route('checkout', ['source' => 'cart']) }}" class="tf-btn"><span class="text-white">Proceed to checkout</span></a>
             </div>
 
         </div>

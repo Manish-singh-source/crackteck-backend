@@ -106,65 +106,87 @@
 
                                 <div class="card pb-4">
                                     <div class="card-header border-bottom-dashed">
-                                        <h5 class="card-title mb-0">
-                                            Address Information
-                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title mb-0">
+                                                Address/Branch Information
+                                            </h5>
+                                            <button type="button" class="btn btn-primary btn-sm" id="add-branch-btn">
+                                                <i class="mdi mdi-plus"></i> Add Branch
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="row g-3">
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Address Line 1',
-                                                    'name' => 'address',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Address Line 1',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Address Line 2',
-                                                    'name' => 'address2',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Address Line 2',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'City',
-                                                    'name' => 'city',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter City',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'State',
-                                                    'name' => 'state',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter State',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Country',
-                                                    'name' => 'country',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Country',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Pincode',
-                                                    'name' => 'pincode',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Pincode',
-                                                ])
+                                        <div id="branches-container">
+                                            <!-- First branch (default) -->
+                                            <div class="branch-item border rounded p-3 mb-3" data-branch-index="0">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h6 class="mb-0 text-primary">Branch #1</h6>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="primary_branch" value="0" id="primary_0" checked>
+                                                        <label class="form-check-label" for="primary_0">
+                                                            Primary Branch
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3">
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'Branch Name',
+                                                            'name' => 'branches[0][branch_name]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter Name of Branch',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'Address Line 1',
+                                                            'name' => 'branches[0][address]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter Address Line 1',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'Address Line 2',
+                                                            'name' => 'branches[0][address2]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter Address Line 2',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'City',
+                                                            'name' => 'branches[0][city]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter City',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'State',
+                                                            'name' => 'branches[0][state]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter State',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'Country',
+                                                            'name' => 'branches[0][country]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter Country',
+                                                        ])
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @include('components.form.input', [
+                                                            'label' => 'Pincode',
+                                                            'name' => 'branches[0][pincode]',
+                                                            'type' => 'text',
+                                                            'placeholder' => 'Enter Pincode',
+                                                        ])
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -187,16 +209,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="mb-3">
-                                                @include('components.form.select', [
-                                                    'label' => 'Customer Type',
-                                                    'name' => 'customer_type',
-                                                    'options' => [
-                                                        '0' => '--Select--',
-                                                        '1' => 'Retail',
-                                                        '2' => 'Wholesale',
-                                                        '3' => 'Corporate',
-                                                    ],
-                                                ])
+                                                <label class="form-label">Customer Type</label>
+                                                <input type="text" class="form-control" value="E-commerce Customer" readonly>
+                                                <input type="hidden" name="customer_type" value="E-commerce Customer">
+                                                <small class="text-muted">Customer type is automatically set for e-commerce customers</small>
                                             </div>
 
                                             <div class="mb-3">
