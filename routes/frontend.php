@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontendEcommerceController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MyAccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 
@@ -154,14 +155,30 @@ Route::get('/my-account-orders', [CheckoutController::class, 'myAccountOrders'])
     ->name('my-account-orders')->middleware('auth');
 
 // My Account Address
-Route::get('/my-account-address', function () {
-    return view('frontend/my-account-address');
-})->name('my-account-address');
+Route::get('/my-account-address', [MyAccountController::class, 'addresses'])
+    ->name('my-account-address')->middleware('auth');
+
+// My Account Address AJAX Routes
+Route::middleware('auth')->group(function () {
+    Route::post('/my-account/address', [MyAccountController::class, 'storeAddress'])->name('my-account.address.store');
+    Route::get('/my-account/address/{id}', [MyAccountController::class, 'getAddress'])->name('my-account.address.get');
+    Route::put('/my-account/address/{id}', [MyAccountController::class, 'updateAddress'])->name('my-account.address.update');
+    Route::delete('/my-account/address/{id}', [MyAccountController::class, 'deleteAddress'])->name('my-account.address.delete');
+
+    // Profile update route
+    Route::put('/my-account/profile', [MyAccountController::class, 'updateProfile'])->name('my-account.profile.update');
+
+    // Password update route
+    Route::put('/my-account/password', [MyAccountController::class, 'updatePassword'])->name('my-account.password.update');
+});
 
 // My Account Edit
-Route::get('/my-account-edit', function () {
-    return view('frontend/my-account-edit');
-})->name('my-account-edit');
+Route::get('/my-account-edit', [MyAccountController::class, 'accountDetails'])
+    ->name('my-account-edit')->middleware('auth');
+
+// My Account Password
+Route::get('/my-account-password', [MyAccountController::class, 'changePassword'])
+    ->name('my-account-password')->middleware('auth');
 
 // My Account AMC
 Route::get('/my-account-amc', function () {

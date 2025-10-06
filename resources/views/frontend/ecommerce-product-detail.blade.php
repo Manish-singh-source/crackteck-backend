@@ -1386,11 +1386,7 @@
                 }, 3000);
             }
 
-            function updateCartCount() {
-                // Update cart counter in header (implement based on your cart system)
-                const currentCount = parseInt($('.cart-count').text()) || 0;
-                $('.cart-count').text(currentCount + 1);
-            }
+            // Cart count function is now global in master layout
 
             // Initialize tooltips
             if (typeof bootstrap !== 'undefined') {
@@ -1463,27 +1459,7 @@
             showNotification('Opening quick view...', 'info');
         }
 
-        // Function to update cart count
-        function updateCartCount() {
-            $.ajax({
-                url: '{{ route("cart.count") }}',
-                method: 'GET',
-                success: function(response) {
-                    // Update cart counter in header
-                    $('.count-box').text(response.cart_count);
-
-                    // Show/hide counter based on count
-                    if (response.cart_count > 0) {
-                        $('.count-box').show();
-                    } else {
-                        $('.count-box').hide();
-                    }
-                },
-                error: function() {
-                    console.log('Error updating cart count');
-                }
-            });
-        }
+        // Cart count function is now global in master layout
 
         // Function to update cart sidebar
         function updateCartSidebar() {
