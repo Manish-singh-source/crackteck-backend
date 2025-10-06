@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             SubCategoriesSeeder::class,
             ProductsSeeder::class,
             EcommerceProductsSeeder::class,
+            ContactSeeder::class,
         ]);
       
     }
