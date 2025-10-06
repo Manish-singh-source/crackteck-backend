@@ -30,8 +30,9 @@
                             <li><a href="{{ route('my-account-edit') }}" class="my-account-nav-item">Dashboard</a></li>
                             <li><a href="{{ route('my-account-orders') }}" class="my-account-nav-item">Orders</a></li>
                             <li><a href="{{ route('my-account-address') }}" class="my-account-nav-item">Address</a></li>
-                            <li><span class="my-account-nav-item active">Account Details</span></li>
-                            <li><a href="{{ route('my-account-password') }}" class="my-account-nav-item">Change Password</a></li>
+                            <li><a href="{{ route('my-account-edit') }}" class="my-account-nav-item">Account Details</a>
+                            </li>
+                            <li><span class="my-account-nav-item active">Change Password</span></li>
                             <li><a href="{{ route('my-account-amc') }}" class="my-account-nav-item">AMC</a></li>
                             <li><a href="{{ route('wishlist') }}" class="my-account-nav-item">Wishlist</a></li>
                             @if (Auth::check())
@@ -51,50 +52,28 @@
                 <div class="col-lg-9">
                     <div class="my-account-content account-details">
                         <div class="wrap">
-                            <h4 class="fw-semibold mb-20">Account Information</h4>
-                            <form class="form-account-details" id="profile-form">
-                                <div class="form-content">
-                                    <div class="cols">
-                                        <fieldset>
-                                            <label for="first-name">First Name *</label>
-                                            <input type="text" id="first-name" name="first_name" placeholder="First Name"
-                                                   value="{{ $user->first_name ?? '' }}" required>
-                                        </fieldset>
-                                        <fieldset>
-                                            <label for="last-name">Last Name *</label>
-                                            <input type="text" id="last-name" name="last_name" placeholder="Last Name"
-                                                   value="{{ $user->last_name ?? '' }}" required>
-                                        </fieldset>
-                                    </div>
-                                    <div class="cols">
-                                        <fieldset>
-                                            <label for="email">Email *</label>
-                                            <input type="email" id="email" name="email" placeholder="Email"
-                                                   value="{{ $user->email }}" required>
-                                        </fieldset>
-                                        <fieldset>
-                                            <label for="phone">Phone Number</label>
-                                            <input type="text" id="phone" name="phone" placeholder="Phone Number"
-                                                   value="{{ $user->phone ?? '' }}">
-                                        </fieldset>
-                                    </div>
-                                    <fieldset>
-                                        <label for="primary-address">Primary Address</label>
-                                        <input type="text" id="primary-address" placeholder="Primary Address"
-                                               value="{{ $primaryAddress ? $primaryAddress->address_line_1 . ', ' . $primaryAddress->city . ', ' . $primaryAddress->state . ' - ' . $primaryAddress->zipcode : 'No primary address set' }}"
-                                               readonly>
-                                        <small class="text-muted">
-                                            <a href="{{ route('my-account-address') }}" class="link text-secondary">
-                                                Edit Address
-                                            </a>
-                                        </small>
-                                    </fieldset>
-
-                                    <div class="box-btn">
-                                        <button type="submit" class="tf-btn btn-large" id="update-btn">
-                                            <span class="text-white" id="update-text">Update Account</span>
-                                        </button>
-                                    </div>
+                            <h4 class="fw-semibold mb-20">Change Password</h4>
+                            <form class="def form-reset-password" id="password-form">
+                                <fieldset>
+                                    <label for="current-password">Current Password *</label>
+                                    <input type="password" id="current-password" name="current_password"
+                                           placeholder="Current Password" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label for="new-password">New Password *</label>
+                                    <input type="password" id="new-password" name="new_password"
+                                           placeholder="New Password (minimum 8 characters)" required>
+                                    <small class="text-muted">Password must be at least 8 characters long</small>
+                                </fieldset>
+                                <fieldset>
+                                    <label for="confirm-password">Confirm New Password *</label>
+                                    <input type="password" id="confirm-password" name="new_password_confirmation"
+                                           placeholder="Confirm New Password" required>
+                                </fieldset>
+                                <div class="box-btn">
+                                    <button type="submit" class="tf-btn btn-large" id="password-btn">
+                                        <span class="text-white" id="password-text">Update Password</span>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -116,34 +95,69 @@ $(document).ready(function() {
         }
     });
 
-    // Profile form submission
-    $('#profile-form').on('submit', function(e) {
+    // Password form submission
+    $('#password-form').on('submit', function(e) {
         e.preventDefault();
 
+        // Client-side validation
+        const currentPassword = $('#current-password').val();
+        const newPassword = $('#new-password').val();
+        const confirmPassword = $('#confirm-password').val();
+
+        // Basic validation
+        if (currentPassword.length === 0) {
+            showNotification('Current password is required.', 'error');
+            return;
+        }
+
+        if (newPassword.length < 8) {
+            showNotification('New password must be at least 8 characters long.', 'error');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            showNotification('New password and confirm password do not match.', 'error');
+            return;
+        }
+
+        if (currentPassword === newPassword) {
+            showNotification('New password must be different from current password.', 'error');
+            return;
+        }
+
         const formData = {
-            first_name: $('#first-name').val(),
-            last_name: $('#last-name').val(),
-            email: $('#email').val(),
-            phone: $('#phone').val()
+            current_password: currentPassword,
+            new_password: newPassword,
+            new_password_confirmation: confirmPassword
         };
 
         // Show loading state
-        $('#update-btn').prop('disabled', true);
-        $('#update-text').text('Updating...');
+        $('#password-btn').prop('disabled', true);
+        $('#password-text').text('Updating...');
 
         $.ajax({
-            url: '/my-account/profile',
+            url: '/my-account/password',
             method: 'PUT',
             data: formData,
             success: function(response) {
                 if (response.success) {
                     showNotification(response.message, 'success');
+
+                    // Clear form
+                    $('#password-form')[0].reset();
+
+                    // Optional: Redirect to login after password change
+                    setTimeout(function() {
+                        if (confirm('Password updated successfully! You will be logged out for security. Click OK to continue.')) {
+                            window.location.href = '/frontend/logout';
+                        }
+                    }, 2000);
                 } else {
                     showNotification(response.message, 'error');
                 }
             },
             error: function(xhr) {
-                let message = 'An error occurred while updating your profile.';
+                let message = 'An error occurred while updating your password.';
 
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     const errors = xhr.responseJSON.errors;
@@ -155,10 +169,30 @@ $(document).ready(function() {
                 showNotification(message, 'error');
             },
             complete: function() {
-                $('#update-btn').prop('disabled', false);
-                $('#update-text').text('Update Account');
+                $('#password-btn').prop('disabled', false);
+                $('#password-text').text('Update Password');
             }
         });
+    });
+
+    // Real-time password validation
+    $('#new-password, #confirm-password').on('input', function() {
+        const newPassword = $('#new-password').val();
+        const confirmPassword = $('#confirm-password').val();
+
+        // Check password length
+        if (newPassword.length > 0 && newPassword.length < 8) {
+            $('#new-password').addClass('is-invalid');
+        } else {
+            $('#new-password').removeClass('is-invalid');
+        }
+
+        // Check password match
+        if (confirmPassword.length > 0 && newPassword !== confirmPassword) {
+            $('#confirm-password').addClass('is-invalid');
+        } else {
+            $('#confirm-password').removeClass('is-invalid');
+        }
     });
 
     // Helper function to show notifications
