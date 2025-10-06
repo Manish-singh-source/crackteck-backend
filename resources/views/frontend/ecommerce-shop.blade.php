@@ -584,27 +584,7 @@ $(document).ready(function() {
         });
     }
 
-    // Function to update wishlist count
-    function updateWishlistCount() {
-        $.ajax({
-            url: '{{ route("wishlist.count") }}',
-            method: 'GET',
-            success: function(response) {
-                // Update wishlist counter in header if it exists
-                $('.wishlist-count, .wishlist-counter').text(response.count);
-
-                // Show/hide counter based on count
-                if (response.count > 0) {
-                    $('.wishlist-count, .wishlist-counter').show();
-                } else {
-                    $('.wishlist-count, .wishlist-counter').hide();
-                }
-            },
-            error: function() {
-                console.log('Error updating wishlist count');
-            }
-        });
-    }
+    // Wishlist count function is now global in master layout
 
     // Add to Cart functionality
     $('.add-to-cart-btn').on('click', function(e) {
@@ -666,27 +646,7 @@ $(document).ready(function() {
         });
     });
 
-    // Function to update cart count
-    function updateCartCount() {
-        $.ajax({
-            url: '{{ route("cart.count") }}',
-            method: 'GET',
-            success: function(response) {
-                // Update cart counter in header
-                $('.count-box').text(response.cart_count);
-
-                // Show/hide counter based on count
-                if (response.cart_count > 0) {
-                    $('.count-box').show();
-                } else {
-                    $('.count-box').hide();
-                }
-            },
-            error: function() {
-                console.log('Error updating cart count');
-            }
-        });
-    }
+    // Cart count function is now global in master layout
 
     // Function to update cart sidebar
     function updateCartSidebar() {

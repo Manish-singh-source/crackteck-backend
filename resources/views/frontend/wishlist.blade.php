@@ -231,8 +231,9 @@ $(document).ready(function() {
                         }
                     });
 
-                    // Update wishlist count
+                    // Update both wishlist and cart counts since item moved from wishlist to cart
                     updateWishlistCount();
+                    updateCartCount();
 
                     // Optionally redirect to cart if specified
                     if (response.redirect_to_cart) {
@@ -300,27 +301,7 @@ $(document).ready(function() {
         });
     }
 
-    // Function to update wishlist count
-    function updateWishlistCount() {
-        $.ajax({
-            url: '{{ route("wishlist.count") }}',
-            method: 'GET',
-            success: function(response) {
-                // Update wishlist counter in header if it exists
-                $('.wishlist-count, .wishlist-counter').text(response.count);
-
-                // Show/hide counter based on count
-                if (response.count > 0) {
-                    $('.wishlist-count, .wishlist-counter').show();
-                } else {
-                    $('.wishlist-count, .wishlist-counter').hide();
-                }
-            },
-            error: function() {
-                console.log('Error updating wishlist count');
-            }
-        });
-    }
+    // Wishlist count function is now global in master layout
 });
 </script>
 @endsection

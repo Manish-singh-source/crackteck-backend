@@ -1993,6 +1993,51 @@
             }
         });
 
+        // Global function to update cart count
+        function updateCartCount() {
+            $.ajax({
+                url: '{{ route("cart.count") }}',
+                method: 'GET',
+                success: function(response) {
+                    // Update cart counter in header
+                    $('.icon-cart').siblings('.count-box').text(response.cart_count);
+                    // $('.cart-count-box').text(response.cart_count);
+
+                    // Show/hide counter based on count
+                    if (response.cart_count > 0) {
+                       $('.icon-cart').siblings('.count-box').show();
+                    } else {
+                       $('.icon-cart').siblings('.count-box').hide();
+                    }
+                },
+                error: function() {
+                    console.log('Error updating cart count');
+                }
+            });
+        }
+
+        // Global function to update wishlist count
+        function updateWishlistCount() {
+            $.ajax({
+                url: '{{ route("wishlist.count") }}',
+                method: 'GET',
+                success: function(response) {
+                    // Update wishlist counter in header
+                    $('.icon-hearth').siblings('.count-box').text(response.count);
+
+                    // Show/hide counter based on count
+                    if (response.count > 0) {
+                        $('.icon-hearth').siblings('.count-box').show();
+                    } else {
+                        $('.icon-hearth').siblings('.count-box').hide();
+                    }
+                },
+                error: function() {
+                    console.log('Error updating wishlist count');
+                }
+            });
+        }
+
         // Function to update cart sidebar content
         function updateCartSidebarContent(response) {
             const cartContainer = $('#cart-items-container');
@@ -2084,12 +2129,12 @@
             });
         });
 
-        // Load cart data on page load
+        // Load cart and wishlist data on page load
         $(document).ready(function() {
             // Update cart count and sidebar
-            if (typeof updateCartCount === 'function') {
-                updateCartCount();
-            }
+            updateCartCount();
+            updateWishlistCount();
+
             if (typeof updateCartSidebar === 'function') {
                 updateCartSidebar();
             }
