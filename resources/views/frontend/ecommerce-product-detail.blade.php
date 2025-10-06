@@ -353,10 +353,9 @@
                                                     Add to cart
                                                     <i class="icon-cart-2"></i>
                                                 </a>
-                                                {{-- <a href="checkout.php" class="tf-btn text-white btn-gray">
-                                                    Buy now
-                                                </a> --}}
-                                                <a href="{{ route('checkout') }}" class="tf-btn text-white btn-gray">
+                                                <a href="#;" class="tf-btn text-white btn-gray buy-now-btn"
+                                                   data-product-id="{{ $product->id }}"
+                                                   data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
                                                     Buy now
                                                 </a>
                                             </div>
@@ -1287,11 +1286,15 @@
                 $(this).html('<i class="spinner-border spinner-border-sm me-2"></i>Processing...');
                 $(this).prop('disabled', true);
 
-                // Simulate redirect to checkout (replace with actual logic)
+                // Redirect to checkout with buy_now parameters
+                const checkoutUrl = '{{ route("checkout") }}' + '?source=buy_now&product_id=' + productId + '&quantity=' + quantity;
+
+                showNotification('Redirecting to checkout...', 'info');
+
+                // Small delay for user feedback, then redirect
                 setTimeout(() => {
-                    showNotification('Redirecting to checkout...', 'info');
-                    // window.location.href = '/checkout?product=' + productId + '&quantity=' + quantity;
-                }, 1000);
+                    window.location.href = checkoutUrl;
+                }, 500);
             });
 
             // Wishlist functionality
