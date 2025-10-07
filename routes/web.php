@@ -535,6 +535,8 @@ Route::controller(PincodeController::class)->group(function () {
     Route::post('/crm/store-manage-pincodes', 'store')->name('pincodes.store');
     // Edit Pincode Page 
     Route::get('/crm/edit-manage-pincodes/{id}', 'edit')->name('pincodes.edit');
+    // Update Pincode Page 
+    Route::put('/crm/update-manage-pincodes/{id}', 'update')->name('pincodes.update');
     // Delete Pincode Page 
     Route::delete('/crm/delete-manage-pincode/{id}', 'delete')->name('pincodes.delete');
 });

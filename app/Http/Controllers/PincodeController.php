@@ -53,6 +53,27 @@ class PincodeController extends Controller
         return view('/crm/manage-pincodes/edit', compact('pincode'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'pincode' => 'required',
+            'delivery' => 'required',
+            'installation' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        // dd($request->all());
+        $pincode = Pincode::findOrFail($id);
+        $pincode->pincode = $request->pincode;
+        $pincode->delivery = $request->delivery;
+        $pincode->installation = $request->installation;
+
+        $pincode->save();
+
+        return redirect()->route('pincodes.index')->with('success', 'Pincode updated successfully.');
+    }
+    
     public function delete($id)
     {
         $pincode = Pincode::findOrFail($id);
