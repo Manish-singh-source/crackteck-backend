@@ -196,12 +196,21 @@ Route::controller(ProductVariantsController::class)->group(function (){
 // ------------------------------------------------------------ E-Commerce Coupons Page -------------------------------------------------------------
 
 Route::controller(CouponsController::class)->group(function (){
-    // Coupons Page 
+    // Coupons Page
     Route::get('/e-commerce/coupons' ,'index')->name('coupon.index');
     // Create Coupons Page
     Route::get('/e-commerce/create-coupons' ,'create')->name('coupon.create');
+    // Store Coupon
+    Route::post('/e-commerce/create-coupons', 'store')->name('coupon.store');
     // Edit Coupons Page
-    Route::get('/e-commerce/edit-coupons' ,'edit')->name('coupon.edit');
+    Route::get('/e-commerce/edit-coupons/{id}' ,'edit')->name('coupon.edit');
+    // Update Coupon
+    Route::put('/e-commerce/edit-coupons/{id}', 'update')->name('coupon.update');
+    // Delete Coupon
+    Route::delete('/e-commerce/delete-coupon/{id}', 'destroy')->name('coupon.delete');
+
+    // AJAX Routes for product search
+    Route::get('/e-commerce/search-products-for-coupon', 'searchProducts')->name('coupon.search-products');
 });
 
 // ------------------------------------------------------------ E-Commerce Subscribers Page -------------------------------------------------------------
