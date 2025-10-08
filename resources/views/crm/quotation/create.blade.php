@@ -135,6 +135,15 @@
 
                                                 <div class="col-6">
                                                     @include('components.form.input', [
+                                                        'label' => 'Unit Price',
+                                                        'name' => 'unit_price',
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Enter Unit Price',
+                                                    ])
+                                                </div>
+
+                                                <div class="col-6">
+                                                    @include('components.form.input', [
                                                         'label' => 'Quantity',
                                                         'name' => 'quantity',
                                                         'type' => 'number',
@@ -142,14 +151,7 @@
                                                     ])
                                                 </div>
 
-                                                <div class="col-6">
-                                                    @include('components.form.input', [
-                                                        'label' => 'Unit Price',
-                                                        'name' => 'unit_price',
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Enter Unit Price',
-                                                    ])
-                                                </div>
+                                                
 
                                                 <div class="col-6">
                                                     @include('components.form.input', [

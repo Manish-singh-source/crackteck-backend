@@ -41,6 +41,8 @@ class EcommerceOrder extends Model
         'subtotal',
         'shipping_charges',
         'discount_amount',
+        'coupon_code',
+        'coupon_id',
         'total_amount',
         'status',
         'notes',
@@ -88,6 +90,22 @@ class EcommerceOrder extends Model
     public function orderItems()
     {
         return $this->hasMany(EcommerceOrderItem::class);
+    }
+
+    /**
+     * Get the coupon that was applied to this order.
+     */
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    /**
+     * Get the coupon usage record for this order.
+     */
+    public function couponUsage()
+    {
+        return $this->hasOne(CouponUsage::class, 'ecommerce_order_id');
     }
 
     /**
