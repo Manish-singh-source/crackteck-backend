@@ -7,10 +7,13 @@ use App\Models\EcommerceProduct;
 use App\Models\EcommerceOrder;
 use App\Models\EcommerceOrderItem;
 use App\Models\UserAddress;
+use App\Models\Coupon;
+use App\Http\Controllers\CouponApplicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\JsonResponse;
 
 class CheckoutController extends Controller
@@ -114,14 +117,16 @@ class CheckoutController extends Controller
         $subtotal = 0;
         $shippingCharges = 0;
         $freeShippingItems = 0;
+        $discountAmount = 0;
+        $appliedCoupon = null;
 
         foreach ($items as $item) {
             $product = $item->ecommerceProduct;
             $warehouseProduct = $product->warehouseProduct;
-            
+
             $itemTotal = $warehouseProduct->selling_price * $item->quantity;
             $subtotal += $itemTotal;
-            
+
             // Calculate shipping for this item
             $itemShipping = $product->shipping_charges ?? 0;
             if ($itemShipping == 0) {
@@ -131,12 +136,23 @@ class CheckoutController extends Controller
             }
         }
 
+        // Check for applied coupon in session
+        $appliedCouponData = Session::get('applied_coupon');
+        if ($appliedCouponData) {
+            $discountAmount = $appliedCouponData['discount_amount'] ?? 0;
+            $appliedCoupon = $appliedCouponData;
+        }
+
+        $finalTotal = max(0, $subtotal + $shippingCharges - $discountAmount);
+
         return [
             'subtotal' => $subtotal,
             'shipping_charges' => $shippingCharges,
-            'total' => $subtotal + $shippingCharges,
+            'discount_amount' => $discountAmount,
+            'total' => $finalTotal,
             'free_shipping_items' => $freeShippingItems,
-            'has_free_shipping' => $shippingCharges == 0
+            'has_free_shipping' => $shippingCharges == 0,
+            'applied_coupon' => $appliedCoupon
         ];
     }
 
@@ -248,6 +264,20 @@ class CheckoutController extends Controller
             // Create order items
             $this->createOrderItems($order, $checkoutData);
 
+            // Record coupon usage if coupon was applied
+            if ($totals['applied_coupon']) {
+                $couponController = new CouponApplicationController();
+                $couponController->recordCouponUsage(
+                    $totals['applied_coupon']['id'],
+                    Auth::id(),
+                    $order->id,
+                    $totals['discount_amount']
+                );
+
+                // Clear applied coupon from session
+                Session::forget('applied_coupon');
+            }
+
             // Clear cart if checkout from cart
             if ($checkoutData['source'] === 'cart') {
                 Cart::where('user_id', Auth::id())->delete();
@@ -308,7 +338,9 @@ class CheckoutController extends Controller
             // Totals
             'subtotal' => $totals['subtotal'],
             'shipping_charges' => $totals['shipping_charges'],
-            'discount_amount' => 0,
+            'discount_amount' => $totals['discount_amount'],
+            'coupon_code' => $totals['applied_coupon']['code'] ?? null,
+            'coupon_id' => $totals['applied_coupon']['id'] ?? null,
             'total_amount' => $totals['total'],
 
             'status' => 'pending'

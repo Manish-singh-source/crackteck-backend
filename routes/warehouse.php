@@ -129,15 +129,27 @@ Route::controller(VendorPurchaseBillController::class)->group(function (){
     Route::delete('/warehouse/vendor-purchase-bill/{id}' ,'destroy')->name('vendor.destroy');
 });
 
-// ------------------------------------------------------------ Vendor Purchase Page -------------------------------------------------------------
+// ------------------------------------------------------------ Stock Requests Page -------------------------------------------------------------
 
 Route::controller(StockReportController::class)->group(function (){
-    // Stock Report Page 
-    Route::get('/warehouse/stock-requests' ,'warehouse_index')->name('stock-request.index');
-    // Create Stock Report Page
-    Route::get('/warehouse/create-stock-request' ,'warehouse_create')->name('stock-request.create');
-    // Edit Stock Report Page
-    Route::get('/warehouse/edit-stock-request' ,'warehouse_edit')->name('stock-request.edit');
+    // Stock Requests Index Page
+    Route::get('/warehouse/stock-requests', 'warehouse_index')->name('stock-request.index');
+    // Create Stock Request Page
+    Route::get('/warehouse/create-stock-request', 'warehouse_create')->name('stock-request.create');
+    // Store Stock Request
+    Route::post('/warehouse/create-stock-request', 'warehouse_store')->name('stock-request.store');
+    // View/Edit Stock Request Page
+    Route::get('/warehouse/stock-requests/{stockRequest}', 'warehouse_show')->name('stock-request.show');
+    // Update Stock Request
+    Route::put('/warehouse/stock-requests/{stockRequest}', 'warehouse_update')->name('stock-request.update');
+    // Delete Stock Request
+    Route::delete('/warehouse/stock-requests/{stockRequest}', 'delete')->name('stock-request.destroy');
+    // Remove Product from Stock Request
+    Route::delete('/warehouse/stock-requests/remove-product/{id}', 'removeProduct')->name('stock-request.remove-product');
+
+    // AJAX Routes for Product Search
+    Route::get('/warehouse/search-products', 'searchProducts')->name('stock-request.search-products');
+    Route::get('/warehouse/get-product/{product}', 'getProduct')->name('stock-request.get-product');
 });
 
 // ------------------------------------------------------------ Low Stock Page -------------------------------------------------------------

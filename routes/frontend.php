@@ -89,6 +89,13 @@ Route::controller(CartController::class)->group(function () {
         Route::get('/cart/data', 'getCartData')->name('cart.data');
         Route::post('/cart/check-status', 'checkCartStatus')->name('cart.check-status');
     });
+});
+
+// Coupon Application Routes
+Route::controller(App\Http\Controllers\CouponApplicationController::class)->middleware('auth')->group(function () {
+    Route::post('/cart/apply-coupon', 'applyCoupon')->name('cart.apply-coupon');
+    Route::post('/cart/remove-coupon', 'removeCoupon')->name('cart.remove-coupon');
+    Route::get('/cart/applied-coupon', 'getAppliedCoupon')->name('cart.applied-coupon');
 
     // Cart count (can be accessed without auth, returns 0 for guests)
     Route::get('/cart/count', 'getCartCount')->name('cart.count');
