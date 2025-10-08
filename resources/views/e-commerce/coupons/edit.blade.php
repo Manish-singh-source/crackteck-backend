@@ -26,10 +26,13 @@
         </div>
 
 
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-lg-8">
+        <form action="{{ route('coupon.update', $coupon->id) }}" method="POST" id="couponEditForm">
+            @csrf
+            @method('PUT')
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="row g-4 align-items-center">
@@ -50,6 +53,7 @@
                                             'name' => 'coupon_code',
                                             'type' => 'text',
                                             'placeholder' => 'Enter Coupon Code',
+                                            'model' => $coupon
                                             ])
                                         </div>
                                     </div>
@@ -61,6 +65,7 @@
                                             'name' => 'coupon_title',
                                             'type' => 'text',
                                             'placeholder' => 'Summer Sale 20% OFF',
+                                            'model' => $coupon
                                             ])
                                         </div>
                                     </div>
@@ -70,7 +75,10 @@
                                             <label for="coupon_description" class="form-label"> Coupon Description
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea id="coupon_description" class="form-control text-editor" name="coupon_description" placeholder="Enter Coupon Description"></textarea>
+                                            <textarea id="coupon_description" class="form-control @error('coupon_description') is-invalid @enderror" name="coupon_description" placeholder="Enter Coupon Description">{{ old('coupon_description', $coupon->coupon_description) }}</textarea>
+                                            @error('coupon_description')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -91,7 +99,8 @@
                                         @include('components.form.select', [
                                         'label' => 'Discount Type',
                                         'name' => 'discount_type',
-                                        'options' => ["0" => "--Select--", "1" => "Percentage", "2" => "Fixed Amount"]
+                                        'options' => ["percentage" => "Percentage", "fixed_amount" => "Fixed Amount"],
+                                        'model' => $coupon
                                         ])
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
@@ -256,14 +265,18 @@
 
                     <div class="col-lg-12">
                         <div class="text-start mb-3">
-                            <a href="{{ route('coupon.index') }}" class="btn btn-success w-sm waves ripple-light">
-                                Submit
+                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                Update Coupon
+                            </button>
+                            <a href="{{ route('coupon.index') }}" class="btn btn-secondary w-sm waves ripple-light ms-2">
+                                Cancel
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div> <!-- container-fluid -->
 </div> <!-- content -->
 

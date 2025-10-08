@@ -151,15 +151,51 @@
                     </table>
                 </div> 
 
-                <div class="cart-bottom d-flex align-items-center justify-content-end">
-                    {{-- <div class="ip-discount-code">
-                        <input type="text" placeholder="Enter your cupon code" required>
-                        <button type="submit" class="tf-btn btn-gray">
-                            <span class="text-white">Apply coupon</span>
-                        </button>
-                    </div> --}}
-                    <span class="last-total-price main-title fw-semibold">Total:
-                        ₹{{ number_format($subtotal ?? 0, 2) }}</span>
+                <div class="cart-bottom">
+                    <!-- Coupon Application Section -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="ip-discount-code">
+                                <input type="text" id="coupon_code" placeholder="Enter your coupon code" class="form-control mb-2">
+                                <button type="button" id="apply_coupon" class="tf-btn btn-gray">
+                                    <span class="text-white">Apply Coupon</span>
+                                </button>
+                            </div>
+
+                            <!-- Applied Coupon Display -->
+                            <div id="applied_coupon_display" class="mt-3" style="display: none;">
+                                <div class="alert alert-success d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong id="coupon_title"></strong><br>
+                                        <small>Code: <code id="coupon_code_display"></code></small><br>
+                                        <small>Discount: <span id="coupon_discount"></span></small>
+                                    </div>
+                                    <button type="button" id="remove_coupon" class="btn btn-sm btn-outline-danger">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 text-end">
+                            <!-- Cart Totals -->
+                            <div class="cart-totals">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal:</span>
+                                    <span id="cart_subtotal">₹{{ number_format($subtotal ?? 0, 2) }}</span>
+                                </div>
+                                <div id="discount_row" class="d-flex justify-content-between mb-2 text-success" style="display: none;">
+                                    <span>Discount:</span>
+                                    <span id="cart_discount">-₹0.00</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span class="last-total-price main-title fw-semibold">Total:</span>
+                                    <span id="cart_total" class="last-total-price main-title fw-semibold">₹{{ number_format($subtotal ?? 0, 2) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
             <div class="box-btn">
@@ -172,6 +208,169 @@
     </div>
     <!-- /Shopping Cart -->
 
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Check for applied coupon on page load
+    checkAppliedCoupon();
+
+    // Apply coupon functionality
+    $('#apply_coupon').on('click', function() {
+        const couponCode = $('#coupon_code').val().trim();
+
+        if (!couponCode) {
+            showNotification('Please enter a coupon code', 'error');
+            return;
+        }
+
+        const $button = $(this);
+        const originalText = $button.find('span').text();
+
+        // Show loading state
+        $button.find('span').text('Applying...');
+        $button.prop('disabled', true);
+
+        $.ajax({
+            url: '{{ route("cart.apply-coupon") }}',
+            method: 'POST',
+            data: {
+                coupon_code: couponCode,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    showNotification(response.message, 'success');
+                    displayAppliedCoupon(response.coupon);
+                    updateCartTotals(response.cart_total);
+                    $('#coupon_code').val('');
+                } else {
+                    showNotification(response.message, 'error');
+                }
+            },
+            error: function(xhr) {
+                const response = xhr.responseJSON;
+                showNotification(response?.message || 'Error applying coupon', 'error');
+            },
+            complete: function() {
+                $button.find('span').text(originalText);
+                $button.prop('disabled', false);
+            }
+        });
+    });
+
+    // Remove coupon functionality
+    $(document).on('click', '#remove_coupon', function() {
+        $.ajax({
+            url: '{{ route("cart.remove-coupon") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    showNotification(response.message, 'success');
+                    hideAppliedCoupon();
+                    updateCartTotalsAfterRemoval(response.cart_total);
+                }
+            },
+            error: function() {
+                showNotification('Error removing coupon', 'error');
+            }
+        });
+    });
+
+    // Allow Enter key to apply coupon
+    $('#coupon_code').on('keypress', function(e) {
+        if (e.which === 13) {
+            $('#apply_coupon').click();
+        }
+    });
+
+    // Check for applied coupon
+    function checkAppliedCoupon() {
+        $.ajax({
+            url: '{{ route("cart.applied-coupon") }}',
+            method: 'GET',
+            success: function(response) {
+                if (response.success && response.applied_coupon) {
+                    displayAppliedCoupon(response.applied_coupon);
+                    // Update totals to show discount
+                    const subtotal = parseFloat($('#cart_subtotal').text().replace(/[₹,]/g, ''));
+                    const discount = response.applied_coupon.discount_amount;
+                    updateCartTotals({
+                        subtotal: subtotal,
+                        discount: discount,
+                        total: subtotal - discount
+                    });
+                }
+            }
+        });
+    }
+
+    // Display applied coupon
+    function displayAppliedCoupon(coupon) {
+        $('#coupon_title').text(coupon.title || 'Coupon Applied');
+        $('#coupon_code_display').text(coupon.code);
+        $('#coupon_discount').text(coupon.formatted_discount || '₹' + parseFloat(coupon.discount_amount).toFixed(2));
+        $('#applied_coupon_display').show();
+    }
+
+    // Hide applied coupon
+    function hideAppliedCoupon() {
+        $('#applied_coupon_display').hide();
+    }
+
+    // Update cart totals with discount
+    function updateCartTotals(totals) {
+        if (totals.formatted) {
+            $('#cart_subtotal').text(totals.formatted.subtotal);
+            $('#cart_discount').text('-' + totals.formatted.discount);
+            $('#cart_total').text(totals.formatted.total);
+        } else {
+            $('#cart_subtotal').text('₹' + parseFloat(totals.subtotal).toFixed(2));
+            $('#cart_discount').text('-₹' + parseFloat(totals.discount).toFixed(2));
+            $('#cart_total').text('₹' + parseFloat(totals.total).toFixed(2));
+        }
+
+        if (totals.discount > 0) {
+            $('#discount_row').show();
+        } else {
+            $('#discount_row').hide();
+        }
+    }
+
+    // Update cart totals after coupon removal
+    function updateCartTotalsAfterRemoval(cartTotal) {
+        $('#cart_subtotal').text('₹' + parseFloat(cartTotal).toFixed(2));
+        $('#cart_total').text('₹' + parseFloat(cartTotal).toFixed(2));
+        $('#discount_row').hide();
+    }
+
+    // Show notification function
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = $(`
+            <div class="alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show position-fixed"
+                 style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `);
+
+        // Add to body
+        $('body').append(notification);
+
+        // Auto remove after 5 seconds
+        setTimeout(function() {
+            notification.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 5000);
+    }
+});
+</script>
 @endsection
 
 @section('script')

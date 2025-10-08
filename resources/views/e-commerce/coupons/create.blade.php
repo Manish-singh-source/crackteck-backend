@@ -26,10 +26,12 @@
         </div>
 
 
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-lg-8">
+        <form action="{{ route('coupon.store') }}" method="POST" id="couponForm">
+            @csrf
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
                                 <div class="row g-4 align-items-center">
@@ -91,7 +93,7 @@
                                         @include('components.form.select', [
                                         'label' => 'Discount Type',
                                         'name' => 'discount_type',
-                                        'options' => ["0" => "--Select--", "1" => "Percentage", "2" => "Fixed Amount"]
+                                        'options' => ["" => "--Select--", "percentage" => "Percentage", "fixed_amount" => "Fixed Amount"]
                                         ])
                                     </div>
                                     <div class="col-xl-6 col-lg-6 mb-2">
@@ -101,26 +103,6 @@
                                             'name' => 'discount_value',
                                             'type' => 'number',
                                             'placeholder' => 'Enter Discount Value',
-                                            ])
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 mb-2">
-                                        <div>
-                                            @include('components.form.input', [
-                                            'label' => 'Maximum Discount Amount',
-                                            'name' => 'max_discount_value',
-                                            'type' => 'number',
-                                            'placeholder' => 'Enter Maximum Discount Amount',
-                                            ])
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 mb-2">
-                                        <div>
-                                            @include('components.form.input', [
-                                            'label' => 'Purchase Price (Cost Price)',
-                                            'name' => 'cost_price',
-                                            'type' => 'number',
-                                            'placeholder' => 'Product Purchase Price (Cost Price)',
                                             ])
                                         </div>
                                     </div>
@@ -148,26 +130,39 @@
                                         ])
                                     </div>
 
-
-
                                     <div class="col-xl-6 col-lg-6 mb-2">
-                                        @include('components.form.select', [
-                                        'label' => 'Applicable Categories',
-                                        'name' => 'apply_categories',
-                                        'options' => ["0" => "--Select--", "1" => "Category 1", "2" => "Category 2"]
-                                        ])
+                                        <label for="categories" class="form-label">Applicable Categories (Optional)</label>
+                                        <select name="categories[]" id="categories" class="form-select" multiple>
+                                            @foreach($categories as $id => $name)
+                                                <option value="{{ $id }}" {{ in_array($id, old('categories', [])) ? 'selected' : '' }}>
+                                                    {{ $name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-muted">Hold Ctrl/Cmd to select multiple categories. Leave empty to apply to all categories.</small>
+                                        @error('categories')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="col-xl-6 col-lg-6 mb-2">
+                                    <div class="col-xl-12 col-lg-12 mb-2">
                                         <label for="product_search" class="form-label">
-                                            Product Search <span class="text-danger">*</span>
+                                            Product Search (Optional)
                                         </label>
-                                        <div class="input-group">
-                                            <input type="text" name="product_search" id="product_search" class="form-control" placeholder="Search product name or SKU" required>
-                                            <button type="button" class="btn btn-outline-primary">
-                                                Browse Product
+                                        <div class="input-group mb-2">
+                                            <input type="text" id="product_search" class="form-control" placeholder="Search product name or SKU">
+                                            <button type="button" id="search_products" class="btn btn-outline-primary">
+                                                Search Products
                                             </button>
                                         </div>
+
+                                        <!-- Selected Products Display -->
+                                        <div id="selected_products" class="border rounded p-2 bg-light" style="min-height: 60px;">
+                                            <small class="text-muted">Selected products will appear here. Leave empty to apply to all products.</small>
+                                        </div>
+
+                                        <!-- Hidden inputs for selected products -->
+                                        <div id="product_inputs"></div>
                                     </div>
 
                                 </div>
@@ -220,19 +215,21 @@
                             <div class="card-body">
                                 <div class=" mb-3">
                                     @include('components.form.input', [
-                                    'label' => 'Total Usage Limit',
-                                    'name' => 'total_usage',
-                                    'type' => 'text',
-                                    'placeholder' => 'e.g., first 100 users only',
+                                    'label' => 'Total Usage Limit (Optional)',
+                                    'name' => 'total_usage_limit',
+                                    'type' => 'number',
+                                    'placeholder' => 'e.g., 100',
                                     ])
+                                    <small class="text-muted">Leave empty for unlimited usage</small>
                                 </div>
                                 <div class="mb-3">
                                     @include('components.form.input', [
-                                    'label' => 'Usage Limit Per Customer',
-                                    'name' => 'per_customer_usage',
-                                    'type' => 'text',
-                                    'placeholder' => 'e.g., 1 time per customer',
+                                    'label' => 'Usage Limit Per Customer (Optional)',
+                                    'name' => 'usage_limit_per_customer',
+                                    'type' => 'number',
+                                    'placeholder' => 'e.g., 1',
                                     ])
+                                    <small class="text-muted">Leave empty for unlimited per customer</small>
                                 </div>
                             </div>
                         </div>
@@ -246,9 +243,9 @@
 
                             <div class="card-body">
                                 @include('components.form.select', [
-                                'label' => 'Stock Status',
-                                'name' => 'stock_status',
-                                'options' => ["0" => "--Select--", "1" => "Active", "2" => "Inactive"]
+                                'label' => 'Coupon Status',
+                                'name' => 'status',
+                                'options' => ["active" => "Active", "inactive" => "Inactive"]
                                 ])
                             </div>
                         </div>
