@@ -261,17 +261,30 @@ class CouponsController extends Controller
             ->limit(20)
             ->get();
 
-        $results = $products->map(function($product) {
-            return [
-                'id' => $product->id,
-                'text' => $product->warehouseProduct->product_name . ' (' . $product->sku . ')',
-                'sku' => $product->sku,
-                'brand' => $product->warehouseProduct->brand->brand_title ?? 'N/A',
-                'category' => $product->warehouseProduct->parentCategorie->parent_categories ?? 'N/A',
-                'price' => $product->warehouseProduct->selling_price ?? 0
-            ];
-        });
+            $results= response()->json([
+                'success' => true,
+                'products' => $products
+            ]);
+            // $results = $products->map(function($product) {
+            //     return [
+            //         'id' => $product->id,
+            //         'text' => $product->warehouseProduct->product_name . ' (' . $product->sku . ')',
+            //         'sku' => $product->sku,
+            //         'brand' => $product->warehouseProduct->brand->brand_title ?? 'N/A',
+            //         'category' => $product->warehouseProduct->parentCategorie->parent_categories ?? 'N/A',
+            //         'price' => $product->warehouseProduct->selling_price ?? 0
+            //     ];
+            // });
+            
+        if (!isset($results)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No products found matching your search'
+            ]);
+        }
 
-        return response()->json($results);
+        return $results;
+        
+        // response()->json($results);
     }
 }
