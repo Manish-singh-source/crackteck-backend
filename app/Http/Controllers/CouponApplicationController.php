@@ -37,7 +37,11 @@ class CouponApplicationController extends Controller
             ->where('user_id', $userId)
             ->get();
 
-        if ($cartItems->isEmpty()) {
+        // Check navigation source to determine if cart validation should be skipped
+        $navigationSource = Session::get('checkout_navigation_source');
+        $skipCartValidation = in_array($navigationSource, ['cart', 'buy_now']);
+
+        if ($cartItems->isEmpty() && !$skipCartValidation) {
             return response()->json([
                 'success' => false,
                 'message' => 'Your cart is empty.'
@@ -55,7 +59,7 @@ class CouponApplicationController extends Controller
         }
 
         // Validate coupon
-        $validation = $this->validateCoupon($coupon, $userId, $cartItems);
+        $validation = $this->validateCoupon($coupon, $userId, $cartItems, $skipCartValidation);
         if (!$validation['valid']) {
             return response()->json([
                 'success' => false,
@@ -66,7 +70,7 @@ class CouponApplicationController extends Controller
         // Calculate discount
         $discountAmount = $coupon->calculateDiscount($cartItems);
 
-        if ($discountAmount <= 0) {
+        if ($discountAmount <= 0 && !$skipCartValidation) {
             return response()->json([
                 'success' => false,
                 'message' => 'This coupon is not applicable to items in your cart.'
@@ -145,7 +149,7 @@ class CouponApplicationController extends Controller
     /**
      * Validate if a coupon can be applied.
      */
-    private function validateCoupon(Coupon $coupon, int $userId, $cartItems): array
+    private function validateCoupon(Coupon $coupon, int $userId, $cartItems, bool $skipCartValidation = false): array
     {
         // Check if coupon is active
         if ($coupon->status !== 'active') {
@@ -181,17 +185,19 @@ class CouponApplicationController extends Controller
             ];
         }
 
-        // Check if coupon applies to any cart items
-        $hasApplicableItems = false;
-        foreach ($cartItems as $item) {
-            if ($coupon->appliesToProduct($item->ecommerceProduct)) {
-                $hasApplicableItems = true;
-                break;
+        // Check if coupon applies to any cart items (skip if cart validation is disabled)
+        if (!$skipCartValidation) {
+            $hasApplicableItems = false;
+            foreach ($cartItems as $item) {
+                if ($coupon->appliesToProduct($item->ecommerceProduct)) {
+                    $hasApplicableItems = true;
+                    break;
+                }
             }
-        }
 
-        if (!$hasApplicableItems) {
-            return ['valid' => false, 'message' => 'This coupon is not applicable to items in your cart.'];
+            if (!$hasApplicableItems) {
+                return ['valid' => false, 'message' => 'This coupon is not applicable to items in your cart.'];
+            }
         }
 
         return ['valid' => true, 'message' => 'Coupon is valid.'];

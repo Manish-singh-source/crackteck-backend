@@ -162,17 +162,104 @@ class CouponTest extends TestCase
     public function test_coupon_admin_routes()
     {
         $this->actingAs($this->user);
-        
+
         // Test coupon index page
         $response = $this->get('/e-commerce/coupons');
         $response->assertStatus(200);
-        
+
         // Test coupon create page
         $response = $this->get('/e-commerce/create-coupons');
         $response->assertStatus(200);
-        
+
         // Test coupon edit page
         $response = $this->get('/e-commerce/edit-coupons/' . $this->coupon->id);
         $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_coupon_application_skips_cart_validation_from_cart_source()
+    {
+        $this->actingAs($this->user);
+
+        // Set navigation source to 'cart' in session
+        session(['checkout_navigation_source' => 'cart']);
+
+        // Apply coupon without any cart items
+        $response = $this->postJson('/cart/apply-coupon', [
+            'coupon_code' => 'TEST10'
+        ]);
+
+        // Should succeed even with empty cart when coming from cart page
+        $response->assertJson([
+            'success' => true
+        ]);
+    }
+
+    /** @test */
+    public function test_coupon_application_skips_cart_validation_from_buy_now_source()
+    {
+        $this->actingAs($this->user);
+
+        // Set navigation source to 'buy_now' in session
+        session(['checkout_navigation_source' => 'buy_now']);
+
+        // Apply coupon without any cart items
+        $response = $this->postJson('/cart/apply-coupon', [
+            'coupon_code' => 'TEST10'
+        ]);
+
+        // Should succeed even with empty cart when coming from product detail page
+        $response->assertJson([
+            'success' => true
+        ]);
+    }
+
+    /** @test */
+    public function test_coupon_application_validates_cart_for_other_sources()
+    {
+        $this->actingAs($this->user);
+
+        // Set navigation source to 'direct' or no source
+        session(['checkout_navigation_source' => 'direct']);
+
+        // Apply coupon without any cart items
+        $response = $this->postJson('/cart/apply-coupon', [
+            'coupon_code' => 'TEST10'
+        ]);
+
+        // Should fail with empty cart for direct navigation
+        $response->assertJson([
+            'success' => false,
+            'message' => 'Your cart is empty.'
+        ]);
+    }
+
+    /** @test */
+    public function test_checkout_navigation_source_tracking()
+    {
+        $this->actingAs($this->user);
+
+        // Create a test product and cart item for checkout
+        $product = EcommerceProduct::factory()->create();
+        Cart::create([
+            'user_id' => $this->user->id,
+            'ecommerce_product_id' => $product->id,
+            'quantity' => 1
+        ]);
+
+        // Test navigation from cart
+        $response = $this->get('/checkout?source=cart');
+        $response->assertStatus(200);
+        $this->assertEquals('cart', session('checkout_navigation_source'));
+
+        // Test navigation from buy now
+        $response = $this->get('/checkout?source=buy_now&product_id=' . $product->id . '&quantity=1');
+        $response->assertStatus(200);
+        $this->assertEquals('buy_now', session('checkout_navigation_source'));
+
+        // Test direct navigation
+        $response = $this->get('/checkout');
+        $response->assertStatus(200);
+        $this->assertEquals('direct', session('checkout_navigation_source'));
     }
 }
