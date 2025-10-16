@@ -29,23 +29,27 @@ class CheckoutController extends Controller
         }
 
         $user = Auth::user();
-        
+
         // Determine checkout source and get items
         $checkoutData = $this->getCheckoutData($request);
-        
+
         if (!$checkoutData['items'] || $checkoutData['items']->isEmpty()) {
             return redirect()->route('shop-cart')->with('error', 'No items found for checkout.');
         }
 
+        // Store navigation source in session for coupon validation
+        $source = $request->get('source', 'direct');
+        Session::put('checkout_navigation_source', $source);
+
         // Get user's saved addresses
         $userAddresses = UserAddress::getUserAddresses($user->id);
-        
+
         // Calculate totals
         $totals = $this->calculateTotals($checkoutData['items']);
 
         return view('frontend.checkout', compact(
             'checkoutData',
-            'userAddresses', 
+            'userAddresses',
             'totals',
             'user'
         ));
@@ -282,6 +286,9 @@ class CheckoutController extends Controller
             if ($checkoutData['source'] === 'cart') {
                 Cart::where('user_id', Auth::id())->delete();
             }
+
+            // Clear checkout navigation source from session
+            Session::forget('checkout_navigation_source');
 
             DB::commit();
 

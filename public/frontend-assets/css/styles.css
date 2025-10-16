@@ -7859,7 +7859,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 }
 
 .s-shoping-cart .cart-bottom {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
   padding: 18px 24px;

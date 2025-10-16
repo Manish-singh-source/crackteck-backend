@@ -7,6 +7,7 @@ use App\Models\EcommerceProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log; 
 
 class CartController extends Controller
 {
@@ -33,7 +34,7 @@ class CartController extends Controller
         // Debug: Check if relationships are loaded properly
         foreach ($cartItems as $item) {
             if (!$item->ecommerceProduct || !$item->ecommerceProduct->warehouseProduct) {
-                \Log::warning('Cart item missing product relationship', [
+                Log::warning('Cart item missing product relationship', [
                     'cart_id' => $item->id,
                     'ecommerce_product_id' => $item->ecommerce_product_id,
                     'has_ecommerce_product' => !is_null($item->ecommerceProduct),
