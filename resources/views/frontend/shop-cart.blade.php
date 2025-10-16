@@ -153,29 +153,7 @@
 
                 <div class="cart-bottom">
                     <!-- Coupon Application Section -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <div class="ip-discount-code">
-                                <input type="text" id="coupon_code" placeholder="Enter your coupon code" class="form-control mb-2">
-                                <button type="button" id="apply_coupon" class="tf-btn btn-gray">
-                                    <span class="text-white">Apply Coupon</span>
-                                </button>
-                            </div>
-
-                            <!-- Applied Coupon Display -->
-                            <div id="applied_coupon_display" class="mt-3" style="display: none;">
-                                <div class="alert alert-success d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong id="coupon_title"></strong><br>
-                                        <small>Code: <code id="coupon_code_display"></code></small><br>
-                                        <small>Discount: <span id="coupon_discount"></span></small>
-                                    </div>
-                                    <button type="button" id="remove_coupon" class="btn btn-sm btn-outline-danger">
-                                        Remove
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row mb-3 justify-content-end">
 
                         <div class="col-md-6 text-end">
                             <!-- Cart Totals -->
