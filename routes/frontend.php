@@ -212,3 +212,6 @@ Route::fallback( function () {
 Route::controller(SubscriberController::class)->group(function (){
     Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.subscribe');
 });
+
+// Product Deal 
+Route::get('/product-deals', [FrontendEcommerceController::class, 'productDeals'])->name('ecommerce-product-detail');
