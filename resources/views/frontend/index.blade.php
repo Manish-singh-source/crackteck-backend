@@ -8,13 +8,13 @@
                     data-mobile="3" data-pagination="2" data-pagination-sm="4" data-pagination-md="7"
                     data-pagination-lg="10">
                     <div class="category-track swiper-wrapper">
-                        @if(isset($categories) && $categories->count() > 0)
-                            @foreach($categories as $category)
+                        @if (isset($categories) && $categories->count() > 0)
+                            @foreach ($categories as $category)
                                 <div class="category-item swiper-slide">
                                     <a href="{{ $category->url }}" class="hover-img" style="text-decoration: none;">
                                         <img src="{{ $category->category_image ? asset($category->category_image) : asset('frontend-assets/images/new-products/default-category.png') }}"
-                                             alt="{{ $category->parent_categories }}"
-                                             style="width: 100%; height: auto; object-fit: cover;">
+                                            alt="{{ $category->parent_categories }}"
+                                            style="width: 100%; height: auto; object-fit: cover;">
                                         <span style="color: #ffffff;">{{ $category->parent_categories }}</span>
                                     </a>
                                 </div>
@@ -39,24 +39,25 @@
 
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @if($banners->count() > 0)
-                @foreach($banners as $index => $banner)
+            @if ($banners->count() > 0)
+                @foreach ($banners as $index => $banner)
                     <!-- Slide {{ $index + 1 }} -->
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}"
                         style="background-image: url('{{ $banner->banner_image_url }}');">
                         <div class="container">
                             <div class="carousel-caption">
-                                @if($banner->banner_sub_heading)
+                                @if ($banner->banner_sub_heading)
                                     <h5>{{ $banner->banner_sub_heading }}</h5>
                                 @endif
-                                @if($banner->banner_heading)
+                                @if ($banner->banner_heading)
                                     <h1>{!! nl2br(e($banner->banner_heading)) !!}</h1>
                                 @endif
-                                @if($banner->banner_description)
+                                @if ($banner->banner_description)
                                     <p>{{ $banner->banner_description }}</p>
                                 @endif
-                                @if($banner->button_text && $banner->banner_url)
-                                    <a href="{{ $banner->banner_url }}" class="btn btn-outline-light">{{ $banner->button_text }}</a>
+                                @if ($banner->button_text && $banner->banner_url)
+                                    <a href="{{ $banner->banner_url }}"
+                                        class="btn btn-outline-light">{{ $banner->button_text }}</a>
                                 @endif
                             </div>
                         </div>
@@ -79,7 +80,7 @@
         </div>
 
         <!-- Navigation buttons - only show if there are multiple banners -->
-        @if($banners->count() > 1)
+        @if ($banners->count() > 1)
             <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon p-3" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -91,10 +92,10 @@
 
             <!-- Carousel indicators -->
             <div class="carousel-indicators">
-                @foreach($banners as $index => $banner)
+                @foreach ($banners as $index => $banner)
                     <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="{{ $index }}"
-                            class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                            aria-label="Slide {{ $index + 1 }}"></button>
+                        class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                        aria-label="Slide {{ $index + 1 }}"></button>
                 @endforeach
             </div>
         @endif
@@ -170,27 +171,175 @@
     <!-- /Iconbox -->
 
     <!-- Deal Today -->
-    <section class="tf-sp-2 pt-3">
-        <div class="container">
-            <div class="flat-title pb-8 wow fadeInUp" data-wow-delay="0">
-                <h5 class="fw-semibold flat-title-has-icon">
-                    Deal Of The Day
-                </h5>
-                <!-- <div class="box-btn-slide relative">
+    @foreach ($activeDeals as $deal)
+        @if ($activeDeals->count() > 0)
+            <section class="tf-sp-2 pt-3">
+                <div class="container">
+                    <div class="flat-title pb-8 wow fadeInUp" data-wow-delay="0s">
+                        <h5 class="fw-semibold text-primary flat-title-has-icon">
+                            {{ $deal->deal_title }}
+                        </h5>
+                        <div class="box-btn-slide relative">
                             <div class="swiper-button-prev nav-swiper nav-prev-products">
                                 <i class="icon-arrow-left-lg"></i>
                             </div>
                             <div class="swiper-button-next nav-swiper nav-next-products">
                                 <i class="icon-arrow-right-lg"></i>
                             </div>
-                        </div> -->
+                        </div>
+                    </div>
+                    <div class="box-btn-slide-2 sw-nav-effect">
+
+                        <div class="swiper tf-sw-products" data-preview="5" data-tablet="4" data-mobile-sm="3"
+                            data-mobile="2" data-space-lg="30" data-space-md="20" data-space="15" data-pagination="2"
+                            data-pagination-sm="3" data-pagination-md="4" data-pagination-lg="5">
+                            <div class="swiper-wrapper">
+
+                                @foreach ($deal->dealItems as $index => $dealItem)
+                                    <div class="swiper-slide">
+                                        <div class="card-product style-img-border wow fadeInLeft"
+                                            data-wow-delay="{{ $index * 0.1 }}s">
+                                            <div class="card-product-wrapper">
+                                                <a href="{{ route('product.detail', $dealItem->ecommerceProduct->id) }}"
+                                                    class="product-img">
+                                                    @if ($dealItem->ecommerceProduct->warehouseProduct->main_product_image)
+                                                        <img class="img-product lazyload"
+                                                            src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->main_product_image) }}"
+                                                            data-src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->main_product_image) }}"
+                                                            alt="{{ $dealItem->ecommerceProduct->warehouseProduct->product_name }}">
+                                                        <img class="img-hover ls-is-cached lazyloaded"
+                                                            src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->additional_product_images[0]) }}"
+                                                            data-src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->additional_product_images[0]) }}"
+                                                            alt="image-product">
+                                                    @else
+                                                        <img class="img-product lazyload"
+                                                            src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->additional_product_images) }}"
+                                                            data-src="{{ asset($dealItem->ecommerceProduct->warehouseProduct->additional_product_images) }}"
+                                                            alt="{{ $dealItem->ecommerceProduct->warehouseProduct->additional_product_images }}">
+                                                    @endif
+                                                </a>
+                                                <div class="box-sale-wrap pst-default z-5">
+                                                    <p class="small-text">Deal</p>
+                                                    <p class="title-sidebar-2">
+                                                        @if ($dealItem->discount_type === 'percentage')
+                                                            {{ number_format($dealItem->discount_value, 0) }}%
+                                                        @else
+                                                            ₹{{ number_format($dealItem->discount_value, 0) }}
+                                                        @endif
+                                                    </p>
+                                                </div>
+                                                <ul class="list-product-btn">
+                                                    <li>
+                                                        <a href="#;"
+                                                            class="box-icon add-to-cart-btn btn-icon-action hover-tooltip tooltip-left"
+                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}"
+                                                            data-product-name="{{ $dealItem->ecommerceProduct->warehouseProduct->product_name ?? 'Product' }}">
+                                                            <span class="icon icon-cart2"></span>
+                                                            <span class="tooltip">Add to Cart</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="wishlist">
+                                                        <a href="#;"
+                                                            class="box-icon btn-icon-action hover-tooltip tooltip-left add-to-wishlist-btn"
+                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}"
+                                                            data-product-name="{{ $dealItem->ecommerceProduct->warehouseProduct->product_name ?? 'Product' }}">
+                                                            <span class="icon icon-heart2"></span>
+                                                            <span class="tooltip">Add to Wishlist</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#quickView" data-bs-toggle="modal"
+                                                            class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
+                                                            <span class="icon icon-view"></span>
+                                                            <span class="tooltip">Quick View</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="d-none d-sm-block">
+                                                        <a href="#compare" data-bs-toggle="offcanvas"
+                                                            class="box-icon btn-icon-action hover-tooltip tooltip-left">
+                                                            <span class="icon icon-compare1"></span>
+                                                            <span class="tooltip">Compare</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="card-product-info">
+                                                <div class="box-title">
+                                                    <div class="d-flex flex-column">
+                                                        <p class="caption text-main-2 font-2">
+                                                            {{ $dealItem->ecommerceProduct->warehouseProduct->brand->brand_title ?? 'Brand' }}
+                                                        </p>
+                                                        <a href="{{ route('ecommerce-product-detail', $dealItem->ecommerceProduct->id) }}"
+                                                            class="name-product body-md-2 fw-semibold text-secondary link text-truncate"
+                                                            style="max-width: 230px;">
+                                                            {{ $dealItem->ecommerceProduct->warehouseProduct->product_name }}
+                                                        </a>
+                                                    </div>
+                                                    <p class="price-wrap fw-medium">
+                                                        <span
+                                                            class="new-price price-text fw-medium text-primary mb-0">₹{{ number_format($dealItem->offer_price, 0) }}</span>
+                                                        <span
+                                                            class="old-price price-text text-decoration-line-through text-muted ms-2">₹{{ number_format($dealItem->original_price, 0) }}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="box-infor-detail">
+                                                    <div class="countdown-timer"
+                                                        data-end-time="{{ $deal->offer_end_date->toISOString() }}">
+                                                        <div class="d-flex justify-content-between text-center">
+                                                            <div class="time-unit d-flex flex-column">
+                                                                <span
+                                                                    class="time-value days fw-bold bg-primary p-2 text-white rounded-circle">00</span>
+                                                                <span class="time-label caption">Days</span>
+                                                            </div>
+                                                            <div class="time-unit d-flex flex-column">
+                                                                <span
+                                                                    class="time-value hours fw-bold bg-primary p-2 text-white rounded-circle">00</span>
+                                                                <span class="time-label caption">Hours</span>
+                                                            </div>
+                                                            <div class="time-unit d-flex flex-column">
+                                                                <span
+                                                                    class="time-value minutes fw-bold bg-primary p-2 text-white rounded-circle">00</span>
+                                                                <span class="time-label caption">Min</span>
+                                                            </div>
+                                                            <div class="time-unit d-flex flex-column">
+                                                                <span
+                                                                    class="time-value seconds fw-bold bg-primary p-2 text-white rounded-circle">00</span>
+                                                                <span class="time-label caption">Sec</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <div class="sw-dot-default sw-pagination-products justify-content-center">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        @endif
+    @endforeach
+    <!-- /Deal Today -->
+
+    <!-- Deal Today -->
+    {{-- <section class="tf-sp-2 pt-3">
+        <div class="container">
+            <div class="flat-title pb-8 wow fadeInUp" data-wow-delay="0">
+                <h5 class="fw-semibold flat-title-has-icon">
+                     
+                </h5>
             </div>
             <div class="box-btn-slide-2 sw-nav-effect timer">
                 <div class="swiper tf-sw-products slider-thumb-deal" data-preview="4" data-tablet="3" data-mobile-sm="2"
                     data-mobile="1" data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1"
                     data-pagination-sm="2" data-pagination-md="3" data-pagination-lg="4">
                     <div class="swiper-wrapper">
-                        <!-- card 1 -->
+
                         <div class="swiper-slide">
                             <div class="card-product style-border wow fadeInLeft" data-wow-delay="0">
                                 <div class="card-product-wrapper overflow-visible ">
@@ -258,7 +407,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- card 2 -->
+
                         <div class="swiper-slide">
                             <div class="card-product style-border  wow fadeInLeft" data-wow-delay="0.1s">
                                 <div class="card-product-wrapper overflow-visible">
@@ -326,7 +475,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- card 3 -->
+
                         <div class="swiper-slide">
                             <div class="card-product style-border wow fadeInLeft" data-wow-delay="0.2s">
                                 <div class="card-product-wrapper overflow-visible">
@@ -394,7 +543,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- card 4 -->
+
                         <div class="swiper-slide">
                             <div class="card-product style-border wow fadeInLeft" data-wow-delay="0.3s">
                                 <div class="card-product-wrapper overflow-visible">
@@ -462,7 +611,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- card 5 -->
+
                         <div class="swiper-slide">
                             <div class="card-product style-border">
                                 <div class="card-product-wrapper overflow-visible">
@@ -541,7 +690,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- /Deal Today -->
 
     <!-- Banner Product -->
@@ -759,517 +908,7 @@
     </section>
     <!-- /Category -->
 
-    <!-- Deal Today -->
-    <!-- <section class="tf-sp-2 pt-3">
-                <div class="container">
-                    <div class="flat-title pb-8 wow fadeInUp" data-wow-delay="0s">
-                        <h5 class="fw-semibold text-primary flat-title-has-icon">
-                            <span class="icon"><i class=" icon-fire tf-ani-tada"></i></span>Deal Of The Day
-                        </h5>
-                        <div class="box-btn-slide relative">
-                            <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                <i class="icon-arrow-left-lg"></i>
-                            </div>
-                            <div class="swiper-button-next nav-swiper nav-next-products">
-                                <i class="icon-arrow-right-lg"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-btn-slide-2 sw-nav-effect">
-                        <div class="swiper tf-sw-products" data-preview="5" data-tablet="4" data-mobile-sm="3"
-                            data-mobile="2" data-space-lg="30" data-space-md="20" data-space="15" data-pagination="2"
-                            data-pagination-sm="3" data-pagination-md="4" data-pagination-lg="5">
-                            <div class="swiper-wrapper">
 
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border wow fadeInLeft" data-wow-delay="0s">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-81.jpg"
-                                                    data-src="images/product/product-81.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-21.jpg"
-                                                    data-src="images/product/product-21.jpg" alt="image-product">
-                                            </a>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">28%</p>
-                                            </div>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Game Consoles</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        Sony PlayStation 5 (PS5) – Next-Gen Gaming Console with
-                                                        Ultra-Fast SSD & 4K Graphics
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹71.500</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">21</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">58</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border wow fadeInLeft" data-wow-delay="0.1s">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-detail-14.jpg"
-                                                    data-src="images/product/product-detail-14.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-detail-16.jpg"
-                                                    data-src="images/product/product-detail-16.jpg" alt="image-product">
-                                            </a>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">33%</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Smart TVs</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        TCL 32-inch 3-Series 720p Roku Smart TV - 32S335, 2021 Model
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹63.070</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 41%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">41</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">59</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border wow fadeInLeft" data-wow-delay="0.2s">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-81.jpg"
-                                                    data-src="images/product/product-38.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-11.jpg"
-                                                    data-src="images/product/product-11.jpg" alt="image-product">
-                                            </a>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">21%</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Headphone</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        Logitech M510 Wireless Computer Mouse for PC with USB Unifying...
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹61.860</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 22%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">22</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">78</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border wow fadeInLeft" data-wow-delay="0.3s">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-39.jpg"
-                                                    data-src="images/product/product-39.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-56.jpg"
-                                                    data-src="images/product/product-56.jpg" alt="image-product">
-                                            </a>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">15%</p>
-                                            </div>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Product</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        SAMSUNG Galaxy Z Flip Factory Unlocked Cell Phone
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹74.999</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 70%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">70</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">30</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border wow fadeInLeft" data-wow-delay="0.4s">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-40.jpg"
-                                                    data-src="images/product/product-40.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-detail-6.jpg"
-                                                    data-src="images/product/product-detail-6.jpg" alt="image-product">
-                                            </a>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">8%</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Product</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        Samsung Product Samsung Galaxy S21 5G Factory Unlocked
-                                                        Android...
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹69.700</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 62%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">62</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">45</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div class="card-product style-img-border">
-                                        <div class="card-product-wrapper">
-                                            <a href="{{ route('product-detail') }}" class="product-img">
-                                                <img class="img-product lazyload" src="images/product/product-81.jpg"
-                                                    data-src="images/product/product-81.jpg" alt="image-product">
-                                                <img class="img-hover lazyload" src="images/product/product-21.jpg"
-                                                    data-src="images/product/product-21.jpg" alt="image-product">
-                                            </a>
-                                            <div class="box-sale-wrap pst-default z-5">
-                                                <p class="small-text">Sale</p>
-                                                <p class="title-sidebar-2">20%</p>
-                                            </div>
-                                            <ul class="list-product-btn">
-                                                <li>
-                                                    <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                                        class="box-icon add-to-cart btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-cart2"></span>
-                                                        <span class="tooltip">Add to Cart</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block wishlist">
-                                                    <a href="#;"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-heart2"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#quickView" data-bs-toggle="modal"
-                                                        class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </li>
-                                                <li class="d-none d-sm-block">
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                        class="box-icon btn-icon-action hover-tooltip tooltip-left">
-                                                        <span class="icon icon-compare1"></span>
-                                                        <span class="tooltip">Compare</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="card-product-info">
-                                            <div class="box-title">
-                                                <div class="d-flex flex-column">
-                                                    <p class="caption text-main-2 font-2">Game Consoles</p>
-                                                    <a href="{{ route('product-detail') }}"
-                                                        class="name-product body-md-2 fw-semibold text-secondary link">
-                                                        Lammcou Headphone Holder for PS5 Mini Hanger...
-                                                    </a>
-                                                </div>
-                                                <p class="price-wrap fw-medium">
-                                                    <span
-                                                        class="new-price price-text fw-medium text-primary mb-0">₹62.800</span>
-                                                </p>
-                                            </div>
-                                            <div class="box-infor-detail">
-                                                <div class="product-progress-sale">
-                                                    <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                        <div class="progress-bar bg-primary" style="width: 80%"></div>
-                                                    </div>
-                                                    <div class="box-quantity d-flex justify-content-between">
-                                                        <p class="text-avaiable caption">
-                                                            Sold:
-                                                            <span class="fw-bold">70</span>
-                                                        </p>
-                                                        <p class="text-avaiable caption">
-                                                            Available:
-                                                            <span class="fw-bold">45</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sw-dot-default sw-pagination-products justify-content-center">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> -->
-    <!-- /Deal Today -->
 
     <!-- Tab Product -->
     <div class="tf-sp-2 flat-animate-tab">
@@ -2283,13 +1922,13 @@
             <div class="flat-title wow fadeInUp" data-wow-delay="0s">
                 <h5 class="fw-semibold">Trending Products</h5>
                 <!-- <div class="box-btn-slide relative">
-                            <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                <i class="icon-arrow-left-lg"></i>
-                            </div>
-                            <div class="swiper-button-next nav-swiper nav-next-products">
-                                <i class="icon-arrow-right-lg"></i>
-                            </div>
-                        </div> -->
+                                <div class="swiper-button-prev nav-swiper nav-prev-products">
+                                    <i class="icon-arrow-left-lg"></i>
+                                </div>
+                                <div class="swiper-button-next nav-swiper nav-next-products">
+                                    <i class="icon-arrow-right-lg"></i>
+                                </div>
+                            </div> -->
             </div>
             <div class="swiper tf-sw-products" data-preview="5" data-tablet="4" data-mobile-sm="3" data-mobile="1"
                 data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="3"
@@ -2713,13 +2352,13 @@
             <div class="flat-title wow fadeInUp" data-wow-delay="0s">
                 <h5 class="fw-semibold">Best Selling Products</h5>
                 <!-- <div class="box-btn-slide relative">
-                            <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                <i class="icon-arrow-left-lg"></i>
-                            </div>
-                            <div class="swiper-button-next nav-swiper nav-next-products">
-                                <i class="icon-arrow-right-lg"></i>
-                            </div>
-                        </div> -->
+                                <div class="swiper-button-prev nav-swiper nav-prev-products">
+                                    <i class="icon-arrow-left-lg"></i>
+                                </div>
+                                <div class="swiper-button-next nav-swiper nav-next-products">
+                                    <i class="icon-arrow-right-lg"></i>
+                                </div>
+                            </div> -->
             </div>
             <div class="swiper tf-sw-products" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="1"
                 data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="2"
@@ -3459,8 +3098,6 @@
 @endsection
 
 @section('script')
-
-
     <script>
         $(document).ready(function() {
             // Newsletter subscription form handling
@@ -3479,17 +3116,19 @@
 
                 // AJAX request to subscribe
                 $.ajax({
-                    url: '{{ route("newsletter.subscribe") }}',
+                    url: '{{ route('newsletter.subscribe') }}',
                     type: 'POST',
                     data: {
                         email: email,
-                        _token: $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+                        _token: $('meta[name="csrf-token"]').attr('content') || $(
+                            'input[name="_token"]').val()
                     },
                     success: function(response) {
-                        
+
                         if (response.success) {
                             // Show success message
-                            messageDiv.html('<div class="alert alert-success">' + response.message + '</div>').show();
+                            messageDiv.html('<div class="alert alert-success">' + response
+                                .message + '</div>').show();
 
                             // Clear form
                             form[0].reset();
@@ -3506,13 +3145,14 @@
                     },
                     error: function(xhr) {
                         let errorMessage = 'Something went wrong. Please try again.';
-                        
+
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             errorMessage = xhr.responseJSON.message;
                         }
 
                         // Show error message
-                        messageDiv.html('<div class="alert alert-danger">' + errorMessage + '</div>').show();
+                        messageDiv.html('<div class="alert alert-danger">' + errorMessage +
+                            '</div>').show();
                     },
                     complete: function() {
                         // Re-enable submit button
@@ -3545,7 +3185,277 @@
             $(".btn-hide-popup").on("click", function() {
                 sessionStorage.setItem("showPopup", true);
             });
+
+            // Countdown Timer for Deal of the Day
+            function initCountdownTimers() {
+                $('.countdown-timer').each(function() {
+                    const $timer = $(this);
+                    const endTime = new Date($timer.data('end-time')).getTime();
+
+                    function updateTimer() {
+                        const now = new Date().getTime();
+                        const timeLeft = endTime - now;
+
+                        if (timeLeft > 0) {
+                            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                            $timer.find('.days').text(String(days).padStart(2, '0'));
+                            $timer.find('.hours').text(String(hours).padStart(2, '0'));
+                            $timer.find('.minutes').text(String(minutes).padStart(2, '0'));
+                            $timer.find('.seconds').text(String(seconds).padStart(2, '0'));
+                        } else {
+                            // Deal expired
+                            $timer.find('.days, .hours, .minutes, .seconds').text('00');
+                            $timer.closest('.swiper-slide').fadeOut();
+                        }
+                    }
+
+                    // Update immediately and then every second
+                    updateTimer();
+                    setInterval(updateTimer, 1000);
+                });
+            }
+
+            // Initialize countdown timers
+            initCountdownTimers();
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+                // CSRF token setup for AJAX requests
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Add to Wishlist functionality
+                $('.add-to-wishlist-btn').on('click', function(e) {
+                        e.preventDefault();
+
+                        const $button = $(this);
+                        const productId = $button.data('product-id');
+                        const productName = $button.data('product-name');
+
+                        // Check if user is authenticated (you can customize this check)
+                        @guest
+                        // Show login message for unauthenticated users
+                        showNotification('Please login to add products to your wishlist.', 'warning');
+                        return;
+                    @endguest
+
+                    // Show loading state
+                    const originalIcon = $button.find('.icon').attr('class');
+                    const originalTooltip = $button.find('.tooltip').text();
+
+                    $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
+                        'Adding...'); $button.prop('disabled', true);
+
+                    // Make AJAX request
+                    $.ajax({
+                        url: '{{ route('wishlist.add') }}',
+                        method: 'POST',
+                        data: {
+                            ecommerce_product_id: productId
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                showNotification(response.message, 'success');
+
+                                // Update button state to show it's in wishlist
+                                $button.find('.icon').attr('class', 'icon icon-heart-fill');
+                                $button.find('.tooltip').text('In Wishlist');
+                                $button.addClass('in-wishlist');
+
+                                // Update wishlist count if there's a counter
+                                updateWishlistCount();
+                            } else {
+                                showNotification(response.message, 'error');
+                                // Reset button state
+                                $button.find('.icon').attr('class', originalIcon);
+                                $button.find('.tooltip').text(originalTooltip);
+                            }
+                        },
+                        error: function(xhr) {
+                            let message = 'An error occurred while adding the product to your wishlist.';
+
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            } else if (xhr.status === 401) {
+                                message = 'Please login to add products to your wishlist.';
+                            } else if (xhr.status === 409) {
+                                message = 'This product is already in your wishlist.';
+                            }
+
+                            showNotification(message, 'error');
+
+                            // Reset button state
+                            $button.find('.icon').attr('class', originalIcon);
+                            $button.find('.tooltip').text(originalTooltip);
+                        },
+                        complete: function() {
+                            $button.prop('disabled', false);
+                        }
+                    });
+                });
+
+            // Function to show notifications
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = $(`
+            <div class="notification notification-${type}" style="
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 9999;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                max-width: 300px;
+                word-wrap: break-word;
+            ">
+                ${message}
+            </div>
+        `);
+
+                // Add to body
+                $('body').append(notification);
+
+                // Auto remove after 5 seconds
+                setTimeout(function() {
+                    notification.fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }, 5000);
+
+                // Allow manual close on click
+                notification.on('click', function() {
+                    $(this).fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                });
+            }
+
+            // Wishlist count function is now global in master layout
+
+            // Add to Cart functionality
+            $('.add-to-cart-btn').on('click', function(e) {
+                    e.preventDefault();
+
+                    const $button = $(this);
+                    const productId = $button.data('product-id');
+                    const productName = $button.data('product-name');
+
+                    // Check if user is authenticated
+                    @guest
+                    // Show login modal for unauthenticated users
+                    showLoginModal();
+                    return;
+                @endguest
+
+                // Show loading state
+                const originalText = $button.find('span').text(); $button.find('span').text('Adding...'); $button.prop(
+                    'disabled', true);
+
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('cart.add') }}',
+                    method: 'POST',
+                    data: {
+                        ecommerce_product_id: productId,
+                        quantity: 1
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showNotification(response.message, 'success');
+
+                            // Update button state
+                            $button.find('span').text('Added to Cart');
+                            $button.addClass('in-cart');
+
+                            // Update cart count and sidebar
+                            updateCartCount();
+                            updateCartSidebar();
+                        } else {
+                            showNotification(response.message, 'error');
+                            // Reset button state
+                            $button.find('span').text(originalText);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
+                            showLoginModal();
+                        } else {
+                            showNotification('Error adding product to cart. Please try again.', 'error');
+                            // Reset button state
+                            $button.find('span').text(originalText);
+                        }
+                    },
+                    complete: function() {
+                        $button.prop('disabled', false);
+                    }
+                });
+            });
+
+        // Cart count function is now global in master layout
+
+        // Function to update cart sidebar
+        function updateCartSidebar() {
+            $.ajax({
+                url: '{{ route('cart.data') }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Update cart sidebar content
+                        updateCartSidebarContent(response);
+                    }
+                },
+                error: function() {
+                    console.log('Error updating cart sidebar');
+                }
+            });
+        }
+
+        // Function to show login modal
+        function showLoginModal() {
+            // Create and show login modal
+            const modalHtml = `
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>Please login to add products to your cart.</p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ route('ecommerce.login') }}" class="btn btn-primary">Login</a>
+                                <a href="{{ route('ecommerce.signup') }}" class="btn btn-outline-primary">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            // Remove existing modal if any
+            $('#loginModal').remove();
+
+            // Add modal to body and show
+            $('body').append(modalHtml);
+            $('#loginModal').modal('show');
+        }
+
+        // Initialize counts on page load
+        updateWishlistCount();
+        updateCartCount();
+        });
+    </script>
 @endsection

@@ -123,10 +123,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Sr. No.</th>
-                                                        <th>Product Name</th>
                                                         <th>Deal Title</th>
-                                                        <th>Offer Price</th>
-                                                        <th>Discount</th>
+                                                        <th>Products Count</th>
+                                                        <th>Price Range</th>
+                                                        <th>Avg. Discount</th>
                                                         <th>Offer Period</th>
                                                         <th>Time Left</th>
                                                         <th>Status</th>
@@ -138,53 +138,56 @@
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
                                                             <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="me-3">
-                                                                        @if($deal->ecommerceProduct->warehouseProduct->main_product_image)
-                                                                            <img src="{{ asset($deal->ecommerceProduct->warehouseProduct->main_product_image) }}"
-                                                                                 alt="{{ $deal->ecommerceProduct->warehouseProduct->product_name }}"
-                                                                                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
-                                                                        @else
-                                                                            <div style="width: 40px; height: 40px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                                                                                <i class="fa fa-image text-muted"></i>
-                                                                            </div>
-                                                                        @endif
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="fw-semibold">{{ $deal->ecommerceProduct->warehouseProduct->product_name }}</div>
-                                                                        <small class="text-muted">{{ $deal->ecommerceProduct->warehouseProduct->brand->brand_title ?? 'N/A' }}</small>
-                                                                    </div>
-                                                                </div>
+                                                                <div class="fw-semibold">{{ $deal->deal_title }}</div>
+                                                                <small class="text-muted">Created {{ $deal->created_at->diffForHumans() }}</small>
                                                             </td>
-                                                            <td>{{ $deal->deal_title }}</td>
+                                                            <td>
+                                                                <span class="badge bg-primary-subtle text-primary">
+                                                                    {{ $deal->total_products }} Product{{ $deal->total_products > 1 ? 's' : '' }}
+                                                                </span>
+                                                            </td>
                                                             <td>
                                                                 <div>
-                                                                    <span class="fw-semibold text-success">₹{{ number_format($deal->offer_price, 0) }}</span>
-                                                                    <br>
-                                                                    <small class="text-muted text-decoration-line-through">₹{{ number_format($deal->original_price, 0) }}</small>
+                                                                    <span class="fw-semibold text-success">₹{{ number_format($deal->min_offer_price, 0) }}</span>
+                                                                    @if($deal->min_offer_price != $deal->max_offer_price)
+                                                                        <span class="text-muted"> - </span>
+                                                                        <span class="fw-semibold text-success">₹{{ number_format($deal->max_offer_price, 0) }}</span>
+                                                                    @endif
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <span class="badge bg-primary-subtle text-primary">
-                                                                    {{ $deal->discount_display }}
+                                                                    {{ number_format($deal->average_discount, 1) }}% Avg
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <small>{{ $deal->offer_period }}</small>
+                                                                <small>
+                                                                    {{ $deal->offer_start_date->format('M d, Y H:i') }}<br>
+                                                                    <span class="text-muted">to</span><br>
+                                                                    {{ $deal->offer_end_date->format('M d, Y H:i') }}
+                                                                </small>
                                                             </td>
                                                             <td>
                                                                 @php
-                                                                    $timeLeft = $deal->time_left;
+                                                                    $timeLeft = $deal->time_left_seconds;
                                                                     $badgeClass = 'bg-info';
-                                                                    if (str_contains($timeLeft, 'Expired')) {
+                                                                    $timeText = '';
+
+                                                                    if ($timeLeft <= 0) {
                                                                         $badgeClass = 'bg-danger';
-                                                                    } elseif (str_contains($timeLeft, 'day')) {
-                                                                        $badgeClass = 'bg-success';
-                                                                    } elseif (str_contains($timeLeft, ':')) {
+                                                                        $timeText = 'Expired';
+                                                                    } elseif ($timeLeft < 3600) { // Less than 1 hour
                                                                         $badgeClass = 'bg-warning';
+                                                                        $timeText = floor($timeLeft / 60) . 'm left';
+                                                                    } elseif ($timeLeft < 86400) { // Less than 1 day
+                                                                        $badgeClass = 'bg-warning';
+                                                                        $timeText = floor($timeLeft / 3600) . 'h left';
+                                                                    } else {
+                                                                        $badgeClass = 'bg-success';
+                                                                        $timeText = floor($timeLeft / 86400) . 'd left';
                                                                     }
                                                                 @endphp
-                                                                <span class="badge {{ $badgeClass }} text-dark fw-semibold">{{ $timeLeft }}</span>
+                                                                <span class="badge {{ $badgeClass }} text-dark fw-semibold">{{ $timeText }}</span>
                                                             </td>
                                                             <td>
                                                                 @if($deal->status === 'active')
@@ -194,11 +197,6 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <a aria-label="View" href="{{ route('product-deals.view', $deal) }}"
-                                                                    class="btn btn-icon btn-sm bg-info-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye fs-14 text-info"></i>
-                                                                </a>
                                                                 <a aria-label="Edit" href="{{ route('product-deals.edit', $deal) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
