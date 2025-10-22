@@ -14,46 +14,27 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Add New Product Deal</h5>
-                    </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <form action="{{ route('product-deals.store') }}" method="POST" id="productDealForm">
-                            @csrf
+        <form action="{{ route('product-deals.store') }}" method="POST" id="productDealForm">
+            @csrf
+            <div class="row">
+                <!-- Deal Information Section -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Deal Information</h5>
+                        </div>
+                        <div class="card-body">
                             <div class="row g-3">
-                                <!-- Product Selection -->
-                                <div class="col-lg-6">
-                                    <label class="form-label">
-                                        Select Product <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control @error('ecommerce_product_id') is-invalid @enderror"
-                                               placeholder="Search by Product Name or SKU" id="productSearch" autocomplete="off">
-                                        <button type="button" class="btn btn-secondary" id="browseProducts">
-                                            <i class="fa fa-search"></i> Browse
-                                        </button>
-                                    </div>
-                                    <input type="hidden" name="ecommerce_product_id" id="selectedProductId" value="{{ old('ecommerce_product_id') }}">
-                                    <div id="productSearchResults" class="dropdown-menu w-100" style="display: none;"></div>
-                                    @error('ecommerce_product_id')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
                                 <!-- Deal Title -->
                                 <div class="col-lg-6">
                                     @include('components.form.input', [
@@ -61,63 +42,6 @@
                                         'name' => 'deal_title',
                                         'type' => 'text',
                                         'placeholder' => 'Enter Deal Title (e.g., Diwali Mega Offer)',
-                                    ])
-                                </div>
-
-                                <!-- Original Price (Read-only) -->
-                                <div class="col-lg-6">
-                                    <label class="form-label">Original Price</label>
-                                    <input type="text" class="form-control" id="originalPrice" placeholder="Select product first" readonly>
-                                </div>
-
-                                <!-- Discount Type -->
-                                <div class="col-lg-6">
-                                    <label class="form-label">Discount Type <span class="text-danger">*</span></label>
-                                    <select class="form-select @error('discount_type') is-invalid @enderror" name="discount_type" id="discountType">
-                                        <option value="">Select Discount Type</option>
-                                        <option value="percentage" {{ old('discount_type') == 'percentage' ? 'selected' : '' }}>By Percentage (%)</option>
-                                        <option value="price" {{ old('discount_type') == 'price' ? 'selected' : '' }}>By Price (₹)</option>
-                                    </select>
-                                    @error('discount_type')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <!-- Discount Value -->
-                                <div class="col-lg-6">
-                                    <label class="form-label">
-                                        Discount Value <span class="text-danger">*</span>
-                                        <span id="discountLabel">(Select discount type first)</span>
-                                    </label>
-                                    <input type="number" class="form-control @error('discount_value') is-invalid @enderror"
-                                           name="discount_value" id="discountValue" placeholder="Enter discount value"
-                                           step="0.01" min="0" value="{{ old('discount_value') }}">
-                                    @error('discount_value')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <!-- Offer Price (Auto-calculated) -->
-                                <div class="col-lg-6">
-                                    <label class="form-label">Offer Price (Auto-calculated)</label>
-                                    <input type="text" class="form-control" id="offerPrice" placeholder="Will be calculated automatically" readonly>
-                                </div>
-
-                                <!-- Start Date -->
-                                <div class="col-lg-6">
-                                    @include('components.form.input', [
-                                        'label' => 'Offer Start Date',
-                                        'name' => 'start_date',
-                                        'type' => 'date',
-                                    ])
-                                </div>
-
-                                <!-- End Date -->
-                                <div class="col-lg-6">
-                                    @include('components.form.input', [
-                                        'label' => 'Offer End Date',
-                                        'name' => 'end_date',
-                                        'type' => 'date',
                                     ])
                                 </div>
 
@@ -130,187 +54,336 @@
                                     ])
                                 </div>
 
-                                <!-- Submit Buttons -->
-                                <div class="col-12">
-                                    <div class="text-start">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-save"></i> Create Deal
-                                        </button>
-                                        <a href="{{ route('product-deals.index') }}" class="btn btn-secondary ms-2">
-                                            <i class="fa fa-times"></i> Cancel
-                                        </a>
-                                    </div>
+                                <!-- Offer Start Date -->
+                                <div class="col-lg-6">
+                                    @include('components.form.input', [
+                                        'label' => 'Offer Start Date & Time',
+                                        'name' => 'offer_start_date',
+                                        'type' => 'datetime-local',
+                                    ])
+                                </div>
+
+                                <!-- Offer End Date -->
+                                <div class="col-lg-6">
+                                    @include('components.form.input', [
+                                        'label' => 'Offer End Date & Time',
+                                        'name' => 'offer_end_date',
+                                        'type' => 'datetime-local',
+                                    ])
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Selection Section -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Product Selection</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-lg-8">
+                                    <label class="form-label">Search Products</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="productSearch"
+                                               placeholder="Search by Product Name or SKU" autocomplete="off">
+                                        <button type="button" class="btn btn-primary" id="searchProducts">
+                                            <i class="fa fa-search"></i> Search Products
+                                        </button>
+                                    </div>
+                                    <div id="productSearchResults" class="mt-2" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Products Table Section -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Selected Products</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="selectedProductsContainer">
+                                <div class="alert alert-info">
+                                    <i class="fa fa-info-circle"></i> No products selected yet. Use the search above to add products to this deal.
+                                </div>
+                            </div>
+
+                            <!-- Hidden inputs for selected products -->
+                            <div id="productInputs"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="col-12">
+                    <div class="text-start">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save"></i> Create Deal
+                        </button>
+                        <a href="{{ route('product-deals.index') }}" class="btn btn-secondary ms-2">
+                            <i class="fa fa-times"></i> Cancel
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
 @endsection
 
-@section('script')
+@section('scripts')
 <script>
 $(document).ready(function() {
-    let selectedProduct = null;
-    let searchTimeout = null;
+    let selectedProducts = [];
 
     // Product search functionality
-    $('#productSearch').on('input', function() {
-        const query = $(this).val();
-
-        if (searchTimeout) {
-            clearTimeout(searchTimeout);
+    $('#searchProducts').on('click', function() {
+        const searchTerm = $('#productSearch').val().trim();
+        if (searchTerm.length < 2) {
+            alert('Please enter at least 2 characters to search');
+            return;
         }
 
-        if (query.length >= 2) {
-            searchTimeout = setTimeout(() => {
-                searchProducts(query);
-            }, 300);
-        } else {
-            $('#productSearchResults').hide();
-        }
-    });
-
-    // Search products via AJAX
-    function searchProducts(query) {
         $.ajax({
             url: '{{ route("product-deals.search-products") }}',
             method: 'GET',
-            data: { search: query },
+            data: { search: searchTerm },
             success: function(products) {
-                displaySearchResults(products);
+                if (products.length > 0) {
+                    showProductSearchResults(products);
+                } else {
+                    $('#productSearchResults').html('<div class="alert alert-warning">No products found matching your search.</div>').show();
+                }
             },
             error: function() {
-                $('#productSearchResults').html('<div class="dropdown-item text-danger">Error searching products</div>').show();
+                $('#productSearchResults').html('<div class="alert alert-danger">Error searching products. Please try again.</div>').show();
             }
+        });
+    });
+
+    // Allow search on Enter key
+    $('#productSearch').on('keypress', function(e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            $('#searchProducts').click();
+        }
+    });
+
+    function showProductSearchResults(products) {
+        let html = '<div class="search-results border rounded p-3 bg-light">';
+        html += '<h6 class="mb-3">Search Results:</h6>';
+
+        products.forEach(function(product) {
+            const isSelected = selectedProducts.find(p => p.id === product.id);
+            if (!isSelected) {
+                html += `
+                    <div class="product-result d-flex justify-content-between align-items-center p-2 border-bottom">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">` : '<div style="width: 50px; height: 50px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px;"><i class="fa fa-image"></i></div>'}
+                            </div>
+                            <div>
+                                <strong>${product.name}</strong><br>
+                                <small class="text-muted">SKU: ${product.sku} | Brand: ${product.brand}</small><br>
+                                <span class="badge bg-success">₹${parseFloat(product.selling_price).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm add-product" data-product='${JSON.stringify(product)}'>
+                            <i class="fa fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                `;
+            }
+        });
+
+        html += '</div>';
+        $('#productSearchResults').html(html).show();
+
+        // Handle add product button click
+        $('.add-product').on('click', function() {
+            const product = JSON.parse($(this).attr('data-product'));
+            addProductToSelection(product);
+            $(this).closest('.product-result').remove();
         });
     }
 
-    // Display search results
-    function displaySearchResults(products) {
-        const resultsContainer = $('#productSearchResults');
+    function addProductToSelection(product) {
+        // Add default discount values
+        product.discount_type = 'percentage';
+        product.discount_value = 10;
+        product.offer_price = calculateOfferPrice(product.selling_price, 'percentage', 10);
 
-        if (products.length === 0) {
-            resultsContainer.html('<div class="dropdown-item text-muted">No products found</div>').show();
+        selectedProducts.push(product);
+        updateSelectedProductsDisplay();
+        updateProductInputs();
+        $('#productSearch').val('');
+        $('#productSearchResults').hide();
+    }
+
+    function removeProductFromSelection(productId) {
+        selectedProducts = selectedProducts.filter(p => p.id !== productId);
+        updateSelectedProductsDisplay();
+        updateProductInputs();
+    }
+
+    function updateSelectedProductsDisplay() {
+        const container = $('#selectedProductsContainer');
+
+        if (selectedProducts.length === 0) {
+            container.html('<div class="alert alert-info"><i class="fa fa-info-circle"></i> No products selected yet. Use the search above to add products to this deal.</div>');
             return;
         }
 
-        let html = '';
-        products.forEach(product => {
+        let html = '<div class="table-responsive">';
+        html += '<table class="table table-bordered">';
+        html += '<thead class="table-light">';
+        html += '<tr>';
+        html += '<th>Sr. No.</th>';
+        html += '<th>Product Name</th>';
+        html += '<th>Original Price</th>';
+        html += '<th>Discount Type</th>';
+        html += '<th>Discount Value</th>';
+        html += '<th>Offer Price</th>';
+        html += '<th>Actions</th>';
+        html += '</tr>';
+        html += '</thead>';
+        html += '<tbody>';
+
+        selectedProducts.forEach(function(product, index) {
             html += `
-                <div class="dropdown-item product-item" data-product='${JSON.stringify(product)}' style="cursor: pointer;">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover;">` : '<div style="width: 40px; height: 40px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;"><i class="fa fa-image"></i></div>'}
+                <tr data-product-id="${product.id}">
+                    <td>${index + 1}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">
+                                ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : '<div style="width: 40px; height: 40px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px;"><i class="fa fa-image"></i></div>'}
+                            </div>
+                            <div>
+                                <strong>${product.name}</strong><br>
+                                <small class="text-muted">SKU: ${product.sku}</small>
+                            </div>
                         </div>
-                        <div>
-                            <div class="fw-semibold">${product.name}</div>
-                            <small class="text-muted">SKU: ${product.sku} | Brand: ${product.brand} | Price: ₹${parseFloat(product.selling_price).toLocaleString()}</small>
-                        </div>
-                    </div>
-                </div>
+                    </td>
+                    <td>₹${parseFloat(product.selling_price).toLocaleString()}</td>
+                    <td>
+                        <select class="form-select form-select-sm discount-type" data-product-id="${product.id}">
+                            <option value="percentage" ${product.discount_type === 'percentage' ? 'selected' : ''}>Percentage (%)</option>
+                            <option value="flat" ${product.discount_type === 'flat' ? 'selected' : ''}>Flat (₹)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control form-control-sm discount-value"
+                               data-product-id="${product.id}" value="${product.discount_value}"
+                               min="0.01" step="0.01" style="width: 100px;">
+                    </td>
+                    <td class="offer-price">₹${parseFloat(product.offer_price).toLocaleString()}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-product" data-product-id="${product.id}">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
             `;
         });
 
-        resultsContainer.html(html).show();
+        html += '</tbody>';
+        html += '</table>';
+        html += '</div>';
+
+        container.html(html);
+
+        // Bind events for discount changes
+        bindDiscountEvents();
     }
 
-    // Handle product selection
-    $(document).on('click', '.product-item', function() {
-        selectedProduct = JSON.parse($(this).attr('data-product'));
+    function bindDiscountEvents() {
+        // Handle discount type change
+        $('.discount-type').on('change', function() {
+            const productId = $(this).data('product-id');
+            const discountType = $(this).val();
 
-        $('#productSearch').val(selectedProduct.name);
-        $('#selectedProductId').val(selectedProduct.id);
-        $('#originalPrice').val('₹' + parseFloat(selectedProduct.selling_price).toLocaleString());
-        $('#productSearchResults').hide();
+            // Update the product in selectedProducts array
+            const productIndex = selectedProducts.findIndex(p => p.id === productId);
+            if (productIndex !== -1) {
+                selectedProducts[productIndex].discount_type = discountType;
 
-        // Reset calculations
-        calculateOfferPrice();
-    });
+                // Reset discount value based on type
+                const discountValueInput = $(`.discount-value[data-product-id="${productId}"]`);
+                if (discountType === 'percentage') {
+                    discountValueInput.attr('max', '100').val('10');
+                    selectedProducts[productIndex].discount_value = 10;
+                } else {
+                    discountValueInput.removeAttr('max').val('100');
+                    selectedProducts[productIndex].discount_value = 100;
+                }
 
-    // Hide search results when clicking outside
-    $(document).on('click', function(e) {
-        if (!$(e.target).closest('#productSearch, #productSearchResults').length) {
-            $('#productSearchResults').hide();
-        }
-    });
+                updateOfferPrice(productId);
+            }
+        });
 
-    // Discount type change handler
-    $('#discountType').on('change', function() {
-        const discountType = $(this).val();
-        const discountLabel = $('#discountLabel');
-        const discountValue = $('#discountValue');
+        // Handle discount value change
+        $('.discount-value').on('input', function() {
+            const productId = $(this).data('product-id');
+            const discountValue = parseFloat($(this).val()) || 0;
 
+            // Update the product in selectedProducts array
+            const productIndex = selectedProducts.findIndex(p => p.id === productId);
+            if (productIndex !== -1) {
+                selectedProducts[productIndex].discount_value = discountValue;
+                updateOfferPrice(productId);
+            }
+        });
+
+        // Handle remove product
+        $('.remove-product').on('click', function() {
+            const productId = $(this).data('product-id');
+            removeProductFromSelection(productId);
+        });
+    }
+
+    function updateOfferPrice(productId) {
+        const product = selectedProducts.find(p => p.id === productId);
+        if (!product) return;
+
+        const originalPrice = parseFloat(product.selling_price);
+        const discountType = product.discount_type;
+        const discountValue = parseFloat(product.discount_value) || 0;
+
+        const offerPrice = calculateOfferPrice(originalPrice, discountType, discountValue);
+        product.offer_price = offerPrice;
+
+        // Update the display
+        $(`.offer-price[data-product-id="${productId}"]`).text('₹' + parseFloat(offerPrice).toLocaleString());
+        $(`tr[data-product-id="${productId}"] .offer-price`).text('₹' + parseFloat(offerPrice).toLocaleString());
+
+        updateProductInputs();
+    }
+
+    function calculateOfferPrice(originalPrice, discountType, discountValue) {
         if (discountType === 'percentage') {
-            discountLabel.text('(Enter percentage 0-100)');
-            discountValue.attr('max', '100').attr('placeholder', 'Enter percentage (e.g., 25)');
-        } else if (discountType === 'price') {
-            discountLabel.text('(Enter amount in ₹)');
-            discountValue.removeAttr('max').attr('placeholder', 'Enter discount amount (e.g., 5000)');
+            return originalPrice - (originalPrice * discountValue / 100);
         } else {
-            discountLabel.text('(Select discount type first)');
-            discountValue.attr('placeholder', 'Enter discount value');
+            return originalPrice - discountValue;
         }
+    }
 
-        calculateOfferPrice();
-    });
+    function updateProductInputs() {
+        const container = $('#productInputs');
+        container.empty();
 
-    // Discount value change handler
-    $('#discountValue').on('input', function() {
-        calculateOfferPrice();
-    });
-
-    // Calculate offer price
-    function calculateOfferPrice() {
-        if (!selectedProduct) {
-            $('#offerPrice').val('Select product first');
-            return;
-        }
-
-        const originalPrice = parseFloat(selectedProduct.selling_price);
-        const discountType = $('#discountType').val();
-        const discountValue = parseFloat($('#discountValue').val()) || 0;
-
-        if (!discountType || discountValue <= 0) {
-            $('#offerPrice').val('₹' + originalPrice.toLocaleString());
-            return;
-        }
-
-        let offerPrice = 0;
-        let isValid = true;
-        let errorMessage = '';
-
-        if (discountType === 'percentage') {
-            if (discountValue > 100) {
-                isValid = false;
-                errorMessage = 'Percentage cannot exceed 100%';
-            } else {
-                offerPrice = originalPrice - (originalPrice * discountValue / 100);
-            }
-        } else if (discountType === 'price') {
-            if (discountValue > originalPrice) {
-                isValid = false;
-                errorMessage = 'Discount amount cannot exceed original price';
-            } else {
-                offerPrice = originalPrice - discountValue;
-            }
-        }
-
-        if (!isValid) {
-            $('#offerPrice').val(errorMessage).addClass('text-danger');
-            return;
-        }
-
-        if (offerPrice < 0) {
-            $('#offerPrice').val('Invalid: Negative price').addClass('text-danger');
-            return;
-        }
-
-        $('#offerPrice').val('₹' + offerPrice.toLocaleString()).removeClass('text-danger');
+        selectedProducts.forEach(function(product, index) {
+            container.append(`
+                <input type="hidden" name="products[${index}][ecommerce_product_id]" value="${product.id}">
+                <input type="hidden" name="products[${index}][discount_type]" value="${product.discount_type}">
+                <input type="hidden" name="products[${index}][discount_value]" value="${product.discount_value}">
+            `);
+        });
     }
 
     // Form validation
@@ -318,27 +391,41 @@ $(document).ready(function() {
         let isValid = true;
         let errorMessages = [];
 
-        // Check if product is selected
-        if (!$('#selectedProductId').val()) {
+        // Check if at least one product is selected
+        if (selectedProducts.length === 0) {
             isValid = false;
-            errorMessages.push('Please select a product');
-        }
-
-        // Check if offer price is valid
-        const offerPriceText = $('#offerPrice').val();
-        if (offerPriceText.includes('Invalid') || offerPriceText.includes('exceed') || offerPriceText.includes('Select')) {
-            isValid = false;
-            errorMessages.push('Please fix the offer price calculation');
+            errorMessages.push('Please add at least one product to the deal');
         }
 
         // Check date validation
-        const startDate = new Date($('#start_date').val());
-        const endDate = new Date($('#end_date').val());
+        const startDate = new Date($('input[name="offer_start_date"]').val());
+        const endDate = new Date($('input[name="offer_end_date"]').val());
 
         if (startDate && endDate && startDate >= endDate) {
             isValid = false;
-            errorMessages.push('End date must be after start date');
+            errorMessages.push('Offer end date must be after start date');
         }
+
+        // Validate each product's discount values
+        selectedProducts.forEach(function(product, index) {
+            const originalPrice = parseFloat(product.selling_price);
+            const discountValue = parseFloat(product.discount_value);
+
+            if (product.discount_type === 'percentage' && discountValue > 100) {
+                isValid = false;
+                errorMessages.push(`Product "${product.name}": Percentage discount cannot exceed 100%`);
+            }
+
+            if (product.discount_type === 'flat' && discountValue >= originalPrice) {
+                isValid = false;
+                errorMessages.push(`Product "${product.name}": Flat discount cannot exceed original price`);
+            }
+
+            if (discountValue <= 0) {
+                isValid = false;
+                errorMessages.push(`Product "${product.name}": Discount value must be greater than 0`);
+            }
+        });
 
         if (!isValid) {
             e.preventDefault();
@@ -346,15 +433,16 @@ $(document).ready(function() {
         }
     });
 
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    $('#start_date').attr('min', today);
+    // Set minimum datetime to current time
+    const now = new Date();
+    const currentDateTime = now.toISOString().slice(0, 16);
+    $('input[name="offer_start_date"]').attr('min', currentDateTime);
 
     // Update end date minimum when start date changes
-    $('#start_date').on('change', function() {
-        const startDate = $(this).val();
-        if (startDate) {
-            $('#end_date').attr('min', startDate);
+    $('input[name="offer_start_date"]').on('change', function() {
+        const startDateTime = $(this).val();
+        if (startDateTime) {
+            $('input[name="offer_end_date"]').attr('min', startDateTime);
         }
     });
 });
