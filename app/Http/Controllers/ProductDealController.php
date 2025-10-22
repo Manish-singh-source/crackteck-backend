@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductDeal;
+use App\Models\ProductDealItem;
 use App\Models\EcommerceProduct;
 use App\Http\Requests\StoreProductDealRequest;
 use App\Http\Requests\UpdateProductDealRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProductDealController extends Controller
 {
@@ -16,7 +19,7 @@ class ProductDealController extends Controller
      */
     public function index()
     {
-        $deals = ProductDeal::with(['ecommerceProduct.warehouseProduct'])
+        $deals = ProductDeal::with(['dealItems.ecommerceProduct.warehouseProduct'])
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -38,23 +41,49 @@ class ProductDealController extends Controller
     {
         $validated = $request->validated();
 
-        // Get the e-commerce product to calculate offer price
-        $ecommerceProduct = EcommerceProduct::with('warehouseProduct')->findOrFail($validated['ecommerce_product_id']);
-        $originalPrice = $ecommerceProduct->warehouseProduct->selling_price;
+        try {
+            DB::beginTransaction();
 
-        // Calculate offer price based on discount type
-        if ($validated['discount_type'] === 'percentage') {
-            $offerPrice = $originalPrice - ($originalPrice * $validated['discount_value'] / 100);
-        } else {
-            $offerPrice = $originalPrice - $validated['discount_value'];
+            // Create the main deal
+            $deal = ProductDeal::create([
+                'deal_title' => $validated['deal_title'],
+                'offer_start_date' => $validated['offer_start_date'],
+                'offer_end_date' => $validated['offer_end_date'],
+                'status' => $validated['status'],
+            ]);
+
+            // Create deal items for each product
+            foreach ($validated['products'] as $productData) {
+                $ecommerceProduct = EcommerceProduct::with('warehouseProduct')
+                    ->findOrFail($productData['ecommerce_product_id']);
+
+                $originalPrice = $ecommerceProduct->warehouseProduct->selling_price;
+
+                // Calculate offer price
+                if ($productData['discount_type'] === 'percentage') {
+                    $offerPrice = $originalPrice - ($originalPrice * $productData['discount_value'] / 100);
+                } else {
+                    $offerPrice = $originalPrice - $productData['discount_value'];
+                }
+
+                ProductDealItem::create([
+                    'product_deal_id' => $deal->id,
+                    'ecommerce_product_id' => $productData['ecommerce_product_id'],
+                    'original_price' => $originalPrice,
+                    'discount_type' => $productData['discount_type'],
+                    'discount_value' => $productData['discount_value'],
+                    'offer_price' => $offerPrice,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('product-deals.index')->with('success', 'Product deal created successfully!');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Error creating product deal: ' . $e->getMessage())->withInput();
         }
-
-        $validated['original_price'] = $originalPrice;
-        $validated['offer_price'] = $offerPrice;
-
-        ProductDeal::create($validated);
-
-        return redirect()->route('product-deals.index')->with('success', 'Product deal created successfully!');
     }
 
     /**
@@ -62,7 +91,7 @@ class ProductDealController extends Controller
      */
     public function show(ProductDeal $productDeal)
     {
-        $productDeal->load(['ecommerceProduct.warehouseProduct']);
+        $productDeal->load(['dealItems.ecommerceProduct.warehouseProduct']);
         return view('e-commerce.product-deals.view', compact('productDeal'));
     }
 
@@ -71,7 +100,7 @@ class ProductDealController extends Controller
      */
     public function edit(ProductDeal $productDeal)
     {
-        $productDeal->load(['ecommerceProduct.warehouseProduct']);
+        // dd($productDeal->dealItems);
         return view('e-commerce.product-deals.edit', compact('productDeal'));
     }
 
@@ -82,23 +111,52 @@ class ProductDealController extends Controller
     {
         $validated = $request->validated();
 
-        // Get the e-commerce product to calculate offer price
-        $ecommerceProduct = EcommerceProduct::with('warehouseProduct')->findOrFail($validated['ecommerce_product_id']);
-        $originalPrice = $ecommerceProduct->warehouseProduct->selling_price;
+        try {
+            DB::beginTransaction();
 
-        // Calculate offer price based on discount type
-        if ($validated['discount_type'] === 'percentage') {
-            $offerPrice = $originalPrice - ($originalPrice * $validated['discount_value'] / 100);
-        } else {
-            $offerPrice = $originalPrice - $validated['discount_value'];
+            // Update the main deal
+            $productDeal->update([
+                'deal_title' => $validated['deal_title'],
+                'offer_start_date' => $validated['offer_start_date'],
+                'offer_end_date' => $validated['offer_end_date'],
+                'status' => $validated['status'],
+            ]);
+
+            // Delete existing deal items
+            $productDeal->dealItems()->delete();
+
+            // Create new deal items for each product
+            foreach ($validated['products'] as $productData) {
+                $ecommerceProduct = EcommerceProduct::with('warehouseProduct')
+                    ->findOrFail($productData['ecommerce_product_id']);
+
+                $originalPrice = $ecommerceProduct->warehouseProduct->selling_price;
+
+                // Calculate offer price
+                if ($productData['discount_type'] === 'percentage') {
+                    $offerPrice = $originalPrice - ($originalPrice * $productData['discount_value'] / 100);
+                } else {
+                    $offerPrice = $originalPrice - $productData['discount_value'];
+                }
+
+                ProductDealItem::create([
+                    'product_deal_id' => $productDeal->id,
+                    'ecommerce_product_id' => $productData['ecommerce_product_id'],
+                    'original_price' => $originalPrice,
+                    'discount_type' => $productData['discount_type'],
+                    'discount_value' => $productData['discount_value'],
+                    'offer_price' => $offerPrice,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('product-deals.index')->with('success', 'Product deal updated successfully!');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Error updating product deal: ' . $e->getMessage())->withInput();
         }
-
-        $validated['original_price'] = $originalPrice;
-        $validated['offer_price'] = $offerPrice;
-
-        $productDeal->update($validated);
-
-        return redirect()->route('product-deals.index')->with('success', 'Product deal updated successfully!');
     }
 
     /**
@@ -106,8 +164,13 @@ class ProductDealController extends Controller
      */
     public function destroy(ProductDeal $productDeal)
     {
-        $productDeal->delete();
-        return redirect()->route('product-deals.index')->with('success', 'Product deal deleted successfully!');
+        try {
+            // Deal items will be automatically deleted due to cascade delete in foreign key
+            $productDeal->delete();
+            return redirect()->route('product-deals.index')->with('success', 'Product deal deleted successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error deleting product deal: ' . $e->getMessage());
+        }
     }
 
     /**

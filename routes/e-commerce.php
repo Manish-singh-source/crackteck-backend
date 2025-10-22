@@ -285,6 +285,7 @@ Route::controller(ProductDealController::class)->group(function (){
     // Delete Product Deal
     Route::delete('/e-commerce/delete-product-deal/{productDeal}', 'destroy')->name('product-deals.delete');
 
+
     // AJAX Routes for E-commerce Product Search
     Route::get('/e-commerce/search-ecommerce-products', 'searchEcommerceProducts')->name('product-deals.search-products');
     Route::get('/e-commerce/get-ecommerce-product/{id}', 'getEcommerceProduct')->name('product-deals.get-product');
