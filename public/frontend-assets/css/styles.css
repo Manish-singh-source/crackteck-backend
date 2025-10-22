@@ -4725,7 +4725,7 @@ input[type=number]::-webkit-outer-spin-button {
   overflow: hidden;
 }
 .hover-img .img-style > img {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
   object-fit: cover;
   -webkit-transition: opacity 0.5s ease, transform 2s cubic-bezier(0, 0, 0.44, 1.18);
