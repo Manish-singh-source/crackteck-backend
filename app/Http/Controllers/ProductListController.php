@@ -188,22 +188,27 @@ class ProductListController extends Controller
         $positionNo = WarehouseRack::pluck('position_no', 'id');
 
         // Get variation options
-        $colorOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Color');
-        })->pluck('attribute_value', 'id');
+        // $colorOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Color');
+        // })->pluck('attribute_value', 'id');
 
-        $sizeOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Size');
-        })->pluck('attribute_value', 'id');
+        // $sizeOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Size');
+        // })->pluck('attribute_value', 'id');
 
-        $lengthOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
-            $query->where('attribute_name', 'Length');
-        })->pluck('attribute_value', 'id');
+        // $lengthOptions = ProductVariantAttributeValue::whereHas('attribute', function($query) {
+        //     $query->where('attribute_name', 'Length');
+        // })->pluck('attribute_value', 'id');
+
+        $variationAttributes = ProductVariantAttribute::with('values')->get();
+        $selectedVariations = json_decode($product->variation_options, true);
+        $selectedVariations = collect($selectedVariations)->map(function($values) {
+            return array_map('intval', $values);
+        })->toArray();
 
         return view('/warehouse/product-list/edit', compact(
             'product', 'brands', 'parentCategories', 'subCategories', 'warehouses', 'warehouseRacks',
-            'zoneAreas', 'rackNo', 'levelNo', 'positionNo',
-            'colorOptions', 'sizeOptions', 'lengthOptions'
+            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationAttributes', 'selectedVariations'
         ));
     }
 
