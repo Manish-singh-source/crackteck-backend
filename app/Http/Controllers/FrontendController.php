@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\WebsiteBanner;
 use App\Models\ParentCategorie;
 use App\Models\ProductDeal;
+use App\Models\Collection;
+use App\Models\Product;
 use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
     /**
-     * Display the frontend homepage with active banners, categories, and deals
+     * Display the frontend homepage with active banners, categories, deals, and collections
      */
     public function index()
     {
@@ -21,6 +23,13 @@ class FrontendController extends Controller
         $categories = ParentCategorie::active()
             ->ecommerceActive()
             ->ordered()
+            ->get();
+
+        // Get active collections with their categories
+        $collections = Collection::active()
+            ->with('categories')
+            ->orderBy('created_at', 'desc')
+            ->limit(8) // Limit to 8 collections for homepage display
             ->get();
 
         // Get active deals that are currently running
@@ -34,6 +43,27 @@ class FrontendController extends Controller
             ->orderBy('offer_start_date', 'desc')
             ->get();
 
-        return view('frontend.index', compact('banners', 'categories', 'activeDeals'));
+        return view('frontend.index', compact('banners', 'categories', 'collections', 'activeDeals'));
+    }
+
+    /**
+     * Display collection details page with associated products
+     */
+    public function collectionDetails($id)
+    {
+        // Get the collection with its categories
+        $collection = Collection::active()
+            ->with('categories')
+            ->findOrFail($id);
+
+        // Get all products that belong to categories in this collection
+        $categoryIds = $collection->categories->pluck('id');
+
+        $products = Product::whereIn('parent_category_id', $categoryIds)
+            ->where('status', 1) // Only active products
+            ->with(['brand', 'parentCategorie', 'subCategorie'])
+            ->paginate(20);
+
+        return view('frontend.collection-details', compact('collection', 'products'));
     }
 }
