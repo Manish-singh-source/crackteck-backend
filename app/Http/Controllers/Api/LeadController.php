@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 class LeadController extends Controller
 {
     //
+    /**
+     * Get all leads for a user
+     * description: Get all leads for a user
+     *
+     * @param Request $request
+     * @return void
+     * 
+     * 
+     * 
+     */
     public function index(Request $request)
     {
         $validated = request()->validate([
