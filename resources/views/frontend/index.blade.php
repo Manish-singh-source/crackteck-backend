@@ -248,7 +248,9 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#quickView" data-bs-toggle="modal"
+                                                        <a href="#quickView{{ $dealItem->ecommerceProduct->id }}"
+                                                            data-bs-toggle="modal"
+                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}"
                                                             class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
                                                             <span class="icon icon-view"></span>
                                                             <span class="tooltip">Quick View</span>
@@ -713,15 +715,17 @@
                 data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="2"
                 data-pagination-md="3" data-pagination-lg="4" data-grid="2">
                 <div class="swiper-wrapper">
-                    @if(isset($collections) && $collections->count() > 0)
-                        @foreach($collections as $collection)
+                    @if (isset($collections) && $collections->count() > 0)
+                        @foreach ($collections as $collection)
                             <div class="swiper-slide" style="background-color: #d1d1d1; padding: 15px">
                                 <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                                    <a href="{{ route('collection.details', $collection->id) }}" class="img-style d-block">
-                                        @if($collection->image)
+                                    <a href="{{ route('collection.details', $collection->id) }}"
+                                        class="img-style d-block">
+                                        @if ($collection->image)
                                             <img src="{{ asset($collection->image) }}" alt="{{ $collection->title }}">
                                         @else
-                                            <img src="{{ asset('frontend-assets/images/collection/default-collection.jpg') }}" alt="{{ $collection->title }}">
+                                            <img src="{{ asset('frontend-assets/images/collection/default-collection.jpg') }}"
+                                                alt="{{ $collection->title }}">
                                         @endif
                                     </a>
                                     <div class="content">
@@ -730,7 +734,7 @@
                                                 {{ $collection->title }}
                                             </a>
                                         </h6>
-                                        @if($collection->description)
+                                        @if ($collection->description)
                                             <p class="text-muted small">{{ Str::limit($collection->description, 50) }}</p>
                                         @endif
                                         {{-- <small class="text-primary">{{ $collection->categories->count() }} categories</small> --}}
@@ -743,7 +747,8 @@
                         <div class="swiper-slide">
                             <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
                                 <a href="{{ route('shop') }}" class="img-style d-block">
-                                    <img src="{{ asset('frontend-assets/images/collection/cls-grid-1.jpg') }}" alt="Default Collection">
+                                    <img src="{{ asset('frontend-assets/images/collection/cls-grid-1.jpg') }}"
+                                        alt="Default Collection">
                                 </a>
                                 <div class="content">
                                     <h6 class="fw-normal">
@@ -1846,13 +1851,13 @@
             <div class="flat-title wow fadeInUp" data-wow-delay="0s">
                 <h5 class="fw-semibold">Trending Products</h5>
                 <!-- <div class="box-btn-slide relative">
-                                <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                    <i class="icon-arrow-left-lg"></i>
-                                </div>
-                                <div class="swiper-button-next nav-swiper nav-next-products">
-                                    <i class="icon-arrow-right-lg"></i>
-                                </div>
-                            </div> -->
+                                            <div class="swiper-button-prev nav-swiper nav-prev-products">
+                                                <i class="icon-arrow-left-lg"></i>
+                                            </div>
+                                            <div class="swiper-button-next nav-swiper nav-next-products">
+                                                <i class="icon-arrow-right-lg"></i>
+                                            </div>
+                                        </div> -->
             </div>
             <div class="swiper tf-sw-products" data-preview="5" data-tablet="4" data-mobile-sm="3" data-mobile="1"
                 data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="3"
@@ -2276,13 +2281,13 @@
             <div class="flat-title wow fadeInUp" data-wow-delay="0s">
                 <h5 class="fw-semibold">Best Selling Products</h5>
                 <!-- <div class="box-btn-slide relative">
-                                <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                    <i class="icon-arrow-left-lg"></i>
-                                </div>
-                                <div class="swiper-button-next nav-swiper nav-next-products">
-                                    <i class="icon-arrow-right-lg"></i>
-                                </div>
-                            </div> -->
+                                            <div class="swiper-button-prev nav-swiper nav-prev-products">
+                                                <i class="icon-arrow-left-lg"></i>
+                                            </div>
+                                            <div class="swiper-button-next nav-swiper nav-next-products">
+                                                <i class="icon-arrow-right-lg"></i>
+                                            </div>
+                                        </div> -->
             </div>
             <div class="swiper tf-sw-products" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="1"
                 data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="2"
@@ -3019,11 +3024,165 @@
     </div>
     <!-- /Newsletter -->
 
+    <!-- modal Quick View -->
+
+    <div class="modal fade modalCentered modal-def modal-quick-view" id="quickView">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content flex-md-row">
+                <span class="icon-close icon-close-popup link" data-bs-dismiss="modal"></span>
+                <div class="quickview-image">
+                    <div class="product-thumb-slider">
+                        <div class="swiper tf-product-view-main">
+                            <div class="swiper-wrapper">
+                                <!-- item 1 -->
+                                <div class="swiper-slide">
+                                    <a href="" class="d-block tf-image-view">
+                                        <img class="model_main_product_image" src="/"
+                                            data-src="{{ asset('frontend-assets/images/new-products/product-detail-1.png') }}"
+                                            alt="" class="lazyload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev nav-swiper-2 single-slide-prev"></div>
+                            <div class="swiper-button-next nav-swiper-2 single-slide-next"></div>
+                        </div>
+                        <div class="swiper tf-product-view-thumbs" data-direction="horizontal">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="item">
+                                        <img class="model_additional_product_image" src="/" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quickview-info-wrap">
+                    <div class="quickview-info-inner">
+                        <div class="tf-product-info-content">
+                            <div class="infor-heading">
+                                <p class="caption">Categories:
+                                    <a href="{{ route('shop') }}" class="link text-secondary">
+                                        laptop
+                                    </a>
+                                </p>
+                                <h5 class="product-info-name fw-semibold">
+                                    <a href="" class="link model_product_name">
+                                        XYZ
+                                    </a>
+                                </h5>
+                                <ul class="product-info-rate-wrap">
+                                    <li class="star-review">
+                                        <ul class="list-star">
+                                            <li>
+                                                <i class="icon-star"></i>
+                                            </li>
+                                            <li>
+                                                <i class="icon-star"></i>
+                                            </li>
+                                            <li>
+                                                <i class="icon-star"></i>
+                                            </li>
+                                            <li>
+                                                <i class="icon-star"></i>
+                                            </li>
+                                            <li>
+                                                <i class="icon-star text-main-4"></i>
+                                            </li>
+                                        </ul>
+                                        <p class="caption text-main-2">Reviews (1.738)</p>
+                                    </li>
+                                    <li>
+                                        <p class="caption text-main-2">Sold: 349</p>
+                                    </li>
+                                    <li class="d-flex">
+                                        <a href="{{ route('shop') }}" class="caption text-secondary link">View
+                                            shop</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="infor-center">
+                                <div class="product-info-price">
+                                    <h4 class="text-primary model_product_selling_price">₹18.99</h4>
+                                    <span class="price-text text-main-2 old-price model_product_cost_price">₹20.99</span>
+                                </div>
+                                <ul class="product-fearture-list">
+                                    <li>
+                                        <p class="body-md-2 fw-semibold">Brand</p>
+                                        <span class="body-text-3 model_product_brand">Elite Gourmet</span>
+                                    </li>
+                                    <li>
+                                        <p class="body-md-2 fw-semibold">Model No</p>
+                                        <span class="body-text-3 model_product_model_no">1</span>
+                                    </li>
+                                    <li>
+                                        <p class="body-md-2 fw-semibold">SKU</p>
+                                        <span class="body-text-3 model_product_sku">Glass</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="infor-bottom">
+                                <h6 class="fw-semibold">About this item</h6>
+                                <ul class="product-about-list model_product_short_description">
+                                    <li>
+                                        <p class="body-text-3">
+                                            Here’s the quickest way to enjoy your delicious hot tea
+                                            every
+                                            single day.
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul class="product-about-list model_product_full_description">
+                                    <li>
+                                        <p class="body-text-3">
+                                            Here’s the quickest way to enjoy your delicious hot tea
+                                            every
+                                            single day.
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul class="product-about-list model_product_technical_specification">
+                                    <li>
+                                        <p class="body-text-3">
+                                            Here’s the quickest way to enjoy your delicious hot tea
+                                            every
+                                            single day.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box-quantity-wrap">
+                            {{-- <div class="wg-quantity">
+                                <span class="btn-quantity minus-btn">
+                                    <i class="icon-minus"></i>
+                                </span>
+                                <input class="quantity-product" type="text" name="number" value="1">
+                                <span class="btn-quantity plus-btn">
+                                    <i class="icon-plus"></i>
+                                </span>
+                            </div> --}}
+                            <a href="#;" class="tf-btn text-white add-to-cart-btn">
+                                Add to cart
+                                <i class="icon-cart-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /modal Quick View -->
+
 @endsection
 
 @section('script')
     <script>
         $(document).ready(function() {
+
             // Newsletter subscription form handling
             $('#newsletterForm').on('submit', function(e) {
                 e.preventDefault();
@@ -3157,80 +3316,212 @@
                     }
                 });
 
-                // Add to Wishlist functionality
-                $('.add-to-wishlist-btn').on('click', function(e) {
+                // Quick view functionality
+                $('.quickview').on('click', function(e) {
                         e.preventDefault();
 
-                        const $button = $(this);
-                        const productId = $button.data('product-id');
-                        const productName = $button.data('product-name');
+                        const productId = $(this).data('product-id');
+                        console.log(productId);
 
-                        // Check if user is authenticated (you can customize this check)
-                        @guest
-                        // Show login message for unauthenticated users
-                        showNotification('Please login to add products to your wishlist.', 'warning');
-                        return;
-                    @endguest
+                        // Make AJAX request to fetch product details
+                        $.ajax({
+                                url: '{{ route('product.get') }}',
+                                method: 'GET',
+                                data: {
+                                    id: productId
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    if (response.success) {
+                                        // Populate quick view modal with product details
+                                        // ... (your code to populate the modal goes here)
+                                        @foreach ($products as $product)
+                                            $('#quickView').modal('show');
 
-                    // Show loading state
-                    const originalIcon = $button.find('.icon').attr('class');
-                    const originalTooltip = $button.find('.tooltip').text();
+                                            $('.model_product_name').html(
+                                                '<a href="/product-detail/' + response.data.id +
+                                                '" class="product-link">' +
+                                                response.data.product_name +
+                                                '</a>'
+                                            );
 
-                    $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
-                        'Adding...'); $button.prop('disabled', true);
+                                            $('.model_product_selling_price').text('₹' + response.data
+                                                .selling_price);
+                                            $('.model_product_cost_price').text('₹' + response.data
+                                                .cost_price);
+                                            // $('.model_product_main_images').html(response.data
+                                            //     .main_product_image);
+                                            // $('.model_product_thumbs_images').html(response.data
+                                            //     .additional_product_images);
+                                            $('.model_main_product_image').attr('src', response.data
+                                                .main_product_image);
+                                            $('.model_additional_product_image').attr('src', response.data
+                                                .additional_product_images);
+                                            $('.model_product_brand').text(response.data.brand.brand_title);
+                                            $('.model_product_model_no').text(response.data.model_no);
+                                            $('.model_product_sku').text(response.data.sku);
+                                            $('.model_product_short_description').html(response.data
+                                                .short_description);
+                                            $('.model_product_full_description').html(response.data
+                                                .full_description);
+                                            $('.model_product_technical_specification').html(response.data
+                                                .technical_specification);
+                                            $('model_product_quantity-product').val(response.data.min_order_qty);
+                                            $('.add-to-cart-btn, .add-to-cart').data('product-id', response.data.id);
+                                        @endforeach
 
-                    // Make AJAX request
-                    $.ajax({
-                        url: '{{ route('wishlist.add') }}',
-                        method: 'POST',
-                        data: {
-                            ecommerce_product_id: productId
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                showNotification(response.message, 'success');
+                                        // Add to Cart functionality
+                                        $('.add-to-cart-btn, .add-to-cart').on('click', function(e) {
+                                                e.preventDefault();
 
-                                // Update button state to show it's in wishlist
-                                $button.find('.icon').attr('class', 'icon icon-heart-fill');
-                                $button.find('.tooltip').text('In Wishlist');
-                                $button.addClass('in-wishlist');
+                                                const $button = $(this);
+                                                const productId = $button.data('product-id');
+                                                const quantity = $('.quantity-input').val() || 1;
 
-                                // Update wishlist count if there's a counter
-                                updateWishlistCount();
-                            } else {
-                                showNotification(response.message, 'error');
-                                // Reset button state
-                                $button.find('.icon').attr('class', originalIcon);
-                                $button.find('.tooltip').text(originalTooltip);
+                                                // Check if user is authenticated
+                                                @guest
+                                                // Show login modal for unauthenticated users
+                                                showLoginModal();
+                                                return;
+                                            @endguest
+
+                                            // Show loading state
+                                            const originalText = $button.html(); $button.html(
+                                                '<i class="spinner-border spinner-border-sm me-2"></i>Adding...'
+                                                ); $button.prop('disabled', true);
+
+                                            // Make AJAX request
+                                            $.ajax({
+                                                url: '{{ route("cart.add") }}',
+                                                method: 'POST',
+                                                data: {
+                                                    ecommerce_product_id: productId,
+                                                    quantity: quantity
+                                                },
+                                                success: function(response) {
+                                                    if (response.success) {
+                                                        showNotification(response.message,
+                                                            'success');
+
+                                                        // Update button state
+                                                        $button.html(
+                                                            'Added to Cart <i class="icon-cart-2"></i>'
+                                                            );
+                                                        $button.addClass('in-cart');
+
+                                                        // Update cart count and sidebar
+                                                        updateCartCount();
+                                                        updateCartSidebar();
+                                                    } else {
+                                                        showNotification(response.message,
+                                                            'error');
+                                                        // Reset button state
+                                                        $button.html(originalText);
+                                                    }
+                                                },
+                                                error: function(xhr) {
+                                                    if (xhr.status === 401 && xhr
+                                                        .responseJSON && xhr.responseJSON
+                                                        .requires_auth) {
+                                                        showLoginModal();
+                                                    } else {
+                                                        console.log(productId)
+                                                        console.log(xhr.responseJSON);
+                                                        showNotification(
+                                                            'Error adding product to cart. Please try again.',
+                                                            'error');
+                                                        // Reset button state
+                                                        $button.html(originalText);
+                                                    }
+                                                },
+                                                complete: function() {
+                                                    $button.prop('disabled', false);
+                                                }
+                                            });
+                                        });
+                                }
+                            },
+                            error: function(e) {
+                                console.log(e.responseText);
+                                console.log('Error fetching product details');
                             }
-                        },
-                        error: function(xhr) {
-                            let message = 'An error occurred while adding the product to your wishlist.';
+                        });
+                });
 
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                message = xhr.responseJSON.message;
-                            } else if (xhr.status === 401) {
-                                message = 'Please login to add products to your wishlist.';
-                            } else if (xhr.status === 409) {
-                                message = 'This product is already in your wishlist.';
-                            }
+            // Add to Wishlist functionality
+            $('.add-to-wishlist-btn').on('click', function(e) {
+                    e.preventDefault();
 
-                            showNotification(message, 'error');
+                    const $button = $(this);
+                    const productId = $button.data('product-id');
+                    const productName = $button.data('product-name');
 
+                    // Check if user is authenticated (you can customize this check)
+                    @guest
+                    // Show login message for unauthenticated users
+                    showNotification('Please login to add products to your wishlist.', 'warning');
+                    return;
+                @endguest
+
+                // Show loading state
+                const originalIcon = $button.find('.icon').attr('class');
+                const originalTooltip = $button.find('.tooltip').text();
+
+                $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
+                    'Adding...'); $button.prop('disabled', true);
+
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('wishlist.add') }}',
+                    method: 'POST',
+                    data: {
+                        ecommerce_product_id: productId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showNotification(response.message, 'success');
+
+                            // Update button state to show it's in wishlist
+                            $button.find('.icon').attr('class', 'icon icon-heart-fill');
+                            $button.find('.tooltip').text('In Wishlist');
+                            $button.addClass('in-wishlist');
+
+                            // Update wishlist count if there's a counter
+                            updateWishlistCount();
+                        } else {
+                            showNotification(response.message, 'error');
                             // Reset button state
                             $button.find('.icon').attr('class', originalIcon);
                             $button.find('.tooltip').text(originalTooltip);
-                        },
-                        complete: function() {
-                            $button.prop('disabled', false);
                         }
-                    });
-                });
+                    },
+                    error: function(xhr) {
+                        let message = 'An error occurred while adding the product to your wishlist.';
 
-            // Function to show notifications
-            function showNotification(message, type) {
-                // Create notification element
-                const notification = $(`
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        } else if (xhr.status === 401) {
+                            message = 'Please login to add products to your wishlist.';
+                        } else if (xhr.status === 409) {
+                            message = 'This product is already in your wishlist.';
+                        }
+
+                        showNotification(message, 'error');
+
+                        // Reset button state
+                        $button.find('.icon').attr('class', originalIcon);
+                        $button.find('.tooltip').text(originalTooltip);
+                    },
+                    complete: function() {
+                        $button.prop('disabled', false);
+                    }
+                });
+            });
+
+        // Function to show notifications
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = $(`
             <div class="notification notification-${type}" style="
                 position: fixed;
                 top: 20px;
@@ -3248,84 +3539,84 @@
             </div>
         `);
 
-                // Add to body
-                $('body').append(notification);
+            // Add to body
+            $('body').append(notification);
 
-                // Auto remove after 5 seconds
-                setTimeout(function() {
-                    notification.fadeOut(300, function() {
-                        $(this).remove();
-                    });
-                }, 5000);
-
-                // Allow manual close on click
-                notification.on('click', function() {
-                    $(this).fadeOut(300, function() {
-                        $(this).remove();
-                    });
+            // Auto remove after 5 seconds
+            setTimeout(function() {
+                notification.fadeOut(300, function() {
+                    $(this).remove();
                 });
-            }
+            }, 5000);
 
-            // Wishlist count function is now global in master layout
-
-            // Add to Cart functionality
-            $('.add-to-cart-btn').on('click', function(e) {
-                    e.preventDefault();
-
-                    const $button = $(this);
-                    const productId = $button.data('product-id');
-                    const productName = $button.data('product-name');
-
-                    // Check if user is authenticated
-                    @guest
-                    // Show login modal for unauthenticated users
-                    showLoginModal();
-                    return;
-                @endguest
-
-                // Show loading state
-                const originalText = $button.find('span').text(); $button.find('span').text('Adding...'); $button.prop(
-                    'disabled', true);
-
-                // Make AJAX request
-                $.ajax({
-                    url: '{{ route('cart.add') }}',
-                    method: 'POST',
-                    data: {
-                        ecommerce_product_id: productId,
-                        quantity: 1
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            showNotification(response.message, 'success');
-
-                            // Update button state
-                            $button.find('span').text('Added to Cart');
-                            $button.addClass('in-cart');
-
-                            // Update cart count and sidebar
-                            updateCartCount();
-                            updateCartSidebar();
-                        } else {
-                            showNotification(response.message, 'error');
-                            // Reset button state
-                            $button.find('span').text(originalText);
-                        }
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
-                            showLoginModal();
-                        } else {
-                            showNotification('Error adding product to cart. Please try again.', 'error');
-                            // Reset button state
-                            $button.find('span').text(originalText);
-                        }
-                    },
-                    complete: function() {
-                        $button.prop('disabled', false);
-                    }
+            // Allow manual close on click
+            notification.on('click', function() {
+                $(this).fadeOut(300, function() {
+                    $(this).remove();
                 });
             });
+        }
+
+        // Wishlist count function is now global in master layout
+
+        // Add to Cart functionality
+        $('.add-to-cart-btn').on('click', function(e) {
+            e.preventDefault();
+
+            const $button = $(this);
+            const productId = $button.data('product-id');
+            const productName = $button.data('product-name');
+
+            // Check if user is authenticated
+            @guest
+            // Show login modal for unauthenticated users
+            showLoginModal();
+            return;
+        @endguest
+
+        // Show loading state
+        const originalText = $button.find('span').text(); $button.find('span').text('Adding...'); $button.prop(
+            'disabled', true);
+
+        // Make AJAX request
+        $.ajax({
+            url: '{{ route('cart.add') }}',
+            method: 'POST',
+            data: {
+                ecommerce_product_id: productId,
+                quantity: 1
+            },
+            success: function(response) {
+                if (response.success) {
+                    showNotification(response.message, 'success');
+
+                    // Update button state
+                    $button.find('span').text('Added to Cart');
+                    $button.addClass('in-cart');
+
+                    // Update cart count and sidebar
+                    updateCartCount();
+                    updateCartSidebar();
+                } else {
+                    showNotification(response.message, 'error');
+                    // Reset button state
+                    $button.find('span').text(originalText);
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
+                    showLoginModal();
+                } else {
+                    showNotification('Error adding product to cart. Please try again.', 'error');
+                    // Reset button state
+                    $button.find('span').text(originalText);
+                }
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+        });
 
         // Cart count function is now global in master layout
 
