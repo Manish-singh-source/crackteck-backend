@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\ApiAuthController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Api\LeadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public API routes (no authentication required)
 Route::prefix('auth')->group(function () {
-    Route::post('/login', [ApiAuthController::class, 'login']);
+    // Route::post('/login', [ApiAuthController::class, 'login']);
 });
 
 // Order-related API routes (public for now, can be protected later)
@@ -58,11 +58,12 @@ Route::middleware('auth:sanctum')->group(function () {
 */
 
 use App\Http\Controllers\Api\SDUIController;
+use App\Http\Controllers\Api\ApiAuthController;
 
 // SDUI Public Routes (can be protected via settings)
 Route::prefix('ui')->group(function () {
     Route::get('/role-selection', [SDUIController::class, 'handleRoleSelectionSchema']);
-    Route::get('/login', [SDUIController::class, 'handleLoginSchema']);
+    // Route::get('/login', [SDUIController::class, 'handleLoginSchema']);
     // Get SDUI configuration for a specific screen/role (returns complete JSON schema)
     Route::get('/config', [SDUIController::class, 'getConfig']);
 
@@ -77,4 +78,20 @@ Route::prefix('ui')->group(function () {
 Route::prefix('ui')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
     // Clear SDUI cache
     Route::post('/clear-cache', [SDUIController::class, 'clearCache']);
+});
+
+Route::post('/login', [ApiAuthController::class, 'login']);
+Route::post('/verify-otp', [ApiAuthController::class, 'verifyOtp']);
+
+Route::middleware(['jwt.verify'])->group(function () {
+    Route::post('/logout', [ApiAuthController::class, 'logout']);
+    Route::post('/refresh-token', [ApiAuthController::class, 'refreshToken']);
+
+    Route::controller(LeadController::class)->group(function () {
+        Route::get('/leads', 'index');
+        Route::post('/leads', 'store');
+        Route::get('/leads/{id}', 'show');
+        Route::put('/leads/{id}', 'update');
+        Route::delete('/leads/{id}', 'destroy');
+    });
 });

@@ -213,5 +213,8 @@ Route::controller(SubscriberController::class)->group(function (){
     Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.subscribe');
 });
 
-// Product Deal 
+// Product Deal
 Route::get('/product-deals', [FrontendEcommerceController::class, 'productDeals'])->name('ecommerce-product-detail');
+
+// Collections Routes
+Route::get('/collections/{id}', [FrontendController::class, 'collectionDetails'])->name('collection.details');

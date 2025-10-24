@@ -693,6 +693,75 @@
     </section> --}}
     <!-- /Deal Today -->
 
+    <!-- Collection section -->
+    <section class="tf-sp-2 pt-3">
+        <div class="container">
+            <div class="flat-title pb-8 wow fadeInUp" data-wow-delay="0s">
+                <h5 class="fw-semibold text-primary flat-title-has-icon">
+                    Our Collections
+                </h5>
+                <div class="box-btn-slide relative">
+                    <div class="swiper-button-prev nav-swiper nav-prev-products">
+                        <i class="icon-arrow-left-lg"></i>
+                    </div>
+                    <div class="swiper-button-next nav-swiper nav-next-products">
+                        <i class="icon-arrow-right-lg"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper tf-sw-products" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="1"
+                data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="2"
+                data-pagination-md="3" data-pagination-lg="4" data-grid="2">
+                <div class="swiper-wrapper">
+                    @if(isset($collections) && $collections->count() > 0)
+                        @foreach($collections as $collection)
+                            <div class="swiper-slide" style="background-color: #d1d1d1; padding: 15px">
+                                <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
+                                    <a href="{{ route('collection.details', $collection->id) }}" class="img-style d-block">
+                                        @if($collection->image)
+                                            <img src="{{ asset($collection->image) }}" alt="{{ $collection->title }}">
+                                        @else
+                                            <img src="{{ asset('frontend-assets/images/collection/default-collection.jpg') }}" alt="{{ $collection->title }}">
+                                        @endif
+                                    </a>
+                                    <div class="content">
+                                        <h6 class="fw-normal">
+                                            <a href="{{ route('collection.details', $collection->id) }}" class="link">
+                                                {{ $collection->title }}
+                                            </a>
+                                        </h6>
+                                        @if($collection->description)
+                                            <p class="text-muted small">{{ Str::limit($collection->description, 50) }}</p>
+                                        @endif
+                                        {{-- <small class="text-primary">{{ $collection->categories->count() }} categories</small> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <!-- Fallback content when no collections are available -->
+                        <div class="swiper-slide">
+                            <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
+                                <a href="{{ route('shop') }}" class="img-style d-block">
+                                    <img src="{{ asset('frontend-assets/images/collection/cls-grid-1.jpg') }}" alt="Default Collection">
+                                </a>
+                                <div class="content">
+                                    <h6 class="fw-normal">
+                                        <a href="{{ route('shop') }}" class="link">
+                                            Browse Our Products
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="sw-dot-default sw-pagination-products justify-content-center"></div>
+            </div>
+        </div>
+    </section>
+    <!-- /Category -->
+
     <!-- Banner Product -->
     <section>
         <div class="container">
@@ -764,151 +833,6 @@
         </div>
     </section>
     <!-- /Banner Product -->
-
-    <!-- Category -->
-    <section class="tf-sp-2 pt-3">
-        <div class="container">
-            <div class="swiper tf-sw-products" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="1"
-                data-space-lg="30" data-space-md="20" data-space="15" data-pagination="1" data-pagination-sm="2"
-                data-pagination-md="3" data-pagination-lg="4" data-grid="2">
-                <div class="swiper-wrapper">
-                    <!-- item 1 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-1.jpg') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Laptops & Accessories
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 2 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-2.png') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Computers & Accessories
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 3 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-3.jpg') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Apple Products
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 4 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-4.jpg') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Server &
-                                        Workstation
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 5 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-5.png') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Bio-metric
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 6 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-6.png') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Printer & Scanner
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 7 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-7.jpg') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        Storage & Digital Devices
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- item 8 -->
-                    <div class="swiper-slide">
-                        <div class="wg-cls hover-img type-abs wow fadeInUp" data-wow-delay="0s">
-                            <a href="{{ route('shop') }}" class="img-style d-block">
-                                <img src="{{ asset('frontend-assets/images/collection/cls-grid-8.jpg') }}"
-                                    alt="">
-                            </a>
-                            <div class="content">
-                                <h6 class="fw-normal">
-                                    <a href="{{ route('shop') }}" class="link">
-                                        CCTV & Webcam
-                                    </a>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sw-dot-default sw-pagination-products justify-content-center"></div>
-            </div>
-        </div>
-    </section>
-    <!-- /Category -->
-
-
 
     <!-- Tab Product -->
     <div class="tf-sp-2 flat-animate-tab">

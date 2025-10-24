@@ -294,10 +294,19 @@ Route::controller(ProductDealController::class)->group(function (){
 // ------------------------------------------------------------ E-Commerce Collection Page -------------------------------------------------------------
 
 Route::controller(CollectionController::class)->group(function (){
-    // Collection Deals Page 
-    Route::get('/e-commerce/collections' ,'index')->name('collection.index');
-    // Add Collection Deals Page
-    Route::get('e-commerce/add-collections' ,'create')->name('collection.create');
-    // Edit Collection Deals Page
-    Route::get('/e-commerce/edit-collections' ,'edit')->name('collection.edit');
+    // Collections List Page
+    Route::get('/e-commerce/collections', 'index')->name('collection.index');
+    // Add Collection Page
+    Route::get('/e-commerce/add-collections', 'create')->name('collection.create');
+    // Store Collection
+    Route::post('/e-commerce/add-collections', 'store')->name('collection.store');
+    // Edit Collection Page
+    Route::get('/e-commerce/edit-collections/{id}', 'edit')->name('collection.edit');
+    // Update Collection
+    Route::put('/e-commerce/edit-collections/{id}', 'update')->name('collection.update');
+    // Delete Collection
+    Route::delete('/e-commerce/collections/{id}', 'destroy')->name('collection.delete');
+
+    // AJAX Routes for Category Search
+    Route::get('/e-commerce/search-categories', 'searchCategories')->name('collection.search-categories');
 });
