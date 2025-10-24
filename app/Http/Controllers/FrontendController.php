@@ -8,6 +8,7 @@ use App\Models\ProductDeal;
 use App\Models\Collection;
 use App\Models\Product;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
@@ -43,7 +44,10 @@ class FrontendController extends Controller
             ->orderBy('offer_start_date', 'desc')
             ->get();
 
-        return view('frontend.index', compact('banners', 'categories', 'collections', 'activeDeals'));
+        $products = Product::with(['brand', 'parentCategorie', 'subCategorie'])->get();
+        // dd($products);  
+
+        return view('frontend.index', compact('banners', 'categories', 'collections', 'activeDeals', 'products'));
     }
 
     /**
@@ -65,5 +69,23 @@ class FrontendController extends Controller
             ->paginate(20);
 
         return view('frontend.collection-details', compact('collection', 'products'));
+    }
+
+    public function getProduct(Request $request)
+    {
+
+        $product = Product::with(['brand', 'parentCategorie', 'subCategorie'])->findOrFail($request->id);
+
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $product
+        ]);
     }
 }

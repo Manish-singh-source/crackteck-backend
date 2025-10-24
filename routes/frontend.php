@@ -39,6 +39,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('website');
 Route::get('/e-commerce/shop', [FrontendEcommerceController::class, 'shop'])->name('shop');
 Route::get('/e-commerce/product/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('ecommerce.product.detail');
 Route::get('/product-detail/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('product.detail');
+Route::get('/product/get', [FrontendController::class, 'getProduct'])->name('product.get');
 
 // About US
 Route::get('/about-us', function () {

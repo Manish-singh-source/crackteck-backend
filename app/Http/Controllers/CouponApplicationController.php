@@ -248,4 +248,17 @@ class CouponApplicationController extends Controller
             $coupon->increment('current_usage_count');
         }
     }
+
+    public function getCartCount(): JsonResponse
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'cart_count' => 0
+            ]);
+        }
+
+        return response()->json([
+            'cart_count' => Cart::getCartCount(Auth::id())
+        ]);
+    }
 }
