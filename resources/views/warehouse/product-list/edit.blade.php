@@ -453,31 +453,7 @@
                                             ])
                                         </div>
 
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div>
-                                                @include('components.form.input', [
-                                                    'label' => 'Expiry Date',
-                                                    'name' => 'expiry_date',
-                                                    'type' => 'date',
-                                                    'placeholder' => 'Enter Expiry Date',
-                                                    'model' => $product,
-                                                ])
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-6">
-                                            @include('components.form.select', [
-                                                'label' => 'Rack Status',
-                                                'name' => 'rack_status',
-                                                'options' => [
-                                                    '' => '--Select--',
-                                                    'Available' => 'Available',
-                                                    'Blocked' => 'Blocked',
-                                                    'Reserved' => 'Reserved',
-                                                ],
-                                                'model' => $product,
-                                            ])
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -531,43 +507,33 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <h5 class="card-title mb-0">
-                                        Product Variations
-                                    </h5>
+                                    <div class="card-header border-bottom-dashed">
+                                        <h5 class="card-title mb-0">
+                                            Product Variations
+                                        </h5>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        @foreach($variationAttributes as $attribute)
+                                            <div class="mb-3">
+                                                <label for="variation_{{ $attribute->id }}" class="form-label">{{ $attribute->attribute_name }}</label>
+                                                <select
+                                                    id="variation_{{ $attribute->id }}"
+                                                    name="variations[{{ $attribute->id }}][]"
+                                                    class="form-select w-100"
+                                                    multiple>
+                                                    @foreach($attribute->values as $value)
+                                                        <option value="{{ $value->id }}">{{ $value->attribute_value }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <small class="text-muted">Hold Ctrl/Cmd to select multiple values</small>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+
                                 </div>
-
-                                <div class="card-body">
-
-                                    <div>
-                                        @include('components.form.select', [
-                                            'label' => 'Color Options',
-                                            'name' => 'color_options',
-                                            'options' => ['' => '--Select Color--'] + $colorOptions->toArray(),
-                                            'model' => $product,
-                                        ])
-                                    </div>
-
-                                    <div class="mt-3">
-                                        @include('components.form.select', [
-                                            'label' => 'Size Options',
-                                            'name' => 'size_options',
-                                            'options' => ['' => '--Select Size--'] + $sizeOptions->toArray(),
-                                            'model' => $product,
-                                        ])
-                                    </div>
-
-                                    <div class="mt-3">
-                                        @include('components.form.select', [
-                                            'label' => 'Length Options',
-                                            'name' => 'length_options',
-                                            'options' => ['' => '--Select Length--'] + $lengthOptions->toArray(),
-                                            'model' => $product,
-                                        ])
-                                    </div>
-                                </div>
-
-                            </div>
 
                             <div class="card">
                                 <div class="card-header border-bottom-dashed">

@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class DeliveryMan extends Model
+class DeliveryMan extends Authenticatable implements JWTSubject
 {
     use HasFactory;
 
@@ -45,6 +47,16 @@ class DeliveryMan extends Model
         'dob' => 'date',
         'joining_date' => 'date',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 
     /**
      * Get the orders assigned to this delivery man.
