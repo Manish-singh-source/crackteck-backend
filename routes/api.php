@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\SDUIController;
+use App\Http\Controllers\Api\ApiAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,8 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
 |
 */
 
-use App\Http\Controllers\Api\SDUIController;
-use App\Http\Controllers\Api\ApiAuthController;
 
 // SDUI Public Routes (can be protected via settings)
 Route::prefix('ui')->group(function () {
