@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\FollowUpController;
+use App\Http\Controllers\AMCRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:user,admin')->group(function () {
         Route::get('/user/profile', function () {
             return response()->json(['message' => 'User or Admin endpoint']);
+        });
+
+        // AMC Request Routes
+        Route::prefix('crm')->group(function () {
+            Route::post('/create-amc-request', [AMCRequestController::class, 'store']);
+            Route::get('/amc-plans', [AMCRequestController::class, 'getAmcPlans']);
         });
     });
 });
