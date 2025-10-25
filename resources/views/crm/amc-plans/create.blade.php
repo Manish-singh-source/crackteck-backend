@@ -83,8 +83,8 @@
                                             <div class="col-6">
                                                 <label for="description" class="form-label">Description <span
                                                         class="text-danger">*</span></label>
-                                                <textarea name="description" id="description" class="form-control" value="" required=""
-                                                    placeholder="Enter Description" form="usrform"></textarea>
+                                                <textarea name="description" id="description" class="form-control" required=""
+                                                    placeholder="Enter Description"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -221,30 +221,32 @@
                                             </div>
 
                                             <div class="">
-                                                <label for="replacement-policy" class="form-label">Replacement Policy
+                                                <label for="replacement_policy" class="form-label">Replacement Policy
                                                 </label>
-                                                <textarea name="replacement_policy" id="replacement-policy" class="form-control" value=""
-                                                    placeholder="Enter replacement-policy" form="usrform"></textarea>
+                                                <textarea name="replacement_policy" id="replacement_policy" class="form-control"
+                                                    placeholder="Enter Replacement Policy"></textarea>
                                             </div>
 
                                             <div class="">
                                                 <h6 class="fs-15">List of Covered Items</h6>
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        @include('components.form.checkbox', [
-                                                            'name' => 'items[]',
-                                                            'id' => 'cctv_n_security',
-                                                            'label' => 'CCTV & Security Systems',
-                                                            'value' => 'cctv_security',
-                                                            'checked' => false,
-                                                        ])
-                                                        @include('components.form.checkbox', [
+                                                        @foreach ($coveredItems as $item)
+                                                            @include('components.form.checkbox', [
+                                                                'name' => 'items[]',
+                                                                'id' => $item->id,
+                                                                'label' => $item->item_name,
+                                                                'value' => Str::slug($item->item_name),
+                                                                'checked' => false,
+                                                            ])
+                                                        @endforeach
+                                                        {{-- @include('components.form.checkbox', [
                                                             'name' => 'items[]',
                                                             'id' => 'router_service',
                                                             'label' => 'Router servicing',
                                                             'value' => 'router_service',
                                                             'checked' => false,
-                                                        ])
+                                                        ]) --}}
 
                                                         {{-- <div class="form-check mb-2">
                                                         <input class="form-check-input" type="checkbox" value=""
@@ -261,7 +263,7 @@
                                                         </label>
                                                     </div> --}}
                                                     </div>
-                                                    <div class="col-6">
+                                                    {{-- <div class="col-6">
                                                         @include('components.form.checkbox', [
                                                             'name' => 'items[]',
                                                             'id' => 'computer_laptops',
@@ -275,7 +277,7 @@
                                                             'label' => 'Biometric & Access Control',
                                                             'value' => 'biometric_access_control',
                                                             'checked' => false,
-                                                        ])
+                                                        ]) --}}
                                                         {{-- <div class="form-check mb-2">
                                                         <input class="form-check-input" type="checkbox" value=""
                                                             id="computer-laptops">
@@ -290,7 +292,7 @@
                                                             Biometric & Access Control
                                                         </label>
                                                     </div> --}}
-                                                    </div>
+                                                    {{-- </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -318,8 +320,8 @@
                                             <div class="">
                                                 <label for="tandc" class="form-label">Terms and Conditions <span
                                                         class="text-danger">*</span></label>
-                                                <textarea name="tandc" id="tandc" class="form-control" value="" placeholder="Enter Terms & Conditions"
-                                                    form="usrform"></textarea>
+                                                <textarea name="tandc" id="tandc" class="form-control" placeholder="Enter Terms & Conditions"
+                                                   ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -370,4 +372,18 @@
 
         </div> <!-- container-fluid -->
     </div> <!-- content -->
+@endsection
+
+@section('scripts') 
+    <script>
+        $(document).ready(function() {
+            $(document).on("change", "#tax, #plan_cost", function() {
+                var tax = $("#tax").val() || 0;
+                var planCost = $("#plan_cost").val();
+                var taxAmount = planCost * tax / 100;
+                var totalCost = planCost + taxAmount;
+                $("#total_cost").val(totalCost);
+            });
+        });
+    </script>
 @endsection

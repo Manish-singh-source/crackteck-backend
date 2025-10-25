@@ -81,7 +81,7 @@ Route::prefix('ui')->middleware(['auth:sanctum', 'role:admin'])->group(function 
     Route::post('/clear-cache', [SDUIController::class, 'clearCache']);
 });
 
-Route::post('/login', [ApiAuthController::class, 'login']);
+Route::post('/send-otp', [ApiAuthController::class, 'login']);
 Route::post('/verify-otp', [ApiAuthController::class, 'verifyOtp']);
 
 Route::middleware(['jwt.verify'])->group(function () {

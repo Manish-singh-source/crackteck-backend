@@ -1,3 +1,18 @@
 
 
+SDUI:
+
+/role_selection 
+
+/signin - parameters role_id = 1, 2, 3 
+/signup - parameters role_id = 1, 2, 3
  
+/send-otp - parameters phone number, role_id 
+/verify-otp - parameters phone number, role_id, 
+/
+
+
+/otp_verification
+/field_signup  
+/delivery_signup
+/sales_signup  
