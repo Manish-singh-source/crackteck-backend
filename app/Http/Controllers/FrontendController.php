@@ -9,6 +9,8 @@ use App\Models\Collection;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Contact;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller
 {
@@ -88,5 +90,34 @@ class FrontendController extends Controller
             'success' => true,
             'data' => $product
         ]);
+    }
+
+    public function storeContact(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|min:3',
+            'last_name' => 'required|min:3',
+            'email' => 'required|email',
+            'phone' => 'required|digits:10',
+            'message' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $contact = new Contact();
+        $contact->first_name = $request->first_name;
+        $contact->last_name = $request->last_name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+        $contact->save();
+
+        if (!$contact) {
+            return back()->with('error', 'Something went wrong.');
+        }
+        return redirect()->route('contact')->with('success', 'Contact added successfully.');
     }
 }
