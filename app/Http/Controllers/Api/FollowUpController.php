@@ -55,9 +55,6 @@ class FollowUpController extends Controller
     }
 
     public function update(Request $request, $followup_id) {
-
-        return response()->json(['message' => 'Follow Up updated successfully', 'followup' => $request->all()], 200);
-
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
