@@ -182,6 +182,13 @@
                         <span class="ps-1"> AMC Plans </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href="{{ route('covered-items.index') }}">
+                        <i class="fas fa-project-diagram"></i>
+
+                        <span class="ps-1">Covered Items </span>
+                    </a>
+                </li>
 
                 <li>
                     <a class='tp-link' href="{{ route('service-request.index') }}">
