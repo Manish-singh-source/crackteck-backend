@@ -50,7 +50,7 @@
                                 Job Details
                             </h5>
                             <div class="fw-bold text-dark">
-                                RJ1001
+                                {{ $job->id }}
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                                         <span class="fw-semibold text-break">Client Name :
                                         </span>
                                         <span>
-                                            {{ $job->first_name }}
+                                            {{ $job->first_name }} {{ $job->last_name }}
                                         </span>
                                     </li>
 
@@ -76,7 +76,11 @@
                                         <span class="fw-semibold text-break">Engineer Name :
                                         </span>
                                         <span>
-                                            Shyam Jaiswal
+                                            @if($assignment)
+                                                {{ $assignment->engineer->first_name }} {{ $assignment->engineer->last_name }}
+                                            @else
+                                                Not Assigned
+                                            @endif
                                         </span>
                                     </li>
 
@@ -84,7 +88,7 @@
                                         <span class="fw-semibold text-break">Issue Type :
                                         </span>
                                         <span>
-                                            Need a AMC Service for my PC
+                                            {{ $job->issue_type }}
                                         </span>
                                     </li>
                                 </ul>
@@ -96,7 +100,7 @@
                                         <span class="fw-semibold text-break">Schedule/Deadline :
                                         </span>
                                         <span>
-                                            2024-02-05
+                                            {{ $job->purchase_date ? $job->purchase_date->format('Y-m-d') : 'N/A' }}
                                         </span>
                                     </li>
 
@@ -123,58 +127,89 @@
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
-                        <div class="d-flex">
+                        <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title flex-grow-1 mb-0">
-                                Devies Details
+                                Devices Details
                             </h5>
+                            <button type="button" class="btn btn-danger btn-sm" id="bulk-delete-devices-btn" style="display: none;">
+                                <i class="mdi mdi-delete"></i> Delete Selected
+                            </button>
                         </div>
                     </div>
                     <div class="card-body">
                         <table
-                            class="table table-striped table-borderless dt-responsive nowrap">
+                            class="table table-striped table-borderless dt-responsive nowrap" id="devices-table">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" id="select-all-devices" class="form-check-input">
+                                    </th>
                                     <th>Item Image</th>
                                     <th>Name</th>
                                     <th>Type</th>
                                     <th>Brand</th>
-                                    <th>Modal Number</th>
+                                    <th>Model Number</th>
                                     <th>Serial Number</th>
-                                    <th>Approve Date</th>
+                                    <th>Purchase Date</th>
+                                    <th>Issue Type</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <tr class="align-middle">
+                                @forelse($job->devices as $device)
+                                <tr class="align-middle device-row" data-device-id="{{ $device->id }}">
+                                    <td>
+                                        <input type="checkbox" class="form-check-input device-checkbox" value="{{ $device->id }}">
+                                    </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
-                                                <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                @if($device->image)
+                                                    {{-- Use public storage URL. device->image is stored relative to storage/app/public, e.g. "products/filename.png" --}}
+                                                    <img src="{{ asset('storage/' . $device->image) }}" alt="{{ $device->product_name }}" width="100px" class="img-fluid d-block">
+                                                @else
+                                                    <img src="https://placehold.co/100x100?text=No+Image" alt="No Image" width="100px" class="img-fluid d-block">
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
 
                                     <td>
                                         <div>
-                                            External Hard Disk
+                                            {{ $device->product_name ?? 'N/A' }}
                                         </div>
                                     </td>
                                     <td>
-                                        Storage Device
+                                        {{ $device->product_type ?? 'N/A' }}
                                     </td>
                                     <td>
-                                        Seagate
+                                        {{ $device->product_brand ?? 'N/A' }}
                                     </td>
                                     <td>
-                                        STDR2000100
+                                        {{ $device->model_no ?? 'N/A' }}
                                     </td>
                                     <td>
-                                        SGHD789012
+                                        {{ $device->serial_no ?? 'N/A' }}
                                     </td>
-                                    <td>2024-02-05</td>
-                                    <td>Approved</td>
+                                    <td>{{ $device->purchase_date ? $device->purchase_date->format('Y-m-d') : 'N/A' }}</td>
+                                    <td>
+                                        {{ $device->issue_type ?? 'N/A' }}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success">Approved</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger delete-device-btn" data-device-id="{{ $device->id }}">
+                                            <i class="mdi mdi-delete"></i>
+                                        </button>
+                                    </td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="11" class="text-center">No devices found</td>
+                                </tr>
+                                @endforelse
 
                             </tbody>
                         </table>
@@ -358,10 +393,11 @@
 
                     <div class="card-body">
                         <div>
-                            <select required="" name="eng-location" id="eng-location" class="form-select w-100">
-                                <option value="0" selected disabled>---- Select Location ----</option>
-                                <option value="0">Saurabh</option>
-                                <option value="0">Manish</option>
+                            <select required="" name="engineer_id" id="engineer-select" class="form-select w-100">
+                                <option value="" selected disabled>---- Select Engineer ----</option>
+                                @foreach($engineers as $engineer)
+                                    <option value="{{ $engineer->id }}">{{ $engineer->first_name }} {{ $engineer->last_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -369,12 +405,12 @@
 
 
                 <div class="text-end pb-3 hide-section">
-                    <button href="#" class="btn btn-primary assign-eng-btn">
+                    <button type="button" class="btn btn-primary assign-eng-btn">
                         Assign
                     </button>
                 </div>
 
-                <div class="card hide-selected-engineers-section">
+                <div class="card @if(!$assignment) hide-selected-engineers-section @endif">
                     <div class="card-header border-bottom-dashed">
                         <div class="d-flex  ">
                             <h5 class="card-title flex-grow-1 mb-0">Assigned Support Engineer</h5>
@@ -385,7 +421,10 @@
                             <div class="col-lg-12">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">John Doe
+                                        <span class="fw-semibold text-break" id="assigned-engineer-name">
+                                            @if($assignment)
+                                                {{ $assignment->engineer->first_name }} {{ $assignment->engineer->last_name }}
+                                            @endif
                                         </span>
                                     </li>
                                 </ul>
@@ -602,10 +641,11 @@
         $(".hide-section").hide();
         $(".hide-report-section").hide();
         $(".hide-assign-eng-section").hide();
+        @if(!$assignment)
         $(".hide-selected-engineers-section").hide();
+        @endif
 
-        $("#eng-location").on("change", function() {
-            $(".hide-assign-eng-section").show();
+        $("#engineer-select").on("change", function() {
             $(".hide-section").show();
         });
 
@@ -617,11 +657,40 @@
         });
 
         $(".assign-eng-btn").on("click", function() {
-            $(".hide-section").hide();
-            $(".hide-assign-eng-section").hide();
-            $(".hide-selected-engineers-section").show();
-            $(".hide-report-section").show();
+            var engineerId = $("#engineer-select").val();
+            var jobId = {{ $job->id }};
 
+            if (!engineerId) {
+                alert('Please select an engineer');
+                return;
+            }
+
+            // Send AJAX request to assign engineer
+            $.ajax({
+                url: '/crm/assign-job',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    job_id: jobId,
+                    engineer_id: engineerId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $(".hide-section").hide();
+                        $(".hide-assign-eng-section").hide();
+                        $(".hide-selected-engineers-section").show();
+                        $("#assigned-engineer-name").text(response.engineer_name);
+                        $(".hide-report-section").show();
+                        alert('Engineer assigned successfully!');
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    alert('Error assigning engineer. Please try again.');
+                }
+            });
         });
 
         $(".show-report").on("click", function() {
@@ -688,6 +757,97 @@
                 $tableBody.append(newRow);
                 $(this).remove();
             });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Select all devices checkbox
+        $('#select-all-devices').on('change', function() {
+            const isChecked = $(this).is(':checked');
+            $('.device-checkbox').prop('checked', isChecked);
+            toggleBulkDeleteButton();
+        });
+
+        // Individual device checkbox
+        $('.device-checkbox').on('change', function() {
+            const totalCheckboxes = $('.device-checkbox').length;
+            const checkedCheckboxes = $('.device-checkbox:checked').length;
+
+            $('#select-all-devices').prop('checked', totalCheckboxes === checkedCheckboxes);
+            toggleBulkDeleteButton();
+        });
+
+        // Toggle bulk delete button visibility
+        function toggleBulkDeleteButton() {
+            const checkedCount = $('.device-checkbox:checked').length;
+            if (checkedCount > 0) {
+                $('#bulk-delete-devices-btn').show();
+            } else {
+                $('#bulk-delete-devices-btn').hide();
+            }
+        }
+
+        // Delete single device
+        $('.delete-device-btn').on('click', function() {
+            const deviceId = $(this).data('device-id');
+
+            if (confirm('Are you sure you want to delete this device?')) {
+                $.ajax({
+                    url: '/crm/delete-device/' + deviceId,
+                    method: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Error deleting device. Please try again.');
+                    }
+                });
+            }
+        });
+
+        // Bulk delete devices
+        $('#bulk-delete-devices-btn').on('click', function() {
+            const selectedDevices = [];
+            $('.device-checkbox:checked').each(function() {
+                selectedDevices.push($(this).val());
+            });
+
+            if (selectedDevices.length === 0) {
+                alert('Please select at least one device to delete.');
+                return;
+            }
+
+            if (confirm('Are you sure you want to delete ' + selectedDevices.length + ' device(s)?')) {
+                $.ajax({
+                    url: '/crm/bulk-delete-devices',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        device_ids: selectedDevices
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Error deleting devices. Please try again.');
+                    }
+                });
+            }
         });
     });
 </script>
