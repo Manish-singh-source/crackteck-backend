@@ -177,13 +177,13 @@ class CouponApplicationController extends Controller
         }
 
         // Check minimum purchase amount
-        $cartTotal = Cart::getCartTotal($userId);
-        if (!$coupon->meetsMinimumPurchase($cartTotal)) {
-            return [
-                'valid' => false, 
-                'message' => "Minimum purchase amount of ₹" . number_format($coupon->min_purchase_amount, 2) . " required to use this coupon."
-            ];
-        }
+        // $cartTotal = Cart::getCartTotal($userId);
+        // if (!$coupon->meetsMinimumPurchase($cartTotal)) {
+        //     return [
+        //         'valid' => false, 
+        //         'message' => "Minimum purchase amount of ₹" . number_format($coupon->min_purchase_amount, 2) . " required to use this coupon."
+        //     ];
+        // }
 
         // Check if coupon applies to any cart items (skip if cart validation is disabled)
         if (!$skipCartValidation) {

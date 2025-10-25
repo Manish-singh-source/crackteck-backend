@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             ProductsSeeder::class,
             EcommerceProductsSeeder::class,
             ContactSeeder::class,
+            EngineerSeeder::class,
         ]);
       
     }
