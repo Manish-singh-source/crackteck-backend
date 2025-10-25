@@ -257,8 +257,9 @@
                                                         </a>
                                                     </li>
                                                     <li class="d-none d-sm-block">
-                                                        <a href="#compare" data-bs-toggle="offcanvas"
-                                                            class="box-icon btn-icon-action hover-tooltip tooltip-left">
+                                                        <a href="#;" id="compare"
+                                                            class="box-icon btn-icon-action hover-tooltip tooltip-left compare-btn"
+                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}">
                                                             <span class="icon icon-compare1"></span>
                                                             <span class="tooltip">Compare</span>
                                                         </a>
