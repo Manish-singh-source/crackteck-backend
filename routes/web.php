@@ -613,9 +613,15 @@ Route::controller(FieldIssuesController::class)->group(function () {
     // Field Issues Page
     Route::get('/crm/field-issues', 'index')->name('field-issues.index');
     // View Field Issues Page 
-    Route::get('/crm/view-field-issues', 'view')->name('field-issues.view');
+    Route::get('/crm/view-field-issues/{id}', 'view')->name('field-issues.view');
     // Edit Field Issues Page 
-    Route::get('/crm/edit-field-issues', 'edit')->name('field-issues.edit');
+    Route::get('/crm/edit-field-issues/{id}', 'edit')->name('field-issues.edit');
+    // Create Field Issue
+    Route::post('/crm/field-issues', 'store')->name('field-issues.store');
+    // Update Field Issue
+    Route::put('/crm/field-issues/{id}', 'update')->name('field-issues.update');
+    // Delete Field Issue
+    Route::delete('/crm/field-issues/{id}', 'destroy')->name('field-issues.destroy');
 });
 
 // ------------------------------------------------------------ Spare Parts Page -------------------------------------------------------------
