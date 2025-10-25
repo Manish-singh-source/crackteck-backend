@@ -339,15 +339,27 @@
                         <!-- Discount Code Section -->
                         <div class="mt-3">
                             <p class="body-md-2 fw-semibold sub-type">Discount code</p>
-                            <form class="ip-discount-code style-2">
+                            <div class="ip-discount-code style-2">
                                 <div class="d-flex gap-2">
-                                    <input type="text" class="def" placeholder="Your code" disabled>
-                                    <button type="button" class="tf-btn btn-gray-2" disabled>
+                                    <input type="text" id="coupon_code" class="def" placeholder="Enter coupon code"
+                                           value="{{ session('applied_coupon.code') ?? '' }}">
+                                    <button type="button" id="apply_coupon" class="tf-btn btn-primary">
                                         <span>Apply</span>
                                     </button>
                                 </div>
-                            </form>
-                            <small class="text-muted">Discount codes will be available soon</small>
+                                @if(session('applied_coupon'))
+                                    <div class="mt-2">
+                                        <small class="text-success">
+                                            <i class="icon-check"></i>
+                                            Coupon "{{ session('applied_coupon.code') }}" applied successfully!
+                                        </small>
+                                        <button type="button" id="remove_coupon" class="btn btn-sm btn-outline-danger ms-2">
+                                            Remove
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                            <div id="coupon_message" class="mt-2" style="display: none;"></div>
                         </div>
 
                         <!-- Price Summary -->
@@ -367,6 +379,14 @@
                                     @endif
                                 </span>
                             </li>
+                            @if(session('applied_coupon'))
+                                <li>
+                                    <span class="body-text-3 text-success">Discount ({{ session('applied_coupon.code') }})</span>
+                                    <span class="body-text-3 text-success" id="discount-amount">
+                                        -₹{{ number_format(session('applied_coupon.discount_amount'), 2) }}
+                                    </span>
+                                </li>
+                            @endif
                             <li>
                                 <span class="body-md-2 fw-semibold">Total</span>
                                 <span class="body-md-2 fw-semibold text-primary"
@@ -489,6 +509,78 @@
                 let value = $(this).val().replace(/\D/g, '');
                 $(this).val(value);
             });
+
+            // Coupon functionality
+            $('#apply_coupon').on('click', function() {
+                const couponCode = $('#coupon_code').val().trim();
+                if (!couponCode) {
+                    showCouponMessage('Please enter a coupon code', 'error');
+                    return;
+                }
+
+                $.ajax({
+                    url: '{{ route("cart.apply-coupon") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        coupon_code: couponCode
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showCouponMessage(response.message, 'success');
+                            // Reload page to update totals
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            showCouponMessage(response.message, 'error');
+                        }
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'Error applying coupon. Please try again.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        showCouponMessage(errorMessage, 'error');
+                    }
+                });
+            });
+
+            $('#remove_coupon').on('click', function() {
+                $.ajax({
+                    url: '{{ route("cart.remove-coupon") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showCouponMessage(response.message, 'success');
+                            // Reload page to update totals
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            showCouponMessage(response.message, 'error');
+                        }
+                    },
+                    error: function(xhr) {
+                        showCouponMessage('Error removing coupon. Please try again.', 'error');
+                    }
+                });
+            });
+
+            function showCouponMessage(message, type) {
+                const messageDiv = $('#coupon_message');
+                messageDiv.removeClass('text-success text-danger')
+                    .addClass(type === 'success' ? 'text-success' : 'text-danger')
+                    .html('<small>' + message + '</small>')
+                    .show();
+
+                setTimeout(function() {
+                    messageDiv.hide();
+                }, 5000);
+            }
 
             // Form submission
             $('#checkout-form').on('submit', function(e) {

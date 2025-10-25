@@ -11,31 +11,33 @@ class ProductDeal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ecommerce_product_id',
         'deal_title',
-        'original_price',
-        'discount_type',
-        'discount_value',
-        'offer_price',
-        'start_date',
-        'end_date',
+        'offer_start_date',
+        'offer_end_date',
         'status',
     ];
 
     protected $casts = [
-        'original_price' => 'decimal:2',
-        'discount_value' => 'decimal:2',
-        'offer_price' => 'decimal:2',
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'offer_start_date' => 'datetime',
+        'offer_end_date' => 'datetime',
     ];
 
     /**
-     * Get the e-commerce product that this deal belongs to.
+     * Get the deal items (products) that belong to this deal.
      */
-    public function ecommerceProduct()
+    public function dealItems()
     {
-        return $this->belongsTo(EcommerceProduct::class);
+        return $this->hasMany(ProductDealItem::class);
+    }
+
+    /**
+     * Get the e-commerce products through deal items.
+     */
+    public function ecommerceProducts()
+    {
+        return $this->belongsToMany(EcommerceProduct::class, 'product_deal_items')
+                    ->withPivot('original_price', 'discount_type', 'discount_value', 'offer_price')
+                    ->withTimestamps();
     }
 
     /**
@@ -52,8 +54,8 @@ class ProductDeal extends Model
     public function scopeCurrent($query)
     {
         $now = Carbon::now();
-        return $query->where('start_date', '<=', $now)
-                    ->where('end_date', '>=', $now);
+        return $query->where('offer_start_date', '<=', $now)
+                    ->where('offer_end_date', '>=', $now);
     }
 
     /**
@@ -62,9 +64,9 @@ class ProductDeal extends Model
     public function isCurrentlyActive()
     {
         $now = Carbon::now();
-        return $this->status === 'active' 
-            && $this->start_date <= $now 
-            && $this->end_date >= $now;
+        return $this->status === 'active'
+            && $this->offer_start_date <= $now
+            && $this->offer_end_date >= $now;
     }
 
     /**
@@ -72,12 +74,12 @@ class ProductDeal extends Model
      */
     public function getTimeLeftAttribute()
     {
-        if ($this->end_date < Carbon::now()) {
+        if ($this->offer_end_date < Carbon::now()) {
             return 'Expired';
         }
 
-        $diff = Carbon::now()->diff($this->end_date);
-        
+        $diff = Carbon::now()->diff($this->offer_end_date);
+
         if ($diff->days > 0) {
             return $diff->days . ' days left';
         } elseif ($diff->h > 0) {
@@ -92,26 +94,83 @@ class ProductDeal extends Model
      */
     public function getOfferPeriodAttribute()
     {
-        return $this->start_date->format('M d') . ' - ' . $this->end_date->format('M d');
+        return $this->offer_start_date->format('M d, Y H:i') . ' - ' . $this->offer_end_date->format('M d, Y H:i');
     }
 
     /**
-     * Get discount display text.
+     * Get time left in seconds for JavaScript countdown.
      */
-    public function getDiscountDisplayAttribute()
+    public function getTimeLeftSecondsAttribute()
     {
-        if ($this->discount_type === 'percentage') {
-            return $this->discount_value . '%';
-        } else {
-            return '₹' . number_format($this->discount_value, 0);
+        if ($this->offer_end_date < Carbon::now()) {
+            return 0;
         }
+
+        return Carbon::now()->diffInSeconds($this->offer_end_date);
     }
 
     /**
-     * Calculate savings amount.
+     * Get total number of products in this deal.
      */
-    public function getSavingsAmountAttribute()
+    public function getTotalProductsAttribute()
     {
-        return $this->original_price - $this->offer_price;
+        return $this->dealItems()->count();
+    }
+
+    /**
+     * Get the minimum offer price from all deal items.
+     */
+    public function getMinOfferPriceAttribute()
+    {
+        return $this->dealItems()->min('offer_price') ?? 0;
+    }
+
+    /**
+     * Get the maximum offer price from all deal items.
+     */
+    public function getMaxOfferPriceAttribute()
+    {
+        return $this->dealItems()->max('offer_price') ?? 0;
+    }
+
+    /**
+     * Get the average discount percentage across all items.
+     */
+    public function getAverageDiscountAttribute()
+    {
+        $items = $this->dealItems;
+        if ($items->isEmpty()) {
+            return 0;
+        }
+
+        $totalSavings = 0;
+        $totalOriginal = 0;
+
+        foreach ($items as $item) {
+            $totalSavings += ($item->original_price - $item->offer_price);
+            $totalOriginal += $item->original_price;
+        }
+
+        if ($totalOriginal <= 0) {
+            return 0;
+        }
+
+        return round(($totalSavings / $totalOriginal) * 100, 1);
+    }
+
+    /**
+     * Check if deal has expired.
+     */
+    public function hasExpired()
+    {
+        return $this->offer_end_date < Carbon::now();
+    }
+
+    /**
+     * Check if deal has started.
+     */
+    public function hasStarted()
+    {
+        return $this->offer_start_date <= Carbon::now();
     }
 }

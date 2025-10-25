@@ -41,8 +41,20 @@ return [
             'provider' => 'users',
         ],
         'api' => [
-            'driver' => 'sanctum',
+            'driver' => 'jwt',
             'provider' => 'users',
+        ],
+        'engineer' => [
+            'driver' => 'jwt',
+            'provider' => 'engineers',
+        ],
+        'delivery_man' => [
+            'driver' => 'jwt',
+            'provider' => 'delivery_men',
+        ],
+        'sales_person' => [
+            'driver' => 'jwt',
+            'provider' => 'sales_people',
         ],
     ],
 
@@ -68,6 +80,21 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
+        'engineers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_ENGINEER_MODEL', App\Models\Engineer::class),
+        ],
+
+        'delivery_men' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_DELIVERY_MAN_MODEL', App\Models\DeliveryMan::class),
+        ],
+
+        'sales_people' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_SALES_PERSON_MODEL', App\Models\SalesPerson::class),
+        ],  
 
         // 'users' => [
         //     'driver' => 'database',

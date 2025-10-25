@@ -60,6 +60,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the stock requests made by this user.
+     */
+    public function stockRequests()
+    {
+        return $this->hasMany(StockRequest::class, 'requested_by');
+    }
+
+    /**
      * Get the e-commerce products in the user's wishlist.
      */
     public function wishlistProducts()
