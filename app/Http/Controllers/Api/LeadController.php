@@ -67,6 +67,29 @@ class LeadController extends Controller
     }
 
 
+    public function update(Request $request, $lead_id) {
+        $validated = request()->validate([
+            // validation rules if any
+            'user_id' => 'required',
+        ]);
+
+        if (!$validated['user_id']) {
+            return response()->json(['message' => 'User ID is required'], 400);
+        }
+
+        if($request->full_name){
+            $full_name = explode(' ', $request->full_name);
+            $request->merge(['first_name' => $full_name[0]]);
+            $request->merge(['last_name' => $full_name[1]]);
+
+            unset($request['full_name']);
+        }
+
+        $lead = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->update($request->all());
+
+        return response()->json(['lead' => $lead], 200);
+    }
+
     public function destroy(Request $request, $lead_id) {
         $validated = request()->validate([
             // validation rules if any
