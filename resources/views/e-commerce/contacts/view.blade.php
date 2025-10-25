@@ -40,17 +40,24 @@
 
                                 <li
                                     class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                    <span class="fw-semibold text-break">Subject :
+                                    <span class="fw-semibold text-break">Email :
 
                                     </span>
-                                    <span>{{ $contact->subject }}</span>
+                                    <span>{{ $contact->email }}</span>
                                 </li>
 
                                 <li
                                     class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                                    <span class="fw-semibold text-break">Describtion :
+                                    <span class="fw-semibold text-break">Phone :
                                     </span>
-                                    <span class="w-75">{{ $contact->description }}</span>
+                                    <span>{{ $contact->phone }}</span>
+                                </li>
+
+                                <li
+                                    class="list-group-item d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                    <span class="fw-semibold text-break">Message :
+                                    </span>
+                                    <span>{{ $contact->message }}</span>
                                 </li>
 
                             </ul>

@@ -52,6 +52,7 @@ Route::get('/about-us', function () {
 Route::get('/contact-us', function () {
     return view('frontend/contact');
 })->name('contact');
+Route::post('/contact-us', [FrontendController::class, 'storeContact'])->name('contact.store');
 
 // AMC
 Route::get('/amc', function () {
