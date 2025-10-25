@@ -464,6 +464,14 @@ Route::controller(AmcController::class)->group(function () {
     Route::put('/crm/update-amc-plans/{id}', 'update')->name('amc-plan.update');
     // Delete AMC Plans page 
     Route::delete('/crm/delete-amc-plans{id}', 'delete')->name('amc-plan.delete');
+
+    // Covered Items Page
+    Route::get('/crm/covered-items', 'coveredItems')->name('covered-items.index');
+    Route::get('/crm/create-covered-items', 'createCoveredItems')->name('covered-items.create'); 
+    Route::post('/crm/store-covered-items', 'storeCoveredItems')->name('covered-items.store');
+    Route::get('/crm/edit-covered-items/{id}', 'editCoveredItems')->name('covered-items.edit');
+    Route::put('/crm/update-covered-items/{id}', 'updateCoveredItems')->name('covered-items.update');
+    Route::delete('/crm/delete-covered-items/{id}', 'deleteCoveredItems')->name('covered-items.delete');
 });
 
 // ------------------------------------------------------------ Service Request Page -------------------------------------------------------------

@@ -8,18 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasApiTokens;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $guarded=[];
+    protected $guarded = [];
     // protected $fillable = [
     //     'name',
     //     'email',
@@ -63,7 +65,7 @@ class User extends Authenticatable
     public function wishlistProducts()
     {
         return $this->belongsToMany(EcommerceProduct::class, 'wishlists', 'user_id', 'ecommerce_product_id')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**
@@ -80,8 +82,8 @@ class User extends Authenticatable
     public function cartProducts()
     {
         return $this->belongsToMany(EcommerceProduct::class, 'carts', 'user_id', 'ecommerce_product_id')
-                    ->withPivot('quantity')
-                    ->withTimestamps();
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 
     /**
@@ -106,8 +108,8 @@ class User extends Authenticatable
     public function defaultShippingAddress()
     {
         return $this->hasOne(UserAddress::class)
-                    ->where('address_type', 'shipping')
-                    ->where('is_default', true);
+            ->where('address_type', 'shipping')
+            ->where('is_default', true);
     }
 
     /**
@@ -116,7 +118,19 @@ class User extends Authenticatable
     public function defaultBillingAddress()
     {
         return $this->hasOne(UserAddress::class)
-                    ->where('address_type', 'billing')
-                    ->where('is_default', true);
+            ->where('address_type', 'billing')
+            ->where('is_default', true);
+    }
+
+    /**
+     * Configure activity logging options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email', 'phone', 'status'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn(string $eventName) => "User {$eventName}");
     }
 }

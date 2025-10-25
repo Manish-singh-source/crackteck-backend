@@ -1,6 +1,5 @@
 # API Endpoints Documentation
 
-### 🔹 **UI Schema Endpoints**
 
 | Endpoint               | Handler                                    | Parameters                                |
 | ---------------------- | ------------------------------------------ | ----------------------------------------- |
