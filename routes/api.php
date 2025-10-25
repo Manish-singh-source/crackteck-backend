@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\Api\FollowUpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,13 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::get('/leads/{id}', 'show');
         Route::put('/leads/{id}', 'update');
         Route::delete('/leads/{id}', 'destroy');
+    });
+
+    Route::controller(FollowUpController::class)->group(function () {
+        Route::get('/follow-up', 'index');
+        Route::post('/follow-up', 'store');
+        Route::get('/follow-up/{id}', 'show');
+        Route::put('/follow-up/{id}', 'update');
+        Route::delete('/follow-up/{id}', 'destroy');
     });
 });
