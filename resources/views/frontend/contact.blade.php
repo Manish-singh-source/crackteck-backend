@@ -145,17 +145,55 @@
         <div class="col-md-6">
             <h4 class="mb-3">Send Us A Message</h4>
             <p class="mb-4">Fill up the form and our Team will get back to you within 24 hours.</p>
-            <form class="contact-form">
+            <form class="contact-form" action="{{ route('contact.store') }}" method="POST">
+                @csrf
+                @method('POST')
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Full Name" required>
+                        @include('components.form.input', [
+                        'label' => 'First Name',
+                        'name' => 'first_name',
+                        'type' => 'text',
+                        'placeholder' => 'Enter First Name',
+                        ])
                     </div>
                     <div class="col-md-6">
-                        <input type="email" class="form-control" placeholder="Your Email" required>
+                        @include('components.form.input', [
+                        'label' => 'Last Name',
+                        'name' => 'last_name',
+                        'type' => 'text',
+                        'placeholder' => 'Enter Last Name',
+                        ])
                     </div>
                 </div>
-                <input type="text" class="form-control" placeholder="Your Phone">
-                <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+                <div class="row">
+                    <div class="col-md-6">
+                        @include('components.form.input', [
+                        'label' => 'Email',
+                        'name' => 'email',
+                        'type' => 'email',
+                        'placeholder' => 'Enter Email',
+                        ])
+                    </div>
+                    <div class="col-md-6">
+                        @include('components.form.input', [
+                        'label' => 'Phone',
+                        'name' => 'phone',
+                        'type' => 'text',
+                        'placeholder' => 'Enter Phone',
+                        ])
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @include('components.form.input', [
+                        'label' => 'Message',
+                        'name' => 'message',
+                        'type' => 'textarea',
+                        'placeholder' => 'Enter Message',
+                        ])
+                    </div>
+                </div>
                 <button type="submit">SEND MESSAGE <i class="fas fa-arrow-right"></i></button>
             </form>
         </div>

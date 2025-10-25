@@ -196,12 +196,21 @@ Route::controller(ProductVariantsController::class)->group(function (){
 // ------------------------------------------------------------ E-Commerce Coupons Page -------------------------------------------------------------
 
 Route::controller(CouponsController::class)->group(function (){
-    // Coupons Page 
+    // Coupons Page
     Route::get('/e-commerce/coupons' ,'index')->name('coupon.index');
     // Create Coupons Page
     Route::get('/e-commerce/create-coupons' ,'create')->name('coupon.create');
+    // Store Coupon
+    Route::post('/e-commerce/create-coupons', 'store')->name('coupon.store');
     // Edit Coupons Page
-    Route::get('/e-commerce/edit-coupons' ,'edit')->name('coupon.edit');
+    Route::get('/e-commerce/edit-coupons/{id}' ,'edit')->name('coupon.edit');
+    // Update Coupon
+    Route::put('/e-commerce/edit-coupons/{id}', 'update')->name('coupon.update');
+    // Delete Coupon
+    Route::delete('/e-commerce/delete-coupon/{id}', 'destroy')->name('coupon.delete');
+
+    // AJAX Routes for product search
+    Route::get('/e-commerce/search-products-for-coupon', 'searchProducts')->name('coupon.search-products');
 });
 
 // ------------------------------------------------------------ E-Commerce Subscribers Page -------------------------------------------------------------
@@ -276,6 +285,7 @@ Route::controller(ProductDealController::class)->group(function (){
     // Delete Product Deal
     Route::delete('/e-commerce/delete-product-deal/{productDeal}', 'destroy')->name('product-deals.delete');
 
+
     // AJAX Routes for E-commerce Product Search
     Route::get('/e-commerce/search-ecommerce-products', 'searchEcommerceProducts')->name('product-deals.search-products');
     Route::get('/e-commerce/get-ecommerce-product/{id}', 'getEcommerceProduct')->name('product-deals.get-product');
@@ -284,10 +294,19 @@ Route::controller(ProductDealController::class)->group(function (){
 // ------------------------------------------------------------ E-Commerce Collection Page -------------------------------------------------------------
 
 Route::controller(CollectionController::class)->group(function (){
-    // Collection Deals Page 
-    Route::get('/e-commerce/collections' ,'index')->name('collection.index');
-    // Add Collection Deals Page
-    Route::get('e-commerce/add-collections' ,'create')->name('collection.create');
-    // Edit Collection Deals Page
-    Route::get('/e-commerce/edit-collections' ,'edit')->name('collection.edit');
+    // Collections List Page
+    Route::get('/e-commerce/collections', 'index')->name('collection.index');
+    // Add Collection Page
+    Route::get('/e-commerce/add-collections', 'create')->name('collection.create');
+    // Store Collection
+    Route::post('/e-commerce/add-collections', 'store')->name('collection.store');
+    // Edit Collection Page
+    Route::get('/e-commerce/edit-collections/{id}', 'edit')->name('collection.edit');
+    // Update Collection
+    Route::put('/e-commerce/edit-collections/{id}', 'update')->name('collection.update');
+    // Delete Collection
+    Route::delete('/e-commerce/collections/{id}', 'destroy')->name('collection.delete');
+
+    // AJAX Routes for Category Search
+    Route::get('/e-commerce/search-categories', 'searchCategories')->name('collection.search-categories');
 });

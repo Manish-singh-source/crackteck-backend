@@ -65,7 +65,8 @@
                                                         <tr>
                                                             <th>Name</th>
                                                             <th>Email</th>
-                                                            <th>Subject</th>
+                                                            <th>Phone</th>
+                                                            <th>Message</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -75,7 +76,8 @@
                                                                 <td>{{ $contact->first_name }} {{ $contact->last_name }}
                                                                 </td>
                                                                 <td>{{ $contact->email }}</td>
-                                                                <td>{{ $contact->subject }}</td>
+                                                                <td>{{ $contact->phone }}</td>
+                                                                <td>{{ $contact->message }}</td>
                                                                 <td>
                                                                     <a aria-label="anchor"
                                                                         href="{{ route('contact.view', $contact->id) }}"
