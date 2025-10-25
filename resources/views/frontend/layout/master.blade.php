@@ -369,6 +369,7 @@
                                             </div> -->
                                         </a>
                                     </li>
+                                    {{-- Compare Section  --}}
                                     <li class="d-none d-xl-block">
                                         <a href="{{ route('compare') }}" class="nav-icon-item">
                                             <!-- <img src="icons/icomoon/fonts/compare1.png" alt=""> -->
@@ -377,9 +378,13 @@
                                                 <h6 class="number-item text-primary fw-semibold text-main-2">₹238,100
                                                 </h6>
                                             </div> -->
-                                            <img width="35" height="35"
+                                            <span class="icon position-relative">
+                                                <img width="35" height="35"
                                                 src="https://img.icons8.com/ios/50/1A1A1A/compare-git.png"
                                                 alt="compare-git" />
+                                                <span class="count-box" id="compare-count">0</span>
+                                            </span>
+                                            
                                         </a>
                                     </li>
                                 </ul>
@@ -999,206 +1004,26 @@
                 <div class="container">
                     <div class="tf-compare-list">
                         <h5 class="title fw-semibold">
-                            Compare <br class="d-none d-md-block">
+                            Compare <span id="compare-count-text">(0)</span><br class="d-none d-md-block">
                             Products
                         </h5>
-                        <div class="mini-compare-empty w-100 text-center">
+                        <div class="mini-compare-empty w-100 text-center" id="compare-empty-state">
                             <h6>
-                                Your compare is curently empty
+                                Your compare is currently empty
                             </h6>
                         </div>
-                        <div class="tf-compare-wrap">
-                            <div class="tf-compare-item">
-                                <span class="btns-repeat">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_5628_27)">
-                                            <path d="M11.334 1.33301L14.0007 3.99967L11.334 6.66634" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M2 7.99951V6.66618C2 5.95893 2.28095 5.28066 2.78105 4.78056C3.28115 4.28046 3.95942 3.99951 4.66667 3.99951H14"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M4.66667 15.9996L2 13.3329L4.66667 10.6663" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M14 9.33301V10.6663C14 11.3736 13.719 12.0519 13.219 12.552C12.7189 13.0521 12.0406 13.333 11.3333 13.333H2"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </g>
-                                        <defs>
-                                            <clipPath>
-                                                <rect width="16" height="16" fill="white"
-                                                    transform="translate(0 0.66626)"></rect>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="icon-close remove"></span>
-                                <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload"
-                                        src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-1-1.png') }}"
-                                        alt="">
-                                </a>
-                                <div class="content">
-                                    <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
-                                        href="{{ route('product-detail') }}">
-                                        Qubo Smart Cam 360 Q100 by HERO GROUP 3MP 1296p WiFi CCTV 2 Way Talk Night
-                                        Vision Security Camera
-                                    </a>
-                                    <p class="price-wrap fw-medium">
-                                        <span class="new-price price-text fw-medium">₹80.000</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="tf-compare-item">
-                                <span class="btns-repeat">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_5628_27)">
-                                            <path d="M11.334 1.33301L14.0007 3.99967L11.334 6.66634" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M2 7.99951V6.66618C2 5.95893 2.28095 5.28066 2.78105 4.78056C3.28115 4.28046 3.95942 3.99951 4.66667 3.99951H14"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M4.66667 15.9996L2 13.3329L4.66667 10.6663" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M14 9.33301V10.6663C14 11.3736 13.719 12.0519 13.219 12.552C12.7189 13.0521 12.0406 13.333 11.3333 13.333H2"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </g>
-                                        <defs>
-                                            <clipPath>
-                                                <rect width="16" height="16" fill="white"
-                                                    transform="translate(0 0.66626)"></rect>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="icon-close remove"></span>
-                                <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload"
-                                        src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-2-1.png') }}"
-                                        alt="">
-                                </a>
-                                <div class="content">
-                                    <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
-                                        href="{{ route('product-detail') }}">
-                                        HP MFP 1188W Multi-function WiFi Monochrome Laser Printer (Toner Cartridge, 1
-                                        Ink Bottle Included)
-                                    </a>
-                                    <p class="price-wrap fw-medium">
-                                        <span class="new-price price-text fw-medium">₹80.000</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="tf-compare-item">
-                                <span class="btns-repeat">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_5628_27)">
-                                            <path d="M11.334 1.33301L14.0007 3.99967L11.334 6.66634" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M2 7.99951V6.66618C2 5.95893 2.28095 5.28066 2.78105 4.78056C3.28115 4.28046 3.95942 3.99951 4.66667 3.99951H14"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M4.66667 15.9996L2 13.3329L4.66667 10.6663" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M14 9.33301V10.6663C14 11.3736 13.719 12.0519 13.219 12.552C12.7189 13.0521 12.0406 13.333 11.3333 13.333H2"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </g>
-                                        <defs>
-                                            <clipPath>
-                                                <rect width="16" height="16" fill="white"
-                                                    transform="translate(0 0.66626)"></rect>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="icon-close remove"></span>
-                                <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload"
-                                        src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-3-1.png') }}"
-                                        alt="">
-                                </a>
-                                <div class="content">
-                                    <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
-                                        href="{{ route('product-detail') }}">
-                                        RICH POLO Biometric RS 9w with WiFi Access Control, Time & Attendance
-                                        (Fingerprint)
-                                    </a>
-                                    <p class="price-wrap fw-medium">
-                                        <span class="new-price price-text fw-medium">₹80.000</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="tf-compare-item">
-                                <span class="btns-repeat">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_5628_27)">
-                                            <path d="M11.334 1.33301L14.0007 3.99967L11.334 6.66634" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M2 7.99951V6.66618C2 5.95893 2.28095 5.28066 2.78105 4.78056C3.28115 4.28046 3.95942 3.99951 4.66667 3.99951H14"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M4.66667 15.9996L2 13.3329L4.66667 10.6663" stroke="#181818"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M14 9.33301V10.6663C14 11.3736 13.719 12.0519 13.219 12.552C12.7189 13.0521 12.0406 13.333 11.3333 13.333H2"
-                                                stroke="#181818" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </g>
-                                        <defs>
-                                            <clipPath>
-                                                <rect width="16" height="16" fill="white"
-                                                    transform="translate(0 0.66626)"></rect>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="icon-close remove"></span>
-                                <a href="{{ route('product-detail') }}" class="image">
-                                    <img class=" lazyload"
-                                        src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                        data-src="{{ asset('frontend-assets/images/new-products/2-4-1.png') }}"
-                                        alt="">
-                                </a>
-                                <div class="content">
-                                    <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link"
-                                        href="{{ route('product-detail') }}">
-                                        HP Victus Intel Core i5 13th Gen 13420H - (16 GB/512 GB SSD/Windows 11 Home/6 GB
-                                        Graphics/NVIDIA GeForce RTX 4050/144 Hz) fa1278TX Gaming Laptop
-                                    </a>
-                                    <p class="price-wrap fw-medium">
-                                        <span class="new-price price-text fw-medium">₹80.000</span>
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="tf-compare-wrap" id="compare-products-list">
+                            <!-- Dynamic compare products will be loaded here -->
+                        </div>
+
+
                         </div>
                         <div class="tf-compare-buttons">
                             <div class="tf-compare-btn">
-                                <a href="{{ route('compare') }}" class="tf-btn btn-gray btn-large-3">
+                                <a href="{{ route('compare') }}" class="tf-btn btn-gray btn-large-3" id="compare-products-btn" style="display: none;">
                                     <span class="text-white">Compare Products</span>
                                 </a>
-                                <div class="tf-btn tf-compapre-button-clear-all clear-file-delete link btn-large-3">
+                                <div class="tf-btn tf-compapre-button-clear-all clear-file-delete link btn-large-3" id="clear-compare-btn" style="display: none;">
                                     <span class="text-white">Clear All Products</span>
                                 </div>
                             </div>
@@ -1910,15 +1735,214 @@
             });
         });
 
-        // Load cart and wishlist data on page load
+        // Global function to update compare count
+        function updateCompareCount() {
+            $.ajax({
+                url: '{{ route("compare.count") }}',
+                method: 'GET',
+                success: function(response) {
+                    $('#compare-count').text(response.compare_count);
+                    $('#compare-count-text').text('(' + response.compare_count + ')');
+                    if (response.compare_count > 0) {
+                        $('#compare-count-text').show();
+                    } else {
+                        $('#compare-count-text').hide();
+                    }
+                }
+            });
+        }
+
+        // Function to update compare sidebar
+        function updateCompareSidebar() {
+            $.ajax({
+                url: '{{ route('compare.data') }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        updateCompareSidebarContent(response);
+                    }
+                }
+            });
+        }
+
+        // Function to update compare sidebar content
+        function updateCompareSidebarContent(response) {
+            const $compareList = $('#compare-products-list');
+            const $emptyState = $('#compare-empty-state');
+            const $compareBtn = $('#compare-products-btn');
+            const $clearBtn = $('#clear-compare-btn');
+
+            if (response.products.length === 0) {
+                $emptyState.show();
+                $compareList.empty();
+                $compareBtn.hide();
+                $clearBtn.hide();
+            } else {
+                $emptyState.hide();
+                $compareBtn.show();
+                $clearBtn.show();
+
+                let html = '';
+                response.products.forEach(function(product) {
+                    const imageUrl = product.image ? '{{ asset("") }}' + product.image : '{{ asset("frontend-assets/images/placeholder-product.png") }}';
+                    html += `
+                        <div class="tf-compare-item">
+                            <span class="icon-close remove compare-remove-btn" data-product-id="${product.id}"></span>
+                            <a href="/product-detail/${product.id}" class="image">
+                                <img class="lazyload" src="${imageUrl}" data-src="${imageUrl}" alt="${product.name}">
+                            </a>
+                            <div class="content">
+                                <a class="text-line-clamp-2 body-md-2 fw-semibold text-secondary link" href="/product-detail/${product.id}">
+                                    ${product.name}
+                                </a>
+                                <p class="price-wrap fw-medium">
+                                    <span class="new-price price-text fw-medium">₹${parseFloat(product.price).toFixed(2)}</span>
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                });
+                $compareList.html(html);
+            }
+        }
+
+        // Compare functionality - Add to compare
+        $(document).on('click', '.compare-btn', function(e) {
+            e.preventDefault();
+            const productId = $(this).data('product-id');
+            const $button = $(this);
+            $button.prop('disabled', true);
+
+            $.ajax({
+                url: '{{ route("compare.add") }}',
+                method: 'POST',
+                data: {
+                    ecommerce_product_id: productId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        updateCompareCount();
+                        updateCompareSidebar();
+                        $button.addClass('in-compare');
+                        $button.find('.tooltip').text('In Compare');
+
+                        // Show notification
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'success');
+                        } else {
+                            alert(response.message);
+                        }
+
+                        // Show compare modal
+                        $('#compare').offcanvas('show');
+                    } else {
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'error');
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    const response = xhr.responseJSON;
+                    if (response && response.message) {
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'error');
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                },
+                complete: function() {
+                    $button.prop('disabled', false);
+                }
+            });
+        });
+
+        // Remove from compare
+        $(document).on('click', '.compare-remove-btn', function(e) {
+            e.preventDefault();
+            const productId = $(this).data('product-id');
+
+            $.ajax({
+                url: '{{ route("compare.remove", ":id") }}'.replace(':id', productId),
+                method: 'DELETE',
+                success: function(response) {
+                    if (response.success) {
+                        updateCompareCount();
+                        updateCompareSidebar();
+                        $(`.compare-btn[data-product-id="${productId}"]`).removeClass('in-compare');
+                        $(`.compare-btn[data-product-id="${productId}"] .tooltip`).text('Compare');
+
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'success');
+                        }
+                    }
+                }
+            });
+        });
+
+        // Clear all compare
+        $(document).on('click', '#clear-compare-btn', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ route("compare.clear") }}',
+                method: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        updateCompareCount();
+                        updateCompareSidebar();
+                        $('.compare-btn').removeClass('in-compare');
+                        $('.compare-btn .tooltip').text('Compare');
+
+                        if (typeof showNotification === 'function') {
+                            showNotification(response.message, 'success');
+                        }
+                    }
+                }
+            });
+        });
+
+        // Function to update compare button states
+        function updateCompareButtonStates() {
+            $('.compare-btn').each(function() {
+                const productId = $(this).data('product-id');
+                const $button = $(this);
+
+                $.ajax({
+                    url: '{{ route("compare.check-status") }}',
+                    method: 'POST',
+                    data: {
+                        ecommerce_product_id: productId
+                    },
+                    success: function(response) {
+                        if (response.in_compare) {
+                            $button.addClass('in-compare');
+                            $button.find('.tooltip').text('In Compare');
+                        } else {
+                            $button.removeClass('in-compare');
+                            $button.find('.tooltip').text('Compare');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Load cart, wishlist and compare data on page load
         $(document).ready(function() {
             // Update cart count and sidebar
             updateCartCount();
             updateWishlistCount();
+            updateCompareCount();
 
             if (typeof updateCartSidebar === 'function') {
                 updateCartSidebar();
             }
+            updateCompareSidebar();
+
+            // Update compare button states
+            updateCompareButtonStates();
         });
     </script>
 

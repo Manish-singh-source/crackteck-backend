@@ -9,6 +9,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MyAccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\CompareController;
 
 // Login routes
 // Route::get('/register', [FrontendAuthController::class, 'showRegisterForm'])->name('register');
@@ -102,10 +103,19 @@ Route::controller(App\Http\Controllers\CouponApplicationController::class)->midd
     Route::get('/cart/count', 'getCartCount')->name('cart.count');
 });
 
-// Compare
-Route::get('/compare', function () {
-    return view('frontend/compare');
-})->name('compare');
+// Compare Routes
+Route::controller(CompareController::class)->group(function () {
+    // Display compare page
+    Route::get('/compare', 'index')->name('compare');
+
+    // AJAX routes for compare operations
+    Route::post('/compare/add', 'addToCompare')->name('compare.add');
+    Route::delete('/compare/remove/{id}', 'removeFromCompare')->name('compare.remove');
+    Route::post('/compare/clear', 'clearCompare')->name('compare.clear');
+    Route::get('/compare/data', 'getCompareData')->name('compare.data');
+    Route::get('/compare/count', 'getCompareCount')->name('compare.count');
+    Route::post('/compare/check-status', 'checkCompareStatus')->name('compare.check-status');
+});
 
 // Terms & Conditions
 Route::get('/t&c', function () {

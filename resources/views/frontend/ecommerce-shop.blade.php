@@ -362,6 +362,14 @@
                                                     <span class="tooltip">Add to Wishlist</span>
                                                 </a>
                                             </li>
+                                            <li class="d-none d-sm-block">
+                                                <a href="#;" id="compare"
+                                                    class="box-icon btn-icon-action hover-tooltip tooltip-left compare-btn"
+                                                    data-product-id="{{ $product->id }}">
+                                                    <span class="icon icon-compare1"></span>
+                                                    <span class="tooltip">Compare</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="{{ route('product.detail', $product->id) }}" data-bs-toggle="modal"
                                                     data-product-id="{{ $product->id }}"
@@ -435,7 +443,7 @@
                                                 </ul>
                                                 <p class="caption text-main-2">({{ $product->total_sold }})</p>
                                             </div>
-                                            <a href="#compare" data-bs-toggle="offcanvas" class="tf-btn-icon style-2">
+                                            {{-- <a href="#compare" data-bs-toggle="offcanvas" class="tf-btn-icon style-2">
                                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -444,7 +452,7 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                                 <span class="body-text-3 fw-normal">Compare</span>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                     </div>
                                     <div class="card-product-btn">
