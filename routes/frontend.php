@@ -7,6 +7,7 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MyAccountController;
+use App\Http\Controllers\OrderTrackingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\CompareController;
@@ -163,10 +164,11 @@ Route::get('/product-detail', function () {
     return view('frontend/product-detail');
 })->name('product-detail');
 
-// Track Your Order
-Route::get('/track-your-order', function () {
-    return view('frontend/track-your-order');
-})->name('track-your-order');
+// Track Your Order Routes
+Route::controller(OrderTrackingController::class)->group(function () {
+    Route::get('/track-your-order', 'index')->name('track-your-order');
+    Route::post('/track-your-order/search', 'searchOrder')->name('track-order.search');
+});
 
 // My Account order
 Route::get('/my-account-orders', [CheckoutController::class, 'myAccountOrders'])
