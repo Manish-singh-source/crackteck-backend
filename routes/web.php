@@ -555,16 +555,26 @@ Route::controller(PickupRequestController::class)->group(function () {
 Route::controller(JobController::class)->group(function () {
     // View Jobs Page
     Route::get('/crm/jobs', 'index')->name('jobs.index');
-    // Create Jobs Page 
+    // Create Jobs Page
     Route::get('/crm/create-job', 'create')->name('jobs.create');
-    // Store Job Page 
+    // Store Job Page
     Route::post('/crm/store-jobs', 'store')->name('jobs.store');
-    // View Job Page 
+    // View Job Page
     Route::get('/crm/view-jobs/{id}', 'view')->name('jobs.view');
-    // Edit Job Page 
+    // Edit Job Page
     Route::get('/crm/edit-jobs/{id}', 'edit')->name('jobs.edit');
-    // Delete Job Page 
+    // Update Job Page
+    Route::put('/crm/update-jobs/{id}', 'update')->name('jobs.update');
+    // Delete Job Page
     Route::delete('/crm/delete-jobs/{id}', 'delete')->name('jobs.delete');
+    // Delete Device
+    Route::delete('/crm/delete-device/{id}', 'deleteDevice')->name('jobs.deleteDevice');
+    // Bulk Delete Devices
+    Route::post('/crm/bulk-delete-devices', 'bulkDeleteDevices')->name('jobs.bulkDeleteDevices');
+    // Assign Job to Engineer
+    Route::post('/crm/assign-job', 'assignJob')->name('jobs.assignJob');
+    // Bulk Delete Jobs
+    Route::post('/crm/bulk-delete-jobs', 'bulkDeleteJobs')->name('jobs.bulkDeleteJobs');
 });
 
 // ------------------------------------------------------------ Assigned Jobs Page -------------------------------------------------------------
@@ -572,10 +582,21 @@ Route::controller(JobController::class)->group(function () {
 Route::controller(AssignedJobController::class)->group(function () {
     // Assigned Jobs Page
     Route::get('/crm/assigned-jobs', 'index')->name('assigned-jobs.index');
-    // View Assigned Jobs Page 
-    Route::get('/crm/view-assigned-job', 'view')->name('assigned-jobs.view');
-    // Edit Assigned Jobs Page 
-    Route::get('/crm/edit-assiged-jobs', 'edit')->name('assigned-jobs.edit');
+    // View Assigned Jobs Page
+    Route::get('/crm/view-assigned-job/{id}', 'view')->name('assigned-jobs.view');
+    // Edit Assigned Jobs Page
+    Route::get('/crm/edit-assigned-jobs/{id}', 'edit')->name('assigned-jobs.edit');
+    // Update Assigned Jobs Page
+    Route::put('/crm/update-assigned-jobs/{id}', 'update')->name('assigned-jobs.update');
+    // Delete Assigned Jobs Page
+    Route::delete('/crm/delete-assigned-jobs/{id}', 'delete')->name('assigned-jobs.delete');
+
+    // Workflow Operations
+    Route::post('/crm/assigned-jobs/{id}/start-job', 'startJob')->name('assigned-jobs.startJob');
+    Route::post('/crm/assigned-jobs/{id}/perform-diagnosis', 'performDiagnosis')->name('assigned-jobs.performDiagnosis');
+    Route::post('/crm/assigned-jobs/{id}/take-action', 'takeAction')->name('assigned-jobs.takeAction');
+    Route::post('/crm/assigned-jobs/{id}/complete-job', 'completeJob')->name('assigned-jobs.completeJob');
+    Route::post('/crm/assigned-jobs/{id}/escalate', 'escalateToOnSite')->name('assigned-jobs.escalate');
 });
 
 // ------------------------------------------------------------ Field Issues Page -------------------------------------------------------------

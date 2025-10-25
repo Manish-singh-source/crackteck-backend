@@ -175,6 +175,9 @@
         // });
     });
 </script>
+
+@yield('scripts')
+
 </body>
 
 
