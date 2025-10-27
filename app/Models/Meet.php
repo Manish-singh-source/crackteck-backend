@@ -13,6 +13,22 @@ class Meet extends Model
     /**
      * Configure activity logging options.
      */
+
+    protected $fillable = [
+        'user_id',
+        'lead_id',
+        'meet_title',
+        'client_name',
+        'meeting_type',
+        'date',
+        'time',
+        'location',
+        'attachment',
+        'meetAgenda',
+        'followUp',
+        'status',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
