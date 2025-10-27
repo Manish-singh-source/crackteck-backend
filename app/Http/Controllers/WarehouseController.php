@@ -58,6 +58,7 @@ class WarehouseController extends Controller
         }
         // dd('Done');
         $warehouse->default_warehouse = $request->default_warehouse;
+        $warehouse->verification_status = $request->verification_status;
         $warehouse->status = $request->status;
 
         $warehouse->save();
@@ -126,6 +127,7 @@ class WarehouseController extends Controller
 
         $warehouse->default_warehouse = $request->default_warehouse;
         $warehouse->status = $request->status;
+        $warehouse->verification_status = $request->verification_status;
         $warehouse->save();
 
         return redirect()->route('warehouses-list.index')->with('success', 'Warehouse updated successfully.');
@@ -137,6 +139,7 @@ class WarehouseController extends Controller
 
         $warehouse->default_warehouse = $request->default_warehouse;
         $warehouse->status = $request->status;
+        $warehouse->verification_status = $request->verification_status;
 
         $warehouse->save();
 

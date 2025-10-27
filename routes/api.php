@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
-use App\Http\Controllers\Api\MeetController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\FollowUpController;
@@ -111,16 +110,4 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::put('/follow-up/{id}', 'update');
         Route::delete('/follow-up/{id}', 'destroy');
     });
-
-
-    Route::controller(MeetController::class)->group(function () {
-        Route::get('/meets', 'index');
-        Route::post('/meets', 'store');
-        Route::get('/meets/{id}', 'show');
-        Route::put('/meets/{id}', 'update');
-        Route::delete('/meets/{id}', 'destroy');
-    });
-
-    
-
 });

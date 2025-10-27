@@ -1,7 +1,6 @@
 <div class="app-sidebar-menu">
     <div class="h-100" data-simplebar>
 
-        <!--- Sidemenu -->
         <div id="sidebar-menu">
 
             <div class="logo-box">
@@ -25,41 +24,25 @@
 
             <ul id="side-menu">
 
-                <!-- <li class="menu-title">Dashboard</li>
-
+                <li class="menu-title mt-2">Manage Warehouse</li>
                 <li>
-                    <a class='tp-link' href='../e-commerce/index.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/e-commerce.png" alt="e-commerce" />
-                        <span class="ps-1"> E-commerce Dashboard </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a class='tp-link' href='../crm/index.php'>
-                        <img width="" height="20" src="https://img.icons8.com/external-outline-design-circle/66/1A1A1A/external-Crm-customer-service-outline-design-circle.png" alt="external-Crm-customer-service-outline-design-circle" />
-                        <span class="ps-1"> CRM Dashboard </span>
+                    <a class='tp-link' href="{{ route('warehouses-list.index') }}">
+                        <i class="fas fa-warehouse"></i>
+                        <span class="ps-1">Warehouses</span>
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='index.php'>
-                        <img width="" height="20" src="https://img.icons8.com/ios/50/1A1A1A/warehouse-1.png" alt="warehouse-1" />
-                        <span class="ps-1"> Warehouse Dashboard </span>
+                    <a class='tp-link' href="{{ route('rack.index') }}">
+                        <i class="fas fa-th"></i>
+                        <span class="ps-1">Warehouse Rack</span>
                     </a>
-                </li> -->
+                </li>
+
 
                 <li class="menu-title mt-2">Manage Products</li>
-
-                <!-- <li>
-                    <a class='tp-link' href='add-product.php'>
-                        <i data-feather="columns"></i>
-                        <span>Add Product</span>
-                    </a>
-                </li> -->
                 <li>
                     <a class='tp-link' href="{{ route('products.index') }}">
-                        <!-- <i class="fas fa-plus"></i>
-                        <span class="ps-1">Add Product</span> -->
-                       <i class="fas fa-list"></i>
+                        <i class="fas fa-list"></i>
                         <span class="ps-1">Product List</span>
                     </a>
                 </li>
@@ -81,21 +64,7 @@
                         <span class="ps-1">Spare Parts Request </span>
                     </a>
                 </li>
-                <li class="menu-title mt-2">Manage Warehouse</li>
-                <li>
-                    <a class='tp-link' href="{{ route('warehouses-list.index') }}">
-                        <i class="fas fa-warehouse"></i>
-                        <span class="ps-1">Warehouses</span>
-                    </a>
-                </li>
-                <li>
-                    <a class='tp-link' href="{{ route('rack.index') }}">
-                        <i class="fas fa-th"></i>
-                        <span class="ps-1">Warehouse Rack</span>
-                    </a>
-                </li>
-                
-                
+
                 <li class="menu-title mt-2">Manage Stock Alerts</li>
                 <li>
                     <a class='tp-link' href="{{ route('vendor.index') }}">
@@ -111,14 +80,13 @@
                 </li>
                 <li>
                     <a class='tp-link' href="{{ route('low-stock.index') }}">
-                        <i class="fas fa-exclamation-triangle"></i> 
+                        <i class="fas fa-exclamation-triangle"></i>
                         <span class="ps-1"> Low Stock Reports </span>
                     </a>
                 </li>
             </ul>
 
         </div>
-        <!-- End Sidebar -->
 
         <div class="clearfix"></div>
 

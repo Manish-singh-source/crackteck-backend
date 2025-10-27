@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
@@ -17,7 +15,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Edit Rack Details</h5>
-                        </div><!-- end card header -->
+                        </div>
+                        
                         <div class="card-body">
                             <form action="{{ route('rack.update', $warehouse_rack->id) }}" method="POST">
                                 @csrf
@@ -25,15 +24,24 @@
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            @include('components.form.input', [
-                                                'label' => 'Warehouse_id',
-                                                'name' => 'warehouse_id',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Rack Name',
-                                                'model' => $warehouse_rack,
-                                            ])
+                                            <label for="warehouse" class="form-label">Warehouse Name <span
+                                                    class="text-danger">*</span></label>
+                                            <select required name="warehouse_id" id="warehouse" class="form-select w-100">
+                                                <option value="" selected disabled>-- Select Warehouse --</option>
+                                                @foreach ($warehouses as $warehouse)
+                                                     
+                                                    <option value="{{ $warehouse->id }}"
+                                                        {{ old('warehouse_id', $warehouse_rack->warehouse->id) == $warehouse->id ? 'selected' : '' }}>
+                                                        {{ $warehouse->warehouse_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('warehouse_id'))
+                                                <span class="text-danger">{{ $errors->first('warehouse_id') }}</span>
+                                            @endif
                                         </div>
                                     </div>
+                                    
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
                                             @include('components.form.input', [

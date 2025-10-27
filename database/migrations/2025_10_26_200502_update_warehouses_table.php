@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('meets', function (Blueprint $table) {
+        Schema::table('warehouses', function (Blueprint $table) {
             //
-            $table->integer('user_id')->nullable()->after('id');
+            $table->boolean('verification_status')->default(0)->after('status');
         });
     }
 
@@ -22,9 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('meets', function (Blueprint $table) {
+        Schema::table('warehouses', function (Blueprint $table) {
             //
-            $table->dropColumn('user_id');
+            $table->dropColumn('verification_status');
         });
     }
 };

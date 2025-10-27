@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
@@ -11,7 +9,6 @@
                     <h4 class="fs-18 fw-semibold m-0">Create New Warehouse</h4>
                 </div>
             </div>
-
 
             <form action="{{ route('warehouse.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -136,7 +133,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Contact Details</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -190,7 +187,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Operational Settings</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -265,7 +262,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Legal/Compliance</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-12">
@@ -307,7 +304,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">System Settings</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-12">
@@ -326,11 +323,24 @@
                                     <div class="col-12">
                                         <div>
                                             @include('components.form.select', [
-                                                'label' => 'Status',
-                                                'name' => 'status',
+                                                'label' => 'Verification Status',
+                                                'name' => 'verification_status',
                                                 'options' => [
                                                     '1' => 'Verified',
                                                     '0' => 'Unverified',
+                                                ],
+                                            ])
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div>
+                                            @include('components.form.select', [
+                                                'label' => 'Status',
+                                                'name' => 'status',
+                                                'options' => [
+                                                    '1' => 'Active',
+                                                    '0' => 'Inactive',
                                                 ],
                                             ])
                                         </div>
@@ -343,9 +353,7 @@
 
                     <div class="col-12 mb-3">
                         <div class="text-start">
-                            {{-- <a href="{{ route('warehouses-list.index') }}" class="btn btn-success">
-                            Add
-                        </a> --}}
+                            
                             <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                 Add
                             </button>
@@ -353,6 +361,6 @@
                     </div>
                 </div>
             </form>
-        </div> <!-- container-fluid -->
-    </div> <!-- content -->
+        </div> 
+    </div> 
 @endsection

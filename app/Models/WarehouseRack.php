@@ -8,6 +8,7 @@ class WarehouseRack extends Model
 {
     //
     protected $guarded = [];
+    
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class, 'warehouse_id');

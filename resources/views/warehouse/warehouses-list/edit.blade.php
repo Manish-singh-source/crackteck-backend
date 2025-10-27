@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid">
-
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Edit Warehouse</h4>
@@ -20,7 +17,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Warehouse Details</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -57,7 +54,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Location Details</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -144,7 +141,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Contact Details</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -202,7 +199,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Operational Settings</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
@@ -283,7 +280,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Legal/Compliance</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-12">
@@ -328,7 +325,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">System Settings</h5>
-                            </div><!-- end card header -->
+                            </div>
                             <div class="card-body">
                                 <div class="row g-3 pb-3">
                                     <div class="col-12">
@@ -348,11 +345,25 @@
                                     <div class="col-12">
                                         <div>
                                             @include('components.form.select', [
-                                                'label' => 'Status',
-                                                'name' => 'status',
+                                                'label' => 'Verification Status',
+                                                'name' => 'verification_status',
                                                 'options' => [
                                                     '1' => 'Verified',
                                                     '0' => 'Unverified',
+                                                ],
+                                                'model' => $warehouse,
+                                            ])
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div>
+                                            @include('components.form.select', [
+                                                'label' => 'Status',
+                                                'name' => 'status',
+                                                'options' => [
+                                                    '1' => 'Active',
+                                                    '0' => 'Inactive',
                                                 ],
                                                 'model' => $warehouse,
                                             ])
@@ -366,9 +377,6 @@
 
                     <div class="col-12 mb-3">
                         <div class="text-start">
-                            {{-- <a href="{{ route('warehouses-list.index') }}" class="btn btn-success">
-                        Add
-                    </a> --}}
                             <button type="submit" class="btn btn-primary">
                                 Save Changes
                             </button>
@@ -377,6 +385,6 @@
 
                 </div>
             </form>
-        </div> <!-- container-fluid -->
-    </div> <!-- content -->
+        </div> 
+    </div> 
 @endsection

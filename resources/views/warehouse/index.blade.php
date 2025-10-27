@@ -5,7 +5,6 @@
 
 <div class="content">
 
-    <!-- Start Content-->
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -13,7 +12,6 @@
             </div>
         </div>
 
-        <!-- Start Row -->
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -175,7 +173,6 @@
             </div>
 
         </div>
-        <!-- End Start -->
 
         <div class="row">
             <!-- 

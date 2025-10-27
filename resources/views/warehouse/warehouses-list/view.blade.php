@@ -296,6 +296,28 @@
                             <div class="card-header border-bottom-dashed">
                                 <div class="d-flex">
                                     <h5 class="card-title flex-grow-1 mb-0">
+                                        Verification Status
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div>
+                                    <select required="" name="verification_status" class="form-select w-100">
+                                        <option value="" selected disabled>---- Select ----</option>
+                                        <option value="1" {{ $warehouse->verification_status == 1 ? 'selected' : '' }}>Verified
+                                        </option>
+                                        <option value="0" {{ $warehouse->verification_status == 0 ? 'selected' : '' }}>
+                                            Unverified</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <div class="d-flex">
+                                    <h5 class="card-title flex-grow-1 mb-0">
                                         Status
                                     </h5>
                                 </div>
@@ -304,11 +326,11 @@
                             <div class="card-body">
                                 <div>
                                     <select required="" name="status" class="form-select w-100">
-                                        <option value="0" selected disabled>---- Select ----</option>
-                                        <option value="1" {{ $warehouse->status == 1 ? 'selected' : '' }}>Verified
+                                        <option value="" selected disabled>---- Select ----</option>
+                                        <option value="1" {{ $warehouse->status == 1 ? 'selected' : '' }}>Active
                                         </option>
-                                        <option value="2" {{ $warehouse->status == 0 ? 'selected' : '' }}>
-                                            Unverified</option>
+                                        <option value="0" {{ $warehouse->status == 0 ? 'selected' : '' }}>
+                                            Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -322,5 +344,5 @@
             </div>
 
         </div>
-    </div> <!-- content -->
+    </div> 
 @endsection
