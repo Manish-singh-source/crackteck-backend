@@ -6,6 +6,8 @@ use App\Models\AMC;
 use App\Models\AmcService;
 use App\Models\AmcBranch;
 use App\Models\AmcProduct;
+use App\Models\NonAmcService;
+use App\Models\NonAmcProduct;
 use App\Models\Engineer;
 use App\Models\AmcEngineerAssignment;
 use App\Models\AmcGroupEngineer;
@@ -24,7 +26,11 @@ class ServiceRequestController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('/crm/service-request/index', compact('amcServices'));
+        $nonAmcServices = NonAmcService::with(['products', 'creator'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('/crm/service-request/index', compact('amcServices', 'nonAmcServices'));
     }
 
     public function create()
@@ -517,6 +523,291 @@ class ServiceRequestController extends Controller
                 'success' => false,
                 'message' => 'Error assigning engineer: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    // ==================== Non-AMC Service Request CRUD Methods ====================
+
+    public function create_non_amc()
+    {
+        return view('/crm/service-request/create-servies');
+    }
+
+    public function store_non_amc(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'products' => 'required|array|min:1',
+            'products.*.product_name' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
+        try {
+            // Create Non-AMC Service
+            $nonAmcService = new NonAmcService();
+            $nonAmcService->first_name = $request->first_name;
+            $nonAmcService->last_name = $request->last_name;
+            $nonAmcService->phone = $request->phone;
+            $nonAmcService->email = $request->email;
+            $nonAmcService->dob = $request->dob;
+            $nonAmcService->gender = $request->gender;
+            $nonAmcService->customer_type = $request->customer_type ?? 'Individual';
+
+            // Address Information
+            $nonAmcService->address_line1 = $request->address_line1;
+            $nonAmcService->address_line2 = $request->address_line2;
+            $nonAmcService->city = $request->city;
+            $nonAmcService->state = $request->state;
+            $nonAmcService->country = $request->country;
+            $nonAmcService->pincode = $request->pincode;
+
+            // Company Information
+            $nonAmcService->company_name = $request->company_name;
+            $nonAmcService->company_address = $request->company_address;
+            $nonAmcService->gst_no = $request->gst_no;
+            $nonAmcService->pan_no = $request->pan_no;
+
+            // Handle profile image upload
+            if ($request->hasFile('profile_image')) {
+                $file = $request->file('profile_image');
+                $filename = time() . '_profile_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/crm/non-amc/profiles'), $filename);
+                $nonAmcService->profile_image = 'uploads/crm/non-amc/profiles/' . $filename;
+            }
+
+            // Handle customer image upload
+            if ($request->hasFile('customer_image')) {
+                $file = $request->file('customer_image');
+                $filename = time() . '_customer_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/crm/non-amc/customers'), $filename);
+                $nonAmcService->customer_image = 'uploads/crm/non-amc/customers/' . $filename;
+            }
+
+            $nonAmcService->service_type = $request->service_type ?? 'Offline';
+            $nonAmcService->priority_level = $request->priority_level;
+            $nonAmcService->additional_notes = $request->additional_notes;
+            $nonAmcService->total_amount = $request->total_amount ?? 0;
+            $nonAmcService->status = 'Pending';
+            $nonAmcService->created_by = Auth::id();
+            $nonAmcService->save();
+
+            // Create Products
+            if ($request->has('products')) {
+                foreach ($request->products as $productData) {
+                    $product = new NonAmcProduct();
+                    $product->non_amc_service_id = $nonAmcService->id;
+                    $product->product_name = $productData['product_name'];
+                    $product->product_type = $productData['product_type'] ?? null;
+                    $product->product_brand = $productData['product_brand'] ?? null;
+                    $product->model_no = $productData['model_no'] ?? null;
+                    $product->serial_no = $productData['serial_no'] ?? null;
+                    $product->purchase_date = $productData['purchase_date'] ?? null;
+                    $product->issue_type = $productData['issue_type'] ?? null;
+                    $product->issue_description = $productData['issue_description'] ?? null;
+                    $product->warranty_status = $productData['warranty_status'] ?? 'Unknown';
+
+                    // Handle product image upload
+                    if (isset($productData['product_image']) && $productData['product_image'] instanceof \Illuminate\Http\UploadedFile) {
+                        $file = $productData['product_image'];
+                        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                        $file->move(public_path('uploads/crm/non-amc/products'), $filename);
+                        $product->product_image = 'uploads/crm/non-amc/products/' . $filename;
+                    }
+
+                    $product->save();
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request created successfully.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function view_non_amc($id)
+    {
+        $service = NonAmcService::with(['products', 'creator'])->findOrFail($id);
+        return view('/crm/service-request/view-non-amc', compact('service'));
+    }
+
+    public function edit_non_amc($id)
+    {
+        $service = NonAmcService::with(['products'])->findOrFail($id);
+        return view('/crm/service-request/edit-non-amc', compact('service'));
+    }
+
+    public function update_non_amc(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
+        try {
+            $nonAmcService = NonAmcService::findOrFail($id);
+
+            // Update Non-AMC Service
+            $nonAmcService->first_name = $request->first_name;
+            $nonAmcService->last_name = $request->last_name;
+            $nonAmcService->phone = $request->phone;
+            $nonAmcService->email = $request->email;
+            $nonAmcService->dob = $request->dob;
+            $nonAmcService->gender = $request->gender;
+            $nonAmcService->customer_type = $request->customer_type ?? 'Individual';
+
+            // Address Information
+            $nonAmcService->address_line1 = $request->address_line1;
+            $nonAmcService->address_line2 = $request->address_line2;
+            $nonAmcService->city = $request->city;
+            $nonAmcService->state = $request->state;
+            $nonAmcService->country = $request->country;
+            $nonAmcService->pincode = $request->pincode;
+
+            // Company Information
+            $nonAmcService->company_name = $request->company_name;
+            $nonAmcService->company_address = $request->company_address;
+            $nonAmcService->gst_no = $request->gst_no;
+            $nonAmcService->pan_no = $request->pan_no;
+
+            // Handle profile image upload
+            if ($request->hasFile('profile_image')) {
+                // Delete old image
+                if ($nonAmcService->profile_image && File::exists(public_path($nonAmcService->profile_image))) {
+                    File::delete(public_path($nonAmcService->profile_image));
+                }
+
+                $file = $request->file('profile_image');
+                $filename = time() . '_profile_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/crm/non-amc/profiles'), $filename);
+                $nonAmcService->profile_image = 'uploads/crm/non-amc/profiles/' . $filename;
+            }
+
+            // Handle customer image upload
+            if ($request->hasFile('customer_image')) {
+                // Delete old image
+                if ($nonAmcService->customer_image && File::exists(public_path($nonAmcService->customer_image))) {
+                    File::delete(public_path($nonAmcService->customer_image));
+                }
+
+                $file = $request->file('customer_image');
+                $filename = time() . '_customer_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/crm/non-amc/customers'), $filename);
+                $nonAmcService->customer_image = 'uploads/crm/non-amc/customers/' . $filename;
+            }
+
+            $nonAmcService->service_type = $request->service_type ?? 'Offline';
+            $nonAmcService->priority_level = $request->priority_level;
+            $nonAmcService->additional_notes = $request->additional_notes;
+            $nonAmcService->total_amount = $request->total_amount ?? 0;
+            $nonAmcService->status = $request->status ?? $nonAmcService->status;
+            $nonAmcService->save();
+
+            // Update Products - keep existing, add new
+            $existingProductIds = [];
+
+            // Update existing products
+            if ($request->has('existing_products')) {
+                foreach ($request->existing_products as $productData) {
+                    if (isset($productData['id'])) {
+                        $product = NonAmcProduct::find($productData['id']);
+                        if ($product && $product->non_amc_service_id == $nonAmcService->id) {
+                            $existingProductIds[] = $product->id;
+                            // Existing products are kept as-is, no update needed
+                        }
+                    }
+                }
+            }
+
+            // Add new products
+            if ($request->has('products')) {
+                foreach ($request->products as $productData) {
+                    $product = new NonAmcProduct();
+                    $product->non_amc_service_id = $nonAmcService->id;
+                    $product->product_name = $productData['product_name'];
+                    $product->product_type = $productData['product_type'] ?? null;
+                    $product->product_brand = $productData['product_brand'] ?? null;
+                    $product->model_no = $productData['model_no'] ?? null;
+                    $product->serial_no = $productData['serial_no'] ?? null;
+                    $product->purchase_date = $productData['purchase_date'] ?? null;
+                    $product->issue_type = $productData['issue_type'] ?? null;
+                    $product->issue_description = $productData['issue_description'] ?? null;
+                    $product->warranty_status = $productData['warranty_status'] ?? 'Unknown';
+
+                    // Handle product image upload
+                    if (isset($productData['product_image']) && $productData['product_image'] instanceof \Illuminate\Http\UploadedFile) {
+                        $file = $productData['product_image'];
+                        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                        $file->move(public_path('uploads/crm/non-amc/products'), $filename);
+                        $product->product_image = 'uploads/crm/non-amc/products/' . $filename;
+                    }
+
+                    $product->save();
+                    $existingProductIds[] = $product->id;
+                }
+            }
+
+            // Delete products that were removed (and their images)
+            $removedProducts = $nonAmcService->products()->whereNotIn('id', $existingProductIds)->get();
+            foreach ($removedProducts as $removedProduct) {
+                if ($removedProduct->product_image && File::exists(public_path($removedProduct->product_image))) {
+                    File::delete(public_path($removedProduct->product_image));
+                }
+            }
+            $nonAmcService->products()->whereNotIn('id', $existingProductIds)->delete();
+
+            DB::commit();
+            return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request updated successfully.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function destroy_non_amc($id)
+    {
+        try {
+            $nonAmcService = NonAmcService::findOrFail($id);
+
+            // Delete associated images
+            if ($nonAmcService->profile_image && File::exists(public_path($nonAmcService->profile_image))) {
+                File::delete(public_path($nonAmcService->profile_image));
+            }
+
+            if ($nonAmcService->customer_image && File::exists(public_path($nonAmcService->customer_image))) {
+                File::delete(public_path($nonAmcService->customer_image));
+            }
+
+            // Delete product images
+            foreach ($nonAmcService->products as $product) {
+                if ($product->product_image && File::exists(public_path($product->product_image))) {
+                    File::delete(public_path($product->product_image));
+                }
+            }
+
+            // Delete the service (products will be cascade deleted)
+            $nonAmcService->delete();
+
+            return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error deleting service request: ' . $e->getMessage());
         }
     }
 }
