@@ -480,19 +480,30 @@ Route::controller(ServiceRequestController::class)->group(function () {
     // Service Request Page
     Route::get('/crm/service-request', 'index')->name('service-request.index');
 
-    // Create Service Request Page 
+    // Create Service Request Page
     Route::get('/crm/create-service-request', 'create')->name('service-request.create-servies');
-    // View Service Request Page 
+    // View Service Request Page
     Route::get('/crm/view-service-request', 'view')->name('service-request.view-service');
-    // Edit Service Request Page 
+    // Edit Service Request Page
     Route::get('/crm/edit-service-request', 'edit')->name('service-request.edit-service');
 
-    // Create AMC Request Page 
+    // AMC Request CRUD Routes
+    // Create AMC Request Page
     Route::get('/crm/create-amc-request', 'create_amc')->name('service-request.create-amc');
-    // View AMC Request Page 
-    Route::get('/crm/view-amc-request', 'view_amc')->name('service-request.view-amc');
-    // Edit Amc Request Page 
-    Route::get('/crm/edit-amc-request', 'edit_amc')->name('service-request.edit-amc');
+    // Store AMC Request
+    Route::post('/crm/store-amc-request', 'store_amc')->name('service-request.store-amc');
+    // View AMC Request Page
+    Route::get('/crm/view-amc-request/{id}', 'view_amc')->name('service-request.view-amc');
+    // Edit AMC Request Page
+    Route::get('/crm/edit-amc-request/{id}', 'edit_amc')->name('service-request.edit-amc');
+    // Update AMC Request
+    Route::put('/crm/update-amc-request/{id}', 'update_amc')->name('service-request.update-amc');
+    // Delete AMC Request
+    Route::delete('/crm/delete-amc-request/{id}', 'destroy_amc')->name('service-request.delete-amc');
+    // Get AMC Plan Details (AJAX)
+    Route::get('/crm/get-amc-plan/{id}', 'getAmcPlanDetails')->name('service-request.get-amc-plan');
+    // Assign Engineer to AMC
+    Route::post('/crm/assign-amc-engineer', 'assignEngineer')->name('service-request.assign-engineer');
 });
 
 // ------------------------------------------------------------ Track Request Page -------------------------------------------------------------
