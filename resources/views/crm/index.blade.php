@@ -22,12 +22,12 @@
                       <img src="https://codervent.com/maxton/demo/vertical-menu/assets/images/avatars/01.png" class="rounded-circle bg-grd-info p-1" width="60" height="60" alt="user">
                       <div class="">
                         <p class="mb-0 fw-semibold">Welcome back</p>
-                        <h4 class="fw-semibold mb-0 fs-4 mb-0">Jhon Anderson!</h4>
+                        <h4 class="fw-semibold mb-0 fs-4 mb-0">Manish Singh</h4>
                       </div>
                     </div>
                     <div class="d-flex align-items-center gap-5">
                       <div class="">
-                        <h4 class="mb-1 fw-semibold d-flex align-content-center">$65.4K<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                        <h4 class="mb-1 fw-semibold d-flex align-content-center">₹65.4K<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
                         </h4>
                         <p class="mb-3">Today's Sales</p>
                         <div class="progress mb-0" style="height:5px;">
