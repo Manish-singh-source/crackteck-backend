@@ -470,133 +470,83 @@
                                                     class="table table-striped table-borderless dt-responsive nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th>Time</th>
                                                             <th>Service Id</th>
-                                                            <th>User</th>
+                                                            <th>Customer Name</th>
                                                             <th>AMC Plan</th>
-                                                            <th>Duration (Months)</th>
+                                                            <th>Plan Duration</th>
                                                             <th>Start Date</th>
+                                                            <th>End Date</th>
+                                                            <th>Total Amount</th>
+                                                            <th>Status</th>
                                                             <th>Created By</th>
-                                                            <!-- <th>Status</th> -->
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @forelse($amcServices as $service)
                                                         <tr>
                                                             <td>
-                                                                <div>2 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1001
+                                                                <a href="{{ route('service-request.view-amc', $service->id) }}">
+                                                                    #AMC-{{ str_pad($service->id, 4, '0', STR_PAD_LEFT) }}
                                                                 </a>
                                                             </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>6</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>Operation Manager - username</td>
-                                                            <!-- <td>
-                                                                <span class="badge bg-success-subtle text-success fw-semibold">Approved</span>
-                                                            </td> -->
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('service-request.view-amc') }}"
+                                                                <div class="fw-semibold">{{ $service->full_name }}</div>
+                                                                <div class="text-muted small">{{ $service->email }}</div>
+                                                                <div class="text-muted small">{{ $service->phone }}</div>
+                                                            </td>
+                                                            <td>{{ $service->amcPlan->plan_name ?? 'N/A' }}</td>
+                                                            <td>{{ $service->plan_duration ?? 'N/A' }}</td>
+                                                            <td>{{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}</td>
+                                                            <td>{{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}</td>
+                                                            <td>₹{{ number_format($service->total_amount, 2) }}</td>
+                                                            <td>
+                                                                @if($service->status == 'Active')
+                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Active</span>
+                                                                @elseif($service->status == 'Pending')
+                                                                    <span class="badge bg-warning-subtle text-warning fw-semibold">Pending</span>
+                                                                @elseif($service->status == 'Expired')
+                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Expired</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary-subtle text-secondary fw-semibold">{{ $service->status }}</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <div>{{ $service->creator->name ?? 'System' }}</div>
+                                                                <div class="text-muted small">{{ $service->created_at->diffForHumans() }}</div>
+                                                            </td>
+                                                            <td>
+                                                                <a aria-label="anchor" href="{{ route('service-request.view-amc', $service->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor" href="{{ route('service-request.edit-amc') }}"
+                                                                <a aria-label="anchor" href="{{ route('service-request.edit-amc', $service->id) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
+                                                                <form action="{{ route('service-request.delete-amc', $service->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this AMC request?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" aria-label="anchor"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
+                                                        @empty
                                                         <tr>
-                                                            <td>
-                                                                <div>1 weeks ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1002
-                                                                </a>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>12</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>
-                                                                Super Admin - username
-                                                            </td>
-                                                            <!-- <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td> -->
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('service-request.view-amc') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="{{ route('service-request.edit-amc') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
+                                                            <td colspan="10" class="text-center py-4">
+                                                                <div class="text-muted">
+                                                                    <i class="mdi mdi-information-outline fs-1"></i>
+                                                                    <p class="mt-2">No AMC requests found. <a href="{{ route('service-request.create-amc') }}">Create one now</a></p>
+                                                                </div>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div>3 days ago</div>
-                                                                <div>2025-04-04 06:09 PM</div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="view-detail.php">
-                                                                    #1003
-                                                                </a>
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>Standard</td>
-                                                            <td>12</td>
-                                                            <td>2025-04-04 06:09 PM</td>
-
-                                                            <td>
-                                                                Customer - John Doe
-                                                            </td>
-                                                            <!-- <td>
-                                                                <span class="badge bg-warning-subtle text-warning fw-semibold">Rejected</span>
-                                                            </td> -->
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('service-request.view-amc') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="{{ route('service-request.edit-amc') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
