@@ -13,7 +13,7 @@ class WarehouseRackController extends Controller
     //
     public function index()
     {
-        $warehouse_racks = WarehouseRack::all();
+        $warehouse_racks = WarehouseRack::with('warehouse')->get();
         return view('/warehouse/rack/index', compact('warehouse_racks'));
     }
 
@@ -50,8 +50,8 @@ class WarehouseRackController extends Controller
     public function edit($id)
     {
         $warehouse_rack = WarehouseRack::with('warehouse')->findOrFail($id);
-        // dd($warehouse_rack);
-        return view('/warehouse/rack/edit', compact('warehouse_rack'));
+        $warehouses = Warehouse::all();
+        return view('/warehouse/rack/edit', compact('warehouse_rack', 'warehouses'));
     }
 
     public function update(Request $request, $id)

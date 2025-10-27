@@ -25,7 +25,7 @@
                                 <div class="row g-3 pb-3">
                                     <div class="col-xl-6 col-lg-6">
                                         <div>
-                                            <label for="warehouse" class="form-label">Warehouse Id <span
+                                            <label for="warehouse" class="form-label">Warehouse Name <span
                                                     class="text-danger">*</span></label>
                                             <select required name="warehouse_id" id="warehouse" class="form-select w-100">
                                                 <option value="" selected disabled>-- Select Warehouse --</option>

@@ -13,25 +13,6 @@ class Lead extends Model
     /**
      * Configure activity logging options.
      */
-    
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'phone',
-        'email',
-        'dob',
-        'gender',
-        'company_name',
-        'designation',
-        'industry_type',
-        'source',
-        'requirement_type',
-        'budget_range',
-        'urgency',
-        'status',
-    ];
-
-    
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
