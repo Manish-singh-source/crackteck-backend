@@ -504,6 +504,20 @@ Route::controller(ServiceRequestController::class)->group(function () {
     Route::get('/crm/get-amc-plan/{id}', 'getAmcPlanDetails')->name('service-request.get-amc-plan');
     // Assign Engineer to AMC
     Route::post('/crm/assign-amc-engineer', 'assignEngineer')->name('service-request.assign-engineer');
+
+    // Non-AMC Request CRUD Routes
+    // Create Non-AMC Request Page
+    Route::get('/crm/create-non-amc-request', 'create_non_amc')->name('service-request.create-non-amc');
+    // Store Non-AMC Request
+    Route::post('/crm/store-non-amc-request', 'store_non_amc')->name('service-request.store-non-amc');
+    // View Non-AMC Request Page
+    Route::get('/crm/view-non-amc-request/{id}', 'view_non_amc')->name('service-request.view-non-amc');
+    // Edit Non-AMC Request Page
+    Route::get('/crm/edit-non-amc-request/{id}', 'edit_non_amc')->name('service-request.edit-non-amc');
+    // Update Non-AMC Request
+    Route::put('/crm/update-non-amc-request/{id}', 'update_non_amc')->name('service-request.update-non-amc');
+    // Delete Non-AMC Request
+    Route::delete('/crm/delete-non-amc-request/{id}', 'destroy_non_amc')->name('service-request.delete-non-amc');
 });
 
 // ------------------------------------------------------------ Track Request Page -------------------------------------------------------------
