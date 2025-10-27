@@ -6,7 +6,7 @@
 
     <!-- Start Content-->
     <div class="container-fluid">
-        <div class="pb-3 d-flex align-items-sm-center flex-sm-row flex-column">
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Assigned Jobs </h4>
             </div>
@@ -17,100 +17,7 @@
             <div class="col-12">
                 <div class="card">
 
-                    <div class="card-body border border-dashed border-end-0 border-start-0">
-                        <form action="#" method="get">
-                            <div class="d-flex justify-content-between">
-                                <div class="row">
-                                    <div class="col-xl-10 col-md-10 col-sm-10">
-                                        <div class="search-box">
-                                            <input type="text" name="search" value="" class="form-control search" placeholder="Search By Name, ">
-                                            <i class="ri-search-line search-icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-md-2 col-sm-2 col-2">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <button type="submit" class="btn btn-primary waves ripple-light">
-                                                <!-- <span class="d-none d-md-inline-flex"> Search </span> -->
-                                                <i class="fa-solid fa-magnifying-glass "></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row g-3">
-                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <!-- <span class="d-none d-md-inline-flex"> Sort </span> -->
-                                            <i class="fa-solid fa-arrow-up-z-a "></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Module Number</a></li>
-                                            <li><a class="dropdown-item" href="#">Serial Number</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">
-                                            <!-- <span class="d-none d-md-inline-flex"> Filters </span> -->
-                                            <i class="fa-solid fa-filter "></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="standard-modalLabel">Filters</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-
-                                            <div class="modal-body px-3 py-md-2">
-                                                <h5>Status</h5>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mt-3">
-                                                            <div class="form-check mb-2">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                    Approved
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mt-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                                    Pending
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mt-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                                                <label class="form-check-label" for="flexRadioDefault3">
-                                                                    Rejected
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
+                    
 
                     <!-- <div class="col-xl-2 col-sm-3 col-6">
                                     <div>
@@ -203,96 +110,62 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @forelse($assignedJobs as $assignment)
                                                         <tr>
                                                             <td>
-                                                                RJ123
+                                                                {{ $assignment->job->id }}
                                                             </td>
-                                                            <td>John Doe</td>
-                                                            <td>ABC Pvt Ltd</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>High</td>
-                                                            <td>2024-02-05</td>
+                                                            <td>{{ $assignment->engineer->first_name }} {{ $assignment->engineer->last_name }}</td>
+                                                            <td>{{ $assignment->job->first_name }} {{ $assignment->job->last_name }}</td>
+                                                            <td>{{ $assignment->job->issue_type }}</td>
                                                             <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                                                @if($assignment->job->priority_level == 'High')
+                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">High</span>
+                                                                @elseif($assignment->job->priority_level == 'Medium')
+                                                                    <span class="badge bg-warning-subtle text-warning fw-semibold">Medium</span>
+                                                                @else
+                                                                    <span class="badge bg-info-subtle text-info fw-semibold">Low</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $assignment->job->purchase_date ? $assignment->job->purchase_date->format('Y-m-d') : 'N/A' }}</td>
+                                                            <td>
+                                                                @if($assignment->status == 'Pending')
+                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                                                @elseif($assignment->status == 'In Progress')
+                                                                    <span class="badge bg-warning-subtle text-warning fw-semibold">In Progress</span>
+                                                                @elseif($assignment->status == 'Completed')
+                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary-subtle text-secondary fw-semibold">{{ $assignment->status }}</span>
+                                                                @endif
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.view') }}"
+                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.view', $assignment->id) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.edit') }}"
+                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.edit', $assignment->id) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
+                                                                <form action="{{ route('assigned-jobs.delete', $assignment->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Are you sure you want to delete this assigned job?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" aria-label="anchor"
+                                                                        class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
+                                                        @empty
                                                         <tr>
-                                                            <td>
-                                                                RJ124
-                                                            </td>
-                                                            <td>Mike Doe</td>
-                                                            <td>XYZ Pvt Ltd</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>Medium</td>
-                                                            <td>2024-02-05</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.edit') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                            <td colspan="8" class="text-center">No assigned jobs found</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                RJ125
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>ABC Pvt Ltd</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>High</td>
-                                                            <td>2024-02-05</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="{{ route('assigned-jobs.edit') }}"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>

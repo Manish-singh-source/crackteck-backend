@@ -122,14 +122,14 @@
                                                 <span class="fw-semibold text-break">Engineer Name :
                                                 </span>
                                                 <span>
-                                                    John Doe
+                                                    {{ optional($engineer)->first_name }} {{ optional($engineer)->last_name }}
                                                 </span>
                                             </li>
                                             <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                                 <span class="fw-semibold text-break">Engineer Contact No :
                                                 </span>
                                                 <span>
-                                                    9988775544
+                                                    {{ optional($engineer)->phone }}
                                                 </span>
                                             </li>
                                         </ul>
@@ -140,7 +140,7 @@
                                                 <span class="fw-semibold text-break">Engineer Email :
                                                 </span>
                                                 <span>
-                                                    example@gmail.com
+                                                    {{ optional($engineer)->email }}
                                                 </span>
                                             </li>
                                         </ul>
@@ -168,7 +168,11 @@
                                                 <span class="fw-semibold text-break">Client Name :
                                                 </span>
                                                 <span>
-                                                    Marry Jane
+                                                    @if($customer)
+                                                        {{ $customer->first_name }} {{ $customer->last_name }}
+                                                    @else
+                                                        {{ $issue->customer_name }}
+                                                    @endif
                                                 </span>
                                             </li>
 
@@ -176,7 +180,11 @@
                                                 <span class="fw-semibold text-break">Location :
                                                 </span>
                                                 <span>
-                                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus, deserunt?
+                                                    @if($customer && ($customer->address || $customer->city))
+                                                        {{ $customer->address }} {{ $customer->city }} {{ $customer->pin_code }}
+                                                    @else
+                                                        {{ $issue->location }}
+                                                    @endif
                                                 </span>
                                             </li>
                                         </ul>
@@ -187,7 +195,11 @@
                                                 <span class="fw-semibold text-break">Contact No :
                                                 </span>
                                                 <span>
-                                                    7897894564
+                                                    @if($customer && $customer->phone)
+                                                        {{ $customer->phone }}
+                                                    @else
+                                                        {{ $issue->customer_phone }}
+                                                    @endif
                                                 </span>
                                             </li>
                                         </ul>
@@ -224,35 +236,50 @@
                                     </thead>
                                     <tbody>
 
+                                        @forelse($devices as $device)
                                         <tr class="align-middle">
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div>
-                                                        <img src="https://placehold.co/100x100" alt="Headphone" width="100px" class="img-fluid d-block">
+                                                        @php
+                                                        $deviceImage = $device->image ?? null;
+                                                        if ($deviceImage) {
+                                                            // If image already a full URL, use it; otherwise, point to storage/public
+                                                            $imgSrc = (strpos($deviceImage, 'http') === 0) ? $deviceImage : asset('storage/' . $deviceImage);
+                                                        } else {
+                                                            $imgSrc = 'https://placehold.co/100x100';
+                                                        }
+                                                    @endphp
+                                                    <img src="{{ $imgSrc }}" alt="{{ $device->product_name }}" width="100px" class="img-fluid d-block">
                                                     </div>
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div>
-                                                    External Hard Disk
+                                                    {{ $device->product_name }}
                                                 </div>
                                             </td>
                                             <td>
-                                                Storage Device
+                                                {{ $device->product_type }}
                                             </td>
                                             <td>
-                                                Seagate
+                                                {{ $device->product_brand }}
                                             </td>
                                             <td>
-                                                STDR2000100
+                                                {{ $device->model_no }}
                                             </td>
                                             <td>
-                                                SGHD789012
+                                                {{ $device->serial_no }}
                                             </td>
-                                            <td>2024-02-05</td>
-                                            <td>Approved</td>
+                                            <td>{{ optional($device->purchase_date)->format('Y-m-d') }}</td>
+                                            <td>{{ isset($device->status) ? $device->status : 'N/A' }}</td>
                                         </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center">No devices found for this job.</td>
+                                        </tr>
+                                        @endforelse
 
                                     </tbody>
                                 </table>
