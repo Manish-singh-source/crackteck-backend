@@ -203,96 +203,42 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @forelse($fieldIssues as $issue)
                                                         <tr>
+                                                            <td>{{ $issue->job_id }}</td>
+                                                            <td>{{ $issue->engineer_id }}</td>
+                                                            <td>{{ $issue->customer_name }}</td>
+                                                            <td>{{ $issue->location }}</td>
+                                                            <td>{{ $issue->issue_type }}</td>
+                                                            <td>{{ $issue->priority }}</td>
                                                             <td>
-                                                                RJ123
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>ABC Pvt Ltd</td>
-                                                            <td>Kandivali</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>High</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
+                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">{{ $issue->status }}</span>
                                                             </td>
                                                             <td>
-                                                                <a aria-label="anchor" href="{{ route('field-issues.view') }}"
+                                                                <a aria-label="anchor" href="{{ route('field-issues.view', ['id' => $issue->id]) }}"
                                                                     class="btn btn-icon btn-sm bg-primary-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="View">
                                                                     <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                 </a>
-                                                                <a aria-label="anchor" href="{{ route('field-issues.edit') }}"
+                                                                <a aria-label="anchor" href="{{ route('field-issues.edit', ['id' => $issue->id]) }}"
                                                                     class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                     data-bs-toggle="tooltip" data-bs-original-title="Edit">
                                                                     <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                 </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
+                                                                <form action="{{ route('field-issues.destroy', ['id' => $issue->id]) }}" method="POST" style="display:inline-block;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-icon btn-sm bg-danger-subtle" data-bs-toggle="tooltip" data-bs-original-title="Delete" onclick="return confirm('Are you sure?')">
+                                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
+                                                    @empty
                                                         <tr>
-                                                            <td>
-                                                                RJ124
-                                                            </td>
-                                                            <td>Mike Doe</td>
-                                                            <td>XYZ Pvt Ltd</td>
-                                                            <td>Mumbai</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>Medium</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('field-issues.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="add-leads.php"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
+                                                            <td colspan="8" class="text-center">No field issues found.</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                RJ125
-                                                            </td>
-                                                            <td>John Doe</td>
-                                                            <td>ABC Pvt Ltd</td>
-                                                            <td>Thane</td>
-                                                            <td>Startup performance Issue</td>
-                                                            <td>High</td>
-                                                            <td>
-                                                                <span class="badge bg-danger-subtle text-danger fw-semibold">Pending</span>
-                                                            </td>
-                                                            <td>
-                                                                <a aria-label="anchor" href="{{ route('field-issues.view') }}"
-                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
-                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
-                                                                </a>
-                                                                <a aria-label="anchor" href="add-leads.php"
-                                                                    class="btn btn-icon btn-sm bg-warning-subtle me-1"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Edit">
-                                                                    <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
-                                                                </a>
-                                                                <a aria-label="anchor"
-                                                                    class="btn btn-icon btn-sm bg-danger-subtle"
-                                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                                                    <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                    @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
