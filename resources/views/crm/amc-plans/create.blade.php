@@ -71,11 +71,9 @@
                                                     'label' => 'Plan Type',
                                                     'name' => 'plan_type',
                                                     'options' => [
-                                                        '0' => '--Select--',
-                                                        'Hardware' => 'Hardware',
-                                                        'Networking' => 'Networking',
-                                                        'Software' => 'Software',
-                                                        'Comprehensive' => 'Comprehensive',
+                                                        '0' => '--Select --',
+                                                        'Monthly' => 'Monthly',
+                                                        'Annually' => 'Annually'
                                                     ],
                                                 ])
                                             </div>
@@ -111,24 +109,6 @@
                                                         '2 years' => '2 years',
                                                         'Custom' => 'Custom',
                                                     ],
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Start Date',
-                                                    'name' => 'start_date',
-                                                    'type' => 'date',
-                                                    'placeholder' => 'Enter Start Date',
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'End Date',
-                                                    'name' => 'end_date',
-                                                    'type' => 'date',
-                                                    'placeholder' => 'Enter End Date',
                                                 ])
                                             </div>
 
@@ -218,13 +198,6 @@
                                                         'Both' => 'Both',
                                                     ],
                                                 ])
-                                            </div>
-
-                                            <div class="">
-                                                <label for="replacement_policy" class="form-label">Replacement Policy
-                                                </label>
-                                                <textarea name="replacement_policy" id="replacement_policy" class="form-control"
-                                                    placeholder="Enter Replacement Policy"></textarea>
                                             </div>
 
                                             <div class="">
@@ -318,10 +291,17 @@
                                             </div>
 
                                             <div class="">
-                                                <label for="tandc" class="form-label">Terms and Conditions <span
-                                                        class="text-danger">*</span></label>
-                                                <textarea name="tandc" id="tandc" class="form-control" placeholder="Enter Terms & Conditions"
-                                                   ></textarea>
+                                                <label for="tandc" class="form-label">Terms and Conditions
+                                                </label>
+                                                <textarea name="tandc" id="tandc" class="form-control"
+                                                    placeholder="Enter Terms and Conditions"></textarea>
+                                            </div>
+
+                                            <div class="">
+                                                <label for="replacement_policy" class="form-label">Replacement Policy
+                                                </label>
+                                                <textarea name="replacement_policy" id="replacement_policy" class="form-control"
+                                                    placeholder="Enter Replacement Policy"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -379,10 +359,10 @@
         $(document).ready(function() {
             $(document).on("change", "#tax, #plan_cost", function() {
                 var tax = $("#tax").val() || 0;
-                var planCost = $("#plan_cost").val();
-                var taxAmount = planCost * tax / 100;
-                var totalCost = planCost + taxAmount;
-                $("#total_cost").val(totalCost);
+                var planCost = $("#plan_cost").val() || 0;
+                var taxAmount = parseFloat(planCost) * parseFloat(tax) / 100;
+                var totalCost = parseFloat(planCost) + taxAmount;
+                $("#total_cost").val(totalCost.toFixed(2));
             });
         });
     </script>

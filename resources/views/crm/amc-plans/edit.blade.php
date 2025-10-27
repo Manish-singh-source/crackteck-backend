@@ -73,11 +73,9 @@
                                                     'label' => 'Plan Type',
                                                     'name' => 'plan_type',
                                                     'options' => [
-                                                        '0' => '--Select--',
-                                                        'Hardware' => 'Hardware',
-                                                        'Networking' => 'Networking',
-                                                        'Software' => 'Software',
-                                                        'Comprehensive' => 'Comprehensive',
+                                                        '0' => '--Select --',
+                                                        'Monthly' => 'Monthly',
+                                                        'Annually' => 'Annually'
                                                     ],
                                                     'model' => $amc,
                                                 ])
@@ -114,26 +112,6 @@
                                                         '2 years' => '2 years',
                                                         'Custom' => 'Custom',
                                                     ],
-                                                    'model' => $amc,
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Start Date',
-                                                    'name' => 'start_date',
-                                                    'type' => 'date',
-                                                    'placeholder' => 'Enter Start Date',
-                                                    'model' => $amc,
-                                                ])
-                                            </div>
-
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'End Date',
-                                                    'name' => 'end_date',
-                                                    'type' => 'date',
-                                                    'placeholder' => 'Enter End Date',
                                                     'model' => $amc,
                                                 ])
                                             </div>
@@ -232,13 +210,6 @@
                                                 ])
                                             </div>
 
-                                            <div class="">
-                                                <label for="replacement_policy" class="form-label">Replacement Policy
-                                                </label>
-                                                <textarea name="replacement_policy" id="replacement_policy" class="form-control"
-                                                    placeholder="Enter Replacement Policy">{{ $amc->replacement_policy }}</textarea>
-                                            </div>
-
                                             @php
                                                 $items = json_decode($amc->items);
                                             @endphp
@@ -283,10 +254,22 @@
                                             </div>
 
                                             <div class="">
-                                                <label for="tandc" class="form-label">Terms and Conditions {{ $amc->tandc }}<span
-                                                        class="text-danger">*</span></label>
-                                                <textarea name="tandc" id="tandc" class="form-control" placeholder="Enter Terms & Conditions"
-                                                   >{{ $amc->tandc }}</textarea>
+                                                @include('components.form.input', [
+                                                    'label' => 'Terms and Conditions',
+                                                    'name' => 'tandc',
+                                                    'type' => 'file',
+                                                    'model' => $amc,
+                                                ])
+                                            </div>
+
+                                            <div class="">
+                                                @include('components.form.input', [
+                                                    'label' => 'Replacement Policy',
+                                                    'name' => 'replacement_policy',
+                                                    'type' => 'file',
+                                                    'placeholder' => 'Enter Replacement Policy',
+                                                    'model' => $amc,
+                                                ])
                                             </div>
                                         </div>
                                     </div>
@@ -338,4 +321,18 @@
 
         </div> <!-- container-fluid -->
     </div> <!-- content -->
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $(document).on("change", "#tax, #plan_cost", function() {
+                var tax = $("#tax").val() || 0;
+                var planCost = $("#plan_cost").val() || 0;
+                var taxAmount = parseFloat(planCost) * parseFloat(tax) / 100;
+                var totalCost = parseFloat(planCost) + taxAmount;
+                $("#total_cost").val(totalCost.toFixed(2));
+            });
+        });
+    </script>
 @endsection
