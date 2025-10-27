@@ -48,6 +48,9 @@ Route::get('/about-us', function () {
     return view('frontend/about');
 })->name('about');
 
+// AMC Plans
+Route::get('/amc', [FrontendController::class, 'amcPlans'])->name('amc');
+
 // Contact US
 Route::get('/contact-us', function () {
     return view('frontend/contact');
@@ -55,9 +58,9 @@ Route::get('/contact-us', function () {
 Route::post('/contact-us', [FrontendController::class, 'storeContact'])->name('contact.store');
 
 // AMC
-Route::get('/amc', function () {
-    return view('frontend/amc');
-})->name('amc');
+// Route::get('/amc', function () {
+//     return view('frontend/amc');
+// })->name('amc');
 
 // AMC Detail
 Route::get('/amc-detail', function () {

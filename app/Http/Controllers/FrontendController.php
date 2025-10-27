@@ -7,6 +7,7 @@ use App\Models\ParentCategorie;
 use App\Models\ProductDeal;
 use App\Models\Collection;
 use App\Models\Product;
+use App\Models\AMC;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Contact;
@@ -90,6 +91,26 @@ class FrontendController extends Controller
             'success' => true,
             'data' => $product
         ]);
+    }
+
+    /**
+     * Display AMC plans page with active plans grouped by type
+     */
+    public function amcPlans()
+    {
+        // Get active AMC plans grouped by plan type
+        $monthlyPlans = AMC::where('status', 'Active')
+            ->where('plan_type', 'Monthly')
+            ->get();
+
+            // dd($monthlyPlans);
+
+        $annualPlans = AMC::where('status', 'Active')
+            ->where('plan_type', 'Annually')
+            ->get();
+            
+
+        return view('frontend.amc', compact('monthlyPlans', 'annualPlans'));
     }
 
     public function storeContact(Request $request)

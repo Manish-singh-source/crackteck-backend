@@ -29,8 +29,6 @@ class AmcController extends Controller
             'plan_name' => 'required',
             'plan_code' => 'required',
             'plan_type' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -44,8 +42,6 @@ class AmcController extends Controller
         $amc->plan_type = $request->plan_type;
         $amc->description = $request->description;
         $amc->duration = $request->duration;
-        $amc->start_date = $request->start_date;
-        $amc->end_date = $request->end_date;
         $amc->total_visits = $request->total_visits;
         $amc->plan_cost = $request->plan_cost;
         $amc->tax = $request->tax;
