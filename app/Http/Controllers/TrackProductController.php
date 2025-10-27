@@ -61,7 +61,7 @@ class TrackProductController extends Controller
                     'product_name' => $product->product_name,
                     'sku' => $product->sku,
                     'serial_numbers' => $product->productSerials->pluck('final_serial')->toArray(),
-                    'warehouse_name' => $product->warehouse->name ?? 'N/A',
+                    'warehouse_name' => $product->warehouse->warehouse_name ?? 'N/A',
                     'rack_info' => [
                         'rack_no' => $product->rack_no ?? 'N/A',
                         'zone_area' => $product->rack_zone_area ?? 'N/A',
@@ -70,9 +70,9 @@ class TrackProductController extends Controller
                     ],
                     'availability_status' => $product->stock_status ?? 'N/A',
                     'quantity' => $product->stock_quantity ?? 0,
-                    'brand' => $product->brand->name ?? 'N/A',
+                    'brand' => $product->brand->brand_title ?? 'N/A',
                     'category' => $product->parentCategorie->parent_categories ?? 'N/A',
-                    'sub_category' => $product->subCategorie->name ?? 'N/A',
+                    'sub_category' => $product->subCategorie->sub_categorie ?? 'N/A',
                     'main_image' => $product->main_product_image ? asset($product->main_product_image) : null
                 ];
             });
