@@ -339,78 +339,90 @@
     <section class="pricing-section text-center">
         <div class="container">
             <h3>Pricing</h3>
-            <p>Sign up in less than 30 seconds. Try out our 7 day risk free trial, upgrade at anytime, no questions, no
-                hassle.</p>
+            <p>Choose the perfect AMC plan for your business needs. All plans include professional support and maintenance services.</p>
 
             <div class="toggle-buttons">
-                <button class="active">Monthly</button>
-                <button>Annually</button>
+                <button class="active" id="monthlyBtn">Monthly</button>
+                <button id="annuallyBtn">Annually</button>
             </div>
 
-            <div class="row g-4 md-mt-3">
-                <!-- Free Plan -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card h-100">
-                        <h4>Free</h4>
-                        <div class="price">₹ 0 <small class="text-muted">/mo</small></div>
-                        <div class="pricing-features">
-                            <h6 class="text-primary my-3">Software Updates</h6>
-                            <div class="feature">Duration<span>1 Year</span></div>
-                            <div class="feature">Products Covered<span>Laptops, Desktops</span></div>
-                            <div class="feature">Response Time<span>48 Hours</span></div>
-                            <div class="feature">On-Site Visit<span>No</span></div>
-                        </div>
-                        <button class="btn btn-outline-dark w-100">Get Started</button>
+            <!-- Monthly Plans Section -->
+            {{-- {{ dd() }} --}}
+            <div id="monthlyPlans" class="pricing-plans-section">
+                @if($monthlyPlans->count() > 0)
+                    <h4 class="mt-4 mb-4">Monthly Plans</h4>
+                    <div class="row g-4 md-mt-3 align-items-center justify-content-center">
+                        @foreach($monthlyPlans as $index => $plan)
+                            <div class="col-md-6 col-lg-3">
+                                <div class="price-card h-100 {{ $index == 1 ? 'recommended' : '' }}">
+                                    <h4>{{ $plan->plan_name }}</h4>
+                                    <div class="price">₹ {{ number_format($plan->total_cost, 0) }} <small class="text-muted">/mo</small></div>
+                                    <div class="pricing-features">
+                                        <h6 class="text-primary my-3">{{ $plan->description }}</h6>
+                                        <div class="feature">Duration<span>{{ $plan->duration }}</span></div>
+                                        <div class="feature">Plan Cost<span>₹ {{ number_format($plan->plan_cost, 0) }}</span></div>
+                                        <div class="feature">Tax ({{ $plan->tax }}%)<span>₹ {{ number_format(($plan->plan_cost * $plan->tax / 100), 0) }}</span></div>
+                                        <div class="feature">Total Visits<span>{{ $plan->total_visits }} visits</span></div>
+                                        <div class="feature">Support Type<span>{{ $plan->support_type }}</span></div>
+                                        @if($plan->items)
+                                            @php
+                                                $items = json_decode($plan->items);
+                                            @endphp
+                                            @if(is_array($items) && count($items) > 0)
+                                                <div class="feature">Services<span>{{ count($items) }} services included</span></div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <button class="btn btn-outline-dark w-100">Get Started</button>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
+                @else
+                    <div class="alert alert-info mt-4">
+                        <h5>No Monthly Plans Available</h5>
+                        <p>Currently, there are no monthly AMC plans available. Please check our annual plans or contact us for custom solutions.</p>
+                    </div>
+                @endif
+            </div>
 
-                <!-- Small Business -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card h-100">
-                        <h4>Basic AMC</h4>
-                        <div class="price">₹ 99 <small class="text-muted">/mo</small></div>
-                        <div class="pricing-features">
-                            <h6 class="text-primary my-3">Software Updates</h6>
-                            <div class="feature">Duration<span>1 Year</span></div>
-                            <div class="feature">Products Covered<span>Laptops, Desktops</span></div>
-                            <div class="feature">Response Time<span>40 Hours</span></div>
-                            <div class="feature">On-Site Visit<span>Yes (1 visits/year)</span></div>
-                        </div>
-                        <button class="btn btn-outline-dark w-100">Get Started</button>
+            <!-- Annual Plans Section -->
+            <div id="annualPlans" class="pricing-plans-section" style="display: none;">
+                @if($annualPlans->count() > 0)
+                    <h4 class="mt-4 mb-4">Annual Plans</h4>
+                    <div class="row g-4 md-mt-3 align-items-center justify-content-center">
+                        @foreach($annualPlans as $index => $plan)
+                            <div class="col-md-6 col-lg-3">
+                                <div class="price-card h-100 {{ $index == 1 ? 'recommended' : '' }}">
+                                    <h4>{{ $plan->plan_name }}</h4>
+                                    <div class="price">₹ {{ number_format($plan->total_cost, 0) }} <small class="text-muted">/year</small></div>
+                                    <div class="pricing-features">
+                                        <h6 class="text-primary my-3">{{ $plan->description }}</h6>
+                                        <div class="feature">Duration<span>{{ $plan->duration }}</span></div>
+                                        <div class="feature">Plan Cost<span>₹ {{ number_format($plan->plan_cost, 0) }}</span></div>
+                                        <div class="feature">Tax ({{ $plan->tax }}%)<span>₹ {{ number_format(($plan->plan_cost * $plan->tax / 100), 0) }}</span></div>
+                                        <div class="feature">Total Visits<span>{{ $plan->total_visits }} visits</span></div>
+                                        <div class="feature">Support Type<span>{{ $plan->support_type }}</span></div>
+                                        @if($plan->items)
+                                            @php
+                                                $items = json_decode($plan->items);
+                                            @endphp
+                                            @if(is_array($items) && count($items) > 0)
+                                                <div class="feature">Services<span>{{ count($items) }} services included</span></div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <button class="btn btn-outline-dark w-100">Get Started</button>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
-
-                <!-- Professional (Recommended) -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card h-100 recommended">
-                        <h4>Standard AMC</h4>
-                        <div class="price">₹ 219 <small class="text-muted">/mo</small></div>
-                        <div class="pricing-features">
-                            <h6 class="text-primary my-3">Software + Hardware Support</h6>
-                            <div class="feature">Duration<span>1 Year</span></div>
-                            <div class="feature">Products Covered<span>Laptops, Desktops</span></div>
-                            <div class="feature">Response Time<span>24 Hours</span></div>
-                            <div class="feature">On-Site Visit<span>Yes (2 visits/year)</span></div>
-                        </div>
-                        <button class="btn btn-outline-dark w-100">Get Started</button>
+                @else
+                    <div class="alert alert-info mt-4">
+                        <h5>No Annual Plans Available</h5>
+                        <p>Currently, there are no annual AMC plans available. Please check our monthly plans or contact us for custom solutions.</p>
                     </div>
-                </div>
-
-                <!-- Enterprise -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card h-100">
-                        <h4>Premium AMC</h4>
-                        <div class="price">₹ 419 <small class="text-muted">/mo</small></div>
-                        <div class="pricing-features">
-                            <h6 class="text-primary my-3">Full Software + Hardware Support</h6>
-                            <div class="feature">Duration<span>1 Year</span></div>
-                            <div class="feature">Products Covered<span>Laptops, Desktops</span></div>
-                            <div class="feature">Response Time<span>48 Hours</span></div>
-                            <div class="feature">On-Site Visit<span>Yes (3 visits/year)</span></div>
-                        </div>
-                        <button class="btn btn-outline-dark w-100">Get Started</button>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -758,6 +770,7 @@
 
 @section('script')
     <script>
+        // Form navigation functionality
         const sections = document.querySelectorAll('.form-section');
         const steps = document.querySelectorAll('.step');
         let currentStep = 0;
@@ -777,6 +790,27 @@
                 document.getElementById('requestForm').reset();
                 location.reload(); // Optional: Reset the form flow
             }
+        });
+
+        // Pricing toggle functionality
+        document.getElementById('monthlyBtn').addEventListener('click', function() {
+            // Update button states
+            document.getElementById('monthlyBtn').classList.add('active');
+            document.getElementById('annuallyBtn').classList.remove('active');
+
+            // Show/hide plan sections
+            document.getElementById('monthlyPlans').style.display = 'block';
+            document.getElementById('annualPlans').style.display = 'none';
+        });
+
+        document.getElementById('annuallyBtn').addEventListener('click', function() {
+            // Update button states
+            document.getElementById('annuallyBtn').classList.add('active');
+            document.getElementById('monthlyBtn').classList.remove('active');
+
+            // Show/hide plan sections
+            document.getElementById('monthlyPlans').style.display = 'none';
+            document.getElementById('annualPlans').style.display = 'block';
         });
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
