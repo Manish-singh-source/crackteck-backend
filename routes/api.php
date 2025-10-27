@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\FollowUpController;
-use App\Http\Controllers\AMCRequestController;
+// use App\Http\Controllers\AMCRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,11 +49,11 @@ Route::middleware('auth:sanctum')->group(function () {
             return response()->json(['message' => 'User or Admin endpoint']);
         });
 
-        // AMC Request Routes
-        Route::prefix('crm')->group(function () {
-            Route::post('/create-amc-request', [AMCRequestController::class, 'store']);
-            Route::get('/amc-plans', [AMCRequestController::class, 'getAmcPlans']);
-        });
+        // // AMC Request Routes
+        // Route::prefix('crm')->group(function () {
+        //     Route::post('/create-amc-request', [AMCRequestController::class, 'store']);
+        //     Route::get('/amc-plans', [AMCRequestController::class, 'getAmcPlans']);
+        // });
     });
 });
 

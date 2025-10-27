@@ -280,6 +280,16 @@
                                             <div class="col-6 mb-2">
                                                 <div>
                                                     @include('components.form.input', [
+                                                        'label' => 'Selling Price',
+                                                        'name' => 'selling_price',
+                                                        'type' => 'number',
+                                                        'placeholder' => 'Enter Selling Price',
+                                                    ])
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    @include('components.form.input', [
                                                         'label' => 'Discount Price',
                                                         'name' => 'discount_price',
                                                         'type' => 'number',
@@ -294,16 +304,6 @@
                                                         'name' => 'tax',
                                                         'type' => 'number',
                                                         'placeholder' => 'Enter Tax',
-                                                    ])
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <div>
-                                                    @include('components.form.input', [
-                                                        'label' => 'Selling Price',
-                                                        'name' => 'selling_price',
-                                                        'type' => 'number',
-                                                        'placeholder' => 'Enter Selling Price',
                                                     ])
                                                 </div>
                                             </div>
@@ -340,19 +340,6 @@
                                                         'name' => 'stock_quantity',
                                                         'type' => 'number',
                                                         'placeholder' => 'Enter Stock Quantity',
-                                                    ])
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <div>
-                                                    @include('components.form.select', [
-                                                        'label' => 'Stock Status',
-                                                        'name' => 'stock_status',
-                                                        'options' => [
-                                                            '' => '--Select--',
-                                                            'In Stock' => 'In Stock',
-                                                            'Out of Stock' => 'Out of Stock',
-                                                        ],
                                                     ])
                                                 </div>
                                             </div>
@@ -490,9 +477,7 @@
                                                 <small class="text-muted">Hold Ctrl/Cmd to select multiple values</small>
                                             </div>
                                         @endforeach
-
                                     </div>
-
                                 </div>
 
                                 <div class="card">
@@ -501,9 +486,7 @@
                                             Status
                                         </h5>
                                     </div>
-
                                     <div class="card-body">
-
                                         <div>
                                             @include('components.form.select', [
                                                 'label' => 'Product Status',
@@ -515,18 +498,12 @@
                                                 ],
                                             ])
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="text-start mb-3">
-                                    <!-- <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                                        Submit
-                                                    </button> -->
                                     <button type="submit" class="btn btn-success w-sm waves ripple-light">
                                         Submit
                                     </button>
@@ -536,14 +513,12 @@
                                     </a>
                                 </div>
                             </div>
-
                         </div>
                     </form>
-
                 </div>
             </div>
-        </div> <!-- container-fluid -->
-    </div> <!-- content -->
+        </div> 
+    </div> 
 
     <!-- Include Quill CSS -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">

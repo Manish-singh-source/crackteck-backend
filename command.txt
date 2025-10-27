@@ -93,3 +93,51 @@
 | ----------------------------- | ------------------------------------------------------------------- | ---------- | ------------------------------------------ |
 | `/data/user/location`         | `handleStoreLocation()` (POST) / `handleGetLocationHistory()` (GET) | POST / GET | POST: `{ lat, lng, timestamp }` (inferred) |
 | `/data/user/location/current` | `handleGetCurrentLocation()`                                        | GET        | None                                       |
+
+
+
+
+
+
+
+
+You are working on an existing Laravel project. 
+The database schema already exists and migrations/models/controllers/routes/views are partially implemented. 
+Your job is to **improve and complete** the existing module as per the following requirements — 
+do NOT rewrite the entire structure, only enhance current code where needed.
+Properly display all data in table with perfect queries. 
+Make sure controller logic and business logics are perfect. 
+
+
+Module 1: Spare Parts Request (url: /warehouse/spare-parts) in warehouse.php file
+
+    Task 1: create a model and migration for as SparePartRequest 
+
+    -- database columns: 
+        'spare_parts_requests' table: 
+            id
+            product_id (from products table)
+            requested_by (engineer_id from engineers table)
+            request_date (date)
+            urgency_level
+            quantity		
+            approval_status
+            reason 
+            etc. 
+
+            
+    Task 2: List All Spare Parts Requests (http://127.0.0.1:8000/warehouse/spare-parts) 
+        - display all spare parts requests in table format with columns: sr. no., product name, type, brand, module number, serial number, requested by, request date, urgency level, quantity, approval status, reason, action(view)
+        - on view button click, redirect to view page of that spare part request (http://127.0.0.1:8000/warehouse/view-spare-part/{id}) 
+
+    Task 3: View Spare Part Request (http://127.0.0.1:8000/warehouse/view-spare-part/{id}) 
+        - The UI design is already done in view.blade.php file. Improve UI design if needed.
+        - display all details of spare part request in "Spare Part Request" card like request from engineer, service id (in which service request this spare part is requested), status (pending, approved, rejected), etc.
+
+        - display spare parts details in "Spare Part Details" card like item image, name, type, brand, modal number, serial number, etc. 
+        - display customer details for which this spare part is requested in "Customer Details" card like customer name, contact number, address, etc.
+        - add one more card for assigning "delivery man" to deliver this spare part 
+            - where delivery man can be selected from dropdown (fetch all delivery men from database)  
+            - add one more button to "assign" delivery man  
+            - on assign button click, refresh page with assigned delivery man name displayed and update in database 
+            

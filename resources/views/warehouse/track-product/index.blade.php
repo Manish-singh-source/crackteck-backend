@@ -159,56 +159,54 @@ $(document).ready(function() {
         let html = '';
 
         products.forEach(function(product, index) {
-            const serialNumbers = product.serial_numbers.join(', ') || 'N/A';
-            const rackInfo = `${product.rack_info.rack_no} / ${product.rack_info.zone_area} / ${product.rack_info.level_no} / ${product.rack_info.position_no}`;
+            const serialNumbers = product.serial_numbers.join(', ') || 'N/A'; // Join serial numbers with comma separator for display
+            const rackInfo = `${product.rack_info.rack_no} / ${product.rack_info.zone_area} / ${product.rack_info.level_no} / ${product.rack_info.position_no}`; // Format rack information for display
             const availabilityBadge = product.availability_status === 'In Stock' ?
                 '<span class="badge bg-success">In Stock</span>' :
-                '<span class="badge bg-danger">Out of Stock</span>';
+                '<span class="badge bg-danger">Out of Stock</span>'; 
 
             html += `
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-2 text-center">
-                                ${product.main_image ?
-                                    `<img src="${product.main_image}" alt="${product.product_name}" class="img-fluid rounded" style="max-width: 80px; max-height: 80px;">` :
-                                    `<div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
-                                        <i class="mdi mdi-package-variant text-muted fs-24"></i>
-                                    </div>`
-                                }
-                            </div>
-                            <div class="col-md-10">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <td class="fw-semibold" style="width: 150px;">Product Name:</td>
-                                                <td>${product.product_name}</td>
-                                                <td class="fw-semibold" style="width: 150px;">SKU:</td>
-                                                <td>${product.sku}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-semibold">Serial Number(s):</td>
-                                                <td><span class="badge bg-info">${serialNumbers}</span></td>
-                                                <td class="fw-semibold">Warehouse:</td>
-                                                <td>${product.warehouse_name}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-semibold">Rack / Zone / Level / Position:</td>
-                                                <td>${rackInfo}</td>
-                                                <td class="fw-semibold">Availability:</td>
-                                                <td>${availabilityBadge}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-semibold">Quantity:</td>
-                                                <td><span class="badge bg-primary">${product.quantity}</span></td>
-                                                <td class="fw-semibold">Brand:</td>
-                                                <td>${product.brand}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center">
+                        ${product.main_image ?
+                            `<img src="${product.main_image}" alt="${product.product_name}" class="img-fluid rounded" style="max-width: 80px; max-height: 80px;">` :
+                            `<div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
+                                <i class="mdi mdi-package-variant text-muted fs-24"></i>
+                            </div>`
+                        }
+                    </div>
+                    <div class="col-md-10">
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-semibold" style="width: 150px;">Product Name:</td>
+                                        <td>${product.product_name}</td>
+                                        <td class="fw-semibold" style="width: 150px;">SKU:</td>
+                                        <td>${product.sku}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Serial Number(s):</td>
+                                        <td>
+                                            <span class="badge bg-info w-100">${serialNumbers}</span>
+                                        </td>
+                                        <td class="fw-semibold">Warehouse:</td>
+                                        <td>${product.warehouse_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Rack / Zone / Level / Position:</td>
+                                        <td>${rackInfo}</td>
+                                        <td class="fw-semibold">Availability:</td>
+                                        <td>${availabilityBadge}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Quantity:</td>
+                                        <td><span class="badge bg-primary">${product.quantity}</span></td>
+                                        <td class="fw-semibold">Brand:</td>
+                                        <td>${product.brand}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

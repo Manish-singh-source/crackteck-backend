@@ -47,21 +47,28 @@ class ProductListController extends Controller
         $variationAttributes = ProductVariantAttribute::with('values')->get();
 
         return view('/warehouse/product-list/create', compact(
-            'brands', 'parentCategories', 'subCategories', 'warehouses', 'warehouseRacks',
-            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationAttributes',
+            'brands',
+            'parentCategories',
+            'subCategories',
+            'warehouses',
+            'warehouseRacks',
+            'zoneAreas',
+            'rackNo',
+            'levelNo',
+            'positionNo',
+            'variationAttributes',
         ));
     }
 
     public function store(Request $request)
     {
 
-        // dd($request->all());
         $product = new Product();
         $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual', 'warehouse_rack_name', 'zone_area_id', 'rack_no_id', 'level_no_id', 'position_no_id']));
         $product->warehouse_rack_id = $request->warehouse_rack_name;
         $product->rack_zone_area = $request->zone_area_id;
         $product->rack_no = $request->rack_no_id;
-        $product->level_no = $request->level_no_id; 
+        $product->level_no = $request->level_no_id;
         $product->position_no = $request->position_no_id;
         $product->variation_options = json_encode($request->variations);
         // Handle file uploads
@@ -131,7 +138,7 @@ class ProductListController extends Controller
             'subCategorie',
             'warehouse',
             'warehouseRack',
-            'productSerials' => function($query) {
+            'productSerials' => function ($query) {
                 $query->where('status', 'active'); // Only show active serial numbers
             }
         ])->findOrFail($id);
@@ -140,7 +147,7 @@ class ProductListController extends Controller
         $this->ensureProductSerials($product);
 
         // Reload product with active serials only
-        $product->load(['productSerials' => function($query) {
+        $product->load(['productSerials' => function ($query) {
             $query->where('status', 'active');
         }]);
 
@@ -202,91 +209,106 @@ class ProductListController extends Controller
 
         $variationAttributes = ProductVariantAttribute::with('values')->get();
         $selectedVariations = json_decode($product->variation_options, true);
-        $selectedVariations = collect($selectedVariations)->map(function($values) {
+        $selectedVariations = collect($selectedVariations)->map(function ($values) {
             return array_map('intval', $values);
         })->toArray();
 
         return view('/warehouse/product-list/edit', compact(
-            'product', 'brands', 'parentCategories', 'subCategories', 'warehouses', 'warehouseRacks',
-            'zoneAreas', 'rackNo', 'levelNo', 'positionNo', 'variationAttributes', 'selectedVariations'
+            'product',
+            'brands',
+            'parentCategories',
+            'subCategories',
+            'warehouses',
+            'warehouseRacks',
+            'zoneAreas',
+            'rackNo',
+            'levelNo',
+            'positionNo',
+            'variationAttributes',
+            'selectedVariations'
         ));
     }
 
     public function update(UpdateProductRequest $request, $id)
     {
-        $product = Product::findOrFail($id);
+        try {
 
-        $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual']));
+            $product = Product::findOrFail($id);
 
-        // Handle file uploads
-        if ($request->hasFile('main_product_image')) {
-            // Delete old file if exists
-            if ($product->main_product_image && file_exists(public_path($product->main_product_image))) {
-                unlink(public_path($product->main_product_image));
+            $product->fill($request->except(['main_product_image', 'additional_product_images', 'invoice_pdf', 'datasheet_manual']));
+
+            // Handle file uploads
+            if ($request->hasFile('main_product_image')) {
+                // Delete old file if exists
+                if ($product->main_product_image && file_exists(public_path($product->main_product_image))) {
+                    unlink(public_path($product->main_product_image));
+                }
+
+                $file = $request->file('main_product_image');
+                $filename = time() . '_main.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/products/images'), $filename);
+                $product->main_product_image = 'uploads/products/images/' . $filename;
             }
 
-            $file = $request->file('main_product_image');
-            $filename = time() . '_main.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/products/images'), $filename);
-            $product->main_product_image = 'uploads/products/images/' . $filename;
-        }
-
-        if ($request->hasFile('additional_product_images')) {
-            // Delete old files if exist
-            if ($product->additional_product_images) {
-                foreach ($product->additional_product_images as $oldImage) {
-                    if (file_exists(public_path($oldImage))) {
-                        unlink(public_path($oldImage));
+            if ($request->hasFile('additional_product_images')) {
+                // Delete old files if exist
+                if ($product->additional_product_images) {
+                    foreach ($product->additional_product_images as $oldImage) {
+                        if (file_exists(public_path($oldImage))) {
+                            unlink(public_path($oldImage));
+                        }
                     }
                 }
+
+                $additionalImages = [];
+                foreach ($request->file('additional_product_images') as $index => $file) {
+                    $filename = time() . '_additional_' . $index . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('uploads/products/images'), $filename);
+                    $additionalImages[] = 'uploads/products/images/' . $filename;
+                }
+                $product->additional_product_images = $additionalImages;
             }
 
-            $additionalImages = [];
-            foreach ($request->file('additional_product_images') as $index => $file) {
-                $filename = time() . '_additional_' . $index . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/products/images'), $filename);
-                $additionalImages[] = 'uploads/products/images/' . $filename;
-            }
-            $product->additional_product_images = $additionalImages;
-        }
+            if ($request->hasFile('invoice_pdf')) {
+                // Delete old file if exists
+                if ($product->invoice_pdf && file_exists(public_path($product->invoice_pdf))) {
+                    unlink(public_path($product->invoice_pdf));
+                }
 
-        if ($request->hasFile('invoice_pdf')) {
-            // Delete old file if exists
-            if ($product->invoice_pdf && file_exists(public_path($product->invoice_pdf))) {
-                unlink(public_path($product->invoice_pdf));
+                $file = $request->file('invoice_pdf');
+                $filename = time() . '_invoice.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/products/documents'), $filename);
+                $product->invoice_pdf = 'uploads/products/documents/' . $filename;
             }
 
-            $file = $request->file('invoice_pdf');
-            $filename = time() . '_invoice.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/products/documents'), $filename);
-            $product->invoice_pdf = 'uploads/products/documents/' . $filename;
-        }
+            if ($request->hasFile('datasheet_manual')) {
+                // Delete old file if exists
+                if ($product->datasheet_manual && file_exists(public_path($product->datasheet_manual))) {
+                    unlink(public_path($product->datasheet_manual));
+                }
 
-        if ($request->hasFile('datasheet_manual')) {
-            // Delete old file if exists
-            if ($product->datasheet_manual && file_exists(public_path($product->datasheet_manual))) {
-                unlink(public_path($product->datasheet_manual));
+                $file = $request->file('datasheet_manual');
+                $filename = time() . '_datasheet.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/products/documents'), $filename);
+                $product->datasheet_manual = 'uploads/products/documents/' . $filename;
             }
 
-            $file = $request->file('datasheet_manual');
-            $filename = time() . '_datasheet.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/products/documents'), $filename);
-            $product->datasheet_manual = 'uploads/products/documents/' . $filename;
-        }
+            // Calculate final price
+            $finalPrice = $product->selling_price;
+            if ($product->discount_price) {
+                $finalPrice = $product->discount_price;
+            }
+            if ($product->tax) {
+                $finalPrice = $finalPrice + ($finalPrice * $product->tax / 100);
+            }
+            $product->final_price = $finalPrice;
 
-        // Calculate final price
-        $finalPrice = $product->selling_price;
-        if ($product->discount_price) {
-            $finalPrice = $product->discount_price;
-        }
-        if ($product->tax) {
-            $finalPrice = $finalPrice + ($finalPrice * $product->tax / 100);
-        }
-        $product->final_price = $finalPrice;
+            $product->save();
 
-        $product->save();
-
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+            return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update product: ' . $e->getMessage());
+        }
     }
 
     public function destroy($id)
@@ -410,7 +432,6 @@ class ProductListController extends Controller
                     'message' => 'No items were scrapped. Errors: ' . implode(', ', $errors)
                 ], 400);
             }
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -446,7 +467,6 @@ class ProductListController extends Controller
                 'success' => true,
                 'message' => 'Product restored successfully'
             ]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -538,7 +558,6 @@ class ProductListController extends Controller
                     'is_manual' => $productSerial->is_manual
                 ]
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -593,5 +612,4 @@ class ProductListController extends Controller
 
         return response()->json($subcategories);
     }
-
 }
