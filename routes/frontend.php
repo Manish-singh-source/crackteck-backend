@@ -51,6 +51,12 @@ Route::get('/about-us', function () {
 // AMC Plans
 Route::get('/amc', [FrontendController::class, 'amcPlans'])->name('amc');
 
+// AMC Form API Routes
+Route::get('/api/amc/categories', [FrontendController::class, 'getProductCategories'])->name('amc.categories');
+Route::get('/api/amc/brands', [FrontendController::class, 'getBrands'])->name('amc.brands');
+Route::get('/api/amc/plans', [FrontendController::class, 'getAmcPlansData'])->name('amc.plans');
+Route::post('/api/amc/submit', [FrontendController::class, 'submitAmcRequest'])->name('amc.submit');
+
 // Contact US
 Route::get('/contact-us', function () {
     return view('frontend/contact');

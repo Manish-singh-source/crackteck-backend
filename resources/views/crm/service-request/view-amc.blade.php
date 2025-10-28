@@ -19,7 +19,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row py-3">
-            <div class="col-xl-10 mx-auto">
+            <div class="col-xl-8 mx-auto">
                 
                 <!-- Customer Details Card -->
                 <div class="card">
@@ -40,6 +40,7 @@
                     </div>
 
                     <div class="card-body">
+                        {{-- {{ $amcService }} --}}
                         <div class="row">
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush">
@@ -211,7 +212,13 @@
                     </div>
                 </div>
 
-                <!-- Assign Engineer Card -->
+            </div>
+
+            <div class="col-xl-4">
+
+                <div class="card">
+                    <div class="card-header border-bottom-dashed">
+                        <!-- Assign Engineer Card -->
                 <div class="card mt-3">
                     <div class="card-header border-bottom-dashed">
                         <h5 class="card-title mb-0">Assign Engineer</h5>
