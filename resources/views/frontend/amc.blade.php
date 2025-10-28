@@ -347,7 +347,6 @@
             </div>
 
             <!-- Monthly Plans Section -->
-            {{-- {{ dd() }} --}}
             <div id="monthlyPlans" class="pricing-plans-section">
                 @if($monthlyPlans->count() > 0)
                     <h4 class="mt-4 mb-4">Monthly Plans</h4>
@@ -385,6 +384,7 @@
                     </div>
                 @endif
             </div>
+            {{-- {{ dd($monthlyPlans) }} --}}
 
             <!-- Annual Plans Section -->
             <div id="annualPlans" class="pricing-plans-section" style="display: none;">
@@ -433,137 +433,284 @@
         <div class="sidebar d-none d-md-flex flex-column">
             <h4 class="mb-5 d-flex justify-content-center text-center">Service Request Form</h4>
             <div class="step active" id="step1">1. Customer Details</div>
-            <div class="step" id="step2">2. Product Information</div>
-            <div class="step" id="step3">3. AMC Plan Selection</div>
-            <div class="step" id="step4">4. Additional Information</div>
+            <div class="step" id="step2">2. Company Details</div>
+            <div class="step" id="step3">3. Product Information</div>
+            <div class="step" id="step4">4. AMC Plan Selection</div>
+            <div class="step" id="step5">5. Additional Information</div>
+            <div class="step" id="step6">6. Review & Submit</div>
         </div>
 
 
         <div class="form-content">
             <form id="requestForm">
-                <!-- Step 1 -->
+                <!-- Step 1: Customer Details -->
                 <div class="form-section active" id="section1">
                     <h3 class="mb-5">Customer Details</h3>
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control form-control-lg" id="name"
-                                placeholder="Full Name" required>
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control form-control-lg" id="first_name" name="first_name"
+                                placeholder="First Name" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control form-control-lg" id="email"
-                                placeholder="Email Address" required>
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control form-control-lg" id="last_name" name="last_name"
+                                placeholder="Last Name" required>
                         </div>
                         <div class="col-md-6">
                             <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control form-control-lg" id="phone"
+                            <input type="tel" class="form-control form-control-lg" id="phone" name="phone"
                                 placeholder="Phone Number" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control form-control-lg" id="address"
-                                placeholder="Address" required>
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email"
+                                placeholder="Email Address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="pan_no" class="form-label">Pan No</label>
+                            <input type="text" class="form-control form-control-lg" id="pan_no" name="pan_no"
+                                placeholder="Pan No" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="customer_type" class="form-label">Customer Type</label>
+                            <select class="form-select form-control-lg" id="customer_type" name="customer_type" required>
+                                <option value="">Select Customer Type</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Corporate">Corporate</option>
+                                <option value="SME">SME</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 2 -->
+                <!-- Step 2: Company Details (Optional) -->
                 <div class="form-section" id="section2">
+                    <h3 class="mb-3">Company Details</h3>
+                    <p class="text-muted mb-4">This section is optional. You can skip it if you're an individual customer.</p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="company_name" class="form-label">Company Name</label>
+                            <input type="text" class="form-control form-control-lg" id="company_name" name="company_name"
+                                placeholder="Company Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="branch_name" class="form-label">Branch Name</label>
+                            <input type="text" class="form-control form-control-lg" id="branch_name" name="branch_name"
+                                placeholder="Branch Name">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control form-control-lg" id="city" name="city"
+                                placeholder="City">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control form-control-lg" id="state" name="state"
+                                placeholder="State">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" class="form-control form-control-lg" id="country" name="country"
+                                placeholder="Country" value="India">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="pin_code" class="form-label">Pin Code</label>
+                            <input type="text" class="form-control form-control-lg" id="pin_code" name="pin_code"
+                                placeholder="Pin Code">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="gst_no" class="form-label">GST No</label>
+                            <input type="text" class="form-control form-control-lg" id="gst_no" name="gst_no"
+                                placeholder="GST Number">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="address_line1" class="form-label">Address Line 1</label>
+                            <input type="text" class="form-control form-control-lg" id="address_line1" name="address_line1"
+                                placeholder="Address Line 1">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="address_line2" class="form-label">Address Line 2</label>
+                            <input type="text" class="form-control form-control-lg" id="address_line2" name="address_line2"
+                                placeholder="Address Line 2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Product Information -->
+                <div class="form-section" id="section3">
                     <h3 class="mb-5">Product Information</h3>
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label for="product" class="form-label">Product Type</label>
-                            <select class="form-select " id="product" required>
-                                <option value="">Product Type</option>
-                                <option>Laptop</option>
-                                <option>Desktop</option>
-                                <option>Printer</option>
-                                <option>Server</option>
+                            <label for="product_name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control form-control-lg" id="product_name" name="product_name"
+                                placeholder="Product Name" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="product_type" class="form-label">Product Type</label>
+                            <select class="form-select form-control-lg" id="product_type" name="product_type" required>
+                                <option value="">Select Product Type</option>
+                                <!-- Options will be loaded dynamically -->
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="brand" class="form-label">Brand Name</label>
-                            <input type="text" class="form-control form-control-lg" id="brand"
-                                placeholder="Brand Name" required>
+                            <label for="brand_name" class="form-label">Brand Name</label>
+                            <select class="form-select form-control-lg" id="brand_name" name="brand_name" required>
+                                <option value="">Select Brand</option>
+                                <!-- Options will be loaded dynamically -->
+                            </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="model" class="form-label">Model Number</label>
-                            <input type="text" class="form-control form-control-lg" id="model"
+                            <label for="model_number" class="form-label">Model Number</label>
+                            <input type="text" class="form-control form-control-lg" id="model_number" name="model_number"
                                 placeholder="Model Number" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="serial" class="form-label">Serial Number</label>
-                            <input type="text" class="form-control form-control-lg" id="serial"
+                            <label for="serial_number" class="form-label">Serial Number</label>
+                            <input type="text" class="form-control form-control-lg" id="serial_number" name="serial_number"
                                 placeholder="Serial Number" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="purchase" class="form-label">Purchase Date</label>
-                            <input type="date" class="form-control form-control-lg" id="purchase"
-                                placeholder="Purchase Date" required>
+                            <label for="purchase_date" class="form-label">Purchase Date</label>
+                            <input type="date" class="form-control form-control-lg" id="purchase_date" name="purchase_date"
+                                required>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="form-section" id="section3">
+                <!-- Step 4: AMC Plan Selection -->
+                <div class="form-section" id="section4">
                     <h3 class="mb-5">AMC Plan Selection</h3>
                     <div class="row g-3">
                         <div class="col-md-12">
-                            <label class="form-label">Select Plan:</label><br>
+                            <label class="form-label">Select Plan Type:</label><br>
                             <div class="form-check form-check-inline align-item-center">
-                                <input class="form-check-input" type="radio" name="plan" id="basic"
-                                    value="Basic" required>
-                                <label class="form-check-label ms-2" for="basic">Basic</label>
+                                <input class="form-check-input" type="radio" name="plan_type" id="monthly"
+                                    value="Monthly" required>
+                                <label class="form-check-label ms-2" for="monthly">Monthly</label>
                             </div>
                             <div class="form-check form-check-inline align-item-center">
-                                <input class="form-check-input" type="radio" name="plan" id="standard"
-                                    value="Standard">
-                                <label class="form-check-label ms-2" for="standard">Standard</label>
-                            </div>
-                            <div class="form-check form-check-inline align-item-center">
-                                <input class="form-check-input" type="radio" name="plan" id="premium"
-                                    value="Premium">
-                                <label class="form-check-label ms-2" for="premium">Premium</label>
+                                <input class="form-check-input" type="radio" name="plan_type" id="annually"
+                                    value="Annually">
+                                <label class="form-check-label ms-2" for="annually">Annually</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="duration" class="form-label">AMC Duration</label>
-                            <select class="form-select " id="duration" required>
-                                <option value="">AMC Duration</option>
-                                <option>6 Months</option>
-                                <option>1 Year</option>
-                                <option>2 Years</option>
+                            <label for="amc_plan_id" class="form-label">AMC Plan</label>
+                            <select class="form-select form-control-lg" id="amc_plan_id" name="amc_plan_id" required>
+                                <option value="">Select AMC Plan</option>
+                                <!-- Options will be loaded dynamically based on plan type -->
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="start" class="form-label">Preferred Start Date</label>
-                            <input type="date" class="form-control form-control-lg" id="start"
-                                placeholder="Preferred Start Date" required>
+                            <label for="plan_duration" class="form-label">Plan Duration</label>
+                            <select class="form-select form-control-lg" id="plan_duration" name="plan_duration" required>
+                                <option value="">Select Duration</option>
+                                <!-- Options will be loaded dynamically based on selected plan -->
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="preferred_start_date" class="form-label">Preferred Start Date</label>
+                            <input type="date" class="form-control form-control-lg" id="preferred_start_date" name="preferred_start_date"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="plan_cost_display" class="form-label">Plan Cost</label>
+                            <input type="text" class="form-control form-control-lg" id="plan_cost_display"
+                                placeholder="Select a plan to see cost" readonly>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 4 -->
-                <div class="form-section" id="section4">
+                <!-- Step 5: Additional Information -->
+                <div class="form-section" id="section5">
                     <h3 class="mb-5">Additional Information</h3>
                     <div class="mb-3">
-                        <label for="notes" class="form-label">Additional Notes (Optional)</label>
-                        <textarea class="form-control" id="notes" rows="4" placeholder="Any additional notes or instructions..."></textarea>
+                        <label for="additional_notes" class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-control" id="additional_notes" name="additional_notes" rows="4"
+                            placeholder="Any additional notes or instructions..."></textarea>
                     </div>
 
-
                     <div class="form-check mb-4 align-item-center">
-                        <input class="form-check-input" type="checkbox" id="agree" required>
-                        <label class="form-check-label ms-2" for="agree">
-                            I agree to the <a href="#">terms and conditions</a>.
+                        <input class="form-check-input" type="checkbox" id="terms_agreed" name="terms_agreed" value="1" required>
+                        <label class="form-check-label ms-2" for="terms_agreed">
+                            I agree to the <a href="#" target="_blank">terms and conditions</a>.
                         </label>
                     </div>
                 </div>
 
-                <div style="text-align: right;">
-                    <button type="button" class="btn mt-3" id="nextBtn">Next</button>
+                <!-- Step 6: Review & Submit -->
+                <div class="form-section" id="section6">
+                    <h3 class="mb-5">Review & Submit</h3>
+                    <div class="alert alert-info">
+                        <h5>Please review your information before submitting:</h5>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Customer Information</h6>
+                                    <div id="review-customer-info">
+                                        <!-- Customer details will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" id="review-company-section" style="display: none;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Company Information</h6>
+                                    <div id="review-company-info">
+                                        <!-- Company details will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Product Information</h6>
+                                    <div id="review-product-info">
+                                        <!-- Product details will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">AMC Plan Details</h6>
+                                    <div id="review-plan-info">
+                                        <!-- Plan details will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <button type="button" class="btn btn-secondary" id="backBtn" style="display: none;">
+                            <i class="fas fa-arrow-left me-2"></i>Back
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary me-2" id="skipBtn" style="display: none;">
+                            Skip
+                        </button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">
+                            Next<i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <button type="button" class="btn btn-success" id="submitBtn" style="display: none;">
+                            <i class="fas fa-check me-2"></i>Submit Request
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -769,50 +916,684 @@
 @endsection
 
 @section('script')
-    <script>
-        // Form navigation functionality
+    {{-- <script>
+        // Form navigation variables
         const sections = document.querySelectorAll('.form-section');
         const steps = document.querySelectorAll('.step');
         let currentStep = 0;
+        const totalSteps = sections.length;
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentStep < sections.length - 1) {
-                sections[currentStep].classList.remove('active');
-                steps[currentStep].classList.remove('active');
-                currentStep++;
-                sections[currentStep].classList.add('active');
-                steps[currentStep].classList.add('active');
-                if (currentStep === sections.length - 1) {
-                    document.getElementById('nextBtn').textContent = 'Submit';
+        // Button elements
+        const backBtn = document.getElementById('backBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const skipBtn = document.getElementById('skipBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Form data storage
+        let formData = {};
+        let categoriesData = [];
+        let brandsData = [];
+        let plansData = {};
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDropdownData();
+            updateNavigationButtons();
+        });
+
+        // Load dropdown data from API
+        async function loadDropdownData() {
+            try {
+                // Load categories
+                const categoriesResponse = await fetch('/api/amc/categories');
+                const categoriesResult = await categoriesResponse.json();
+                if (categoriesResult.success) {
+                    categoriesData = categoriesResult.data;
+                    populateDropdown('product_type', categoriesData, 'id', 'name');
                 }
-            } else {
-                alert('Form submitted successfully!');
-                document.getElementById('requestForm').reset();
-                location.reload(); // Optional: Reset the form flow
+
+                // Load brands
+                const brandsResponse = await fetch('/api/amc/brands');
+                const brandsResult = await brandsResponse.json();
+                if (brandsResult.success) {
+                    brandsData = brandsResult.data;
+                    populateDropdown('brand_name', brandsData, 'id', 'name');
+                }
+
+                // Load AMC plans
+                const plansResponse = await fetch('/api/amc/plans');
+                const plansResult = await plansResponse.json();
+                if (plansResult.success) {
+                    plansData = plansResult.data;
+                }
+            } catch (error) {
+                console.error('Error loading dropdown data:', error);
+            }
+        }
+
+        // Populate dropdown with data
+        function populateDropdown(selectId, data, valueField, textField) {
+            const select = document.getElementById(selectId);
+            const defaultOption = select.querySelector('option[value=""]');
+
+            // Clear existing options except default
+            select.innerHTML = '';
+            if (defaultOption) {
+                select.appendChild(defaultOption);
+            }
+
+            data.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item[valueField];
+                option.textContent = item[textField];
+                select.appendChild(option);
+            });
+        }
+
+        // Plan type change handler
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'plan_type') {
+                const planType = e.target.value;
+                const amcPlanSelect = document.getElementById('amc_plan_id');
+
+                // Clear existing options
+                amcPlanSelect.innerHTML = '<option value="">Select AMC Plan</option>';
+
+                if (plansData[planType]) {
+                    plansData[planType].forEach(plan => {
+                        const option = document.createElement('option');
+                        option.value = plan.id;
+                        option.textContent = plan.plan_name;
+                        option.dataset.duration = plan.duration;
+                        option.dataset.cost = plan.total_cost;
+                        option.dataset.description = plan.description;
+                        amcPlanSelect.appendChild(option);
+                    });
+                }
             }
         });
 
-        // Pricing toggle functionality
+        // AMC plan change handler
+        document.addEventListener('change', function(e) {
+            if (e.target.id === 'amc_plan_id') {
+                const selectedOption = e.target.selectedOptions[0];
+                if (selectedOption && selectedOption.value) {
+                    // Update duration
+                    const durationSelect = document.getElementById('plan_duration');
+                    durationSelect.innerHTML = '<option value="">Select Duration</option>';
+
+                    const duration = selectedOption.dataset.duration;
+                    if (duration) {
+                        const option = document.createElement('option');
+                        option.value = duration;
+                        option.textContent = duration;
+                        durationSelect.appendChild(option);
+                        durationSelect.value = duration;
+                    }
+
+                    // Update cost display
+                    const costDisplay = document.getElementById('plan_cost_display');
+                    const cost = selectedOption.dataset.cost;
+                    if (cost) {
+                        costDisplay.value = '₹ ' + parseFloat(cost).toLocaleString();
+                    }
+                }
+            }
+        });
+
+        // Navigation button handlers
+        nextBtn.addEventListener('click', function() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+
+                if (currentStep < totalSteps - 1) {
+                    // Move to next step
+                    if (currentStep === 1 && shouldSkipCompanyDetails()) {
+                        // Skip company details if individual customer
+                        currentStep += 2;
+                    } else {
+                        currentStep++;
+                    }
+
+                    if (currentStep === totalSteps - 1) {
+                        // Last step - populate review
+                        populateReviewSection();
+                    }
+
+                    showStep(currentStep);
+                    updateNavigationButtons();
+                }
+            }
+        });
+
+        backBtn.addEventListener('click', function() {
+            if (currentStep > 0) {
+                // Check if we skipped company details when going forward
+                if (currentStep === 3 && shouldSkipCompanyDetails()) {
+                    currentStep -= 2; // Go back to step 1
+                } else {
+                    currentStep--;
+                }
+                showStep(currentStep);
+                updateNavigationButtons();
+            }
+        });
+
+        skipBtn.addEventListener('click', function() {
+            if (currentStep === 1) { // Company details step
+                saveCurrentStepData();
+                currentStep++;
+                showStep(currentStep);
+                updateNavigationButtons();
+            }
+        });
+
+        submitBtn.addEventListener('click', function() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                submitForm();
+            }
+        });
+
+        // Show specific step
+        function showStep(stepIndex) {
+            sections.forEach((section, index) => {
+                section.classList.toggle('active', index === stepIndex);
+            });
+
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === stepIndex);
+            });
+        }
+
+        // Update navigation buttons visibility
+        function updateNavigationButtons() {
+            // Back button
+            backBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+
+            // Skip button (only show on company details step)
+            skipBtn.style.display = currentStep === 1 ? 'inline-block' : 'none';
+
+            // Next/Submit buttons
+            if (currentStep === totalSteps - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Check if company details should be skipped
+        function shouldSkipCompanyDetails() {
+            const customerType = document.getElementById('customer_type').value;
+            return customerType === 'Individual';
+        }
+
+        // Validate current step
+        function validateCurrentStep() {
+            const currentSection = sections[currentStep];
+            const requiredFields = currentSection.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+            }
+
+            return isValid;
+        }
+
+        // Save current step data
+        function saveCurrentStepData() {
+            const currentSection = sections[currentStep];
+            const inputs = currentSection.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    if (input.checked) {
+                        formData[input.name] = input.value;
+                    }
+                } else if (input.type === 'checkbox') {
+                    formData[input.name] = input.checked ? input.value : '';
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+        }
+
+        // Populate review section
+        function populateReviewSection() {
+            // Customer info
+            const customerInfo = `
+                <p><strong>Name:</strong> ${formData.first_name || ''} ${formData.last_name || ''}</p>
+                <p><strong>Email:</strong> ${formData.email || ''}</p>
+                <p><strong>Phone:</strong> ${formData.phone || ''}</p>
+                <p><strong>Customer Type:</strong> ${formData.customer_type || ''}</p>
+            `;
+            document.getElementById('review-customer-info').innerHTML = customerInfo;
+
+            // Company info (if provided)
+            if (formData.company_name) {
+                const companyInfo = `
+                    <p><strong>Company:</strong> ${formData.company_name || ''}</p>
+                    <p><strong>Branch:</strong> ${formData.branch_name || ''}</p>
+                    <p><strong>Address:</strong> ${formData.address_line1 || ''} ${formData.address_line2 || ''}</p>
+                    <p><strong>City:</strong> ${formData.city || ''}, ${formData.state || ''} ${formData.pin_code || ''}</p>
+                    <p><strong>GST No:</strong> ${formData.gst_no || ''}</p>
+                `;
+                document.getElementById('review-company-info').innerHTML = companyInfo;
+                document.getElementById('review-company-section').style.display = 'block';
+            }
+
+            // Product info
+            const productInfo = `
+                <p><strong>Product Type:</strong> ${getSelectedText('product_type')}</p>
+                <p><strong>Brand:</strong> ${getSelectedText('brand_name')}</p>
+                <p><strong>Model:</strong> ${formData.model_number || ''}</p>
+                <p><strong>Serial Number:</strong> ${formData.serial_number || ''}</p>
+                <p><strong>Purchase Date:</strong> ${formData.purchase_date || ''}</p>
+            `;
+            document.getElementById('review-product-info').innerHTML = productInfo;
+
+            // Plan info
+            const planInfo = `
+                <p><strong>Plan Type:</strong> ${formData.plan_type || ''}</p>
+                <p><strong>Plan:</strong> ${getSelectedText('amc_plan_id')}</p>
+                <p><strong>Duration:</strong> ${formData.plan_duration || ''}</p>
+                <p><strong>Start Date:</strong> ${formData.preferred_start_date || ''}</p>
+                <p><strong>Cost:</strong> ${document.getElementById('plan_cost_display').value || ''}</p>
+            `;
+            document.getElementById('review-plan-info').innerHTML = planInfo;
+        }
+
+        // Get selected text from dropdown
+        function getSelectedText(selectId) {
+            const select = document.getElementById(selectId);
+            return select.selectedOptions[0] ? select.selectedOptions[0].textContent : '';
+        }
+
+        // Submit form
+        async function submitForm() {
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
+
+                const response = await fetch('/api/amc/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`Success! Your service request has been submitted. Service ID: ${result.service_id}`);
+                    document.getElementById('requestForm').reset();
+                    currentStep = 0;
+                    showStep(currentStep);
+                    updateNavigationButtons();
+                    formData = {};
+                } else {
+                    alert('Error: ' + (result.message || 'Something went wrong'));
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Error submitting form. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Submit Request';
+            }
+        }
+
+        // Pricing toggle functionality (existing)
         document.getElementById('monthlyBtn').addEventListener('click', function() {
-            // Update button states
             document.getElementById('monthlyBtn').classList.add('active');
             document.getElementById('annuallyBtn').classList.remove('active');
-
-            // Show/hide plan sections
             document.getElementById('monthlyPlans').style.display = 'block';
             document.getElementById('annualPlans').style.display = 'none';
         });
 
         document.getElementById('annuallyBtn').addEventListener('click', function() {
-            // Update button states
             document.getElementById('annuallyBtn').classList.add('active');
             document.getElementById('monthlyBtn').classList.remove('active');
-
-            // Show/hide plan sections
             document.getElementById('monthlyPlans').style.display = 'none';
             document.getElementById('annualPlans').style.display = 'block';
         });
-    </script>
+    </script> --}}
+
+    <script>
+    // Form navigation variables
+    const sections = document.querySelectorAll('.form-section');
+    const steps = document.querySelectorAll('.step');
+    let currentStep = 0;
+    const totalSteps = sections.length;
+
+    // Button elements
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const skipBtn = document.getElementById('skipBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Form data storage
+    let formData = {};
+    let categoriesData = [];
+    let brandsData = [];
+    let plansData = {};
+
+    // Initialize form
+    document.addEventListener('DOMContentLoaded', function() {
+        loadDropdownData();
+        updateNavigationButtons();
+    });
+
+    // Load dropdown data from API
+    async function loadDropdownData() {
+        try {
+            const categoriesResponse = await fetch('/api/amc/categories');
+            const categoriesResult = await categoriesResponse.json();
+            if (categoriesResult.success) {
+                categoriesData = categoriesResult.data;
+                populateDropdown('product_type', categoriesData, 'id', 'name');
+            }
+
+            const brandsResponse = await fetch('/api/amc/brands');
+            const brandsResult = await brandsResponse.json();
+            if (brandsResult.success) {
+                brandsData = brandsResult.data;
+                populateDropdown('brand_name', brandsData, 'id', 'name');
+            }
+
+            const plansResponse = await fetch('/api/amc/plans');
+            const plansResult = await plansResponse.json();
+            if (plansResult.success) {
+                plansData = plansResult.data;
+            }
+        } catch (error) {
+            console.error('Error loading dropdown data:', error);
+        }
+    }
+
+    // Populate dropdown
+    function populateDropdown(selectId, data, valueField, textField) {
+        const select = document.getElementById(selectId);
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Select Option";
+        select.innerHTML = '';
+        select.appendChild(defaultOption);
+
+        data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item[valueField];
+            option.textContent = item[textField];
+            select.appendChild(option);
+        });
+    }
+
+    // Plan type change handler
+    document.addEventListener('change', function(e) {
+        if (e.target.name === 'plan_type') {
+            const planType = e.target.value;
+            const amcPlanSelect = document.getElementById('amc_plan_id');
+            amcPlanSelect.innerHTML = '<option value="">Select AMC Plan</option>';
+
+            if (plansData[planType]) {
+                plansData[planType].forEach(plan => {
+                    const option = document.createElement('option');
+                    option.value = plan.id;
+                    option.textContent = plan.plan_name;
+                    option.dataset.duration = plan.duration;
+                    option.dataset.cost = plan.total_cost;
+                    option.dataset.description = plan.description;
+                    amcPlanSelect.appendChild(option);
+                });
+            }
+        }
+    });
+
+    // AMC plan change handler
+    document.addEventListener('change', function(e) {
+        if (e.target.id === 'amc_plan_id') {
+            const selectedOption = e.target.selectedOptions[0];
+            if (selectedOption && selectedOption.value) {
+                const durationSelect = document.getElementById('plan_duration');
+                durationSelect.innerHTML = '<option value="">Select Duration</option>';
+
+                const duration = selectedOption.dataset.duration;
+                if (duration) {
+                    const option = document.createElement('option');
+                    option.value = duration;
+                    option.textContent = duration;
+                    durationSelect.appendChild(option);
+                    durationSelect.value = duration;
+                }
+
+                const costDisplay = document.getElementById('plan_cost_display');
+                const cost = selectedOption.dataset.cost;
+                if (cost) {
+                    costDisplay.value = '₹ ' + parseFloat(cost).toLocaleString();
+                }
+            }
+        }
+    });
+
+    // Next button
+    nextBtn.addEventListener('click', function() {
+        if (validateCurrentStep()) {
+            saveCurrentStepData();
+
+            if (currentStep < totalSteps - 1) {
+                // Skip company details automatically only if Individual customer
+                if (currentStep === 0 && shouldSkipCompanyDetails()) {
+                    currentStep += 2;
+                } else {
+                    currentStep++;
+                }
+
+                if (currentStep === totalSteps - 1) {
+                    populateReviewSection();
+                }
+
+                showStep(currentStep);
+                updateNavigationButtons();
+            }
+        }
+    });
+
+    // Back button
+    backBtn.addEventListener('click', function() {
+        if (currentStep > 0) {
+            if (currentStep === 2 && shouldSkipCompanyDetails()) {
+                currentStep -= 2;
+            } else {
+                currentStep--;
+            }
+            showStep(currentStep);
+            updateNavigationButtons();
+        }
+    });
+
+    // ✅ Fixed Skip button (skip only current section)
+    skipBtn.addEventListener('click', function() {
+        saveCurrentStepData(); // optional if you want to retain partially filled data
+        if (currentStep < totalSteps - 1) {
+            currentStep++; // move one step forward only
+            showStep(currentStep);
+            updateNavigationButtons();
+        }
+    });
+
+    // Submit button
+    submitBtn.addEventListener('click', function() {
+        if (validateCurrentStep()) {
+            saveCurrentStepData();
+            submitForm();
+        }
+    });
+
+    // Show section
+    function showStep(stepIndex) {
+        sections.forEach((section, index) => {
+            section.classList.toggle('active', index === stepIndex);
+        });
+
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === stepIndex);
+        });
+    }
+
+    // Update navigation
+    function updateNavigationButtons() {
+        backBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+        skipBtn.style.display = currentStep === 1 ? 'inline-block' : 'none';
+        if (currentStep === totalSteps - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    // Skip company details check
+    function shouldSkipCompanyDetails() {
+        const customerType = document.getElementById('customer_type').value;
+        return customerType === 'Individual';
+    }
+
+    // Validation
+    function validateCurrentStep() {
+        const currentSection = sections[currentStep];
+        const requiredFields = currentSection.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+
+        if (!isValid) {
+            alert('Please fill in all required fields.');
+        }
+
+        return isValid;
+    }
+
+    // Save data
+    function saveCurrentStepData() {
+        const currentSection = sections[currentStep];
+        const inputs = currentSection.querySelectorAll('input, select, textarea');
+
+        inputs.forEach(input => {
+            if (input.type === 'radio') {
+                if (input.checked) formData[input.name] = input.value;
+            } else if (input.type === 'checkbox') {
+                formData[input.name] = input.checked ? input.value : '';
+            } else {
+                formData[input.name] = input.value;
+            }
+        });
+    }
+
+    // Review section
+    function populateReviewSection() {
+        const customerInfo = `
+            <p><strong>Name:</strong> ${formData.first_name || ''} ${formData.last_name || ''}</p>
+            <p><strong>Email:</strong> ${formData.email || ''}</p>
+            <p><strong>Phone:</strong> ${formData.phone || ''}</p>
+            <p><strong>Customer Type:</strong> ${formData.customer_type || ''}</p>
+        `;
+        document.getElementById('review-customer-info').innerHTML = customerInfo;
+
+        if (formData.company_name) {
+            const companyInfo = `
+                <p><strong>Company:</strong> ${formData.company_name || ''}</p>
+                <p><strong>Branch:</strong> ${formData.branch_name || ''}</p>
+                <p><strong>Address:</strong> ${formData.address_line1 || ''} ${formData.address_line2 || ''}</p>
+                <p><strong>City:</strong> ${formData.city || ''}, ${formData.state || ''} ${formData.pin_code || ''}</p>
+                <p><strong>GST No:</strong> ${formData.gst_no || ''}</p>
+            `;
+            document.getElementById('review-company-info').innerHTML = companyInfo;
+            document.getElementById('review-company-section').style.display = 'block';
+        }
+
+        const productInfo = `
+            <p><strong>Product Type:</strong> ${getSelectedText('product_type')}</p>
+            <p><strong>Brand:</strong> ${getSelectedText('brand_name')}</p>
+            <p><strong>Model:</strong> ${formData.model_number || ''}</p>
+            <p><strong>Serial Number:</strong> ${formData.serial_number || ''}</p>
+            <p><strong>Purchase Date:</strong> ${formData.purchase_date || ''}</p>
+        `;
+        document.getElementById('review-product-info').innerHTML = productInfo;
+
+        const planInfo = `
+            <p><strong>Plan Type:</strong> ${formData.plan_type || ''}</p>
+            <p><strong>Plan:</strong> ${getSelectedText('amc_plan_id')}</p>
+            <p><strong>Duration:</strong> ${formData.plan_duration || ''}</p>
+            <p><strong>Start Date:</strong> ${formData.preferred_start_date || ''}</p>
+            <p><strong>Cost:</strong> ${document.getElementById('plan_cost_display').value || ''}</p>
+        `;
+        document.getElementById('review-plan-info').innerHTML = planInfo;
+    }
+
+    function getSelectedText(selectId) {
+        const select = document.getElementById(selectId);
+        return select.selectedOptions[0] ? select.selectedOptions[0].textContent : '';
+    }
+
+    // Submit form
+    async function submitForm() {
+        try {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
+
+            const response = await fetch('/api/amc/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(`Success! Your service request has been submitted. Service ID: ${result.service_id}`);
+                document.getElementById('requestForm').reset();
+                currentStep = 0;
+                showStep(currentStep);
+                updateNavigationButtons();
+                formData = {};
+            } else {
+                alert('Error: ' + (result.message || 'Something went wrong'));
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            console.log(error);
+            alert('Error submitting form. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Submit Request';
+        }
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
 

@@ -11,6 +11,7 @@ class AmcService extends Model
     protected $table = 'amc_services';
 
     protected $fillable = [
+        'service_id',
         'first_name',
         'last_name',
         'phone',
