@@ -1593,6 +1593,21 @@
             submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Submit Request';
         }
     }
+
+    // Pricing toggle functionality (existing)
+        document.getElementById('monthlyBtn').addEventListener('click', function() {
+            document.getElementById('monthlyBtn').classList.add('active');
+            document.getElementById('annuallyBtn').classList.remove('active');
+            document.getElementById('monthlyPlans').style.display = 'block';
+            document.getElementById('annualPlans').style.display = 'none';
+        });
+
+        document.getElementById('annuallyBtn').addEventListener('click', function() {
+            document.getElementById('annuallyBtn').classList.add('active');
+            document.getElementById('monthlyBtn').classList.remove('active');
+            document.getElementById('monthlyPlans').style.display = 'none';
+            document.getElementById('annualPlans').style.display = 'block';
+        });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
