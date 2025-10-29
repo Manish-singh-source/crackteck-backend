@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\FollowUpController;
+use App\Http\Controllers\Api\QuotationController;
+use App\Http\Controllers\Api\ProfileController;
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
 
@@ -100,9 +102,9 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::get('/leads', 'index');
         Route::post('/leads', 'store');
         Route::get('/leads/{id}', 'show');
-        Route::put('/leads/{id}', 'update');
+        Route::put('/leads/{id}', 'update');    
         Route::delete('/leads/{id}', 'destroy');
-    });
+    }); 
 
     Route::controller(FollowUpController::class)->group(function () {
         Route::get('/follow-up', 'index');
@@ -111,4 +113,17 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::put('/follow-up/{id}', 'update');
         Route::delete('/follow-up/{id}', 'destroy');
     });
+
+    Route::controller(QuotationController::class)->group(function () {
+        Route::get('/quotation', 'index');
+        Route::post('/quotation', 'store');
+        Route::get('/quotation/{id}', 'show');
+        Route::put('/quotation/{id}', 'update');
+        Route::delete('/quotation/{id}', 'destroy');
+    });
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'index');
+        Route::put('/profile', 'update');
+    });
+
 });
