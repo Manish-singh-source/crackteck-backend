@@ -176,12 +176,14 @@ class FrontendController extends Controller
             'email' => 'required|email|max:255',
             'customer_type' => 'required|string',
 
-            // Step 3: Product Information
-            'product_type' => 'required|string',
-            'brand_name' => 'required|string',
-            'model_number' => 'required|string|max:255',
-            'serial_number' => 'required|string|max:255',
-            'purchase_date' => 'required|date',
+            // Step 3: Product Information (Multiple Products)
+            'products' => 'required|array|min:1',
+            'products.*.product_name' => 'required|string|max:255',
+            'products.*.product_type' => 'required|string',
+            'products.*.brand_name' => 'required|string',
+            'products.*.model_number' => 'required|string|max:255',
+            'products.*.serial_number' => 'required|string|max:255',
+            'products.*.purchase_date' => 'required|date',
 
             // Step 4: AMC Plan Selection
             'plan_type' => 'required|in:Monthly,Annually',
@@ -250,22 +252,26 @@ class FrontendController extends Controller
                 $branch->save();
             }
 
-            // Create product details
-            $product = new \App\Models\AmcProduct();
-            $product->amc_service_id = $amcService->id;
-            $product->product_name = $request->product_name;
-            $product->product_type = $request->product_type;
-            $product->product_brand = $request->brand_name;
-            $product->model_no = $request->model_number;
-            $product->serial_no = $request->serial_number;
-            $product->purchase_date = $request->purchase_date;
-            $product->save();
+            // Create multiple product details
+            $products = $request->input('products', []);
+            foreach ($products as $productData) {
+                $product = new \App\Models\AmcProduct();
+                $product->amc_service_id = $amcService->id;
+                $product->product_name = $productData['product_name'];
+                $product->product_type = $productData['product_type'];
+                $product->product_brand = $productData['brand_name'];
+                $product->model_no = $productData['model_number'];
+                $product->serial_no = $productData['serial_number'];
+                $product->purchase_date = $productData['purchase_date'];
+                $product->save();
+            }
 
             return response()->json([
                 'success' => true,
                 'message' => 'AMC service request submitted successfully!',
                 'service_id' => $serviceId,
-                'data' => $amcService
+                'data' => $amcService,
+                'products_count' => count($products)
             ]);
 
         } catch (\Exception $e) {
