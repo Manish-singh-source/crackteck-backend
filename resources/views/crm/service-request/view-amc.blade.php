@@ -194,8 +194,8 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $product->product_name }}</td>
-                                        <td>{{ $product->product_type ?? '-' }}</td>
-                                        <td>{{ $product->product_brand ?? '-' }}</td>
+                                        <td>{{ $product->type->parent_categories ?? '-' }}</td>
+                                        <td>{{ $product->brand->brand_title ?? '-' }}</td>
                                         <td>{{ $product->model_no ?? '-' }}</td>
                                         <td>{{ $product->serial_no ?? '-' }}</td>
                                         <td>{{ $product->purchase_date ? $product->purchase_date->format('d M Y') : '-' }}</td>

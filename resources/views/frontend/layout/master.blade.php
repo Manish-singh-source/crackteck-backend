@@ -524,12 +524,12 @@
                                         <ul class="ft-menu-list">
                                             <li><a href="{{ route('my-account') }}" class="link">My Account</a>
                                             </li>
+                                            <li><a href="{{ route('amc') }}" class="link">AMC</a></li>
+                                            <li><a href="{{ route('non-amc') }}" class="link">NON AMC</a></li>
                                             <li><a href="{{ route('track-your-order') }}" class="link">Track your
                                                     Order</a>
                                             </li>
                                             <li><a href="{{ route('contact') }}" class="link">Contact US</a></li>
-                                            <li><a href="{{ route('about') }}" class="link">About US</a></li>
-                                            <li><a href="{{ route('amc') }}" class="link">AMC</a></li>
                                         </ul>
                                     </div>
                                 </li>
