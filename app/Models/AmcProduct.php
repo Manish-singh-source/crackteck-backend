@@ -41,5 +41,15 @@ class AmcProduct extends Model
     {
         return $this->belongsTo(AmcBranch::class, 'amc_branch_id');
     }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'product_brand');
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ParentCategorie::class, 'product_type');
+    }
 }
 

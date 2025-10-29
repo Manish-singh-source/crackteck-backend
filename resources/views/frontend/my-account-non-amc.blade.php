@@ -32,11 +32,9 @@
                             <li><a href="{{ route('my-account-address') }}" class="my-account-nav-item">Address</a></li>
                             <li><a href="{{ route('my-account-edit') }}" class="my-account-nav-item">Account Details</a>
                             </li>
-                            <!-- <li><a href="my-account-amc') }}" class="my-account-nav-item">AMC</a></li> -->
                             <li><a href="{{ route('my-account-password') }}" class="my-account-nav-item">Change Password</a></li>
-                            <li><span class="my-account-nav-item active">AMC</span></li>
-                            <li><a href="{{ route('my-account-non-amc') }}" class="my-account-nav-item">NON AMC</a>
-                            </li>
+                            <li><a href="{{ route('my-account-amc') }}" class="my-account-nav-item">AMC</a></li>
+                            <li><span class="my-account-nav-item active">Non-AMC</span></li>
                             <li><a href="{{ route('wishlist') }}" class="my-account-nav-item">Wishlist</a></li>
                             @if (Auth::check())
                                 <form method="POST" action="{{ route('frontend.logout') }}">
@@ -55,17 +53,17 @@
                 <div class="col-lg-9">
                     <div class="my-account-content account-dashboard">
                         <div class="d-flex justify-content-between align-items-center mb-20">
-                            <h4 class="fw-semibold mb-0">AMC Service Requests</h4>
-                            <a href="{{ route('amc') }}" class="tf-btn btn-small">
+                            <h4 class="fw-semibold mb-0">Non-AMC Service Requests</h4>
+                            <a href="{{ route('non-amc') }}" class="tf-btn btn-small">
                                 <i class="fas fa-plus me-2"></i>New Request
                             </a>
                         </div>
 
-                        @if($amcServices->isEmpty())
+                        @if($nonAmcServices->isEmpty())
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
-                                You haven't submitted any AMC service requests yet.
-                                <a href="{{ route('amc') }}" class="alert-link">Submit your first request</a>
+                                You haven't submitted any Non-AMC service requests yet.
+                                <a href="{{ route('non-amc') }}" class="alert-link">Submit your first request</a>
                             </div>
                         @else
                         <div class="tf-order_history-table">
@@ -74,23 +72,22 @@
                                         <tr>
                                             <th class="title-sidebar fw-medium">Service ID</th>
                                             <th class="title-sidebar fw-medium">Products</th>
-                                            <th class="title-sidebar fw-medium">Plan Name</th>
-                                            <th class="title-sidebar fw-medium">Start Date</th>
-                                            <th class="title-sidebar fw-medium">End Date</th>
+                                            <th class="title-sidebar fw-medium">Service Type</th>
+                                            <th class="title-sidebar fw-medium">Date</th>
                                             <th class="title-sidebar fw-medium">Status</th>
                                             <th class="title-sidebar fw-medium">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($amcServices as $index => $service)
+                                        @foreach($nonAmcServices as $index => $service)
                                             <tr class="td-order-item">
-                                                <td class="body-text-3">{{ $service->service_id }}</td>
+                                                <td class="body-text-3">#SRV-{{ str_pad($service->id, 4, '0', STR_PAD_LEFT) }}</td>
                                                 <td class="body-text-3">
                                                     <span class="badge bg-primary">{{ $service->products->count() }} Product(s)</span>
                                                 </td>
-                                                <td class="body-text-3">{{ $service->amcPlan->plan_name ?? 'N/A' }}</td>
-                                                <td class="body-text-3">{{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}</td>
-                                                <td class="body-text-3">{{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}</td>
+                                                <td class="body-text-3">{{ $service->service_type ?? 'N/A' }}</td>
+                                                
+                                                <td class="body-text-3">{{ $service->created_at ? $service->created_at->format('d M Y') : 'N/A' }}</td>
                                                 <td class="body-text-3">
                                                     @php
                                                         $statusClass = match($service->status) {
@@ -124,14 +121,14 @@
     <!-- /My Account -->
 
     <!-- Service Detail Modals -->
-    @if(!$amcServices->isEmpty())
-        @foreach($amcServices as $service)
+    @if(!$nonAmcServices->isEmpty())
+        @foreach($nonAmcServices as $service)
             <div class="modal fade" id="serviceDetailModal{{ $service->id }}" tabindex="-1" aria-labelledby="serviceDetailModalLabel{{ $service->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="serviceDetailModalLabel{{ $service->id }}">
-                                Service Request Details - {{ $service->service_id }}
+                                Service Request Details - #SRV-{{ str_pad($service->id, 4, '0', STR_PAD_LEFT) }}
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -147,9 +144,15 @@
                                             <p class="mb-2"><strong>Name:</strong> {{ $service->first_name }} {{ $service->last_name }}</p>
                                             <p class="mb-2"><strong>Email:</strong> {{ $service->email }}</p>
                                             <p class="mb-2"><strong>Phone:</strong> {{ $service->phone }}</p>
+                                            @if($service->dob)
+                                                <p class="mb-2"><strong>DOB:</strong> {{ $service->dob->format('d M Y') }}</p>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="mb-2"><strong>Customer Type:</strong> {{ $service->customer_type }}</p>
+                                            <p class="mb-2"><strong>Customer Type:</strong> {{ $service->customer_type ?? 'N/A' }}</p>
+                                            @if($service->gender)
+                                                <p class="mb-2"><strong>Gender:</strong> {{ $service->gender }}</p>
+                                            @endif
                                             @if($service->company_name)
                                                 <p class="mb-2"><strong>Company:</strong> {{ $service->company_name }}</p>
                                                 <p class="mb-2"><strong>GST No:</strong> {{ $service->gst_no ?? 'N/A' }}</p>
@@ -159,21 +162,46 @@
                                 </div>
                             </div>
 
-                            <!-- AMC Plan Information -->
+                            <!-- Address Information -->
+                            @if($service->address_line1 || $service->city)
+                                <div class="card mb-3">
+                                    <div class="card-header bg-light">
+                                        <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Address Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{ $service->address_line1 }}
+                                            @if($service->address_line2), {{ $service->address_line2 }}@endif<br>
+                                            {{ $service->city }}@if($service->state), {{ $service->state }}@endif @if($service->pincode)- {{ $service->pincode }}@endif<br>
+                                            @if($service->country){{ $service->country }}@endif
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Service Details -->
                             <div class="card mb-3">
                                 <div class="card-header bg-light">
-                                    <h6 class="mb-0"><i class="fas fa-file-contract me-2"></i>AMC Plan Details</h6>
+                                    <h6 class="mb-0"><i class="fas fa-tools me-2"></i>Service Details</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <p class="mb-2"><strong>Plan Name:</strong> {{ $service->amcPlan->plan_name ?? 'N/A' }}</p>
-                                            <p class="mb-2"><strong>Duration:</strong> {{ $service->plan_duration }}</p>
-                                            <p class="mb-2"><strong>Start Date:</strong> {{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}</p>
+                                            <p class="mb-2"><strong>Service Type:</strong> {{ $service->service_type ?? 'N/A' }}</p>
+                                            <p class="mb-2"><strong>Priority Level:</strong>
+                                                @php
+                                                    $priorityClass = match($service->priority_level) {
+                                                        'High' => 'badge bg-danger',
+                                                        'Medium' => 'badge bg-warning',
+                                                        'Low' => 'badge bg-success',
+                                                        default => 'badge bg-secondary'
+                                                    };
+                                                @endphp
+                                                <span class="{{ $priorityClass }}">{{ $service->priority_level ?? 'N/A' }}</span>
+                                            </p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="mb-2"><strong>End Date:</strong> {{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}</p>
-                                            <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($service->total_amount, 2) }}</p>
+                                            <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($service->total_amount ?? 0, 2) }}</p>
                                             <p class="mb-2">
                                                 <strong>Status:</strong>
                                                 @php
@@ -221,15 +249,25 @@
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <p class="mb-2"><strong>Product Name:</strong> {{ $product->product_name }}</p>
-                                                                    <p class="mb-2"><strong>Product Type:</strong> {{ $product->product_type }}</p>
-                                                                    <p class="mb-2"><strong>Brand:</strong> {{ $product->product_brand }}</p>
+                                                                    <p class="mb-2"><strong>Product Type:</strong> {{ $product->product_type ?? 'N/A' }}</p>
+                                                                    <p class="mb-2"><strong>Brand:</strong> {{ $product->product_brand ?? 'N/A' }}</p>
+                                                                    <p class="mb-2"><strong>Model No:</strong> {{ $product->model_no ?? 'N/A' }}</p>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <p class="mb-2"><strong>Model No:</strong> {{ $product->model_no }}</p>
-                                                                    <p class="mb-2"><strong>Serial No:</strong> {{ $product->serial_no }}</p>
+                                                                    <p class="mb-2"><strong>Serial No:</strong> {{ $product->serial_no ?? 'N/A' }}</p>
                                                                     <p class="mb-2"><strong>Purchase Date:</strong> {{ $product->purchase_date ? \Carbon\Carbon::parse($product->purchase_date)->format('d M Y') : 'N/A' }}</p>
+                                                                    <p class="mb-2"><strong>Warranty Status:</strong> {{ $product->warranty_status ?? 'N/A' }}</p>
+                                                                    @if($product->issue_type)
+                                                                        <p class="mb-2"><strong>Issue Type:</strong> {{ $product->issue_type }}</p>
+                                                                    @endif
                                                                 </div>
                                                             </div>
+                                                            @if($product->issue_description)
+                                                                <div class="mt-2">
+                                                                    <p class="mb-0"><strong>Issue Description:</strong></p>
+                                                                    <p class="mb-0">{{ $product->issue_description }}</p>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,3 +298,4 @@
         @endforeach
     @endif
 @endsection
+

@@ -35,7 +35,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row py-3">
-            <div class="col-xl-10 mx-auto">
+            <div class="col-xl-8 mx-auto">
                 
                 <!-- Customer Details Card -->
                 <div class="card">
