@@ -539,41 +539,58 @@
 
                 <!-- Step 3: Product Information -->
                 <div class="form-section" id="section3">
-                    <h3 class="mb-5">Product Information</h3>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="product_name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control form-control-lg" id="product_name" name="product_name"
-                                placeholder="Product Name" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="product_type" class="form-label">Product Type</label>
-                            <select class="form-select form-control-lg" id="product_type" name="product_type" required>
-                                <option value="">Select Product Type</option>
-                                <!-- Options will be loaded dynamically -->
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="brand_name" class="form-label">Brand Name</label>
-                            <select class="form-select form-control-lg" id="brand_name" name="brand_name" required>
-                                <option value="">Select Brand</option>
-                                <!-- Options will be loaded dynamically -->
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="model_number" class="form-label">Model Number</label>
-                            <input type="text" class="form-control form-control-lg" id="model_number" name="model_number"
-                                placeholder="Model Number" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="serial_number" class="form-label">Serial Number</label>
-                            <input type="text" class="form-control form-control-lg" id="serial_number" name="serial_number"
-                                placeholder="Serial Number" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="purchase_date" class="form-label">Purchase Date</label>
-                            <input type="date" class="form-control form-control-lg" id="purchase_date" name="purchase_date"
-                                required>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="mb-0">Product Information</h3>
+                        <button type="button" class="btn btn-primary" id="addProductBtn">
+                            <i class="fas fa-plus me-2"></i>Add Product
+                        </button>
+                    </div>
+
+                    <!-- Products Container -->
+                    <div id="productsContainer">
+                        <!-- First product (default) -->
+                        <div class="product-entry card mb-3" data-product-index="0">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="mb-0">Product #1</h5>
+                                    <button type="button" class="btn btn-sm btn-danger remove-product-btn" style="display: none;">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" class="form-control form-control-lg product-name"
+                                            placeholder="Product Name" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Product Type</label>
+                                        <select class="form-select form-control-lg product-type" required>
+                                            <option value="">Select Product Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Brand Name</label>
+                                        <select class="form-select form-control-lg product-brand" required>
+                                            <option value="">Select Brand</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Model Number</label>
+                                        <input type="text" class="form-control form-control-lg product-model"
+                                            placeholder="Model Number" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Serial Number</label>
+                                        <input type="text" class="form-control form-control-lg product-serial"
+                                            placeholder="Serial Number" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Purchase Date</label>
+                                        <input type="date" class="form-control form-control-lg product-purchase-date" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1288,9 +1305,11 @@
 
     // Form data storage
     let formData = {};
+    let productsData = []; // Array to store multiple products
     let categoriesData = [];
     let brandsData = [];
     let plansData = {};
+    let productCounter = 1; // Counter for product numbering
 
     // Initialize form
     document.addEventListener('DOMContentLoaded', function() {
@@ -1305,14 +1324,14 @@
             const categoriesResult = await categoriesResponse.json();
             if (categoriesResult.success) {
                 categoriesData = categoriesResult.data;
-                populateDropdown('product_type', categoriesData, 'id', 'name');
+                populateAllProductDropdowns();
             }
 
             const brandsResponse = await fetch('/api/amc/brands');
             const brandsResult = await brandsResponse.json();
             if (brandsResult.success) {
                 brandsData = brandsResult.data;
-                populateDropdown('brand_name', brandsData, 'id', 'name');
+                populateAllProductDropdowns();
             }
 
             const plansResponse = await fetch('/api/amc/plans');
@@ -1325,21 +1344,142 @@
         }
     }
 
-    // Populate dropdown
-    function populateDropdown(selectId, data, valueField, textField) {
-        const select = document.getElementById(selectId);
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "Select Option";
-        select.innerHTML = '';
-        select.appendChild(defaultOption);
+    // Populate all product dropdowns (for all product entries)
+    function populateAllProductDropdowns() {
+        document.querySelectorAll('.product-entry').forEach(entry => {
+            const typeSelect = entry.querySelector('.product-type');
+            const brandSelect = entry.querySelector('.product-brand');
+
+            if (typeSelect && categoriesData.length > 0) {
+                populateSelectElement(typeSelect, categoriesData, 'id', 'name');
+            }
+
+            if (brandSelect && brandsData.length > 0) {
+                populateSelectElement(brandSelect, brandsData, 'id', 'name');
+            }
+        });
+    }
+
+    // Populate a single select element
+    function populateSelectElement(selectElement, data, valueField, textField) {
+        const currentValue = selectElement.value;
+        selectElement.innerHTML = '<option value="">Select Option</option>';
 
         data.forEach(item => {
             const option = document.createElement('option');
             option.value = item[valueField];
             option.textContent = item[textField];
-            select.appendChild(option);
+            selectElement.appendChild(option);
         });
+
+        if (currentValue) {
+            selectElement.value = currentValue;
+        }
+    }
+
+    // Add Product Button Handler
+    document.getElementById('addProductBtn').addEventListener('click', function() {
+        productCounter++;
+        const productsContainer = document.getElementById('productsContainer');
+
+        const newProductEntry = document.createElement('div');
+        newProductEntry.className = 'product-entry card mb-3';
+        newProductEntry.setAttribute('data-product-index', productCounter - 1);
+        newProductEntry.innerHTML = `
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Product #${productCounter}</h5>
+                    <button type="button" class="btn btn-sm btn-danger remove-product-btn">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control form-control-lg product-name"
+                            placeholder="Product Name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Product Type</label>
+                        <select class="form-select form-control-lg product-type" required>
+                            <option value="">Select Product Type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Brand Name</label>
+                        <select class="form-select form-control-lg product-brand" required>
+                            <option value="">Select Brand</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Model Number</label>
+                        <input type="text" class="form-control form-control-lg product-model"
+                            placeholder="Model Number" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Serial Number</label>
+                        <input type="text" class="form-control form-control-lg product-serial"
+                            placeholder="Serial Number" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Purchase Date</label>
+                        <input type="date" class="form-control form-control-lg product-purchase-date" required>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        productsContainer.appendChild(newProductEntry);
+
+        // Populate dropdowns for the new product
+        populateAllProductDropdowns();
+
+        // Update remove button visibility
+        updateRemoveButtonsVisibility();
+
+        // Add animation
+        newProductEntry.style.opacity = '0';
+        setTimeout(() => {
+            newProductEntry.style.transition = 'opacity 0.3s';
+            newProductEntry.style.opacity = '1';
+        }, 10);
+    });
+
+    // Remove Product Handler (Event Delegation)
+    document.getElementById('productsContainer').addEventListener('click', function(e) {
+        if (e.target.closest('.remove-product-btn')) {
+            const productEntry = e.target.closest('.product-entry');
+            productEntry.style.transition = 'opacity 0.3s';
+            productEntry.style.opacity = '0';
+
+            setTimeout(() => {
+                productEntry.remove();
+                updateProductNumbers();
+                updateRemoveButtonsVisibility();
+            }, 300);
+        }
+    });
+
+    // Update product numbers after removal
+    function updateProductNumbers() {
+        const productEntries = document.querySelectorAll('.product-entry');
+        productEntries.forEach((entry, index) => {
+            entry.setAttribute('data-product-index', index);
+            entry.querySelector('h5').textContent = `Product #${index + 1}`;
+        });
+        productCounter = productEntries.length;
+    }
+
+    // Update remove button visibility (hide if only one product)
+    function updateRemoveButtonsVisibility() {
+        const productEntries = document.querySelectorAll('.product-entry');
+        const removeButtons = document.querySelectorAll('.remove-product-btn');
+
+        if (productEntries.length === 1) {
+            removeButtons.forEach(btn => btn.style.display = 'none');
+        } else {
+            removeButtons.forEach(btn => btn.style.display = 'inline-block');
+        }
     }
 
     // Plan type change handler
@@ -1476,20 +1616,47 @@
     // Validation
     function validateCurrentStep() {
         const currentSection = sections[currentStep];
-        const requiredFields = currentSection.querySelectorAll('[required]');
         let isValid = true;
 
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                field.classList.remove('is-invalid');
-            }
-        });
+        // Special handling for product information step
+        if (currentStep === 2) { // Product Information step
+            const productEntries = document.querySelectorAll('.product-entry');
 
-        if (!isValid) {
-            alert('Please fill in all required fields.');
+            if (productEntries.length === 0) {
+                alert('Please add at least one product.');
+                return false;
+            }
+
+            productEntries.forEach((entry, index) => {
+                const requiredFields = entry.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields for all products.');
+            }
+        } else {
+            // Standard validation for other steps
+            const requiredFields = currentSection.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+            }
         }
 
         return isValid;
@@ -1498,17 +1665,45 @@
     // Save data
     function saveCurrentStepData() {
         const currentSection = sections[currentStep];
-        const inputs = currentSection.querySelectorAll('input, select, textarea');
 
-        inputs.forEach(input => {
-            if (input.type === 'radio') {
-                if (input.checked) formData[input.name] = input.value;
-            } else if (input.type === 'checkbox') {
-                formData[input.name] = input.checked ? input.value : '';
-            } else {
-                formData[input.name] = input.value;
-            }
-        });
+        // Special handling for product information step
+        if (currentStep === 2) { // Product Information step
+            productsData = [];
+            const productEntries = document.querySelectorAll('.product-entry');
+
+            productEntries.forEach((entry, index) => {
+                const product = {
+                    product_name: entry.querySelector('.product-name').value,
+                    product_type: entry.querySelector('.product-type').value,
+                    brand_name: entry.querySelector('.product-brand').value,
+                    model_number: entry.querySelector('.product-model').value,
+                    serial_number: entry.querySelector('.product-serial').value,
+                    purchase_date: entry.querySelector('.product-purchase-date').value
+                };
+                productsData.push(product);
+            });
+        } else {
+            // Standard data saving for other steps
+            const inputs = currentSection.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                // Skip product-related fields as they're handled separately
+                if (!input.classList.contains('product-name') &&
+                    !input.classList.contains('product-type') &&
+                    !input.classList.contains('product-brand') &&
+                    !input.classList.contains('product-model') &&
+                    !input.classList.contains('product-serial') &&
+                    !input.classList.contains('product-purchase-date')) {
+
+                    if (input.type === 'radio') {
+                        if (input.checked) formData[input.name] = input.value;
+                    } else if (input.type === 'checkbox') {
+                        formData[input.name] = input.checked ? input.value : '';
+                    } else {
+                        formData[input.name] = input.value;
+                    }
+                }
+            });
+        }
     }
 
     // Review section
@@ -1533,14 +1728,24 @@
             document.getElementById('review-company-section').style.display = 'block';
         }
 
-        const productInfo = `
-            <p><strong>Product Type:</strong> ${getSelectedText('product_type')}</p>
-            <p><strong>Brand:</strong> ${getSelectedText('brand_name')}</p>
-            <p><strong>Model:</strong> ${formData.model_number || ''}</p>
-            <p><strong>Serial Number:</strong> ${formData.serial_number || ''}</p>
-            <p><strong>Purchase Date:</strong> ${formData.purchase_date || ''}</p>
-        `;
-        document.getElementById('review-product-info').innerHTML = productInfo;
+        // Display all products
+        let productInfoHtml = '';
+        productsData.forEach((product, index) => {
+            const productTypeName = getTextFromData(categoriesData, product.product_type, 'id', 'name');
+            const brandName = getTextFromData(brandsData, product.brand_name, 'id', 'name');
+
+            productInfoHtml += `
+                <div class="mb-3 ${index > 0 ? 'border-top pt-3' : ''}">
+                    <h6 class="text-primary">Product #${index + 1}: ${product.product_name}</h6>
+                    <p class="mb-1"><strong>Product Type:</strong> ${productTypeName}</p>
+                    <p class="mb-1"><strong>Brand:</strong> ${brandName}</p>
+                    <p class="mb-1"><strong>Model:</strong> ${product.model_number || ''}</p>
+                    <p class="mb-1"><strong>Serial Number:</strong> ${product.serial_number || ''}</p>
+                    <p class="mb-1"><strong>Purchase Date:</strong> ${product.purchase_date || ''}</p>
+                </div>
+            `;
+        });
+        document.getElementById('review-product-info').innerHTML = productInfoHtml;
 
         const planInfo = `
             <p><strong>Plan Type:</strong> ${formData.plan_type || ''}</p>
@@ -1549,12 +1754,17 @@
             <p><strong>Start Date:</strong> ${formData.preferred_start_date || ''}</p>
             <p><strong>Cost:</strong> ${document.getElementById('plan_cost_display').value || ''}</p>
         `;
-        document.getElementById('review-plan-info').innerHTML = planInfo;
+        document.getElementById('review-plan-info').innerHTML = planInf o;
     }
 
     function getSelectedText(selectId) {
         const select = document.getElementById(selectId);
         return select.selectedOptions[0] ? select.selectedOptions[0].textContent : '';
+    }
+
+    function getTextFromData(dataArray, value, valueField, textField) {
+        const item = dataArray.find(d => d[valueField] == value);
+        return item ? item[textField] : value;
     }
 
     // Submit form
@@ -1563,24 +1773,44 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
 
+            // Combine form data with products data
+            const submitData = {
+                ...formData,
+                products: productsData
+            };
+
             const response = await fetch('/api/amc/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(submitData)
             });
 
             const result = await response.json();
 
             if (result.success) {
                 alert(`Success! Your service request has been submitted. Service ID: ${result.service_id}`);
+
+                // Reset form
                 document.getElementById('requestForm').reset();
+
+                // Reset products to single entry
+                const productsContainer = document.getElementById('productsContainer');
+                const allProducts = productsContainer.querySelectorAll('.product-entry');
+                allProducts.forEach((product, index) => {
+                    if (index > 0) product.remove();
+                });
+
+                // Reset counters and data
+                productCounter = 1;
+                productsData = [];
+                formData = {};
                 currentStep = 0;
                 showStep(currentStep);
                 updateNavigationButtons();
-                formData = {};
+                updateRemoveButtonsVisibility();
             } else {
                 alert('Error: ' + (result.message || 'Something went wrong'));
             }
