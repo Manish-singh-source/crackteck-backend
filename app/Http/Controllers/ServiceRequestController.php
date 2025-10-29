@@ -213,7 +213,8 @@ class ServiceRequestController extends Controller
         $amcService = AmcService::with([
             'amcPlan',
             'branches',
-            'products',
+            'products.type',
+            'products.brand',
             'creator',
             'activeAssignment.engineer',
             'activeAssignment.supervisor',

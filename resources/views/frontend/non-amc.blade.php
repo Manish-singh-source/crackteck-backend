@@ -267,14 +267,14 @@
         }
 
         /* input,
-                          select,
-                          textarea {
-                            width: 100%;
-                            padding: 12px;
-                            margin: 10px 0 20px;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                          } */
+                              select,
+                              textarea {
+                                width: 100%;
+                                padding: 12px;
+                                margin: 10px 0 20px;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                              } */
 
         .btn {
             padding: 10px 20px;
@@ -299,102 +299,6 @@
             background: #ccc;
         }
     </style>
-
-    <style>
-        .non-amc-section {
-            background: linear-gradient(90deg, #7a6fff 70%, #a18aff 100%);
-            border-radius: 2rem;
-            box-shadow: 0 6px 36px 0 rgba(95, 60, 255, 0.08);
-            min-height: 180px;
-            position: relative;
-            overflow: hidden;
-            padding: 0 10rem;
-            border: 1.5px solid #e6e8ec;
-            display: flex;
-            align-items: center;
-        }
-
-        .non-amc-headline {
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
-            letter-spacing: -1px;
-            color: #fff;
-        }
-
-        .non-amc-subtext {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.125rem;
-        }
-
-        .non-amc-btn {
-            font-weight: 600;
-            border-radius: 2rem;
-            padding: 0.7rem 2rem;
-            transition:
-                background 0.16s,
-                color 0.16s,
-                box-shadow 0.2s,
-                transform 0.2s;
-            box-shadow: 0 2px 10px 0 rgba(100, 70, 255, 0.08);
-            border: none;
-        }
-
-        .book-call-btn {
-            background: rgba(34, 34, 34, 0.95);
-            color: #fff;
-        }
-
-        .book-call-btn:hover,
-        .book-call-btn:focus {
-            background: #fff;
-            color: #222;
-            box-shadow: 0 4px 18px 0 rgba(80, 80, 80, 0.17);
-            transform: translateY(-3px) scale(1.05);
-            outline: none;
-        }
-
-        .request-nonamc-btn {
-            background: rgba(34, 34, 34, 0.95);
-            color: #fff;
-        }
-
-        .request-nonamc-btn:hover,
-        .request-nonamc-btn:focus {
-            background: #fff;
-            color: #222;
-            box-shadow: 0 4px 18px 0 rgba(80, 80, 80, 0.17);
-            transform: translateY(-3px) scale(1.05);
-            outline: none;
-        }
-
-        .non-amc-circle {
-            position: absolute;
-            top: -58px;
-            right: -68px;
-            width: 180px;
-            height: 180px;
-            background: rgba(255, 255, 255, 0.14);
-            border-radius: 50%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .non-amc-section {
-                flex-direction: column;
-                padding: 2rem 1rem;
-                min-height: unset;
-            }
-
-            .non-amc-circle {
-                width: 80px;
-                height: 80px;
-                top: -20px;
-                right: -30px;
-            }
-        }
-    </style>
 @endsection
 
 @section('main-content')
@@ -411,7 +315,7 @@
                     <i class="icon icon-arrow-right"></i>
                 </li>
                 <li>
-                    <span class="body-small">AMC</span>
+                    <span class="body-small">Non AMC</span>
                 </li>
             </ul>
         </div>
@@ -432,121 +336,16 @@
         </div>
     </div>
 
-    <section class="pricing-section text-center">
-        <div class="container">
-            <h3>Pricing</h3>
-            <p>Choose the perfect AMC plan for your business needs. All plans include professional support and maintenance
-                services.</p>
-
-            <div class="toggle-buttons">
-                <button class="active" id="monthlyBtn">Monthly</button>
-                <button id="annuallyBtn">Annually</button>
-            </div>
-
-            <!-- Monthly Plans Section -->
-            <div id="monthlyPlans" class="pricing-plans-section">
-                @if ($monthlyPlans->count() > 0)
-                    <h4 class="mt-4 mb-4">Monthly Plans</h4>
-                    <div class="row g-4 md-mt-3 align-items-center justify-content-center">
-                        @foreach ($monthlyPlans as $index => $plan)
-                            <div class="col-md-6 col-lg-3">
-                                <div class="price-card h-100 {{ $index == 1 ? 'recommended' : '' }}">
-                                    <h4>{{ $plan->plan_name }}</h4>
-                                    <div class="price">₹ {{ number_format($plan->total_cost, 0) }} <small
-                                            class="text-muted">/mo</small></div>
-                                    <div class="pricing-features">
-                                        <h6 class="text-primary my-3">{{ $plan->description }}</h6>
-                                        <div class="feature">Duration<span>{{ $plan->duration }}</span></div>
-                                        <div class="feature">Plan Cost<span>₹
-                                                {{ number_format($plan->plan_cost, 0) }}</span></div>
-                                        <div class="feature">Tax ({{ $plan->tax }}%)<span>₹
-                                                {{ number_format(($plan->plan_cost * $plan->tax) / 100, 0) }}</span></div>
-                                        <div class="feature">Total Visits<span>{{ $plan->total_visits }} visits</span>
-                                        </div>
-                                        <div class="feature">Support Type<span>{{ $plan->support_type }}</span></div>
-                                        @if ($plan->items)
-                                            @php
-                                                $items = json_decode($plan->items);
-                                            @endphp
-                                            @if (is_array($items) && count($items) > 0)
-                                                <div class="feature">Services<span>{{ count($items) }} services
-                                                        included</span></div>
-                                            @endif
-                                        @endif
-                                    </div>
-                                    <button class="btn btn-outline-dark w-100">Get Started</button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="alert alert-info mt-4">
-                        <h5>No Monthly Plans Available</h5>
-                        <p>Currently, there are no monthly AMC plans available. Please check our annual plans or contact us
-                            for custom solutions.</p>
-                    </div>
-                @endif
-            </div>
-            {{-- {{ dd($monthlyPlans) }} --}}
-
-            <!-- Annual Plans Section -->
-            <div id="annualPlans" class="pricing-plans-section" style="display: none;">
-                @if ($annualPlans->count() > 0)
-                    <h4 class="mt-4 mb-4">Annual Plans</h4>
-                    <div class="row g-4 md-mt-3 align-items-center justify-content-center">
-                        @foreach ($annualPlans as $index => $plan)
-                            <div class="col-md-6 col-lg-3">
-                                <div class="price-card h-100 {{ $index == 1 ? 'recommended' : '' }}">
-                                    <h4>{{ $plan->plan_name }}</h4>
-                                    <div class="price">₹ {{ number_format($plan->total_cost, 0) }} <small
-                                            class="text-muted">/year</small></div>
-                                    <div class="pricing-features">
-                                        <h6 class="text-primary my-3">{{ $plan->description }}</h6>
-                                        <div class="feature">Duration<span>{{ $plan->duration }}</span></div>
-                                        <div class="feature">Plan Cost<span>₹
-                                                {{ number_format($plan->plan_cost, 0) }}</span></div>
-                                        <div class="feature">Tax ({{ $plan->tax }}%)<span>₹
-                                                {{ number_format(($plan->plan_cost * $plan->tax) / 100, 0) }}</span></div>
-                                        <div class="feature">Total Visits<span>{{ $plan->total_visits }} visits</span>
-                                        </div>
-                                        <div class="feature">Support Type<span>{{ $plan->support_type }}</span></div>
-                                        @if ($plan->items)
-                                            @php
-                                                $items = json_decode($plan->items);
-                                            @endphp
-                                            @if (is_array($items) && count($items) > 0)
-                                                <div class="feature">Services<span>{{ count($items) }} services
-                                                        included</span></div>
-                                            @endif
-                                        @endif
-                                    </div>
-                                    <button class="btn btn-outline-dark w-100">Get Started</button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="alert alert-info mt-4">
-                        <h5>No Annual Plans Available</h5>
-                        <p>Currently, there are no annual AMC plans available. Please check our monthly plans or contact us
-                            for custom solutions.</p>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </section>
-
-    <h4 class="d-flex d-md-none justify-content-center align-item-center">AMC Service Request Form</h4>
+    <h4 class="d-flex d-md-none justify-content-center align-item-center">Non-AMC Service Request Form</h4>
 
     <div class="container container-contact-form">
         <div class="sidebar d-none d-md-flex flex-column">
-            <h5 class="mb-5 d-flex justify-content-center text-center">AMC Service Request Form</h5>
+            <h5 class="mb-5 d-flex justify-content-center text-center">Non-AMC Service Request Form</h5>
             <div class="step active" id="step1">1. Customer Details</div>
             <div class="step" id="step2">2. Company Details</div>
             <div class="step" id="step3">3. Product Information</div>
-            <div class="step" id="step4">4. AMC Plan Selection</div>
-            <div class="step" id="step5">5. Additional Information</div>
-            <div class="step" id="step6">6. Review & Submit</div>
+            <div class="step" id="step4">4. Additional Information</div>
+            <div class="step" id="step5">5. Review & Submit</div>
         </div>
 
 
@@ -601,8 +400,8 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="company_name" class="form-label">Company Name</label>
-                            <input type="text" class="form-control form-control-lg" id="company_name"
-                                name="company_name" placeholder="Company Name">
+                            <input type="text" class="form-control form-control-lg" id="company_name" name="company_name"
+                                placeholder="Company Name">
                         </div>
                         <div class="col-md-6">
                             <label for="branch_name" class="form-label">Branch Name</label>
@@ -707,53 +506,8 @@
                     </div>
                 </div>
 
-                <!-- Step 4: AMC Plan Selection -->
+                <!-- Step 4: Additional Information -->
                 <div class="form-section" id="section4">
-                    <h3 class="mb-5">AMC Plan Selection</h3>
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                            <label class="form-label">Select Plan Type:</label><br>
-                            <div class="form-check form-check-inline align-item-center">
-                                <input class="form-check-input" type="radio" name="plan_type" id="monthly"
-                                    value="Monthly" required>
-                                <label class="form-check-label ms-2" for="monthly">Monthly</label>
-                            </div>
-                            <div class="form-check form-check-inline align-item-center">
-                                <input class="form-check-input" type="radio" name="plan_type" id="annually"
-                                    value="Annually">
-                                <label class="form-check-label ms-2" for="annually">Annually</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="amc_plan_id" class="form-label">AMC Plan</label>
-                            <select class="form-select form-control-lg" id="amc_plan_id" name="amc_plan_id" required>
-                                <option value="">Select AMC Plan</option>
-                                <!-- Options will be loaded dynamically based on plan type -->
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="plan_duration" class="form-label">Plan Duration</label>
-                            <select class="form-select form-control-lg" id="plan_duration" name="plan_duration" required>
-                                <option value="">Select Duration</option>
-                                <!-- Options will be loaded dynamically based on selected plan -->
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="preferred_start_date" class="form-label">Preferred Start Date</label>
-                            <input type="date" class="form-control form-control-lg" id="preferred_start_date"
-                                name="preferred_start_date" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="plan_cost_display" class="form-label">Plan Cost</label>
-                            <input type="text" class="form-control form-control-lg" id="plan_cost_display"
-                                placeholder="Select a plan to see cost" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 5: Additional Information -->
-                <div class="form-section" id="section5">
                     <h3 class="mb-5">Additional Information</h3>
                     <div class="mb-3">
                         <label for="additional_notes" class="form-label">Additional Notes (Optional)</label>
@@ -770,8 +524,8 @@
                     </div>
                 </div>
 
-                <!-- Step 6: Review & Submit -->
-                <div class="form-section" id="section6">
+                <!-- Step 5: Review & Submit -->
+                <div class="form-section" id="section5">
                     <h3 class="mb-5">Review & Submit</h3>
                     <div class="alert alert-info">
                         <h5>Please review your information before submitting:</h5>
@@ -811,16 +565,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h6 class="card-title">AMC Plan Details</h6>
-                                    <div id="review-plan-info">
-                                        <!-- Plan details will be populated here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -836,8 +580,9 @@
                             Skip
                         </button>
                         <button type="button" class="btn btn-primary" id="nextBtn">
-                            Next<i class="fas fa-arrow-right ms-2"></i>
+                            Next <i class="fas fa-arrow-right ms-2"></i>
                         </button>
+
                         <button type="button" class="btn btn-success" id="submitBtn" style="display: none;">
                             <i class="fas fa-check me-2"></i>Submit Request
                         </button>
@@ -847,51 +592,19 @@
         </div>
     </div>
 
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-12 non-amc-section">
-                <!-- Left Side: Headline -->
-                <div class="flex-grow-1">
-                    <h2 class="non-amc-headline">
-                        Get the Non AMC for your product
-                    </h2>
-                    <p class="non-amc-subtext mb-0">
-                        Hassle-free service, premium support, and maximum peace of mind.
-                    </p>
-                </div>
-                <!-- Right Side: Buttons -->
-                <div class="d-flex flex-column flex-md-row gap-3 align-items-center ms-4">
-                    <a href="tel:+918080803374" class="font-gray">
-                        <button class="non-amc-btn book-call-btn">
-                            Book a Call
-                        </button>
-                    </a>
-                    <a href="{{ route('non-amc') }}" class="font-gray">
-                    <button class="non-amc-btn request-nonamc-btn">
-                        Request Non AMC
-                    </button>
-                    </a>
-                </div>
-                <!-- Top-right floating soft circle accent -->
-                <span class="non-amc-circle"></span>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Testimonial -->
     <section class="tf-sp-2 mb-5">
         <div class="container">
             <div class="flat-title wow fadeInUp">
                 <h5 class="fw-semibold">Customer Review</h5>
                 <!-- <div class="box-btn-slide relative">
-                                <div class="swiper-button-prev nav-swiper nav-prev-products">
-                                  <i class="icon-arrow-left-lg"></i>
-                                </div>
-                                <div class="swiper-button-next nav-swiper nav-next-products">
-                                  <i class="icon-arrow-right-lg"></i>
-                                </div>
-                              </div> -->
+                                    <div class="swiper-button-prev nav-swiper nav-prev-products">
+                                      <i class="icon-arrow-left-lg"></i>
+                                    </div>
+                                    <div class="swiper-button-next nav-swiper nav-next-products">
+                                      <i class="icon-arrow-right-lg"></i>
+                                    </div>
+                                  </div> -->
             </div>
             <div class="swiper tf-sw-products" data-preview="3" data-tablet="2" data-mobile-sm="1" data-mobile="1"
                 data-space-lg="30" data-space-md="15" data-space="15" data-pagination="1" data-pagination-sm="1"
@@ -1078,363 +791,6 @@
 @endsection
 
 @section('script')
-    {{-- <script>
-        // Form navigation variables
-        const sections = document.querySelectorAll('.form-section');
-        const steps = document.querySelectorAll('.step');
-        let currentStep = 0;
-        const totalSteps = sections.length;
-
-        // Button elements
-        const backBtn = document.getElementById('backBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const skipBtn = document.getElementById('skipBtn');
-        const submitBtn = document.getElementById('submitBtn');
-
-        // Form data storage
-        let formData = {};
-        let categoriesData = [];
-        let brandsData = [];
-        let plansData = {};
-
-        // Initialize form
-        document.addEventListener('DOMContentLoaded', function() {
-            loadDropdownData();
-            updateNavigationButtons();
-        });
-
-        // Load dropdown data from API
-        async function loadDropdownData() {
-            try {
-                // Load categories
-                const categoriesResponse = await fetch('/api/amc/categories');
-                const categoriesResult = await categoriesResponse.json();
-                if (categoriesResult.success) {
-                    categoriesData = categoriesResult.data;
-                    populateDropdown('product_type', categoriesData, 'id', 'name');
-                }
-
-                // Load brands
-                const brandsResponse = await fetch('/api/amc/brands');
-                const brandsResult = await brandsResponse.json();
-                if (brandsResult.success) {
-                    brandsData = brandsResult.data;
-                    populateDropdown('brand_name', brandsData, 'id', 'name');
-                }
-
-                // Load AMC plans
-                const plansResponse = await fetch('/api/amc/plans');
-                const plansResult = await plansResponse.json();
-                if (plansResult.success) {
-                    plansData = plansResult.data;
-                }
-            } catch (error) {
-                console.error('Error loading dropdown data:', error);
-            }
-        }
-
-        // Populate dropdown with data
-        function populateDropdown(selectId, data, valueField, textField) {
-            const select = document.getElementById(selectId);
-            const defaultOption = select.querySelector('option[value=""]');
-
-            // Clear existing options except default
-            select.innerHTML = '';
-            if (defaultOption) {
-                select.appendChild(defaultOption);
-            }
-
-            data.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item[valueField];
-                option.textContent = item[textField];
-                select.appendChild(option);
-            });
-        }
-
-        // Plan type change handler
-        document.addEventListener('change', function(e) {
-            if (e.target.name === 'plan_type') {
-                const planType = e.target.value;
-                const amcPlanSelect = document.getElementById('amc_plan_id');
-
-                // Clear existing options
-                amcPlanSelect.innerHTML = '<option value="">Select AMC Plan</option>';
-
-                if (plansData[planType]) {
-                    plansData[planType].forEach(plan => {
-                        const option = document.createElement('option');
-                        option.value = plan.id;
-                        option.textContent = plan.plan_name;
-                        option.dataset.duration = plan.duration;
-                        option.dataset.cost = plan.total_cost;
-                        option.dataset.description = plan.description;
-                        amcPlanSelect.appendChild(option);
-                    });
-                }
-            }
-        });
-
-        // AMC plan change handler
-        document.addEventListener('change', function(e) {
-            if (e.target.id === 'amc_plan_id') {
-                const selectedOption = e.target.selectedOptions[0];
-                if (selectedOption && selectedOption.value) {
-                    // Update duration
-                    const durationSelect = document.getElementById('plan_duration');
-                    durationSelect.innerHTML = '<option value="">Select Duration</option>';
-
-                    const duration = selectedOption.dataset.duration;
-                    if (duration) {
-                        const option = document.createElement('option');
-                        option.value = duration;
-                        option.textContent = duration;
-                        durationSelect.appendChild(option);
-                        durationSelect.value = duration;
-                    }
-
-                    // Update cost display
-                    const costDisplay = document.getElementById('plan_cost_display');
-                    const cost = selectedOption.dataset.cost;
-                    if (cost) {
-                        costDisplay.value = '₹ ' + parseFloat(cost).toLocaleString();
-                    }
-                }
-            }
-        });
-
-        // Navigation button handlers
-        nextBtn.addEventListener('click', function() {
-            if (validateCurrentStep()) {
-                saveCurrentStepData();
-
-                if (currentStep < totalSteps - 1) {
-                    // Move to next step
-                    if (currentStep === 1 && shouldSkipCompanyDetails()) {
-                        // Skip company details if individual customer
-                        currentStep += 2;
-                    } else {
-                        currentStep++;
-                    }
-
-                    if (currentStep === totalSteps - 1) {
-                        // Last step - populate review
-                        populateReviewSection();
-                    }
-
-                    showStep(currentStep);
-                    updateNavigationButtons();
-                }
-            }
-        });
-
-        backBtn.addEventListener('click', function() {
-            if (currentStep > 0) {
-                // Check if we skipped company details when going forward
-                if (currentStep === 3 && shouldSkipCompanyDetails()) {
-                    currentStep -= 2; // Go back to step 1
-                } else {
-                    currentStep--;
-                }
-                showStep(currentStep);
-                updateNavigationButtons();
-            }
-        });
-
-        skipBtn.addEventListener('click', function() {
-            if (currentStep === 1) { // Company details step
-                saveCurrentStepData();
-                currentStep++;
-                showStep(currentStep);
-                updateNavigationButtons();
-            }
-        });
-
-        submitBtn.addEventListener('click', function() {
-            if (validateCurrentStep()) {
-                saveCurrentStepData();
-                submitForm();
-            }
-        });
-
-        // Show specific step
-        function showStep(stepIndex) {
-            sections.forEach((section, index) => {
-                section.classList.toggle('active', index === stepIndex);
-            });
-
-            steps.forEach((step, index) => {
-                step.classList.toggle('active', index === stepIndex);
-            });
-        }
-
-        // Update navigation buttons visibility
-        function updateNavigationButtons() {
-            // Back button
-            backBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
-
-            // Skip button (only show on company details step)
-            skipBtn.style.display = currentStep === 1 ? 'inline-block' : 'none';
-
-            // Next/Submit buttons
-            if (currentStep === totalSteps - 1) {
-                nextBtn.style.display = 'none';
-                submitBtn.style.display = 'inline-block';
-            } else {
-                nextBtn.style.display = 'inline-block';
-                submitBtn.style.display = 'none';
-            }
-        }
-
-        // Check if company details should be skipped
-        function shouldSkipCompanyDetails() {
-            const customerType = document.getElementById('customer_type').value;
-            return customerType === 'Individual';
-        }
-
-        // Validate current step
-        function validateCurrentStep() {
-            const currentSection = sections[currentStep];
-            const requiredFields = currentSection.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    field.classList.remove('is-invalid');
-                }
-            });
-
-            if (!isValid) {
-                alert('Please fill in all required fields.');
-            }
-
-            return isValid;
-        }
-
-        // Save current step data
-        function saveCurrentStepData() {
-            const currentSection = sections[currentStep];
-            const inputs = currentSection.querySelectorAll('input, select, textarea');
-
-            inputs.forEach(input => {
-                if (input.type === 'radio') {
-                    if (input.checked) {
-                        formData[input.name] = input.value;
-                    }
-                } else if (input.type === 'checkbox') {
-                    formData[input.name] = input.checked ? input.value : '';
-                } else {
-                    formData[input.name] = input.value;
-                }
-            });
-        }
-
-        // Populate review section
-        function populateReviewSection() {
-            // Customer info
-            const customerInfo = `
-                <p><strong>Name:</strong> ${formData.first_name || ''} ${formData.last_name || ''}</p>
-                <p><strong>Email:</strong> ${formData.email || ''}</p>
-                <p><strong>Phone:</strong> ${formData.phone || ''}</p>
-                <p><strong>Customer Type:</strong> ${formData.customer_type || ''}</p>
-            `;
-            document.getElementById('review-customer-info').innerHTML = customerInfo;
-
-            // Company info (if provided)
-            if (formData.company_name) {
-                const companyInfo = `
-                    <p><strong>Company:</strong> ${formData.company_name || ''}</p>
-                    <p><strong>Branch:</strong> ${formData.branch_name || ''}</p>
-                    <p><strong>Address:</strong> ${formData.address_line1 || ''} ${formData.address_line2 || ''}</p>
-                    <p><strong>City:</strong> ${formData.city || ''}, ${formData.state || ''} ${formData.pin_code || ''}</p>
-                    <p><strong>GST No:</strong> ${formData.gst_no || ''}</p>
-                `;
-                document.getElementById('review-company-info').innerHTML = companyInfo;
-                document.getElementById('review-company-section').style.display = 'block';
-            }
-
-            // Product info
-            const productInfo = `
-                <p><strong>Product Type:</strong> ${getSelectedText('product_type')}</p>
-                <p><strong>Brand:</strong> ${getSelectedText('brand_name')}</p>
-                <p><strong>Model:</strong> ${formData.model_number || ''}</p>
-                <p><strong>Serial Number:</strong> ${formData.serial_number || ''}</p>
-                <p><strong>Purchase Date:</strong> ${formData.purchase_date || ''}</p>
-            `;
-            document.getElementById('review-product-info').innerHTML = productInfo;
-
-            // Plan info
-            const planInfo = `
-                <p><strong>Plan Type:</strong> ${formData.plan_type || ''}</p>
-                <p><strong>Plan:</strong> ${getSelectedText('amc_plan_id')}</p>
-                <p><strong>Duration:</strong> ${formData.plan_duration || ''}</p>
-                <p><strong>Start Date:</strong> ${formData.preferred_start_date || ''}</p>
-                <p><strong>Cost:</strong> ${document.getElementById('plan_cost_display').value || ''}</p>
-            `;
-            document.getElementById('review-plan-info').innerHTML = planInfo;
-        }
-
-        // Get selected text from dropdown
-        function getSelectedText(selectId) {
-            const select = document.getElementById(selectId);
-            return select.selectedOptions[0] ? select.selectedOptions[0].textContent : '';
-        }
-
-        // Submit form
-        async function submitForm() {
-            try {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
-
-                const response = await fetch('/api/amc/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert(`Success! Your service request has been submitted. Service ID: ${result.service_id}`);
-                    document.getElementById('requestForm').reset();
-                    currentStep = 0;
-                    showStep(currentStep);
-                    updateNavigationButtons();
-                    formData = {};
-                } else {
-                    alert('Error: ' + (result.message || 'Something went wrong'));
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                alert('Error submitting form. Please try again.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Submit Request';
-            }
-        }
-
-        // Pricing toggle functionality (existing)
-        document.getElementById('monthlyBtn').addEventListener('click', function() {
-            document.getElementById('monthlyBtn').classList.add('active');
-            document.getElementById('annuallyBtn').classList.remove('active');
-            document.getElementById('monthlyPlans').style.display = 'block';
-            document.getElementById('annualPlans').style.display = 'none';
-        });
-
-        document.getElementById('annuallyBtn').addEventListener('click', function() {
-            document.getElementById('annuallyBtn').classList.add('active');
-            document.getElementById('monthlyBtn').classList.remove('active');
-            document.getElementById('monthlyPlans').style.display = 'none';
-            document.getElementById('annualPlans').style.display = 'block';
-        });
-    </script> --}}
-
     <script>
         // Form navigation variables
         const sections = document.querySelectorAll('.form-section');
@@ -1648,39 +1004,14 @@
             }
         });
 
-        // AMC plan change handler
-        document.addEventListener('change', function(e) {
-            if (e.target.id === 'amc_plan_id') {
-                const selectedOption = e.target.selectedOptions[0];
-                if (selectedOption && selectedOption.value) {
-                    const durationSelect = document.getElementById('plan_duration');
-                    durationSelect.innerHTML = '<option value="">Select Duration</option>';
-
-                    const duration = selectedOption.dataset.duration;
-                    if (duration) {
-                        const option = document.createElement('option');
-                        option.value = duration;
-                        option.textContent = duration;
-                        durationSelect.appendChild(option);
-                        durationSelect.value = duration;
-                    }
-
-                    const costDisplay = document.getElementById('plan_cost_display');
-                    const cost = selectedOption.dataset.cost;
-                    if (cost) {
-                        costDisplay.value = '₹ ' + parseFloat(cost).toLocaleString();
-                    }
-                }
-            }
-        });
 
         // Next button
         nextBtn.addEventListener('click', function() {
+            console.log('Next button clicked');
             if (validateCurrentStep()) {
                 saveCurrentStepData();
 
                 if (currentStep < totalSteps - 1) {
-                    // Skip company details automatically only if Individual customer
                     if (currentStep === 0 && shouldSkipCompanyDetails()) {
                         currentStep += 2;
                     } else {
@@ -1722,6 +1053,7 @@
 
         // Submit button
         submitBtn.addEventListener('click', function() {
+            console.log('Submit button clicked');
             if (validateCurrentStep()) {
                 saveCurrentStepData();
                 submitForm();
@@ -1820,7 +1152,7 @@
                     const product = {
                         product_name: entry.querySelector('.product-name').value,
                         product_type: entry.querySelector('.product-type').value,
-                        brand_name: entry.querySelector('.product-brand').value,
+                        product_brand: entry.querySelector('.product-brand').value,
                         model_number: entry.querySelector('.product-model').value,
                         serial_number: entry.querySelector('.product-serial').value,
                         purchase_date: entry.querySelector('.product-purchase-date').value
@@ -1877,7 +1209,7 @@
             let productInfoHtml = '';
             productsData.forEach((product, index) => {
                 const productTypeName = getTextFromData(categoriesData, product.product_type, 'id', 'name');
-                const brandName = getTextFromData(brandsData, product.brand_name, 'id', 'name');
+                const brandName = getTextFromData(brandsData, product.product_brand, 'id', 'name');
 
                 productInfoHtml += `
                 <div class="mb-3 ${index > 0 ? 'border-top pt-3' : ''}">
@@ -1892,21 +1224,9 @@
             });
             document.getElementById('review-product-info').innerHTML = productInfoHtml;
 
-            const planInfo = `
-            <p><strong>Plan Type:</strong> ${formData.plan_type || ''}</p>
-            <p><strong>Plan:</strong> ${getSelectedText('amc_plan_id')}</p>
-            <p><strong>Duration:</strong> ${formData.plan_duration || ''}</p>
-            <p><strong>Start Date:</strong> ${formData.preferred_start_date || ''}</p>
-            <p><strong>Cost:</strong> ${document.getElementById('plan_cost_display').value || ''}</p>
-        `;
-            document.getElementById('review-plan-info').innerHTML = planInfo;
         }
 
-        function getSelectedText(selectId) {
-            const select = document.getElementById(selectId);
-            return select.selectedOptions[0] ? select.selectedOptions[0].textContent : '';
-        }
-
+        
         function getTextFromData(dataArray, value, valueField, textField) {
             const item = dataArray.find(d => d[valueField] == value);
             return item ? item[textField] : value;
@@ -1923,8 +1243,8 @@
                     ...formData,
                     products: productsData
                 };
-
-                const response = await fetch('/api/amc/submit', {
+                
+                const response = await fetch('/api/non-amc/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1958,10 +1278,10 @@
                     updateNavigationButtons();
                     updateRemoveButtonsVisibility();
                 } else {
+                    console.log(result);
                     alert('Error: ' + (result.message || 'Something went wrong'));
                 }
             } catch (error) {
-                console.error('Submission error:', error);
                 console.log(error);
                 alert('Error submitting form. Please try again.');
             } finally {
@@ -1970,20 +1290,6 @@
             }
         }
 
-        // Pricing toggle functionality (existing)
-        document.getElementById('monthlyBtn').addEventListener('click', function() {
-            document.getElementById('monthlyBtn').classList.add('active');
-            document.getElementById('annuallyBtn').classList.remove('active');
-            document.getElementById('monthlyPlans').style.display = 'block';
-            document.getElementById('annualPlans').style.display = 'none';
-        });
-
-        document.getElementById('annuallyBtn').addEventListener('click', function() {
-            document.getElementById('annuallyBtn').classList.add('active');
-            document.getElementById('monthlyBtn').classList.remove('active');
-            document.getElementById('monthlyPlans').style.display = 'none';
-            document.getElementById('annualPlans').style.display = 'block';
-        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

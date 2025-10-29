@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Validator;
 class QuotationController extends Controller
 {
     //
+    /**
+     * Generate unique service ID
+     */
+    private function generateServiceId()
+    {
+        $year = date('Y');
+        $lastService = \App\Models\Quotation::whereYear('created_at', $year)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = $lastService ? (intval(substr($lastService->id, -4)) + 1) : 1;
+
+        return 'SRV-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
     public function index()
     {
         $quotations = Quotation::with('lead')->get();
@@ -20,13 +34,16 @@ class QuotationController extends Controller
 
     public function create()
     {
+
         $leads = Lead::all();
-        return view('/crm/Quotation/create', compact('leads'));
+        $quoteId = $this->generateServiceId();
+        return view('/crm/Quotation/create', compact('leads', 'quoteId'));
     }
 
     public function store(Request $request)
     {
 
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'lead_id' => 'required',
             'quote_id' => 'required',
