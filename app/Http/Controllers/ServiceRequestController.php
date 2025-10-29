@@ -19,6 +19,18 @@ use Illuminate\Support\Facades\File;
 
 class ServiceRequestController extends Controller
 {
+
+    public function generateServiceId()
+    {
+        $year = date('Y');
+        $lastService = AmcService::whereYear('created_at', $year)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = $lastService ? (intval(substr($lastService->service_id, -4)) + 1) : 1;
+
+        return 'SRV-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
     //
     public function index()
     {
@@ -79,6 +91,7 @@ class ServiceRequestController extends Controller
         try {
             // Create AMC Service
             $amcService = new AmcService();
+            $amcService->service_id = $this->generateServiceId();
             $amcService->first_name = $request->first_name;
             $amcService->last_name = $request->last_name;
             $amcService->phone = $request->phone;
@@ -194,6 +207,7 @@ class ServiceRequestController extends Controller
         }
     }
 
+
     public function view_amc($id)
     {
         $amcService = AmcService::with([
@@ -291,6 +305,7 @@ class ServiceRequestController extends Controller
             $amcService->priority_level = $request->priority_level;
             $amcService->additional_notes = $request->additional_notes;
             $amcService->total_amount = $request->total_amount ?? 0;
+            $amcService->status = $request->status ?? $amcService->status;
             $amcService->save();
 
             // Update Branches - keep existing, add new
