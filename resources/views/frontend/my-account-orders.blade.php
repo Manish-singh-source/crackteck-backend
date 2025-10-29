@@ -34,6 +34,8 @@
                             </li>
                             <li><a href="{{ route('my-account-password') }}" class="my-account-nav-item">Change Password</a></li>
                             <li><a href="{{ route('my-account-amc') }}" class="my-account-nav-item">AMC</a></li>
+                            <li><a href="{{ route('my-account-non-amc') }}" class="my-account-nav-item">NON AMC</a>
+                            </li>
                             <li><a href="{{ route('wishlist') }}" class="my-account-nav-item">Wishlist</a></li>
                             @if (Auth::check())
                                 <form method="POST" action="{{ route('frontend.logout') }}">
