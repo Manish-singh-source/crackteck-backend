@@ -262,6 +262,26 @@ class MyAccountController extends Controller
     }
 
     /**
+     * Display the user's AMC service requests
+     */
+    public function amcServices()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to access your account.');
+        }
+
+        $user = Auth::user();
+
+        // Get AMC services for the logged-in user (by email)
+        $amcServices = \App\Models\AmcService::where('email', $user->email)
+            ->with(['amcPlan', 'products', 'branches'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('frontend.my-account-amc', compact('amcServices'));
+    }
+
+    /**
      * Update user profile
      */
     public function updateProfile(Request $request): JsonResponse
