@@ -211,9 +211,8 @@ Route::get('/my-account-password', [MyAccountController::class, 'changePassword'
     ->name('my-account-password')->middleware('auth');
 
 // My Account AMC
-Route::get('/my-account-amc', function () {
-    return view('frontend/my-account-amc');
-})->name('my-account-amc');
+Route::get('/my-account-amc', [MyAccountController::class, 'amcServices'])
+    ->name('my-account-amc')->middleware('auth');
 
 // My Account
 Route::get('/my-account', function () {

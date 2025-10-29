@@ -51,76 +51,209 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="my-account-content account-dashboard">
-                        <h4 class="fw-semibold mb-20">AMC Details</h4>
+                        <div class="d-flex justify-content-between align-items-center mb-20">
+                            <h4 class="fw-semibold mb-0">AMC Service Requests</h4>
+                            <a href="{{ route('amc') }}" class="tf-btn btn-small">
+                                <i class="fas fa-plus me-2"></i>New Request
+                            </a>
+                        </div>
+
+                        @if($amcServices->isEmpty())
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                You haven't submitted any AMC service requests yet.
+                                <a href="{{ route('amc') }}" class="alert-link">Submit your first request</a>
+                            </div>
+                        @else
                         <div class="tf-order_history-table">
                             <table class="table_def">
                                 <thead>
-                                    <tr>
-                                        <th class="title-sidebar fw-medium">Sr No</th>
-                                        <th class="title-sidebar fw-medium">Devices</th>
-                                        <th class="title-sidebar fw-medium">Plan Name</th>
-                                        <th class="title-sidebar fw-medium">Purchase Date</th>
-                                        <th class="title-sidebar fw-medium">Expiry Date</th>
-                                        <th class="title-sidebar fw-medium">Status</th>
-                                        <th class="title-sidebar fw-medium">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#1</td>
-                                        <td class="body-text-3">4</td>
-                                        <td class="body-text-3">Premium AMC</td>
-                                        <td class="body-text-3">28 Jan 2025 </td>
-                                        <td class="body-text-3">27 Jan 2026 </td>
-                                        <td class="body-text-3 text-delivered">Active</td>
-                                        <td><a href="{{ route('amc-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
-                                    </tr>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#2</td>
-                                        <td class="body-text-3">5</td>
-                                        <td class="body-text-3">Standard AMC</td>
-                                        <td class="body-text-3">15 Dec 2024 </td>
-                                        <td class="body-text-3">15 Dec 2025 </td>
-                                        <td class="body-text-3 text-delivered">Active</td>
-                                        <td><a href="{{ route('amc-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
-                                    </tr>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#3</td>
-                                        <td class="body-text-3">2</td>
-                                        <td class="body-text-3">Standard AMC</td>
-                                        <td class="body-text-3">15 Jun 2024 </td>
-                                        <td class="body-text-3 text-danger">15 Jun 2025 </td>
-                                        <td class="body-text-3 text-delivered">Active</td>
-                                        <td><a href="{{ route('amc-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
-                                    </tr>
-                                    <tr class="td-order-item">
-                                        <td class="body-text-3">#4</td>
-                                        <td class="body-text-3">1</td>
-                                        <td class="body-text-3">Basic AMC</td>
-                                        <td class="body-text-3">20 Jan 2024 </td>
-                                        <td class="body-text-3 text-warning">20 July 2025 </td>
-                                        <td class="body-text-3 text-delivered">Active</td>
-                                        <td><a href="{{ route('amc-details') }}" class="tf-btn btn-small d-inline-flex">
-                                                <span class="text-white">Detail</span>
-
-                                            </a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        <tr>
+                                            <th class="title-sidebar fw-medium">Service ID</th>
+                                            <th class="title-sidebar fw-medium">Products</th>
+                                            <th class="title-sidebar fw-medium">Plan Name</th>
+                                            <th class="title-sidebar fw-medium">Start Date</th>
+                                            <th class="title-sidebar fw-medium">End Date</th>
+                                            <th class="title-sidebar fw-medium">Status</th>
+                                            <th class="title-sidebar fw-medium">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($amcServices as $index => $service)
+                                            <tr class="td-order-item">
+                                                <td class="body-text-3">{{ $service->service_id }}</td>
+                                                <td class="body-text-3">
+                                                    <span class="badge bg-primary">{{ $service->products->count() }} Product(s)</span>
+                                                </td>
+                                                <td class="body-text-3">{{ $service->amcPlan->plan_name ?? 'N/A' }}</td>
+                                                <td class="body-text-3">{{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}</td>
+                                                <td class="body-text-3">{{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}</td>
+                                                <td class="body-text-3">
+                                                    @php
+                                                        $statusClass = match($service->status) {
+                                                            'Pending' => 'text-warning',
+                                                            'In Progress' => 'text-info',
+                                                            'Completed' => 'text-success',
+                                                            'Cancelled' => 'text-danger',
+                                                            default => 'text-secondary'
+                                                        };
+                                                    @endphp
+                                                    <span class="{{ $statusClass }} fw-semibold">{{ $service->status }}</span>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="tf-btn btn-small d-inline-flex"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#serviceDetailModal{{ $service->id }}">
+                                                        <span class="text-white">View Details</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- /My Account -->
+
+    <!-- Service Detail Modals -->
+    @if(!$amcServices->isEmpty())
+        @foreach($amcServices as $service)
+            <div class="modal fade" id="serviceDetailModal{{ $service->id }}" tabindex="-1" aria-labelledby="serviceDetailModalLabel{{ $service->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="serviceDetailModalLabel{{ $service->id }}">
+                                Service Request Details - {{ $service->service_id }}
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Customer Information -->
+                            <div class="card mb-3">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-user me-2"></i>Customer Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Name:</strong> {{ $service->first_name }} {{ $service->last_name }}</p>
+                                            <p class="mb-2"><strong>Email:</strong> {{ $service->email }}</p>
+                                            <p class="mb-2"><strong>Phone:</strong> {{ $service->phone }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Customer Type:</strong> {{ $service->customer_type }}</p>
+                                            @if($service->company_name)
+                                                <p class="mb-2"><strong>Company:</strong> {{ $service->company_name }}</p>
+                                                <p class="mb-2"><strong>GST No:</strong> {{ $service->gst_no ?? 'N/A' }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AMC Plan Information -->
+                            <div class="card mb-3">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-file-contract me-2"></i>AMC Plan Details</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Plan Name:</strong> {{ $service->amcPlan->plan_name ?? 'N/A' }}</p>
+                                            <p class="mb-2"><strong>Duration:</strong> {{ $service->plan_duration }}</p>
+                                            <p class="mb-2"><strong>Start Date:</strong> {{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>End Date:</strong> {{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}</p>
+                                            <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($service->total_amount, 2) }}</p>
+                                            <p class="mb-2">
+                                                <strong>Status:</strong>
+                                                @php
+                                                    $statusClass = match($service->status) {
+                                                        'Pending' => 'badge bg-warning',
+                                                        'In Progress' => 'badge bg-info',
+                                                        'Completed' => 'badge bg-success',
+                                                        'Cancelled' => 'badge bg-danger',
+                                                        default => 'badge bg-secondary'
+                                                    };
+                                                @endphp
+                                                <span class="{{ $statusClass }}">{{ $service->status }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Products Information -->
+                            <div class="card mb-3">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-box me-2"></i>Products ({{ $service->products->count() }})</h6>
+                                </div>
+                                <div class="card-body">
+                                    @if($service->products->isEmpty())
+                                        <p class="text-muted mb-0">No products added</p>
+                                    @else
+                                        <div class="accordion" id="productsAccordion{{ $service->id }}">
+                                            @foreach($service->products as $index => $product)
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="heading{{ $service->id }}_{{ $index }}">
+                                                        <button class="accordion-button {{ $index > 0 ? 'collapsed' : '' }}" type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapse{{ $service->id }}_{{ $index }}"
+                                                                aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
+                                                                aria-controls="collapse{{ $service->id }}_{{ $index }}">
+                                                            <strong>Product #{{ $index + 1 }}:</strong>&nbsp;{{ $product->product_name }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapse{{ $service->id }}_{{ $index }}"
+                                                         class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}"
+                                                         aria-labelledby="heading{{ $service->id }}_{{ $index }}"
+                                                         data-bs-parent="#productsAccordion{{ $service->id }}">
+                                                        <div class="accordion-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <p class="mb-2"><strong>Product Name:</strong> {{ $product->product_name }}</p>
+                                                                    <p class="mb-2"><strong>Product Type:</strong> {{ $product->product_type }}</p>
+                                                                    <p class="mb-2"><strong>Brand:</strong> {{ $product->product_brand }}</p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p class="mb-2"><strong>Model No:</strong> {{ $product->model_no }}</p>
+                                                                    <p class="mb-2"><strong>Serial No:</strong> {{ $product->serial_no }}</p>
+                                                                    <p class="mb-2"><strong>Purchase Date:</strong> {{ $product->purchase_date ? \Carbon\Carbon::parse($product->purchase_date)->format('d M Y') : 'N/A' }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Additional Notes -->
+                            @if($service->additional_notes)
+                                <div class="card">
+                                    <div class="card-header bg-light">
+                                        <h6 class="mb-0"><i class="fas fa-sticky-note me-2"></i>Additional Notes</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">{{ $service->additional_notes }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endif
 @endsection
