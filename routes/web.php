@@ -518,6 +518,8 @@ Route::controller(ServiceRequestController::class)->group(function () {
     Route::put('/crm/update-non-amc-request/{id}', 'update_non_amc')->name('service-request.update-non-amc');
     // Delete Non-AMC Request
     Route::delete('/crm/delete-non-amc-request/{id}', 'destroy_non_amc')->name('service-request.delete-non-amc');
+    // Assign Engineer to Non-AMC
+    Route::post('/crm/assign-non-amc-engineer', 'assignNonAmcEngineer')->name('service-request.assign-non-amc-engineer');
 });
 
 // ------------------------------------------------------------ Track Request Page -------------------------------------------------------------
