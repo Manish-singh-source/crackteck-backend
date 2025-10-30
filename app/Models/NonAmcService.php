@@ -83,5 +83,23 @@ class NonAmcService extends Model
         
         return implode(', ', $parts);
     }
+
+    /**
+     * Get active engineer assignment
+     */
+    public function activeAssignment()
+    {
+        return $this->hasOne(NonAmcEngineerAssignment::class, 'non_amc_service_id')
+                    ->where('status', 'Active')
+                    ->latest();
+    }
+
+    /**
+     * Get engineer assignments for this non-AMC service
+     */
+    public function engineerAssignments(): HasMany
+    {
+        return $this->hasMany(NonAmcEngineerAssignment::class, 'non_amc_service_id');
+    }   
 }
 
