@@ -520,15 +520,19 @@
                         <label class="form-label">Product Type</label>
                         <select class="form-select product-type">
                             <option value="">--Select--</option>
-                            <option value="Computer">Computer</option>
-                            <option value="Laptop">Laptop</option>
-                            <option value="Accessories">Accessories</option>
-                            <option value="Other">Other</option>
+                            @foreach($productTypes as $type)
+                                <option value="{{ $type->id }}">{{ $type->parent_categories }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Product Brand</label>
-                        <input type="text" class="form-control product-brand" placeholder="Enter Brand">
+                        <select class="form-select product-brand">
+                            <option value="">--Select--</option>
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->brand_title }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Model Number</label>
