@@ -6,6 +6,7 @@ use App\Models\Lead;
 use App\Models\Meet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class MeetController extends Controller
 {
@@ -48,7 +49,24 @@ class MeetController extends Controller
         $meet->date = $request->date;
         $meet->time = $request->time;
         $meet->location = $request->location;
-        $meet->attachment = $request->attachment;
+
+ 
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // Ensure "small" directory exists
+            $smallDir = public_path('uploads/crm/meets');
+            if (!File::exists($smallDir)) {
+                File::makeDirectory($smallDir, 0755, true);
+            }
+
+            $file->move(public_path('uploads/crm/meets'), $filename);
+            $meet->attachment = $filename;
+        }
+
+
+
         $meet->meetAgenda = $request->meetAgenda;
         $meet->followUp = $request->followUp;
         $meet->status = $request->status;
@@ -98,7 +116,28 @@ class MeetController extends Controller
         $meet->date = $request->date;
         $meet->time = $request->time;
         $meet->location = $request->location;
-        $meet->attachment = $request->attachment;
+    
+        // Only if updating profile 
+        if ($request->attachment != '') {
+            if (File::exists(public_path('uploads/crm/meets/' . $request->attachment))) {
+                File::delete(public_path('uploads/crm/meets/' . $request->attachment));
+            }
+        }
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // Ensure "small" directory exists
+            $smallDir = public_path('uploads/crm/meets');
+            if (!File::exists($smallDir)) {
+                File::makeDirectory($smallDir, 0755, true);
+            }
+
+            $file->move(public_path('uploads/crm/meets'), $filename);
+            $meet->attachment = $filename;
+        }
+
         $meet->meetAgenda = $request->meetAgenda;
         $meet->followUp = $request->followUp;
         $meet->status = $request->status;

@@ -65,7 +65,7 @@
                                                     @foreach ($leads as $lead)
                                                         <option value="{{ $lead->id }}"
                                                             {{ old('lead_id') == $lead->id ? 'selected' : '' }}>
-                                                            {{ $lead->id }}
+                                                            {{ $lead->id . ' - ' . $lead->first_name . ' ' . $lead->last_name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -78,7 +78,8 @@
                                                     'label' => 'Client Name',
                                                     'name' => 'client_name',
                                                     'type' => 'text',
-                                                    'placeholder' => 'Enter Client Name',
+                                                    'placeholder' => 'Select Lead',
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 
@@ -87,7 +88,8 @@
                                                     'label' => 'Contact Number',
                                                     'name' => 'contact',
                                                     'type' => 'text',
-                                                    'placeholder' => 'Enter Contact Number',
+                                                    'placeholder' => 'Select Lead',
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 
@@ -96,7 +98,8 @@
                                                     'label' => 'Email ID',
                                                     'name' => 'email',
                                                     'type' => 'email',
-                                                    'placeholder' => 'Enter Email Id',
+                                                    'placeholder' => 'Select Lead',
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 
