@@ -68,7 +68,7 @@
                                                     @foreach ($leads as $lead)
                                                         <option value="{{ $lead->id }}"
                                                             {{ old('lead_id') == $lead->id ? 'selected' : '' }}>
-                                                            {{ $lead->id }}
+                                                            {{ $lead->id . ' - ' . $lead->first_name . ' ' . $lead->last_name }}
                                                         </option>
                                                     @endforeach
                                                 </select>

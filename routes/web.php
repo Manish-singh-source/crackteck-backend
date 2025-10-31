@@ -399,7 +399,7 @@ Route::controller(FollowUpController::class)->group(function () {
     // Store Follow Up Page 
     Route::post('/crm/store-follow-up', 'store')->name('follow-up.store');
     // View Follow Up Page 
-    Route::get('/crm/view-follow-up/{id}', 'view')->name('follow-up.view');
+    Route::get('/crm/view-follow-up/{id}', 'view')->name('follow-up.view-page');
     // Edit Follow Up Page 
     Route::get('/crm/edit-follow-up/{id}', 'edit')->name('follow-up.edit');
     // Update Follow Up Page 
