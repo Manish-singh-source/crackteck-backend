@@ -9,126 +9,16 @@
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Task, Meeting & Visit Scheduler</h4>
                 </div>
-
+                <div>
+                    <a href="{{ route('meets.create') }}" id="mySection" class="btn btn-primary">Create
+                        Meeting</a>
+                </div>
             </div>
 
             <!-- End Main Widgets -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-body border border-dashed border-end-0 border-start-0">
-                            <form action="#" method="get">
-                                <div class="d-flex justify-content-between">
-                                    <div class="row">
-                                        <div class="col-xl-10 col-md-10 col-sm-10">
-                                            <div class="search-box">
-                                                <input type="text" name="search" value=""
-                                                    class="form-control search" placeholder="Search Lead Id, Meeting Id">
-                                                <i class="ri-search-line search-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-md-2 col-sm-2 col-2">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <button type="submit" class="btn btn-primary waves ripple-light">
-                                                    <i class="fa-solid fa-magnifying-glass "></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row g-3">
-                                        <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
-                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <!-- <span class="d-none d-md-inline-flex"> Sort </span> -->
-                                                <i class="fa-solid fa-arrow-up-z-a "></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Sort By Meeting Id</a></li>
-                                                <li><a class="dropdown-item" href="#">Sort By Date</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="col-xl-6 col-md-6 col-sm-6 col-6 btn-group" role="group">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#standard-modal">
-                                                <!-- <span class="d-none d-md-inline-flex"> Filters </span> -->
-                                                <i class="fa-solid fa-filter "></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="standard-modal" tabindex="-1"
-                                        aria-labelledby="standard-modalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="standard-modalLabel">Filters</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-
-                                                <div class="modal-body px-3 py-md-2">
-                                                    <h5>Status</h5>
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="mt-3">
-                                                                <div class="form-check mb-2">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="flexRadioDefault" id="flexRadioDefault1">
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Pending
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="mt-3">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Scheduled
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="mt-3">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="flexRadioDefault" id="qualified">
-                                                                    <label class="form-check-label" for="qualified">
-                                                                        Confirmed
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="mt-3">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="flexRadioDefault" id="unqualified">
-                                                                    <label class="form-check-label" for="unqualified">
-                                                                        Cancelled
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </form>
-                        </div>
                         <div class="card-body pt-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <ul class="nav nav-underline border-bottom pt-2" id="pills-tab" role="tablist">
@@ -161,10 +51,6 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div>
-                                    <a href="{{ route('meets.create') }}" id="mySection" class="btn btn-primary">Create
-                                        Meeting</a>
-                                </div>
                             </div>
 
                             <div class="tab-content text-muted">
@@ -182,11 +68,11 @@
                                                                 <th>Title</th>
                                                                 <th>Type</th>
                                                                 <th>Date & Time</th>
-                                                                <th>Location</th>
+                                                                <th>Location / Link</th>
                                                                 {{-- <th>Assigned Rep</th> --}}
                                                                 <th>Engineer (if any)</th>
                                                                 <th>Status</th>
-                                                                <th>Follow-up Task</th>
+                                                                {{-- <th>Follow-up Task</th> --}}
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -205,8 +91,21 @@
                                                                     <td>{{ $meet->location }}</td>
                                                                     {{-- <td>NA</td> --}}
                                                                     <td>NA</td>
-                                                                    <td>{{ $meet->status }}</td>
-                                                                    <td>{{ $meet->followUp }}</td>
+                                                                    <td>
+                                                                        @php
+                                                                            $badgeClass = match ($meet->status) {
+                                                                                'Scheduled' => 'bg-warning-subtle text-warning',
+                                                                                'Confirmed' => 'bg-success-subtle text-success',
+                                                                                'Completed' => 'bg-info-subtle text-info',
+                                                                                'Cancelled' => 'bg-danger-subtle text-danger',
+                                                                                default => 'bg-secondary-subtle text-secondary',
+                                                                            };
+                                                                        @endphp
+                                                                        <span class="badge fw-semibold {{ $badgeClass }}">
+                                                                        {{ $meet->status }}
+                                                                        </span>
+                                                                    </td>
+                                                                    {{-- <td>{{ $meet->followUp }}</td> --}}
                                                                     <td>
                                                                         <a aria-label="anchor"
                                                                             href="{{ route('meets.view', $meet->id) }}"
