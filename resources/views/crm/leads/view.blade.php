@@ -183,6 +183,51 @@
                         </div>
 
                     </div>
+
+                    <!-- Branch Information Section -->
+                    @if($lead->branches && $lead->branches->count() > 0)
+                    <div class="card mt-3">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">
+                                Branch Information
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-borderless dt-responsive nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Branch Name</th>
+                                            <th>Address</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Country</th>
+                                            <th>Pincode</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($lead->branches as $branch)
+                                        <tr>
+                                            <td>{{ $branch->branch_name }}</td>
+                                            <td>
+                                                {{ $branch->address_line1 }}
+                                                @if($branch->address_line2)
+                                                    , {{ $branch->address_line2 }}
+                                                @endif
+                                            </td>
+                                            <td>{{ $branch->city }}</td>
+                                            <td>{{ $branch->state }}</td>
+                                            <td>{{ $branch->country }}</td>
+                                            <td>{{ $branch->pincode }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
                 {{-- <div class="col-xl-4 mx-auto">
                     <div class="card">

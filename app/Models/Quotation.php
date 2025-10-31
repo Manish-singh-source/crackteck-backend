@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -10,9 +13,50 @@ class Quotation extends Model
 {
     use LogsActivity;
 
-    public function lead()
+    protected $fillable = [
+        'lead_id',
+        'quote_id',
+        'quote_date',
+        'expiry_date',
+    ];
+
+    public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class, 'lead_id', 'id');
+    }
+
+    /**
+     * Get the products for the quotation.
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(QuotationProduct::class, 'quotation_id');
+    }
+
+    /**
+     * Get the AMC details for the quotation.
+     */
+    public function amcDetail(): HasOne
+    {
+        return $this->hasOne(QuotationAmcDetail::class, 'quotation_id');
+    }
+
+    /**
+     * Get all engineer assignments for the quotation.
+     */
+    public function engineerAssignments(): HasMany
+    {
+        return $this->hasMany(QuotationEngineerAssignment::class, 'quotation_id');
+    }
+
+    /**
+     * Get the active engineer assignment for the quotation.
+     */
+    public function activeAssignment(): HasOne
+    {
+        return $this->hasOne(QuotationEngineerAssignment::class, 'quotation_id')
+                    ->where('status', 'Active')
+                    ->with(['engineer', 'supervisor', 'groupEngineers']);
     }
 
     /**
