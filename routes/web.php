@@ -375,18 +375,24 @@ Route::controller(SaleReportController::class)->group(function () {
 Route::controller(LeadController::class)->group(function () {
     // Leads Page
     Route::get('/crm/leads', 'index')->name('leads.index');
-    // Create Leads Page 
+    // Create Leads Page
     Route::get('/crm/create-leads', 'create')->name('leads.create');
-    // Store Leads Page 
+    // Store Leads Page
     Route::post('/crm/store-leads', 'store')->name('leads.store');
-    // View Leads Page 
+    // View Leads Page
     Route::get('/crm/view-leads/{id}', 'view')->name('leads.view');
-    // Edit Leads Page 
+    // Edit Leads Page
     Route::get('/crm/edit-leads/{id}', 'edit')->name('leads.edit');
     // Update Leads Page
     Route::put('/crm/update-leads/{id}', 'update')->name('leads.update');
-    // Delete Leads Page 
+    // Delete Leads Page
     Route::delete('/crm/delete-leads/{id}', 'delete')->name('leads.delete');
+
+    // Branch Management Routes
+    Route::post('/crm/leads/branches/store', 'storeBranch')->name('leads.branches.store');
+    Route::put('/crm/leads/branches/{id}', 'updateBranch')->name('leads.branches.update');
+    Route::delete('/crm/leads/branches/{id}', 'deleteBranch')->name('leads.branches.delete');
+    Route::get('/crm/leads/{leadId}/branches', 'getBranches')->name('leads.branches.get');
 });
 
 // ------------------------------------------------------------ Follow Up Page -------------------------------------------------------------
@@ -435,18 +441,31 @@ Route::controller(MeetController::class)->group(function () {
 
 Route::controller(QuotationController::class)->group(function () {
     Route::get('/crm/quotation', 'index')->name('quotation.index');
-    // Create Quotation Page 
+    // Create Quotation Page
     Route::get('/crm/create-quotation', 'create')->name('quotation.create');
-    // Store Quotation Page 
+    // Store Quotation Page
     Route::post('/crm/store-quotation', 'store')->name('quotation.store');
-    // View Quotation Page 
+    // View Quotation Page
     Route::get('/crm/view-quotation/{id}', 'view')->name('quotation.view');
-    // Edit Quotation Page 
-    // Route::get('/crm/edit-quotation/{id}', 'edit')->name('quotation.edit');
-    // Update Quotation Page 
-    // Route::put('/crm/update-quotation/{id}', 'update')->name('quotation.update');
-    // Delete Quotation Page 
-    // Route::delete('/crm/delete-quotation/{id}', 'delete')->name('quotation.delete');
+    // Edit Quotation Page
+    Route::get('/crm/edit-quotation/{id}', 'edit')->name('quotation.edit');
+    // Update Quotation Page
+    Route::put('/crm/update-quotation/{id}', 'update')->name('quotation.update');
+    // Delete Quotation Page
+    Route::delete('/crm/delete-quotation/{id}', 'delete')->name('quotation.delete');
+
+    // Product Management Routes
+    Route::post('/crm/quotation/products/store', 'storeProduct')->name('quotation.products.store');
+    Route::put('/crm/quotation/products/{id}', 'updateProduct')->name('quotation.products.update');
+    Route::delete('/crm/quotation/products/{id}', 'deleteProduct')->name('quotation.products.delete');
+    Route::get('/crm/quotation/{quotationId}/products', 'getProducts')->name('quotation.products.get');
+
+    // AMC Details Management Routes
+    Route::post('/crm/quotation/amc/store', 'storeOrUpdateAmcDetail')->name('quotation.amc.store');
+    Route::get('/crm/quotation/{quotationId}/amc', 'getAmcDetail')->name('quotation.amc.get');
+
+    // Engineer Assignment Routes
+    Route::post('/crm/quotation/assign-engineer', 'assignEngineer')->name('quotation.assign-engineer');
 });
 
 // ------------------------------------------------------------ AMC Plans Page -------------------------------------------------------------
