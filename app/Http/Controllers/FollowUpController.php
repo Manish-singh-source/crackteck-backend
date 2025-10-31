@@ -77,7 +77,7 @@ class FollowUpController extends Controller
             'lead_id' => 'required',
             'client_name' => 'required|min:3',
             'contact' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'followup_date' => 'required',
             'followup_time' => 'required'
         ]);

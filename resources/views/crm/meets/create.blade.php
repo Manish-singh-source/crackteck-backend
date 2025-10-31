@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('meets.store') }}" method="POST">
+                    <form action="{{ route('meets.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="row">
@@ -66,7 +66,7 @@
                                                     @foreach ($leads as $lead)
                                                         <option value="{{ $lead->id }}"
                                                             {{ old('lead_id') == $lead->id ? 'selected' : '' }}>
-                                                            {{ $lead->id }}
+                                                            {{ $lead->id . ' - ' . $lead->first_name . ' ' . $lead->last_name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -80,7 +80,8 @@
                                                     'label' => 'Client / Lead Name',
                                                     'name' => 'client_name',
                                                     'type' => 'text',
-                                                    'placeholder' => 'Enter Client / Lead Name',
+                                                    'placeholder' => 'Select Lead',
+                                                    'readonly' => true,
                                                 ])
                                             </div>
                                             <div class="col-6">
@@ -121,14 +122,6 @@
                                                 ])
                                             </div>
                                             
-                                            {{-- <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Attachments',
-                                                    'name' => 'attachment',
-                                                    'type' => 'file',
-                                                    'placeholder' => 'Enter Attachments',
-                                                ])
-                                            </div> --}}
                                             <!-- <div class="col-6">
                                                     <label for="assignedSalesRep" class="form-label">Assigned Sales Rep</label>
                                                     <select class="form-control" name="assignedSalesRep" id="assignedSalesRep">
@@ -161,6 +154,14 @@
                                                     'name' => 'location',
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter Location / Meeting Link',
+                                                ])
+                                            </div>
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Attachments',
+                                                    'name' => 'attachment',
+                                                    'type' => 'file',
+                                                    'placeholder' => 'Enter Attachments',
                                                 ])
                                             </div>
                                             <div class="col-6">

@@ -29,6 +29,13 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Lead Id :
+                                        </span>
+                                        <span>
+                                            {{ $followup->lead_id }}
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Client Name :
                                         </span>
                                         <span>
@@ -42,15 +49,6 @@
                                         </span>
                                         <span>
                                             {{ $followup->contact }}
-                                        </span>
-                                    </li>
-
-
-                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Email :
-                                        </span>
-                                        <span>
-                                            {{ $followup->email }}
                                         </span>
                                     </li>
 
@@ -74,7 +72,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
-
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Email :
+                                        </span>
+                                        <span>
+                                            {{ $followup->email }}
+                                        </span>
+                                    </li>
  
  
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
@@ -96,7 +100,16 @@
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Status :
                                         </span>
-                                        <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                        @php
+                                            $badgeClass = match ($followup->status) {
+                                                'Pending' => 'bg-warning-subtle text-warning',
+                                                'Done' => 'bg-success-subtle text-success',
+                                                'Rescheduled' => 'bg-primary-subtle text-primary',
+                                                'Cancelled' => 'bg-danger-subtle text-danger',
+                                                default => 'bg-secondary-subtle text-secondary',
+                                            };
+                                        @endphp
+                                        <span class="badge fw-semibold {{ $badgeClass }}">
                                             {{ $followup->status }}
                                         </span>
                                     </li>

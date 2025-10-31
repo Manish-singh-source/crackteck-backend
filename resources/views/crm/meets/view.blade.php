@@ -6,7 +6,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-xl-12 mx-auto">
+            <div class="col-xl-12 mx-auto my-3">
 
                 <div class="card">
                     <div class="card-header border-bottom-dashed">
@@ -27,28 +27,34 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Title :
+                                        <span class="fw-semibold text-break">Lead Id :
                                         </span>
                                         <span>
-                                            {{ $meet->meet_title }}
+                                            {{ $meet->lead_id ?? 'N/A' }}
                                         </span>
                                     </li>
-
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
                                         <span class="fw-semibold text-break">Client/Lead :
                                         </span>
                                         <span>
-                                            {{ $meet->client_name }}
+                                            {{ $meet->client_name ?? 'N/A' }}
+                                        </span>
+                                    </li>      
+                                    
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Meeting Title :
+                                        </span>
+                                        <span>
+                                            {{ $meet->meet_title ?? 'N/A' }}
                                         </span>
                                     </li>
 
-
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Type :
+                                        <span class="fw-semibold text-break">Meeting Type :
                                         </span>
                                         <span>
-                                            {{ $meet->meeting_type }}
+                                            {{ $meet->meeting_type ?? 'N/A' }}
                                         </span>
                                     </li>
 
@@ -64,7 +70,7 @@
                                         <span class="fw-semibold text-break">Location :
                                         </span>
                                         <span>
-                                            {{ $meet->location }}
+                                            {{ $meet->location ?? 'N/A' }}
                                         </span>
                                     </li>
 
@@ -73,28 +79,31 @@
                             <div class="col-lg-6">
                                 <ul class="list-group list-group-flush ">
 
-
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Assigned Rep :
+                                        <span class="fw-semibold text-break"> Meeting Agenda :
                                         </span>
                                         <span>
-                                            NA
+                                            {{ $meet->meetAgenda ?? 'N/A' }}
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Engineer :
+                                        <span class="fw-semibold text-break"> Follow-up Task :
                                         </span>
                                         <span>
-                                            NA
+                                            {{ $meet->followUp ?? 'N/A' }}
                                         </span>
                                     </li>
 
                                     <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
-                                        <span class="fw-semibold text-break">Status :
+                                        <span class="fw-semibold text-break">Attachments :
                                         </span>
-                                        <span class="badge bg-primary-subtle text-primary fw-semibold">
-                                            {{ $meet->status }}
+                                        <span>
+                                            @if($meet->attachment)
+                                                <a href="{{ asset('uploads/crm/meets/' . $meet->attachment) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                                            @else
+                                                <span class="text-muted">No attachment</span>
+                                            @endif
                                         </span>
                                     </li>
 
@@ -102,7 +111,15 @@
                                         <span class="fw-semibold text-break">Follow-up Task :
                                         </span>
                                         <span>
-                                            {{ $meet->followUp }}
+                                            {{ $meet->followUp ?? 'N/A' }}
+                                        </span>
+                                    </li>
+
+                                    <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                        <span class="fw-semibold text-break">Status :
+                                        </span>
+                                        <span class="badge bg-primary-subtle text-primary fw-semibold">
+                                            {{ $meet->status ?? 'N/A' }}
                                         </span>
                                     </li>
 

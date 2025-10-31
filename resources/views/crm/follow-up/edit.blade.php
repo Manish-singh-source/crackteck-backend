@@ -48,6 +48,7 @@
                                                     'name' => 'lead_id',
                                                     'options' => [],
                                                     'model' => $followup,
+                                                    'readonly' => true,
                                                 ])
                                             </div>
                                             <div class="col-6">
@@ -57,6 +58,7 @@
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter Client Name',
                                                     'model' => $followup,
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 
@@ -67,6 +69,7 @@
                                                     'type' => 'text',
                                                     'placeholder' => 'Enter Contact Number',
                                                     'model' => $followup,
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 
@@ -77,6 +80,7 @@
                                                     'type' => 'email',
                                                     'placeholder' => 'Enter Email Id',
                                                     'model' => $followup,
+                                                    'readonly' => true,
                                                 ])
                                             </div>
 

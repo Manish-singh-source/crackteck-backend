@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('meets.update', $meet->id) }}" method="POST">
+                    <form action="{{ route('meets.update', $meet->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -45,19 +45,16 @@
                                     <div class="card-body">
                                         <div class="row g-3">
                                             <div class="col-6">
-                                                @include('components.form.select', [
-                                                    'label' => 'Lead Id',
-                                                    'name' => 'lead_id',
-                                                    'options' => [
-                                                        '0' => '--Select Lead id--',
-                                                        'L-001' => 'L-001',
-                                                        'L-002' => 'L-002',
-                                                        'L-003' => 'L-003',
-                                                        'L-004' => 'L-004',
-                                                        'L-005' => 'L-005',
-                                                    ],
-                                                    'model' => $meet,
-                                                ])
+                                                <label for="lead_id" class="form-label">Lead Id <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="lead_id"
+                                                    value="{{ $meet->lead_id }}" readonly>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="client_name" class="form-label">Client / Lead Name <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="client_name"
+                                                    value="{{ $meet->client_name }}" readonly>
                                             </div>
 
                                             <div class="col-6">
@@ -70,15 +67,6 @@
                                                 ])
                                             </div>
 
-                                            <div class="col-6">
-                                                @include('components.form.input', [
-                                                    'label' => 'Client / Lead Name',
-                                                    'name' => 'client_name',
-                                                    'type' => 'text',
-                                                    'placeholder' => 'Enter Client / Lead Name',
-                                                    'model' => $meet,
-                                                ])
-                                            </div>
                                             <div class="col-6">
                                                 @include('components.form.select', [
                                                     'label' => 'Meeting Type',
@@ -94,7 +82,6 @@
                                                 ])
                                             </div>
 
-
                                             <div class="col-6">
                                                 @include('components.form.input', [
                                                     'label' => 'Date',
@@ -103,6 +90,7 @@
                                                     'model' => $meet,
                                                 ])
                                             </div>
+
                                             <div class="col-6">
                                                 @include('components.form.input', [
                                                     'label' => 'Time',
@@ -111,6 +99,19 @@
                                                     'model' => $meet,
                                                 ])
                                             </div>
+
+                                            <div class="col-6">
+                                                <label for="meetAgenda" class="form-label">Meeting Agenda / Notes<span
+                                                        class="text-danger">*</span></label>
+                                                <textarea name="meetAgenda" id="meetAgenda" class="form-control"> {{ $meet->meetAgenda }} </textarea>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <label for="followUp" class="form-label">Follow-up Task<span
+                                                        class="text-danger">*</span></label>
+                                                <textarea name="followUp" id="followUp" class="form-control"> {{ $meet->followUp }} </textarea>
+                                            </div>
+
                                             <div class="col-6">
                                                 @include('components.form.input', [
                                                     'label' => 'Location / Meeting Link',
@@ -120,6 +121,7 @@
                                                     'model' => $meet,
                                                 ])
                                             </div>
+
                                             <div class="col-6">
                                                 @include('components.form.input', [
                                                     'label' => 'Attachments',
@@ -128,7 +130,11 @@
                                                     'placeholder' => 'Enter Attachments',
                                                     'model' => $meet,
                                                 ])
+                                                @if($meet->attachment)
+                                                    <a href="{{ asset('uploads/crm/meets/' . $meet->attachment) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                                                @endif
                                             </div>
+
                                             <!-- <div class="col-6">
                                                 <label for="assignedSalesRep" class="form-label">Assigned Sales Rep</label>
                                                 <select class="form-control" name="assignedSalesRep" id="assignedSalesRep">
@@ -145,16 +151,7 @@
                                                     <option value="">Mike Doe</option>
                                                 </select>
                                             </div> -->
-                                            <div class="col-6">
-                                                <label for="meetAgenda" class="form-label">Meeting Agenda / Notes<span
-                                                        class="text-danger">*</span></label>
-                                                <textarea name="meetAgenda" id="meetAgenda" class="form-control"></textarea>
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="followUp" class="form-label">Follow-up Task<span
-                                                        class="text-danger">*</span></label>
-                                                <textarea name="followUp" id="followUp" class="form-control"></textarea>
-                                            </div>
+                                            
                                             <div class="col-6">
                                                 @include('components.form.select', [
                                                     'label' => 'Status',
