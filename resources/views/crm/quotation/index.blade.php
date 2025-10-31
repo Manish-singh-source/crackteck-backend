@@ -74,18 +74,27 @@
                                                                             <i
                                                                                 class="mdi mdi-eye-outline fs-14 text-primary"></i>
                                                                         </a>
-                                                                        <a aria-label="anchor" href=""
+                                                                        <a aria-label="anchor" href="{{ route('quotation.edit', $quotation->id) }}"
                                                                             class="btn btn-icon btn-sm bg-warning-subtle me-1"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-original-title="Edit">
                                                                             <i
                                                                                 class="mdi mdi-pencil-outline fs-14 text-warning"></i>
                                                                         </a>
-                                                                        <a class="btn btn-icon btn-sm bg-danger-subtle delete-row"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-original-title="Delete">
-                                                                            <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                                        </a>
+                                                                        <form
+                                                                            action="{{ route('quotation.delete', $quotation->id) }}"
+                                                                            method="POST" class="d-inline"
+                                                                            onsubmit="return confirm('Are you sure you want to delete this quotation?');">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" aria-label="anchor"
+                                                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-original-title="Delete">
+                                                                                <i
+                                                                                    class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                            </button>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
