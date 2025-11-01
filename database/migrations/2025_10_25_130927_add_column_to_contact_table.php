@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             //
-            $table->string('phone')->nullable()->after('email');
-            $table->text('message')->nullable()->after('phone');
+            // $table->string('phone')->nullable()->after('email');
+            // $table->text('message')->nullable()->after('phone');
         });
 
         Schema::table('contacts', function (Blueprint $table) {
