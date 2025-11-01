@@ -43,6 +43,11 @@ Route::get('/e-commerce/product/{id}', [FrontendEcommerceController::class, 'pro
 Route::get('/product-detail/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('product.detail');
 Route::get('/product/get', [FrontendController::class, 'getProduct'])->name('product.get');
 
+// Shop Filter API Routes
+Route::get('/api/shop/categories', [FrontendEcommerceController::class, 'getCategories'])->name('shop.categories');
+Route::get('/api/shop/brands', [FrontendEcommerceController::class, 'getBrands'])->name('shop.brands');
+Route::get('/api/shop/filter-products', [FrontendEcommerceController::class, 'filterProducts'])->name('shop.filter');
+
 // About US
 Route::get('/about-us', function () {
     return view('frontend/about');
