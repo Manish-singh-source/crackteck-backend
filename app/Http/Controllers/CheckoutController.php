@@ -8,6 +8,8 @@ use App\Models\EcommerceOrder;
 use App\Models\EcommerceOrderItem;
 use App\Models\UserAddress;
 use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\InventoryUpdateLog;
 use App\Http\Controllers\CouponApplicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -268,6 +270,9 @@ class CheckoutController extends Controller
             // Create order items
             $this->createOrderItems($order, $checkoutData);
 
+            // Update product quantities in warehouse and e-commerce
+            $this->updateProductQuantities($order);
+
             // Record coupon usage if coupon was applied
             if ($totals['applied_coupon']) {
                 $couponController = new CouponApplicationController();
@@ -408,6 +413,56 @@ class CheckoutController extends Controller
             } else {
                 EcommerceOrderItem::createFromCartItem($item, $order->id);
             }
+        }
+    }
+
+    /**
+     * Update product quantities in warehouse and e-commerce after order placement.
+     */
+    private function updateProductQuantities($order)
+    {
+        foreach ($order->orderItems as $orderItem) {
+            $ecommerceProduct = $orderItem->ecommerceProduct;
+
+            if (!$ecommerceProduct || !$ecommerceProduct->warehouseProduct) {
+                Log::warning('Product not found for order item', [
+                    'order_item_id' => $orderItem->id,
+                    'ecommerce_product_id' => $orderItem->ecommerce_product_id
+                ]);
+                continue;
+            }
+
+            $warehouseProduct = $ecommerceProduct->warehouseProduct;
+            $orderedQuantity = $orderItem->quantity;
+            $oldQuantity = $warehouseProduct->stock_quantity;
+            $newQuantity = max(0, $oldQuantity - $orderedQuantity);
+
+            // Update warehouse product quantity
+            $warehouseProduct->update([
+                'stock_quantity' => $newQuantity,
+                'stock_status' => $newQuantity > 0 ? 'In Stock' : 'Out of Stock'
+            ]);
+
+            // Log the inventory update
+            InventoryUpdateLog::create([
+                'product_id' => $warehouseProduct->id,
+                'ecommerce_order_id' => $order->id,
+                'old_quantity' => $oldQuantity,
+                'ordered_quantity' => $orderedQuantity,
+                'new_quantity' => $newQuantity,
+                'order_number' => $order->order_number,
+                'update_type' => 'order_placed',
+                'notes' => "Order placed by user ID: {$order->user_id}"
+            ]);
+
+            Log::info('Product quantity updated', [
+                'product_id' => $warehouseProduct->id,
+                'product_name' => $warehouseProduct->product_name,
+                'old_quantity' => $oldQuantity,
+                'ordered_quantity' => $orderedQuantity,
+                'new_quantity' => $newQuantity,
+                'order_number' => $order->order_number
+            ]);
         }
     }
 
