@@ -1,5 +1,83 @@
 @extends('frontend/layout/master')
 
+@push('styles')
+    <style>
+        /* Filter Tags Styling */
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .filter-tag .remove-tag {
+            cursor: pointer;
+            font-size: 12px;
+            color: #666;
+            transition: color 0.2s;
+        }
+
+        .filter-tag .remove-tag:hover {
+            color: #d32f2f;
+        }
+
+        .meta-filter-shop {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        #applied-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .remove-all-filters {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .remove-all-filters:hover {
+            background-color: #b71c1c;
+        }
+
+        #product-count-grid {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Loading spinner */
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+@endpush
+
 @section('main-content')
 
     <!-- Breakcrumbs -->
@@ -26,196 +104,111 @@
     <div class="flat-content mb-5">
         <div class="container">
             <div class="tf-product-view-content wrapper-control-shop">
-                <div class="canvas-filter-product sidebar-filter handle-canvas left">
+                <div class="canvas-filter-product sidebar-filter handle-canvas left" style="border: 1px solid #e9e9e9; padding: 20px;">
                     <div class="canvas-wrapper">
                         <div class="canvas-header d-flex d-xl-none">
                             <h5 class="title">Filter</h5>
                             <span class="icon-close link icon-close-popup close-filter" data-bs-dismiss="offcanvas"></span>
                         </div>
                         <div class="canvas-body">
-                            <div class="facet-categories">
+                            {{-- <div class="facet-categories">
                                 <h6 class="title fw-medium">Show all categories</h6>
-                                <ul>
-                                    <li><a href="#">Laptops &amp; Notebooks <i class="icon-arrow-right"></i></a>
-                                    </li>
-                                    <li><a href="#">Desktops &amp; All-in-One PCs <i class="icon-arrow-right"></i></a>
-                                    </li>
-                                    <li><a href="#">Computer Components <i class="icon-arrow-right"></i></a></li>
-                                    <li><a href="#">Monitors <i class="icon-arrow-right"></i></a>
-                                    </li>
-                                    <li><a href="#">Peripherals &amp; Accessories <i class="icon-arrow-right"></i></a>
-                                    </li>
-                                    <li><a href="#">Storage Devices <i class="icon-arrow-right"></i></a></li>
-                                    <li><a href="#">Networking Devices <i class="icon-arrow-right"></i></a></li>
-                                    <li><a href="#">Printers &amp; Scanners <i class="icon-arrow-right"></i></a></li>
-                                    <li><a href="#">Software <i class="icon-arrow-right"></i></a></li>
-                                </ul>
+                                <div class="box-fieldset-item">
+                                    @forelse($categories as $category)
+                                        <fieldset class="fieldset-item">
+                                            <input type="checkbox" name="category" class="tf-check category-filter"
+                                                id="category-{{ $category->id }}" value="{{ $category->id }}">
+                                            <label
+                                                for="category-{{ $category->id }}">{{ $category->parent_categories }}</label>
+                                        </fieldset>
+                                    @empty
+                                        <p class="text-muted">No categories available</p>
+                                    @endforelse
+                                </div>
+                            </div> --}}
+
+                            <div class="widget-facet facet-fieldset has-loadmore">
+                                <p class="facet-title title-sidebar fw-semibold">Categories</p>
+                                <div class="box-fieldset-item">
+                                    @forelse($categories as $category)
+                                        <fieldset class="fieldset-item">
+                                            <input type="checkbox" name="category" class="tf-check category-filter"
+                                                id="category-{{ $category->id }}" value="{{ $category->id }}">
+                                            <label for="category-{{ $category->id }}">{{ $category->parent_categories }}</label>
+                                        </fieldset>
+                                    @empty
+                                        <p class="text-muted">No categories available</p>
+                                    @endforelse
+                                </div>
+                                @if ($brands->count() > 5)
+                                    <div class="btn-loadmore">See more <i class="icon-arrow-down"></i></div>
+                                @endif
                             </div>
+
                             <div class="widget-facet facet-fieldset has-loadmore">
                                 <p class="facet-title title-sidebar fw-semibold">Brand</p>
                                 <div class="box-fieldset-item">
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="razer">
-                                        <label for="razer">Hp</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="corsair">
-                                        <label for="corsair">Dell</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="steelseri">
-                                        <label for="steelseri">Apple</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="hyperx">
-                                        <label for="hyperx">Lenovo</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="jbl">
-                                        <label for="jbl">Logitech</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="logitech-g">
-                                        <label for="logitech-g">Samsung</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="logitech">
-                                        <label for="logitech">Sony </label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="steelseri2">
-                                        <label for="steelseri2">Microsoft</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="checkbox" name="brand" class="tf-check" id="hyperx2">
-                                        <label for="hyperx2">Xiaomi </label>
-                                    </fieldset>
+                                    @forelse($brands as $brand)
+                                        <fieldset class="fieldset-item">
+                                            <input type="checkbox" name="brand" class="tf-check brand-filter"
+                                                id="brand-{{ $brand->id }}" value="{{ $brand->id }}">
+                                            <label for="brand-{{ $brand->id }}">{{ $brand->brand_title }}</label>
+                                        </fieldset>
+                                    @empty
+                                        <p class="text-muted">No brands available</p>
+                                    @endforelse
                                 </div>
-                                <div class="btn-loadmore">See more <i class="icon-arrow-down"></i></div>
+                                @if ($brands->count() > 5)
+                                    <div class="btn-loadmore">See more <i class="icon-arrow-down"></i></div>
+                                @endif
                             </div>
                             <div class="widget-facet facet-price">
                                 <p class="facet-title title-sidebar fw-semibold">Price</p>
                                 <div class="box-fieldset-item">
                                     <fieldset class="fieldset-item">
-                                        <input type="radio" name="price" class="tf-check" id="u10">
-                                        <label for="u10">Under ₹10</label>
+                                        <input type="checkbox" name="price_range" class="tf-check price-range-filter"
+                                            id="under_10000" value="under_10000">
+                                        <label for="under_10000">Under ₹10,000</label>
                                     </fieldset>
                                     <fieldset class="fieldset-item">
-                                        <input type="radio" name="price" class="tf-check" id="u15">
-                                        <label for="u15">₹10 to ₹15</label>
+                                        <input type="checkbox" name="price_range" class="tf-check price-range-filter"
+                                            id="10000_15000" value="10000_15000">
+                                        <label for="10000_15000">₹10,000 to ₹15,000</label>
                                     </fieldset>
                                     <fieldset class="fieldset-item">
-                                        <input type="radio" name="price" class="tf-check" id="u25">
-                                        <label for="u25">₹15 to ₹25</label>
+                                        <input type="checkbox" name="price_range" class="tf-check price-range-filter"
+                                            id="15000_25000" value="15000_25000">
+                                        <label for="15000_25000">₹15,000 to ₹25,000</label>
                                     </fieldset>
                                     <fieldset class="fieldset-item">
-                                        <input type="radio" name="price" class="tf-check" id="up35">
-                                        <label for="up35">₹35 &amp; Above</label>
+                                        <input type="checkbox" name="price_range" class="tf-check price-range-filter"
+                                            id="above_35000" value="above_35000">
+                                        <label for="above_35000">₹35,000 &amp; Above</label>
                                     </fieldset>
                                 </div>
                                 <div class="box-price-product">
-                                    <form class="w-100 form-filter-price">
+                                    <p class="facet-title title-sidebar fw-semibold mb-3">Custom Price Range</p>
+                                    <form class="w-100 form-filter-price" id="custom-price-form">
                                         <div class="cols w-100">
                                             <fieldset class="box-price-item">
-                                                <input type="number" class="min-price price-input" name="price"
-                                                    placeholder="₹ Min">
+                                                <input type="number" class="min-price price-input" id="custom-min-price"
+                                                    name="min_price" placeholder="₹ Min" min="0">
                                             </fieldset>
                                             <span class="br-line"></span>
                                             <fieldset class="box-price-item">
-                                                <input type="number" class="max-price price-input" name="price"
-                                                    placeholder="₹ Max">
+                                                <input type="number" class="max-price price-input" id="custom-max-price"
+                                                    name="max_price" placeholder="₹ Max" min="0">
                                             </fieldset>
                                         </div>
-                                        <div class="btn-filter-price cs-pointer link">
+                                        <button type="button" class="btn-filter-price cs-pointer link"
+                                            id="apply-custom-price">
                                             <span class="title-sidebar fw-bold">
                                                 Go
                                             </span>
-                                        </div>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
-                            <!-- <div class="widget-facet facet-vote">
-                                <p class="facet-title title-sidebar fw-semibold">Customer Review</p>
-                                <div class="box-fieldset-item">
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="starRate" class="tf-check" id="fiveStar">
-                                        <label for="fiveStar">
-                                            <span class="list-star">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                            </span>
-                                        </label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="starRate" class="tf-check" id="fourStar">
-                                        <label for="fourStar">
-                                            <span class="list-star">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                            </span>
-                                            <span class="body-text-3">& Up</span>
-                                        </label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="starRate" class="tf-check" id="threeStar">
-                                        <label for="threeStar">
-                                            <span class="list-star">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                            </span>
-                                            <span class="body-text-3">& Up</span>
-                                        </label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="starRate" class="tf-check" id="twoStar">
-                                        <label for="twoStar">
-                                            <span class="list-star">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                            </span>
-                                            <span class="body-text-3">& Up</span>
-                                        </label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="starRate" class="tf-check" id="oneStar">
-                                        <label for="oneStar">
-                                            <span class="list-star">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                                <i class="icon-star text-main-4"></i>
-                                            </span>
-                                            <span class="body-text-3">& Up</span>
-                                        </label>
-                                    </fieldset>
-                                </div>
-                            </div> -->
-                            <!-- <div class="widget-facet facet-fieldset">
-                                <p class="facet-title title-sidebar fw-semibold">Condition</p>
-                                <div class="box-fieldset-item">
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="condition" class="tf-check" id="inNew">
-                                        <label for="inNew">New</label>
-                                    </fieldset>
-                                    <fieldset class="fieldset-item">
-                                        <input type="radio" name="condition" class="tf-check" id="inUsed">
-                                        <label for="inUsed">Used</label>
-                                    </fieldset>
-                                </div>
-                            </div> -->
                             <div class="widget-facet facet-fieldset">
                                 <p class="facet-title title-sidebar fw-semibold">Deals &amp; Discounts</p>
                                 <div class="box-fieldset-item">
@@ -276,31 +269,17 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="tf-dropdown-sort tf-sort type-sort-by" data-bs-toggle="dropdown">
-                                <div class="btn-select w-100">
-                                    <i class="icon-sort"></i>
-                                    <p class="body-text-3 w-100">Sort by: <span class="text-sort-value">Featured</span>
-                                    </p>
-                                    <i class="icon-arrow-down fs-10"></i>
-                                </div>
-                                <div class="dropdown-menu">
-                                    <div class="select-item" data-sort-value="best-selling">
-                                        <span class="text-value-item">Featured</span>
-                                    </div>
-                                    <div class="select-item" data-sort-value="a-z">
-                                        <span class="text-value-item">Alphabetically, A-Z</span>
-                                    </div>
-                                    <div class="select-item" data-sort-value="z-a">
-                                        <span class="text-value-item">Alphabetically, Z-A</span>
-                                    </div>
-                                    <div class="select-item" data-sort-value="price-low-high">
-                                        <span class="text-value-item">Price, low to high</span>
-                                    </div>
-                                    <div class="select-item" data-sort-value="price-high-low">
-                                        <span class="text-value-item">Price, high to low</span>
-                                    </div>
-                                </div>
+
+                            <div class=" type-sort-by">
+                                <select id="sortBy" class="form-select">
+                                    <option value="">Sort by</option>
+                                    <option value="a-z">Alphabetically, A-Z</option>
+                                    <option value="z-a">Alphabetically, Z-A</option>
+                                    <option value="price-low-high">Price, low to high</option>
+                                    <option value="price-high-low">Price, high to low</option>
+                                </select>
                             </div>
+
                         </div>
                     </div>
                     <div class="meta-filter-shop" style="display: flex;">
@@ -320,6 +299,10 @@
                                 <div class="card-product"
                                     data-condition="{{ $product->is_featured ? 'Featured' : 'New' }}"
                                     data-brand="{{ $product->warehouseProduct->brand->brand_title ?? '' }}"
+                                    data-brand-id="{{ $product->warehouseProduct->brand_id ?? '' }}"
+                                    data-category="{{ $product->warehouseProduct->parentCategorie->parent_categories ?? '' }}"
+                                    data-category-id="{{ $product->warehouseProduct->parent_category_id ?? '' }}"
+                                    data-price="{{ $product->warehouseProduct->discount_price > 0 ? $product->warehouseProduct->discount_price : $product->warehouseProduct->selling_price }}"
                                     data-deal="{{ $product->is_todays_deal ? 'Deal Today' : '' }}" data-rate="5 Star">
                                     <div class="card-product-wrapper">
                                         <a href="{{ route('product.detail', $product->id) }}" class="product-img">
@@ -371,8 +354,8 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('product.detail', $product->id) }}" data-bs-toggle="modal"
-                                                    data-product-id="{{ $product->id }}"
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                    data-bs-toggle="modal" data-product-id="{{ $product->id }}"
                                                     class="box-icon quickview btn-icon-action hover-tooltip tooltip-left">
                                                     <span class="icon icon-view"></span>
                                                     <span class="tooltip">Quick View</span>
@@ -406,20 +389,27 @@
                                                     </p>
                                                 @endif
                                                 <a href="{{ route('product.detail', $product->id) }}"
-                                                    class="name-product body-md-2 fw-semibold text-secondary link text-truncate" style="max-width: 220px;">
+                                                    class="name-product body-md-2 fw-semibold text-secondary link text-truncate"
+                                                    style="max-width: 220px;">
                                                     {{ $product->warehouseProduct->product_name ?? 'Product Name' }}
                                                 </a>
                                             </div>
                                             <p class="price-wrap fw-medium">
                                                 @if ($product->warehouseProduct)
-                                                    @if ($product->warehouseProduct->selling_price)
-                                                        <span
-                                                            class="new-price price-text fw-medium">₹{{ number_format($product->warehouseProduct->selling_price, 2) }}</span>
-                                                        @if (
-                                                            $product->warehouseProduct->cost_price &&
-                                                                $product->warehouseProduct->cost_price > $product->warehouseProduct->selling_price)
-                                                            <span
-                                                                class="old-price body-md-2 text-main-2">₹{{ number_format($product->warehouseProduct->cost_price, 2) }}</span>
+                                                    @if ($product->warehouseProduct->final_price)
+                                                        <span class="new-price price-text fw-medium">
+                                                            ₹{{ number_format($product->warehouseProduct->final_price, 2) }}
+                                                        </span>
+
+                                                        @if ($product->warehouseProduct->discount_price > 0)
+                                                            @php
+                                                                $final = $product->warehouseProduct->final_price;
+                                                                $discount = $product->warehouseProduct->discount_price;
+                                                                $combined = $final + $discount;
+                                                            @endphp
+                                                            <span class="old-price body-md-2 text-main-2">
+                                                                ₹{{ number_format($combined, 2) }}
+                                                            </span>
                                                         @endif
                                                     @endif
                                                 @else
@@ -711,9 +701,10 @@
                                             //     .main_product_image);
                                             // $('.model_product_thumbs_images').html(response.data
                                             //     .additional_product_images);
-                                            $('.model_main_product_image').attr('src','/' + response.data
+                                            $('.model_main_product_image').attr('src', '/' + response.data
                                                 .main_product_image);
-                                            $('.model_additional_product_image').attr('src','/' + response.data
+                                            $('.model_additional_product_image').attr('src', '/' + response
+                                                .data
                                                 .additional_product_images);
                                             $('.model_product_brand').text(response.data.brand.brand_title);
                                             $('.model_product_model_no').text(response.data.model_no);
@@ -828,7 +819,7 @@
                 const originalTooltip = $button.find('.tooltip').text();
 
                 $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
-                'Adding...'); $button.prop('disabled', true);
+                    'Adding...'); $button.prop('disabled', true);
 
                 // Make AJAX request
                 $.ajax({
@@ -1031,6 +1022,402 @@
         // Initialize counts on page load
         updateWishlistCount();
         updateCartCount();
+
+        // ============================================
+        // SHOP FILTER FUNCTIONALITY
+        // ============================================
+
+        let selectedCategories = [];
+        let selectedBrands = [];
+        let selectedPriceRanges = [];
+        let customMinPrice = null;
+        let customMaxPrice = null;
+        let selectedSort = null;
+
+
+        // Category filter change
+        $('.category-filter').on('change', function() {
+            const categoryId = $(this).val();
+            if ($(this).is(':checked')) {
+                if (!selectedCategories.includes(categoryId)) {
+                    selectedCategories.push(categoryId);
+                }
+            } else {
+                selectedCategories = selectedCategories.filter(id => id !== categoryId);
+            }
+            applyShopFilters();
+        });
+
+        // Brand filter change
+        $('.brand-filter').on('change', function() {
+            const brandId = $(this).val();
+            if ($(this).is(':checked')) {
+                if (!selectedBrands.includes(brandId)) {
+                    selectedBrands.push(brandId);
+                }
+            } else {
+                selectedBrands = selectedBrands.filter(id => id !== brandId);
+            }
+            applyShopFilters();
+        });
+
+        // Price range filter change
+        $('.price-range-filter').on('change', function() {
+            const priceRange = $(this).val();
+            if ($(this).is(':checked')) {
+                if (!selectedPriceRanges.includes(priceRange)) {
+                    selectedPriceRanges.push(priceRange);
+                }
+                // Clear custom price when selecting predefined ranges
+                customMinPrice = null;
+                customMaxPrice = null;
+                $('#custom-min-price').val('');
+                $('#custom-max-price').val('');
+            } else {
+                selectedPriceRanges = selectedPriceRanges.filter(range => range !== priceRange);
+            }
+            applyShopFilters();
+        });
+
+        // Custom price range
+        $('#apply-custom-price').on('click', function() {
+            const minPrice = $('#custom-min-price').val();
+            const maxPrice = $('#custom-max-price').val();
+
+            if (minPrice || maxPrice) {
+                customMinPrice = minPrice ? parseFloat(minPrice) : null;
+                customMaxPrice = maxPrice ? parseFloat(maxPrice) : null;
+
+                // Validate
+                if (customMinPrice && customMaxPrice && customMinPrice > customMaxPrice) {
+                    alert('Minimum price cannot be greater than maximum price');
+                    return;
+                }
+
+                // Clear predefined price ranges
+                selectedPriceRanges = [];
+                $('.price-range-filter').prop('checked', false);
+
+                applyShopFilters();
+            }
+        });
+
+        // Clear custom price when clicking on input
+        $('#custom-min-price, #custom-max-price').on('focus', function() {
+            selectedPriceRanges = [];
+            $('.price-range-filter').prop('checked', false);
+        });
+
+        // Remove all filters
+        $('#remove-all').on('click', function() {
+            selectedCategories = [];
+            selectedBrands = [];
+            selectedPriceRanges = [];
+            customMinPrice = null;
+            customMaxPrice = null;
+
+            $('.category-filter').prop('checked', false);
+            $('.brand-filter').prop('checked', false);
+            $('.price-range-filter').prop('checked', false);
+            $('#custom-min-price').val('');
+            $('#custom-max-price').val('');
+
+            applyShopFilters();
+        });
+
+        $('#sortBy').on('change', function() {
+            selectedSort = $(this).val();
+            applyShopFilters();
+        });
+
+
+        // Apply filters function
+        function applyShopFilters() {
+            // Show loading state
+            $('#gridLayout').html(
+                '<div class="col-12 text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>'
+            );
+
+            // Build filter parameters
+            const filterParams = {};
+
+            if (selectedCategories.length > 0) {
+                filterParams.categories = selectedCategories;
+            }
+
+            if (selectedBrands.length > 0) {
+                filterParams.brands = selectedBrands;
+            }
+
+            if (selectedPriceRanges.length > 0) {
+                filterParams.price_range = selectedPriceRanges;
+            }
+
+            if (customMinPrice !== null) {
+                filterParams.min_price = customMinPrice;
+            }
+
+            if (customMaxPrice !== null) {
+                filterParams.max_price = customMaxPrice;
+            }
+
+            if (selectedSort) {
+                filterParams.sort_by = selectedSort;
+            }
+
+            // Make AJAX request
+            $.ajax({
+                url: '{{ route('shop.filter') }}',
+                method: 'GET',
+                data: filterParams,
+                success: function(response) {
+                    if (response.success) {
+                        renderProducts(response.products);
+                        updateFilterMeta(response.products.length);
+                    } else {
+                        showError('Failed to filter products');
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Filter error:', xhr);
+                    showError('An error occurred while filtering products');
+                }
+            });
+        }
+
+        // Render products
+        function renderProducts(products) {
+            const gridLayout = $('#gridLayout');
+            gridLayout.empty();
+
+            if (products.length === 0) {
+                gridLayout.html(`
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <h4>No Products Found</h4>
+                            <p class="text-muted">No products match your selected filters.</p>
+                        </div>
+                    </div>
+                `);
+                return;
+            }
+
+            products.forEach(function(product) {
+                const productHtml = createProductCard(product);
+                gridLayout.append(productHtml);
+            });
+        }
+
+        // Create product card HTML
+        function createProductCard(product) {
+            // console.log(product);
+            const shortDescription = product.short_description ? product.short_description : '';
+            // console.log(shortDescription);
+            const discountPercent = product.selling_price > product.final_price ?
+                Math.round(((product.selling_price - product.final_price) / product.selling_price) * 100) :
+                0;
+
+            return `
+                <div class="card-product"
+                     data-brand-id="${product.brand_id || ''}"
+                     data-category-id="${product.category_id || ''}"
+                     data-price="${product.final_price}">
+                    <div class="card-product-wrapper">
+                        <a href="${product.url}" class="product-img">
+                            <img class="img-product lazyload" src="/${product.main_image || '{{ asset('frontend-assets/images/placeholder-product.png') }}'}" alt="${product.name}">
+                        </a>
+                        <ul class="list-product-btn top-0 end-0">
+                            <li>
+                                <a href="#;" class="box-icon add-to-cart-btn btn-icon-action hover-tooltip tooltip-left" data-product-id="${product.id}" data-product-name="${product.name}">
+                                    <span class="icon icon-cart2"></span>
+                                    <span class="tooltip">Add to Cart</span>
+                                </a>
+                            </li>
+                            <li class="wishlist">
+                                <a href="#;" class="box-icon btn-icon-action hover-tooltip tooltip-left add-to-wishlist-btn" data-product-id="${product.id}" data-product-name="${product.name}">
+                                    <span class="icon icon-heart2"></span>
+                                    <span class="tooltip">Add to Wishlist</span>
+                                </a>
+                            </li>
+                            <li class="d-none d-sm-block">
+                                <a href="#;" class="box-icon btn-icon-action hover-tooltip tooltip-left compare-btn" data-product-id="${product.id}" data-product-name="${product.name}">
+                                    <span class="icon icon-compare1"></span>
+                                    <span class="tooltip">Compare</span>
+                                </a>
+                            </li>
+                        </ul>
+                        ${discountPercent > 0 ? `
+                            <div class="box-sale-wrap pst-default">
+                                <p class="small-text">Sale</p>
+                                <p class="title-sidebar-2">${discountPercent}%</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="card-product-info">
+                        <div class="box-title">
+                            <div>
+                                ${product.category ? `<p class="product-tag caption text-main-2">${product.category}</p>` : ''}
+                                <a href="${product.url}" class="name-product body-md-2 fw-semibold text-secondary link text-truncate" style="max-width: 220px;">
+                                    ${product.name}
+                                </a>
+                            </div>
+                            
+                            <p class="price-wrap fw-medium">
+                                ${product.final_price ? `<span class="new-price price-text fw-medium">₹${product.final_price}</span>` : `<span class="new-price price-text fw-medium">₹0.00</span>`}
+
+                                ${product.discount_price > 0 ? `<span class="old-price body-md-2 text-main-2">₹${(parseFloat(product.final_price) + parseFloat(product.discount_price)).toFixed(2)}</span>` : ''}
+
+                            </p>
+
+                            ${shortDescription ? `<div class="product-description">
+                                                            <p class="caption">${shortDescription}</p>
+                                                        </div>` : ''}
+                            <div class="box-infor-detail">
+                                <div class="star-review flex-wrap">
+                                    <ul class="list-star">
+                                        <li><i class="icon-star"></i></li>
+                                        <li><i class="icon-star"></i></li>
+                                        <li><i class="icon-star"></i></li>
+                                        <li><i class="icon-star"></i></li>
+                                        <li><i class="icon-star"></i></li>
+                                    </ul>
+                                    <p class="caption text-main-2">({{ $product->total_sold }})</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-product-btn">
+                        <a href="#;" class="tf-btn btn-line w-100 add-to-cart-btn" data-product-id="${product.id}">
+                            <span>Add to cart</span>
+                            <i class="icon-cart-2"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update filter meta information
+        function updateFilterMeta(count) {
+            const metaFilterShop = $('.meta-filter-shop');
+            const appliedFilters = $('#applied-filters');
+            const removeAllBtn = $('#remove-all');
+
+            appliedFilters.empty();
+
+            // Add category filters
+            selectedCategories.forEach(function(categoryId) {
+                const categoryLabel = $(`#category-${categoryId}`).next('label').text();
+                appliedFilters.append(`
+                    <span class="filter-tag">${categoryLabel}
+                        <span class="remove-tag icon-close" data-filter="category" data-value="${categoryId}"></span>
+                    </span>
+                `);
+            });
+
+            // Add brand filters
+            selectedBrands.forEach(function(brandId) {
+                const brandLabel = $(`#brand-${brandId}`).next('label').text();
+                appliedFilters.append(`
+                    <span class="filter-tag">${brandLabel}
+                        <span class="remove-tag icon-close" data-filter="brand" data-value="${brandId}"></span>
+                    </span>
+                `);
+            });
+
+            // Add price range filters
+            selectedPriceRanges.forEach(function(range) {
+                let rangeLabel = '';
+                switch (range) {
+                    case 'under_10000':
+                        rangeLabel = 'Under ₹10,000';
+                        break;
+                    case '10000_15000':
+                        rangeLabel = '₹10,000 to ₹15,000';
+                        break;
+                    case '15000_25000':
+                        rangeLabel = '₹15,000 to ₹25,000';
+                        break;
+                    case 'above_35000':
+                        rangeLabel = '₹35,000 & Above';
+                        break;
+                }
+                appliedFilters.append(`
+                    <span class="filter-tag">${rangeLabel}
+                        <span class="remove-tag icon-close" data-filter="price_range" data-value="${range}"></span>
+                    </span>
+                `);
+            });
+
+            // Add custom price filter
+            if (customMinPrice !== null || customMaxPrice !== null) {
+                let priceLabel = '';
+                if (customMinPrice !== null && customMaxPrice !== null) {
+                    priceLabel = `₹${customMinPrice.toLocaleString()} - ₹${customMaxPrice.toLocaleString()}`;
+                } else if (customMinPrice !== null) {
+                    priceLabel = `₹${customMinPrice.toLocaleString()} +`;
+                } else {
+                    priceLabel = `Up to ₹${customMaxPrice.toLocaleString()}`;
+                }
+                appliedFilters.append(`
+                    <span class="filter-tag">${priceLabel}
+                        <span class="remove-tag icon-close" data-filter="custom_price"></span>
+                    </span>
+                `);
+            }
+
+            // Show/hide meta filter section
+            const hasFilters = selectedCategories.length > 0 || selectedBrands.length > 0 ||
+                selectedPriceRanges.length > 0 || customMinPrice !== null || customMaxPrice !== null;
+
+            if (hasFilters) {
+                metaFilterShop.show();
+                removeAllBtn.show();
+                $('#product-count-grid').text(`Showing ${count} products`);
+            } else {
+                metaFilterShop.hide();
+                removeAllBtn.hide();
+            }
+        }
+
+        // Remove individual filter tag
+        $(document).on('click', '.remove-tag', function() {
+            const filterType = $(this).data('filter');
+            const filterValue = $(this).data('value');
+
+            if (filterType === 'category') {
+                // Uncheck the checkbox
+                $(`.category-filter[value="${filterValue}"]`).prop('checked', false);
+                // Remove from array (convert both to string for safety)
+                selectedCategories = selectedCategories.filter(id => String(id) !== String(filterValue));
+            } else if (filterType === 'brand') {
+                $(`.brand-filter[value="${filterValue}"]`).prop('checked', false);
+                selectedBrands = selectedBrands.filter(id => String(id) !== String(filterValue));
+            } else if (filterType === 'price_range') {
+                selectedPriceRanges = selectedPriceRanges.filter(range => range !== filterValue);
+                $(`.price-range-filter[value="${filterValue}"]`).prop('checked', false);
+            } else if (filterType === 'custom_price') {
+                customMinPrice = null;
+                customMaxPrice = null;
+                $('#custom-min-price').val('');
+                $('#custom-max-price').val('');
+            }
+
+            applyShopFilters();
+        });
+
+        // Show error message
+        function showError(message) {
+            $('#gridLayout').html(`
+                <div class="col-12">
+                    <div class="alert alert-danger text-center" role="alert">
+                        ${message}
+                    </div>
+                </div>
+            `);
+        }
+
         });
     </script>
 @endsection
