@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\FollowUpController;
 use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\AttendanceController;
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
 
@@ -125,5 +126,10 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::get('/profile', 'index');
         Route::put('/profile', 'update');
     });
+    Route::controller(AttendanceController::class)->group(function () {
+        Route::get('/attendance', 'index');
+        Route::post('/attendance', 'store');
+    });
+    
 
 });
