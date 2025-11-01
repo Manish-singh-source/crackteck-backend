@@ -48,6 +48,7 @@ class Engineer extends Authenticatable implements JWTSubject
         'join_date',
         'primary_skills',
         'pic',
+        'profile_image',
     ];
 
     /**
