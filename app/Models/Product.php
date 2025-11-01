@@ -108,6 +108,14 @@ class Product extends Model
     }
 
     /**
+     * Relationship with EcommerceProduct
+     */
+    public function ecommerceProduct()
+    {
+        return $this->hasOne(EcommerceProduct::class, 'warehouse_product_id');
+    }
+
+    /**
      * Get formatted color options for display
      */
     public function getFormattedColorOptionsAttribute()
