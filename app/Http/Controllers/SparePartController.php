@@ -37,7 +37,7 @@ class SparePartController extends Controller
         ])->findOrFail($id);
 
         $deliveryMen = DeliveryMan::where('status', 'Active')->get();
-
+        dd($sparePartRequest);
         return view('/warehouse/spare-parts-requests/view', compact('sparePartRequest', 'deliveryMen'));
     }
 

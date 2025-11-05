@@ -407,7 +407,7 @@ Route::controller(FollowUpController::class)->group(function () {
     // Delete Follow Up Page 
     Route::delete('/crm/delete-follow-up/{id}', 'delete')->name('follow-up.delete');
     // Fetch leads Data 
-    Route::get('/crm/fetch-leads/{id}', 'fetchLeads')->name('follow-up.view');
+    // Route::get('/crm/fetch-leads/{id}', 'fetchLeads')->name('follow-up.view');
 });
 
 // ------------------------------------------------------------ Meets Pages -------------------------------------------------------------
@@ -683,7 +683,7 @@ Route::controller(InvoiceController::class)->group(function () {
     Route::get('/crm/invoice', 'index')->name('invoice.index');
 });
 
-route::get('/warehouse/track-product', [TrackProductController::class, 'index'])->name('track-product.index');
+// route::get('/warehouse/track-product', [TrackProductController::class, 'index'])->name('track-product.index');
 
 // *******************************************************************************************************************************************************
 // *******************************************************************************************************************************************************

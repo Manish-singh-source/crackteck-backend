@@ -11,6 +11,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
 
@@ -26,6 +28,49 @@ class ApiAuthController extends Controller
         ][$roleId] ?? null;
     }
 
+    public function sendDltSms($phoneNumbers, $templateId, $entityId, $variablesValues)
+    {
+        $apiKey = env('FAST2SMS_API_KEY');
+        $senderId = env('FAST2SMS_SENDER_ID');
+
+        $payload = [
+            'route' => 'dlt',
+            'sender_id' => $senderId,
+            'message' => $templateId,
+            'variables_values' => $variablesValues,
+            'flash' => 0,
+            'numbers' => is_array($phoneNumbers) ? implode(',', $phoneNumbers) : $phoneNumbers
+        ];
+
+        try {
+            $response = Http::withHeaders([
+                'authorization' => $apiKey,
+            ])->asForm()->post('https://www.fast2sms.com/dev/bulkV2', $payload);
+
+            // Log the response for debugging
+            Log::info('Fast2SMS Response', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'payload' => $payload
+            ]);
+
+            if ($response->successful()) {
+                $responseData = $response->json();
+                return $responseData['return'] ?? false;
+            }
+
+            Log::error('Fast2SMS Error', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return false;
+        } catch (\Exception $e) {
+            Log::error('Fast2SMS Exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+
 
     /**
      * Handle user login and return access token
@@ -33,7 +78,7 @@ class ApiAuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    
+
     public function login(Request $request)
     {
         try {
@@ -47,23 +92,48 @@ class ApiAuthController extends Controller
                 return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
             }
 
-            $user = $model::where('phone', $request->phone_number)->first(); // Consistency: use 'phone_number' everywhere or update to 'phone'
+            $user = $model::where('phone', $request->phone_number)->first();
             if (!$user) {
                 return response()->json(['success' => false, 'message' => 'User not found with the provided phone number.'], 404);
             }
 
-            $otp = rand(100000, 999999);
+            $otp = rand(1000, 9999);
             $user->otp = $otp;
             $user->otp_expiry = now()->addMinutes(5);
             $user->save();
 
-            // Send OTP to phone number using service...
+            // Send OTP via Fast2SMS DLT
+            // Replace YOUR_OTP_TEMPLATE with your actual DLT approved template message
+            // Example: "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK"
+            $templateMessage = "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK";
 
-            // REMOVE 'otp' from response in production!
-            return response()->json(['message' => 'OTP sent successfully'], 200);
+            $success = $this->sendDltSms(
+                $user->phone,
+                $templateMessage,
+                env('FAST2SMS_DLT_ENTITY_ID'), // Your DLT Entity ID
+                $otp // OTP value to replace {#var#}
+            );
+
+            if ($success) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'OTP sent successfully',
+                    // Remove 'otp' in production!
+                    'otp' => $otp // For testing only
+                ], 200);
+            } else {
+                Log::error('OTP sending failed for phone: ' . $user->phone);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to send OTP. Please try again.',
+                    // For testing, still save OTP in DB
+                    'otp' => $otp // Remove in production
+                ], 500);
+            }
         } catch (ValidationException $e) {
             return response()->json(['success' => false, 'message' => 'Validation failed', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
+            Log::error('Login error: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'An error occurred during login', 'error' => $e->getMessage()], 500);
         }
     }
@@ -137,5 +207,4 @@ class ApiAuthController extends Controller
             return response()->json(['error' => 'Failed to refresh token'], 401);
         }
     }
-
 }
