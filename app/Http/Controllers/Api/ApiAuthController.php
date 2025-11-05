@@ -13,9 +13,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
+use App\Services\Fast2smsService;
 
 class ApiAuthController extends Controller
 {
+    protected $fast2sms;
+    public function __construct(Fast2smsService $fast2sms)
+    {
+        $this->fast2sms = $fast2sms;
+    }
+
 
     protected function getModelByRoleId($roleId)
     {
@@ -33,7 +40,7 @@ class ApiAuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    
+
     public function login(Request $request)
     {
         try {
@@ -57,10 +64,21 @@ class ApiAuthController extends Controller
             $user->otp_expiry = now()->addMinutes(5);
             $user->save();
 
+            // Store OTP with phone in cache/session with 5 min expiration
+            // cache()->put('otp_' . $request->phone_number, $otp, now()->addMinutes(5));
+
             // Send OTP to phone number using service...
+            $response = $this->fast2sms->sendOtp($request->phone_number, $otp);
+            \Log::info('Fast2SMS response:', $response);
+            return response()->json($response);
+
 
             // REMOVE 'otp' from response in production!
-            return response()->json(['message' => 'OTP sent successfully'], 200);
+            if ($response['return'] === true) {
+                return response()->json(['message' => 'OTP sent successfully']);
+            } else {
+                return response()->json(['message' => 'Failed to send OTP', 'error' => $response], 500);
+            }
         } catch (ValidationException $e) {
             return response()->json(['success' => false, 'message' => 'Validation failed', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
@@ -137,5 +155,4 @@ class ApiAuthController extends Controller
             return response()->json(['error' => 'Failed to refresh token'], 401);
         }
     }
-
 }
