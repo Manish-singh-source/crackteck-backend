@@ -11,6 +11,10 @@ use App\Models\NonAmcProduct;
 use App\Models\Engineer;
 use App\Models\AmcEngineerAssignment;
 use App\Models\AmcGroupEngineer;
+use App\Models\NonAmcEngineerAssignment;
+use App\Models\NonAmcGroupEngineer;
+use App\Models\ParentCategorie;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +23,18 @@ use Illuminate\Support\Facades\File;
 
 class ServiceRequestController extends Controller
 {
+
+    public function generateServiceId()
+    {
+        $year = date('Y');
+        $lastService = AmcService::whereYear('created_at', $year)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = $lastService ? (intval(substr($lastService->service_id, -4)) + 1) : 1;
+
+        return 'SRV-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
     //
     public function index()
     {
@@ -51,7 +67,9 @@ class ServiceRequestController extends Controller
     public function create_amc()
     {
         $amcPlans = AMC::where('status', 'Active')->get();
-        return view('/crm/service-request/create-amc', compact('amcPlans'));
+        $productTypes = ParentCategorie::active()->orderBy('parent_categories')->get();
+        $brands = Brand::where('status', '1')->orderBy('brand_title')->get();
+        return view('/crm/service-request/create-amc', compact('amcPlans', 'productTypes', 'brands'));
     }
 
     public function store_amc(Request $request)
@@ -79,6 +97,7 @@ class ServiceRequestController extends Controller
         try {
             // Create AMC Service
             $amcService = new AmcService();
+            $amcService->service_id = $this->generateServiceId();
             $amcService->first_name = $request->first_name;
             $amcService->last_name = $request->last_name;
             $amcService->phone = $request->phone;
@@ -171,7 +190,7 @@ class ServiceRequestController extends Controller
                     $product->model_no = $productData['model_no'] ?? null;
                     $product->serial_no = $productData['serial_no'] ?? null;
                     $product->purchase_date = $productData['purchase_date'] ?? null;
-                    $product->warranty_status = $productData['warranty_status'] ?? 'Out of Warranty';
+                    $product->warranty_status = $productData['warranty_status'] ?? null;
 
                     // Handle product image upload
                     if (isset($productData['product_image']) && $productData['product_image'] instanceof \Illuminate\Http\UploadedFile) {
@@ -187,19 +206,20 @@ class ServiceRequestController extends Controller
 
             DB::commit();
             return redirect()->route('service-request.index')->with('success', 'AMC Request created successfully.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
         }
     }
 
+
     public function view_amc($id)
     {
         $amcService = AmcService::with([
             'amcPlan',
             'branches',
-            'products',
+            'products.type',
+            'products.brand',
             'creator',
             'activeAssignment.engineer',
             'activeAssignment.supervisor',
@@ -207,8 +227,8 @@ class ServiceRequestController extends Controller
         ])->findOrFail($id);
 
         $engineers = Engineer::select('id', 'first_name', 'last_name', 'designation', 'department')
-                            ->orderBy('first_name')
-                            ->get();
+            ->orderBy('first_name')
+            ->get();
 
         return view('/crm/service-request/view-amc', compact('amcService', 'engineers'));
     }
@@ -217,11 +237,14 @@ class ServiceRequestController extends Controller
     {
         $amcService = AmcService::with(['branches', 'products'])->findOrFail($id);
         $amcPlans = AMC::where('status', 'Active')->get();
-        return view('/crm/service-request/edit-amc', compact('amcService', 'amcPlans'));
+        $productTypes = ParentCategorie::active()->orderBy('parent_categories')->get();
+        $brands = Brand::where('status', '1')->orderBy('brand_title')->get();
+        return view('/crm/service-request/edit-amc', compact('amcService', 'amcPlans', 'productTypes', 'brands'));
     }
 
     public function update_amc(Request $request, $id)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -291,6 +314,7 @@ class ServiceRequestController extends Controller
             $amcService->priority_level = $request->priority_level;
             $amcService->additional_notes = $request->additional_notes;
             $amcService->total_amount = $request->total_amount ?? 0;
+            $amcService->status = $request->status ?? $amcService->status;
             $amcService->save();
 
             // Update Branches - keep existing, add new
@@ -302,8 +326,18 @@ class ServiceRequestController extends Controller
                     if (isset($branchData['id'])) {
                         $branch = AmcBranch::find($branchData['id']);
                         if ($branch && $branch->amc_service_id == $amcService->id) {
+                            // Update branch data
+                            $branch->branch_name = $branchData['branch_name'];
+                            $branch->address_line1 = $branchData['address_line1'];
+                            $branch->address_line2 = $branchData['address_line2'] ?? null;
+                            $branch->city = $branchData['city'];
+                            $branch->state = $branchData['state'];
+                            $branch->pincode = $branchData['pincode'];
+                            $branch->contact_person = $branchData['contact_person'] ?? null;
+                            $branch->contact_no = $branchData['contact_no'] ?? null;
+                            $branch->save();
+
                             $existingBranchIds[] = $branch->id;
-                            // Existing branches are kept as-is, no update needed
                         }
                     }
                 }
@@ -334,14 +368,24 @@ class ServiceRequestController extends Controller
             // Update Products - keep existing, add new
             $existingProductIds = [];
 
-            // Keep existing products
+            // Update existing products
             if ($request->has('existing_products')) {
                 foreach ($request->existing_products as $productData) {
                     if (isset($productData['id'])) {
                         $product = AmcProduct::find($productData['id']);
                         if ($product && $product->amc_service_id == $amcService->id) {
+                            // Update product data
+                            $product->product_name = $productData['product_name'];
+                            $product->product_type = $productData['product_type'] ?? null;
+                            $product->product_brand = $productData['product_brand'] ?? null;
+                            $product->model_no = $productData['model_no'] ?? null;
+                            $product->serial_no = $productData['serial_no'] ?? null;
+                            $product->purchase_date = $productData['purchase_date'] ?? null;
+                            $product->warranty_status = $productData['warranty_status'] ?? null;
+                            $product->amc_branch_id = $productData['branch_id'] ?? null;
+                            $product->save();
+
                             $existingProductIds[] = $product->id;
-                            // Existing products are kept as-is
                         }
                     }
                 }
@@ -352,7 +396,7 @@ class ServiceRequestController extends Controller
                 foreach ($request->products as $productData) {
                     $product = new AmcProduct();
                     $product->amc_service_id = $amcService->id;
-                    $product->branch_id = $productData['branch_id'] ?? null;
+                    $product->amc_branch_id = $productData['branch_id'] ?? null;
                     $product->product_name = $productData['product_name'];
                     $product->product_type = $productData['product_type'] ?? null;
                     $product->product_brand = $productData['product_brand'] ?? null;
@@ -377,7 +421,6 @@ class ServiceRequestController extends Controller
 
             DB::commit();
             return redirect()->route('service-request.index')->with('success', 'AMC Request updated successfully.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
@@ -409,7 +452,6 @@ class ServiceRequestController extends Controller
             $amcService->delete();
 
             return redirect()->route('service-request.index')->with('success', 'AMC Request deleted successfully.');
-
         } catch (\Exception $e) {
             return back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
@@ -526,6 +568,19 @@ class ServiceRequestController extends Controller
         }
     }
 
+    public function addBranch(Request $request)
+    {
+        $branch = AmcBranch::create($request->all());
+        return response()->json($branch);
+    }
+
+    public function addProduct(Request $request)
+    {
+        $product = AmcProduct::create($request->all());
+        return response()->json($product);
+    }
+
+
     // ==================== Non-AMC Service Request CRUD Methods ====================
 
     public function create_non_amc()
@@ -627,7 +682,6 @@ class ServiceRequestController extends Controller
 
             DB::commit();
             return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request created successfully.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
@@ -636,8 +690,92 @@ class ServiceRequestController extends Controller
 
     public function view_non_amc($id)
     {
-        $service = NonAmcService::with(['products', 'creator'])->findOrFail($id);
-        return view('/crm/service-request/view-non-amc', compact('service'));
+        $service = NonAmcService::with(['products', 'creator', 'activeAssignment.engineer', 'activeAssignment.groupEngineers'])->findOrFail($id);
+        $engineers = Engineer::select('id', 'first_name', 'last_name', 'designation', 'department')
+            ->orderBy('first_name')
+            ->get();
+            return view('/crm/service-request/view-non-amc', compact('service', 'engineers'));
+    }
+
+    public function assignNonAmcEngineer(Request $request)
+    {
+        // Remove engineer_id if assignment_type is Group to avoid validation error
+        if ($request->assignment_type === 'Group') {
+            $request->request->remove('engineer_id');
+        }
+        $validator = Validator::make($request->all(), [
+            'non_amc_service_id' => 'required|exists:non_amc_services,id',
+            'assignment_type' => 'required|in:Individual,Group',
+            'engineer_id' => 'required_if:assignment_type,Individual|exists:engineers,id',
+            'group_name' => 'required_if:assignment_type,Group',
+            'engineer_ids' => 'required_if:assignment_type,Group|array',
+            'engineer_ids.*' => 'exists:engineers,id',
+            'supervisor_id' => 'required_if:assignment_type,Group|exists:engineers,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Deactivate previous assignments
+            NonAmcEngineerAssignment::where('non_amc_service_id', $request->non_amc_service_id)
+                ->update(['status' => 'Inactive']);
+
+            if ($request->assignment_type === 'Individual') {
+                // Individual assignment
+                $assignment = NonAmcEngineerAssignment::create([
+                    'non_amc_service_id' => $request->non_amc_service_id,
+                    'assignment_type' => 'Individual',
+                    'engineer_id' => $request->engineer_id,
+                    'status' => 'Active',
+                    'assigned_at' => now(),
+                ]);
+
+                $engineer = Engineer::find($request->engineer_id);
+                $message = 'Engineer ' . $engineer->first_name . ' ' . $engineer->last_name . ' assigned successfully';
+            } else {
+                // Group assignment
+                $assignment = NonAmcEngineerAssignment::create([
+                    'non_amc_service_id' => $request->non_amc_service_id,
+                    'assignment_type' => 'Group',
+                    'group_name' => $request->group_name,
+                    'supervisor_id' => $request->supervisor_id,
+                    'status' => 'Active',
+                    'assigned_at' => now(),
+                ]);
+
+                // Add group members
+                foreach ($request->engineer_ids as $engineerId) {
+                    NonAmcGroupEngineer::create([
+                        'assignment_id' => $assignment->id,
+                        'engineer_id' => $engineerId,
+                        'is_supervisor' => ($engineerId == $request->supervisor_id),
+                    ]);
+                }
+
+                $message = 'Group "' . $request->group_name . '" assigned successfully with ' . count($request->engineer_ids) . ' engineers';
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'assignment' => $assignment
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error assigning engineer: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function edit_non_amc($id)
@@ -774,7 +912,6 @@ class ServiceRequestController extends Controller
 
             DB::commit();
             return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request updated successfully.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();

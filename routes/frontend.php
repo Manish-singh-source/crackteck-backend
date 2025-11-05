@@ -43,6 +43,11 @@ Route::get('/e-commerce/product/{id}', [FrontendEcommerceController::class, 'pro
 Route::get('/product-detail/{id}', [FrontendEcommerceController::class, 'productDetail'])->name('product.detail');
 Route::get('/product/get', [FrontendController::class, 'getProduct'])->name('product.get');
 
+// Shop Filter API Routes
+Route::get('/api/shop/categories', [FrontendEcommerceController::class, 'getCategories'])->name('shop.categories');
+Route::get('/api/shop/brands', [FrontendEcommerceController::class, 'getBrands'])->name('shop.brands');
+Route::get('/api/shop/filter-products', [FrontendEcommerceController::class, 'filterProducts'])->name('shop.filter');
+
 // About US
 Route::get('/about-us', function () {
     return view('frontend/about');
@@ -51,11 +56,16 @@ Route::get('/about-us', function () {
 // AMC Plans
 Route::get('/amc', [FrontendController::class, 'amcPlans'])->name('amc');
 
+Route::get('/non-amc', function () {
+    return view('frontend/non-amc');
+})->name('non-amc');
+
 // AMC Form API Routes
 Route::get('/api/amc/categories', [FrontendController::class, 'getProductCategories'])->name('amc.categories');
 Route::get('/api/amc/brands', [FrontendController::class, 'getBrands'])->name('amc.brands');
 Route::get('/api/amc/plans', [FrontendController::class, 'getAmcPlansData'])->name('amc.plans');
 Route::post('/api/amc/submit', [FrontendController::class, 'submitAmcRequest'])->name('amc.submit');
+Route::post('/api/non-amc/submit', [FrontendController::class, 'submitNonAmcRequest'])->name('non-amc.submit');
 
 // Contact US
 Route::get('/contact-us', function () {
@@ -211,9 +221,12 @@ Route::get('/my-account-password', [MyAccountController::class, 'changePassword'
     ->name('my-account-password')->middleware('auth');
 
 // My Account AMC
-Route::get('/my-account-amc', function () {
-    return view('frontend/my-account-amc');
-})->name('my-account-amc');
+Route::get('/my-account-amc', [MyAccountController::class, 'amcServices'])
+    ->name('my-account-amc')->middleware('auth');
+
+// My Account Non-AMC
+Route::get('/my-account-non-amc', [MyAccountController::class, 'nonAmcServices'])
+    ->name('my-account-non-amc')->middleware('auth');
 
 // My Account
 Route::get('/my-account', function () {

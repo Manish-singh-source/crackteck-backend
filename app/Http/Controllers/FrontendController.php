@@ -176,12 +176,14 @@ class FrontendController extends Controller
             'email' => 'required|email|max:255',
             'customer_type' => 'required|string',
 
-            // Step 3: Product Information
-            'product_type' => 'required|string',
-            'brand_name' => 'required|string',
-            'model_number' => 'required|string|max:255',
-            'serial_number' => 'required|string|max:255',
-            'purchase_date' => 'required|date',
+            // Step 3: Product Information (Multiple Products)
+            'products' => 'required|array|min:1',
+            'products.*.product_name' => 'required|string|max:255',
+            'products.*.product_type' => 'required|string',
+            'products.*.brand_name' => 'required|string',
+            'products.*.model_number' => 'required|string|max:255',
+            'products.*.serial_number' => 'required|string|max:255',
+            'products.*.purchase_date' => 'required|date',
 
             // Step 4: AMC Plan Selection
             'plan_type' => 'required|in:Monthly,Annually',
@@ -250,22 +252,124 @@ class FrontendController extends Controller
                 $branch->save();
             }
 
-            // Create product details
-            $product = new \App\Models\AmcProduct();
-            $product->amc_service_id = $amcService->id;
-            $product->product_name = $request->product_name;
-            $product->product_type = $request->product_type;
-            $product->product_brand = $request->brand_name;
-            $product->model_no = $request->model_number;
-            $product->serial_no = $request->serial_number;
-            $product->purchase_date = $request->purchase_date;
-            $product->save();
+            // Create multiple product details
+            $products = $request->input('products', []);
+            foreach ($products as $productData) {
+                $product = new \App\Models\AmcProduct();
+                $product->amc_service_id = $amcService->id;
+                $product->product_name = $productData['product_name'];
+                $product->product_type = $productData['product_type'];
+                $product->product_brand = $productData['brand_name'];
+                $product->model_no = $productData['model_number'];
+                $product->serial_no = $productData['serial_number'];
+                $product->purchase_date = $productData['purchase_date'];
+                $product->save();
+            }
 
             return response()->json([
                 'success' => true,
                 'message' => 'AMC service request submitted successfully!',
                 'service_id' => $serviceId,
-                'data' => $amcService
+                'data' => $amcService,
+                'products_count' => count($products)
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong. Please try again.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function submitNonAmcRequest(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone' => 'required|string|digits:10',
+            'email' => 'required|email',
+            'pan_no' => 'required|string',
+            'customer_type' => 'required|string',
+
+            'products' => 'nullable|array|min:1',
+            'products.*.product_name' => 'nullable|string',
+            'products.*.product_type' => 'nullable|string',
+            'products.*.product_brand' => 'nullable|string',
+            'products.*.model_number' => 'nullable|string',
+            'products.*.serial_number' => 'nullable|string',
+            'products.*.purchase_date' => 'nullable|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failedqqqqq',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            // Create Non-AMC Service
+            $nonAmcService = new \App\Models\NonAmcService();
+
+            // Customer Personal Information
+            $nonAmcService->first_name = $request->first_name;
+            $nonAmcService->last_name = $request->last_name;
+            $nonAmcService->phone = $request->phone;
+            $nonAmcService->email = $request->email;
+            $nonAmcService->dob = $request->dob;
+            $nonAmcService->gender = $request->gender;
+            $nonAmcService->customer_type = $request->customer_type;
+
+            // Customer Address Information
+            $nonAmcService->address_line1 = $request->address_line1;
+            $nonAmcService->address_line2 = $request->address_line2;
+            $nonAmcService->city = $request->city;
+            $nonAmcService->state = $request->state;
+            $nonAmcService->country = $request->country;
+            $nonAmcService->pincode = $request->pincode;
+
+            // Company Information (for Business customers)
+            $nonAmcService->company_name = $request->company_name;
+            $nonAmcService->company_address = $request->company_address;
+            $nonAmcService->gst_no = $request->gst_no;
+            $nonAmcService->pan_no = $request->pan_no;
+
+            // Service Details
+            $nonAmcService->service_type = $request->service_type ?? 'Online';
+            $nonAmcService->priority_level = $request->priority_level;
+            $nonAmcService->additional_notes = $request->additional_notes;
+            $nonAmcService->total_amount = $request->total_amount ?? 0;
+
+            // Status and tracking
+            $nonAmcService->status = 'Pending';// Set created_by if user is logged in
+
+            $nonAmcService->save();
+
+            // Create multiple product details
+            $products = $request->input('products', []);
+            foreach ($products as $productData) {
+                $product = new \App\Models\NonAmcProduct();
+                $product->non_amc_service_id = $nonAmcService->id;
+                $product->product_name = $productData['product_name'];
+                $product->product_type = $productData['product_type'];
+                $product->product_brand = $productData['product_brand'];
+                $product->model_no = $productData['model_number'];
+                $product->serial_no = $productData['serial_number'];
+                $product->purchase_date = $productData['purchase_date'];
+                $product->issue_type = $productData['issue_type'] ?? null;
+                $product->issue_description = $productData['issue_description'] ?? null;
+                $product->warranty_status = $productData['warranty_status'] ?? 'Unknown';
+                $product->save();
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Non-AMC service request submitted successfully!',
+                'data' => $nonAmcService,
+                'products_count' => count($products)
             ]);
 
         } catch (\Exception $e) {

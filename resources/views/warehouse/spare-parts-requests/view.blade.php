@@ -52,6 +52,15 @@
 
                                 <li
                                     class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                    <span class="fw-semibold text-break">Assigned Delivery Man:
+                                    </span>
+                                    <span>
+                                        {{ $sparePartRequest->deliveryMan->first_name }} {{ $sparePartRequest->deliveryMan->last_name }}
+                                    </span>
+                                </li>
+
+                                <li
+                                    class="list-group-item border-0 d-flex align-items-center justify-content-between gap-3 flex-wrap">
                                     <span class="fw-semibold text-break">Status:
                                     </span>
                                     <span>
@@ -205,6 +214,12 @@
                             <form action="{{ route('spare-parts.assign-delivery-man', $sparePartRequest->id) }}"
                                 method="POST">
                                 @csrf
+
+                                <div class="mb-3">
+                                    <label for="approval_status" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ $sparePartRequest->quantity }}" required>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="delivery_man_id" class="form-label">Select Delivery Man</label>
                                     <select class="form-select @error('delivery_man_id') is-invalid @enderror"
@@ -230,34 +245,29 @@
                                     </div>
                                 @endif
 
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="mdi mdi-check-circle me-2"></i>Assign Delivery Man
-                                </button>
+                                <div class="mt-3">
+                                    <label for="approval_status" class="form-label">Status</label>
+                                    <select class="form-select @error('approval_status') is-invalid @enderror"
+                                        name="approval_status" id="approval_status">
+                                        <option value="Pending" {{ $sparePartRequest->approval_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="Approved" {{ $sparePartRequest->approval_status == 'Approved' ? 'selected' : '' }}>Approved</option>
+                                        <option value="Rejected" {{ $sparePartRequest->approval_status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 mt-3">
+                                    <i class="mdi mdi-check-circle me-2"></i>Update
+                                </button>   
                             </form>
                         </div>
+
                     </div>
+ 
                 </div>
             </div>
 
         </div>
     </div> <!-- content -->
 
-    <script>
-        $(document).ready(function() {
-            $(".delivery-form").hide();
 
-            $("#approve-request").on('click', function() {
-                $(this).parent().hide();
-                $(".request-status").html("Approved");
-                $(".request-status").removeClass("bg-danger-subtle text-danger");
-                $(".request-status").addClass("bg-success-subtle text-success");
-                $(".delivery-form").show();
-            });
-
-            $("#reject-request").on('click', function() {
-                $(this).parent().hide();
-                $(".request-status").html("Rejected");
-            });
-        });
-    </script>
 @endsection

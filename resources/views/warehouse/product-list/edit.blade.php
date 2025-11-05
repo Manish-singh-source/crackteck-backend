@@ -369,6 +369,17 @@
                                                     ])
                                                 </div>
                                             </div>
+                                            <div class="col-6 mb-2">
+                                                <div>
+                                                    @include('components.form.input', [
+                                                        'label' => 'Final Price',
+                                                        'name' => 'final_price',
+                                                        'type' => 'number',
+                                                        'placeholder' => 'Enter Final Price',
+                                                        'model' => $product,
+                                                    ])
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

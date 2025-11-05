@@ -47,15 +47,19 @@ class SparePartController extends Controller
     public function assignDeliveryMan(Request $request, $id)
     {
         $request->validate([
+            'quantity' => 'required|integer|min:1',
             'delivery_man_id' => 'required|exists:delivery_men,id',
+            'approval_status' => 'required|in:Pending,Approved,Rejected',
         ]);
 
         $sparePartRequest = SparePartRequest::findOrFail($id);
         $sparePartRequest->update([
+            'quantity' => $request->quantity,
             'delivery_man_id' => $request->delivery_man_id,
+            'approval_status' => $request->approval_status,
         ]);
 
-        return redirect()->route('spare-parts.view', $id)
+        return redirect()->route('spare-parts.index', $id)
             ->with('success', 'Delivery man assigned successfully.');
     }
 }
