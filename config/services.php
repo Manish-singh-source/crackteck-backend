@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'fast2sms' => [
+        'api_key' => env('FAST2SMS_API_KEY'),
+        'sender_id' => env('FAST2SMS_SENDER_ID'),
+        'template_id' => env('FAST2SMS_TEMPLATE_ID'),
+        'entity_id' => env('FAST2SMS_ENTITY_ID'),
+    ],
+
+
 ];

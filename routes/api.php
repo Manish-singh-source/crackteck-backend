@@ -92,6 +92,20 @@ Route::prefix('ui')->middleware(['auth:sanctum', 'role:admin'])->group(function 
     Route::post('/clear-cache', [SDUIController::class, 'clearCache']);
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::post('/send-otp', [ApiAuthController::class, 'login']);
 Route::post('/verify-otp', [ApiAuthController::class, 'verifyOtp']);
 
@@ -122,6 +136,7 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::put('/quotation/{id}', 'update');
         Route::delete('/quotation/{id}', 'destroy');
     });
+    
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index');
         Route::put('/profile', 'update');

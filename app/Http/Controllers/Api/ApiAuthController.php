@@ -15,9 +15,16 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
+use App\Services\Fast2smsService;
 
 class ApiAuthController extends Controller
 {
+    protected $fast2sms;
+    public function __construct(Fast2smsService $fast2sms)
+    {
+        $this->fast2sms = $fast2sms;
+    }
+
 
     protected function getModelByRoleId($roleId)
     {
@@ -101,6 +108,9 @@ class ApiAuthController extends Controller
             $user->otp = $otp;
             $user->otp_expiry = now()->addMinutes(5);
             $user->save();
+
+            // Store OTP with phone in cache/session with 5 min expiration
+            // cache()->put('otp_' . $request->phone_number, $otp, now()->addMinutes(5));
 
             // Send OTP via Fast2SMS DLT
             // Replace YOUR_OTP_TEMPLATE with your actual DLT approved template message
