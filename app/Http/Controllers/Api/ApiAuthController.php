@@ -35,7 +35,7 @@ class ApiAuthController extends Controller
         ][$roleId] ?? null;
     }
 
-    public function sendDltSms($phoneNumbers, $templateId, $entityId, $variablesValues)
+    public function sendDltSms($phoneNumbers, $templateId, $variablesValues)
     {
         $apiKey = env('FAST2SMS_API_KEY');
         $senderId = env('FAST2SMS_SENDER_ID');
@@ -43,8 +43,8 @@ class ApiAuthController extends Controller
         $payload = [
             'route' => 'dlt',
             'sender_id' => $senderId,
-            'message' => $templateId,
-            'variables_values' => $variablesValues,
+            'message' => $templateId, // Template ID (numeric)
+            'variables_values' => $variablesValues, // OTP value
             'flash' => 0,
             'numbers' => is_array($phoneNumbers) ? implode(',', $phoneNumbers) : $phoneNumbers
         ];
@@ -113,15 +113,16 @@ class ApiAuthController extends Controller
             // cache()->put('otp_' . $request->phone_number, $otp, now()->addMinutes(5));
 
             // Send OTP via Fast2SMS DLT
-            // Replace YOUR_OTP_TEMPLATE with your actual DLT approved template message
-            // Example: "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK"
-            $templateMessage = "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK";
+            // Template ID from .env (191040) - DLT approved template
+            // Template message: "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK"
+            $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
+
+            // https://www.fast2sms.com/dev/bulkV2?authorization=gpSmohdctVF0Xh6zoYw6Ovi5mCufhKeXwA9BFiwWjWtkm6nRdlNXJ9JeFURv&route=dlt&sender_id=CRCTK&message=191040&variables_values=1234&flash=0&numbers=9876543210
 
             $success = $this->sendDltSms(
-                $user->phone,
-                $templateMessage,
-                env('FAST2SMS_DLT_ENTITY_ID'), // Your DLT Entity ID
-                $otp // OTP value to replace {#var#}
+                $user->phone,           // Phone number
+                $templateId,            // Template ID (191040)
+                $otp                    // OTP value to replace {#var#}
             );
 
             if ($success) {

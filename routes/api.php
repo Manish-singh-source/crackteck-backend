@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\MeetController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\ApiAuthController;
@@ -119,9 +120,9 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::get('/leads', 'index');
         Route::post('/leads', 'store');
         Route::get('/leads/{id}', 'show');
-        Route::put('/leads/{id}', 'update');    
+        Route::put('/leads/{id}', 'update');
         Route::delete('/leads/{id}', 'destroy');
-    }); 
+    });
 
     Route::controller(FollowUpController::class)->group(function () {
         Route::get('/follow-up', 'index');
@@ -131,6 +132,14 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::delete('/follow-up/{id}', 'destroy');
     });
 
+    Route::controller(MeetController::class)->group(function () {
+        Route::get('/meets', 'index');
+        Route::post('/meets', 'store');
+        Route::get('/meets/{id}', 'show');
+        Route::put('/meets/{id}', 'update');
+        Route::delete('/meets/{id}', 'destroy');
+    });
+
     Route::controller(QuotationController::class)->group(function () {
         Route::get('/quotation', 'index');
         Route::post('/quotation', 'store');
@@ -138,7 +147,7 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::put('/quotation/{id}', 'update');
         Route::delete('/quotation/{id}', 'destroy');
     });
-    
+
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index');
         Route::put('/profile', 'update');
@@ -153,7 +162,4 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::controller(TaskController::class)->group(function () {
         Route::get('/task', 'index');
     });
-    
-    
-
 });
