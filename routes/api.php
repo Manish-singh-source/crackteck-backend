@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SDUIController;
+use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\ApiAuthController;
-use App\Http\Controllers\Api\FollowUpController;
-use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\FollowUpController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\AttendanceController;
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
@@ -145,6 +147,13 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::get('/attendance', 'index');
         Route::post('/attendance', 'store');
     });
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index');
+    });
+    Route::controller(TaskController::class)->group(function () {
+        Route::get('/task', 'index');
+    });
+    
     
 
 });
