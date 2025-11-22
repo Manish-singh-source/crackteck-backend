@@ -7,7 +7,9 @@ use App\Models\EcommerceProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -283,5 +285,103 @@ class CartController extends Controller
         return response()->json([
             'in_cart' => $inCart
         ]);
+    }
+
+    /**
+     * Toggle product in cart (add if not exists, remove if exists).
+     */
+    public function toggleCart(Request $request): JsonResponse
+    {
+        // Check authentication
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please login to manage your cart.',
+                'requires_auth' => true
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'ecommerce_product_id' => 'required|exists:ecommerce_products,id',
+            'quantity' => 'nullable|integer|min:1|max:100'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $productId = $request->ecommerce_product_id;
+            $quantity = $request->quantity ?? 1;
+            $userId = Auth::id();
+
+            // Check if product exists and is active
+            $product = EcommerceProduct::with('warehouseProduct')
+                ->where('id', $productId)
+                ->where('ecommerce_status', 'active')
+                ->first();
+
+            if (!$product) {
+                DB::rollBack();
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found or not available.'
+                ], 404);
+            }
+
+            // Check if product is already in cart
+            $existingCartItem = Cart::getCartItem($userId, $productId);
+
+            if ($existingCartItem) {
+                // Remove from cart
+                $existingCartItem->delete();
+                DB::commit();
+
+                activity()
+                    ->performedOn($existingCartItem)
+                    ->causedBy(Auth::user())
+                    ->log('Removed product from cart');
+
+                return response()->json([
+                    'success' => true,
+                    'action' => 'removed',
+                    'message' => 'Product removed from cart.',
+                    'cart_count' => Cart::getCartCount($userId),
+                    'cart_total' => Cart::getCartTotal($userId)
+                ]);
+            } else {
+                // Add to cart
+                $cartItem = Cart::create([
+                    'user_id' => $userId,
+                    'ecommerce_product_id' => $productId,
+                    'quantity' => $quantity
+                ]);
+                DB::commit();
+
+                activity()
+                    ->performedOn($cartItem)
+                    ->causedBy(Auth::user())
+                    ->log('Added product to cart');
+
+                return response()->json([
+                    'success' => true,
+                    'action' => 'added',
+                    'message' => 'Product added to cart successfully.',
+                    'cart_count' => Cart::getCartCount($userId),
+                    'cart_total' => Cart::getCartTotal($userId)
+                ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error toggling cart: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

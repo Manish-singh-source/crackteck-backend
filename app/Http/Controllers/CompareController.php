@@ -33,7 +33,7 @@ class CompareController extends Controller
     }
 
     /**
-     * Add product to compare list
+     * Toggle product in compare list (add if not exists, remove if exists)
      */
     public function addToCompare(Request $request): JsonResponse
     {
@@ -44,19 +44,24 @@ class CompareController extends Controller
         $productId = $request->ecommerce_product_id;
         $compareProducts = session('compare_products', []);
 
-        // Check if product already exists
+        // Check if product already exists - if yes, remove it (toggle behavior)
         if (array_key_exists($productId, $compareProducts)) {
+            unset($compareProducts[$productId]);
+            session(['compare_products' => $compareProducts]);
+
             return response()->json([
-                'success' => false,
-                'message' => 'Product is already in compare list.'
-            ], 400);
+                'success' => true,
+                'action' => 'removed',
+                'message' => 'Product removed from compare list.',
+                'compare_count' => count($compareProducts)
+            ]);
         }
 
         // Check maximum limit (3 products)
         if (count($compareProducts) >= 3) {
             return response()->json([
                 'success' => false,
-                'message' => 'You can compare only up to 3 products.'
+                'message' => 'You can compare only up to 3 products. Please remove one first.'
             ], 400);
         }
 
@@ -66,6 +71,7 @@ class CompareController extends Controller
 
         return response()->json([
             'success' => true,
+            'action' => 'added',
             'message' => 'Product added to Compare Section',
             'compare_count' => count($compareProducts)
         ]);

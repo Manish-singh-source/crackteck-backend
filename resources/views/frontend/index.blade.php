@@ -243,7 +243,7 @@
                                                             class="box-icon btn-icon-action hover-tooltip tooltip-left add-to-wishlist-btn"
                                                             data-product-id="{{ $dealItem->ecommerceProduct->id }}"
                                                             data-product-name="{{ $dealItem->ecommerceProduct->warehouseProduct->product_name ?? 'Product' }}">
-                                                            <span class="icon icon-heart2"></span>
+                                                            <span><i class="fa-solid fa-heart"></i></span>
                                                             <span class="tooltip">Add to Wishlist</span>
                                                         </a>
                                                     </li>
@@ -257,9 +257,10 @@
                                                         </a>
                                                     </li>
                                                     <li class="d-none d-sm-block">
-                                                        <a href="#;" id="compare"
+                                                        <a href="#;"
                                                             class="box-icon btn-icon-action hover-tooltip tooltip-left compare-btn"
-                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}">
+                                                            data-product-id="{{ $dealItem->ecommerceProduct->id }}"
+                                                            data-product-name="{{ $dealItem->ecommerceProduct->warehouseProduct->product_name ?? 'Product' }}">
                                                             <span class="icon icon-compare1"></span>
                                                             <span class="tooltip">Compare</span>
                                                         </a>
@@ -3371,75 +3372,7 @@
                                             $('.add-to-cart-btn, .add-to-cart').data('product-id', response.data.id);
                                         @endforeach
 
-                                        // Add to Cart functionality
-                                        $('.add-to-cart-btn, .add-to-cart').on('click', function(e) {
-                                                e.preventDefault();
-
-                                                const $button = $(this);
-                                                const productId = $button.data('product-id');
-                                                const quantity = $('.quantity-input').val() || 1;
-
-                                                // Check if user is authenticated
-                                                @guest
-                                                // Show login modal for unauthenticated users
-                                                showLoginModal();
-                                                return;
-                                            @endguest
-
-                                            // Show loading state
-                                            const originalText = $button.html(); $button.html(
-                                                '<i class="spinner-border spinner-border-sm me-2"></i>Adding...'
-                                                ); $button.prop('disabled', true);
-
-                                            // Make AJAX request
-                                            $.ajax({
-                                                url: '{{ route("cart.add") }}',
-                                                method: 'POST',
-                                                data: {
-                                                    ecommerce_product_id: productId,
-                                                    quantity: quantity
-                                                },
-                                                success: function(response) {
-                                                    if (response.success) {
-                                                        showNotification(response.message,
-                                                            'success');
-
-                                                        // Update button state
-                                                        $button.html(
-                                                            'Added to Cart <i class="icon-cart-2"></i>'
-                                                            );
-                                                        $button.addClass('in-cart');
-
-                                                        // Update cart count and sidebar
-                                                        updateCartCount();
-                                                        updateCartSidebar();
-                                                    } else {
-                                                        showNotification(response.message,
-                                                            'error');
-                                                        // Reset button state
-                                                        $button.html(originalText);
-                                                    }
-                                                },
-                                                error: function(xhr) {
-                                                    if (xhr.status === 401 && xhr
-                                                        .responseJSON && xhr.responseJSON
-                                                        .requires_auth) {
-                                                        showLoginModal();
-                                                    } else {
-                                                        console.log(productId)
-                                                        console.log(xhr.responseJSON);
-                                                        showNotification(
-                                                            'Error adding product to cart. Please try again.',
-                                                            'error');
-                                                        // Reset button state
-                                                        $button.html(originalText);
-                                                    }
-                                                },
-                                                complete: function() {
-                                                    $button.prop('disabled', false);
-                                                }
-                                            });
-                                        });
+                                        // Note: Add to Cart, Wishlist, and Compare functionality is handled by product-actions.js
                                 }
                             },
                             error: function(e) {
@@ -3449,75 +3382,7 @@
                         });
                 });
 
-            // Add to Wishlist functionality
-            $('.add-to-wishlist-btn').on('click', function(e) {
-                    e.preventDefault();
-
-                    const $button = $(this);
-                    const productId = $button.data('product-id');
-                    const productName = $button.data('product-name');
-
-                    // Check if user is authenticated (you can customize this check)
-                    @guest
-                    // Show login message for unauthenticated users
-                    showNotification('Please login to add products to your wishlist.', 'warning');
-                    return;
-                @endguest
-
-                // Show loading state
-                const originalIcon = $button.find('.icon').attr('class');
-                const originalTooltip = $button.find('.tooltip').text();
-
-                $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
-                    'Adding...'); $button.prop('disabled', true);
-
-                // Make AJAX request
-                $.ajax({
-                    url: '{{ route('wishlist.add') }}',
-                    method: 'POST',
-                    data: {
-                        ecommerce_product_id: productId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            showNotification(response.message, 'success');
-
-                            // Update button state to show it's in wishlist
-                            $button.find('.icon').attr('class', 'icon icon-heart-fill');
-                            $button.find('.tooltip').text('In Wishlist');
-                            $button.addClass('in-wishlist');
-
-                            // Update wishlist count if there's a counter
-                            updateWishlistCount();
-                        } else {
-                            showNotification(response.message, 'error');
-                            // Reset button state
-                            $button.find('.icon').attr('class', originalIcon);
-                            $button.find('.tooltip').text(originalTooltip);
-                        }
-                    },
-                    error: function(xhr) {
-                        let message = 'An error occurred while adding the product to your wishlist.';
-
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            message = xhr.responseJSON.message;
-                        } else if (xhr.status === 401) {
-                            message = 'Please login to add products to your wishlist.';
-                        } else if (xhr.status === 409) {
-                            message = 'This product is already in your wishlist.';
-                        }
-
-                        showNotification(message, 'error');
-
-                        // Reset button state
-                        $button.find('.icon').attr('class', originalIcon);
-                        $button.find('.tooltip').text(originalTooltip);
-                    },
-                    complete: function() {
-                        $button.prop('disabled', false);
-                    }
-                });
-            });
+            // Note: Add to Wishlist functionality is handled by product-actions.js
 
         // Function to show notifications
         function showNotification(message, type) {
@@ -3558,67 +3423,8 @@
             });
         }
 
+        // Note: Cart, Wishlist, and Compare functionality is handled by product-actions.js
         // Wishlist count function is now global in master layout
-
-        // Add to Cart functionality
-        $('.add-to-cart-btn').on('click', function(e) {
-            e.preventDefault();
-
-            const $button = $(this);
-            const productId = $button.data('product-id');
-            const productName = $button.data('product-name');
-
-            // Check if user is authenticated
-            @guest
-            // Show login modal for unauthenticated users
-            showLoginModal();
-            return;
-        @endguest
-
-        // Show loading state
-        const originalText = $button.find('span').text(); $button.find('span').text('Adding...'); $button.prop(
-            'disabled', true);
-
-        // Make AJAX request
-        $.ajax({
-            url: '{{ route('cart.add') }}',
-            method: 'POST',
-            data: {
-                ecommerce_product_id: productId,
-                quantity: 1
-            },
-            success: function(response) {
-                if (response.success) {
-                    showNotification(response.message, 'success');
-
-                    // Update button state
-                    $button.find('span').text('Added to Cart');
-                    $button.addClass('in-cart');
-
-                    // Update cart count and sidebar
-                    updateCartCount();
-                    updateCartSidebar();
-                } else {
-                    showNotification(response.message, 'error');
-                    // Reset button state
-                    $button.find('span').text(originalText);
-                }
-            },
-            error: function(xhr) {
-                if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
-                    showLoginModal();
-                } else {
-                    showNotification('Error adding product to cart. Please try again.', 'error');
-                    // Reset button state
-                    $button.find('span').text(originalText);
-                }
-            },
-            complete: function() {
-                $button.prop('disabled', false);
-            }
-        });
-        });
-
         // Cart count function is now global in master layout
 
         // Function to update cart sidebar

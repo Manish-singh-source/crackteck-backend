@@ -75,6 +75,32 @@
             width: 3rem;
             height: 3rem;
         }
+
+        /* Active state styles for cart, wishlist, and compare buttons */
+        .box-icon.in-cart .icon-cart2,
+        .add-to-cart-btn.in-cart .icon-cart-2 {
+            color: #ff0080 !important;
+        }
+
+        .box-icon.in-wishlist .icon-heart2 {
+            color: #FF3D3D !important;
+            fill: #FF3D3D !important;
+        }
+
+        .box-icon.in-compare .icon-compare1 {
+            color: #004EC3 !important;
+        }
+
+        /* Button active states */
+        .tf-btn.in-cart {
+            background-color: #28a745 !important;
+            border-color: #28a745 !important;
+            color: white !important;
+        }
+
+        .tf-btn.in-cart:hover {
+            background-color: #218838 !important;
+        }
     </style>
 @endpush
 
@@ -104,7 +130,8 @@
     <div class="flat-content mb-5">
         <div class="container">
             <div class="tf-product-view-content wrapper-control-shop">
-                <div class="canvas-filter-product sidebar-filter handle-canvas left" style="border: 1px solid #e9e9e9; padding: 20px;">
+                <div class="canvas-filter-product sidebar-filter handle-canvas left"
+                    style="border: 1px solid #e9e9e9; padding: 20px;">
                     <div class="canvas-wrapper">
                         <div class="canvas-header d-flex d-xl-none">
                             <h5 class="title">Filter</h5>
@@ -134,7 +161,8 @@
                                         <fieldset class="fieldset-item">
                                             <input type="checkbox" name="category" class="tf-check category-filter"
                                                 id="category-{{ $category->id }}" value="{{ $category->id }}">
-                                            <label for="category-{{ $category->id }}">{{ $category->parent_categories }}</label>
+                                            <label
+                                                for="category-{{ $category->id }}">{{ $category->parent_categories }}</label>
                                         </fieldset>
                                     @empty
                                         <p class="text-muted">No categories available</p>
@@ -341,7 +369,7 @@
                                                     class="box-icon btn-icon-action hover-tooltip tooltip-left add-to-wishlist-btn"
                                                     data-product-id="{{ $product->id }}"
                                                     data-product-name="{{ $product->warehouseProduct->product_name ?? 'Product' }}">
-                                                    <span class="icon icon-heart2"></span>
+                                                    <span><i class="fa-solid fa-heart"></i></span>
                                                     <span class="tooltip">Add to Wishlist</span>
                                                 </a>
                                             </li>
@@ -657,371 +685,162 @@
 @section('script')
     <script>
         $(document).ready(function() {
-                // CSRF token setup for AJAX requests
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            // CSRF token setup for AJAX requests
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-                // Quick view functionality
-                $('.quickview').on('click', function(e) {
-                        e.preventDefault();
-
-                        const productId = $(this).data('product-id');
-                        console.log(productId);
-
-                        // Make AJAX request to fetch product details
-                        $.ajax({
-                                url: '{{ route('product.get') }}',
-                                method: 'GET',
-                                data: {
-                                    id: productId
-                                },
-                                success: function(response) {
-                                    console.log(response);
-                                    if (response.success) {
-                                        // Populate quick view modal with product details
-                                        // ... (your code to populate the modal goes here)
-                                        @foreach ($products as $product)
-                                            $('#quickView').modal('show');
-
-                                            $('.model_product_name').html(
-                                                '<a href="/product-detail/' + response.data.id +
-                                                '" class="product-link">' +
-                                                response.data.product_name +
-                                                '</a>'
-                                            );
-
-                                            $('.model_product_selling_price').text('₹' + response.data
-                                                .selling_price);
-                                            $('.model_product_cost_price').text('₹' + response.data
-                                                .cost_price);
-                                            // $('.model_product_main_images').html(response.data
-                                            //     .main_product_image);
-                                            // $('.model_product_thumbs_images').html(response.data
-                                            //     .additional_product_images);
-                                            $('.model_main_product_image').attr('src', '/' + response.data
-                                                .main_product_image);
-                                            $('.model_additional_product_image').attr('src', '/' + response
-                                                .data
-                                                .additional_product_images);
-                                            $('.model_product_brand').text(response.data.brand.brand_title);
-                                            $('.model_product_model_no').text(response.data.model_no);
-                                            $('.model_product_sku').text(response.data.sku);
-                                            $('.model_product_short_description').html(response.data
-                                                .short_description);
-                                            $('.model_product_full_description').html(response.data
-                                                .full_description);
-                                            $('.model_product_technical_specification').html(response.data
-                                                .technical_specification);
-                                            $('model_product_quantity-product').val(response.data
-                                                .min_order_qty);
-                                            $('.add-to-cart-btn, .add-to-cart').data('product-id', response
-                                                .data.id);
-                                        @endforeach
-
-                                        // Add to Cart functionality
-                                        $('.add-to-cart-btn, .add-to-cart').on('click', function(e) {
-                                                e.preventDefault();
-
-                                                const $button = $(this);
-                                                const productId = $button.data('product-id');
-                                                const quantity = $('.quantity-input').val() || 1;
-
-                                                // Check if user is authenticated
-                                                @guest
-                                                // Show login modal for unauthenticated users
-                                                showLoginModal();
-                                                return;
-                                            @endguest
-
-                                            // Show loading state
-                                            const originalText = $button.html(); $button.html(
-                                                '<i class="spinner-border spinner-border-sm me-2"></i>Adding...'
-                                            ); $button.prop('disabled', true);
-
-                                            // Make AJAX request
-                                            $.ajax({
-                                                url: '{{ route('cart.add') }}',
-                                                method: 'POST',
-                                                data: {
-                                                    ecommerce_product_id: productId,
-                                                    quantity: quantity
-                                                },
-                                                success: function(response) {
-                                                    if (response.success) {
-                                                        showNotification(response.message,
-                                                            'success');
-
-                                                        // Update button state
-                                                        $button.html(
-                                                            'Added to Cart <i class="icon-cart-2"></i>'
-                                                        );
-                                                        $button.addClass('in-cart');
-
-                                                        // Update cart count and sidebar
-                                                        updateCartCount();
-                                                        updateCartSidebar();
-                                                    } else {
-                                                        showNotification(response.message,
-                                                            'error');
-                                                        // Reset button state
-                                                        $button.html(originalText);
-                                                    }
-                                                },
-                                                error: function(xhr) {
-                                                    if (xhr.status === 401 && xhr
-                                                        .responseJSON && xhr.responseJSON
-                                                        .requires_auth) {
-                                                        showLoginModal();
-                                                    } else {
-                                                        console.log(productId)
-                                                        console.log(xhr.responseJSON);
-                                                        showNotification(
-                                                            'Error adding product to cart. Please try again.',
-                                                            'error');
-                                                        // Reset button state
-                                                        $button.html(originalText);
-                                                    }
-                                                },
-                                                complete: function() {
-                                                    $button.prop('disabled', false);
-                                                }
-                                            });
-                                        });
-                                }
-                            },
-                            error: function(e) {
-                                console.log(e.responseText);
-                                console.log('Error fetching product details');
-                            }
-                        });
-                });
-
-            // Add to Wishlist functionality
-            $('.add-to-wishlist-btn').on('click', function(e) {
+            // Quick view functionality
+            $('.quickview').on('click', function(e) {
                     e.preventDefault();
 
-                    const $button = $(this);
-                    const productId = $button.data('product-id');
-                    const productName = $button.data('product-name');
+                    const productId = $(this).data('product-id');
+                    console.log(productId);
 
-                    // Check if user is authenticated (you can customize this check)
-                    @guest
-                    // Show login message for unauthenticated users
-                    showNotification('Please login to add products to your wishlist.', 'warning');
-                    return;
-                @endguest
+                    // Make AJAX request to fetch product details
+                    $.ajax({
+                            url: '{{ route('product.get') }}',
+                            method: 'GET',
+                            data: {
+                                id: productId
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                if (response.success) {
+                                    // Populate quick view modal with product details
+                                    // ... (your code to populate the modal goes here)
+                                    @foreach ($products as $product)
+                                        $('#quickView').modal('show');
 
-                // Show loading state
-                const originalIcon = $button.find('.icon').attr('class');
-                const originalTooltip = $button.find('.tooltip').text();
+                                        $('.model_product_name').html(
+                                            '<a href="/product-detail/' + response.data.id +
+                                            '" class="product-link">' +
+                                            response.data.product_name +
+                                            '</a>'
+                                        );
 
-                $button.find('.icon').attr('class', 'icon icon-loading'); $button.find('.tooltip').text(
-                    'Adding...'); $button.prop('disabled', true);
+                                        $('.model_product_selling_price').text('₹' + response.data
+                                            .selling_price);
+                                        $('.model_product_cost_price').text('₹' + response.data
+                                            .cost_price);
+                                        // $('.model_product_main_images').html(response.data
+                                        //     .main_product_image);
+                                        // $('.model_product_thumbs_images').html(response.data
+                                        //     .additional_product_images);
+                                        $('.model_main_product_image').attr('src', '/' + response.data
+                                            .main_product_image);
+                                        $('.model_additional_product_image').attr('src', '/' + response
+                                            .data
+                                            .additional_product_images);
+                                        $('.model_product_brand').text(response.data.brand.brand_title);
+                                        $('.model_product_model_no').text(response.data.model_no);
+                                        $('.model_product_sku').text(response.data.sku);
+                                        $('.model_product_short_description').html(response.data
+                                            .short_description);
+                                        $('.model_product_full_description').html(response.data
+                                            .full_description);
+                                        $('.model_product_technical_specification').html(response.data
+                                            .technical_specification);
+                                        $('model_product_quantity-product').val(response.data
+                                            .min_order_qty);
+                                        $('.add-to-cart-btn, .add-to-cart').data('product-id', response
+                                            .data.id);
+                                    @endforeach
 
-                // Make AJAX request
-                $.ajax({
-                    url: '{{ route('wishlist.add') }}',
-                    method: 'POST',
-                    data: {
-                        ecommerce_product_id: productId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            showNotification(response.message, 'success');
+                                    // Add to Cart functionality
+                                    $('.add-to-cart-btn, .add-to-cart').on('click', function(e) {
+                                            e.preventDefault();
 
-                            // Update button state to show it's in wishlist
-                            $button.find('.icon').attr('class', 'icon icon-heart-fill');
-                            $button.find('.tooltip').text('In Wishlist');
-                            $button.addClass('in-wishlist');
+                                            const $button = $(this);
+                                            const productId = $button.data('product-id');
+                                            const quantity = $('.quantity-input').val() || 1;
 
-                            // Update wishlist count if there's a counter
-                            updateWishlistCount();
-                        } else {
-                            showNotification(response.message, 'error');
-                            // Reset button state
-                            $button.find('.icon').attr('class', originalIcon);
-                            $button.find('.tooltip').text(originalTooltip);
+                                            // Check if user is authenticated
+                                            @guest
+                                            // Show login modal for unauthenticated users
+                                            showLoginModal();
+                                            return;
+                                        @endguest
+
+                                        // Show loading state
+                                        const originalText = $button.html(); $button.html(
+                                            '<i class="spinner-border spinner-border-sm me-2"></i>Adding...'
+                                        ); $button.prop('disabled', true);
+
+                                        // Make AJAX request
+                                        $.ajax({
+                                            url: '{{ route('cart.add') }}',
+                                            method: 'POST',
+                                            data: {
+                                                ecommerce_product_id: productId,
+                                                quantity: quantity
+                                            },
+                                            success: function(response) {
+                                                if (response.success) {
+                                                    showNotification(response.message,
+                                                        'success');
+
+                                                    // Update button state
+                                                    $button.html(
+                                                        'Added to Cart <i class="icon-cart-2"></i>'
+                                                    );
+                                                    $button.addClass('in-cart');
+
+                                                    // Update cart count and sidebar
+                                                    updateCartCount();
+                                                    updateCartSidebar();
+                                                } else {
+                                                    showNotification(response.message,
+                                                        'error');
+                                                    // Reset button state
+                                                    $button.html(originalText);
+                                                }
+                                            },
+                                            error: function(xhr) {
+                                                if (xhr.status === 401 && xhr
+                                                    .responseJSON && xhr.responseJSON
+                                                    .requires_auth) {
+                                                    showLoginModal();
+                                                } else {
+                                                    console.log(productId)
+                                                    console.log(xhr.responseJSON);
+                                                    showNotification(
+                                                        'Error adding product to cart. Please try again.',
+                                                        'error');
+                                                    // Reset button state
+                                                    $button.html(originalText);
+                                                }
+                                            },
+                                            complete: function() {
+                                                $button.prop('disabled', false);
+                                            }
+                                        });
+                                    });
+                            }
+                        },
+                        error: function(e) {
+                            console.log(e.responseText);
+                            console.log('Error fetching product details');
                         }
-                    },
-                    error: function(xhr) {
-                        let message = 'An error occurred while adding the product to your wishlist.';
-
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            message = xhr.responseJSON.message;
-                        } else if (xhr.status === 401) {
-                            message = 'Please login to add products to your wishlist.';
-                        } else if (xhr.status === 409) {
-                            message = 'This product is already in your wishlist.';
-                        }
-
-                        showNotification(message, 'error');
-
-                        // Reset button state
-                        $button.find('.icon').attr('class', originalIcon);
-                        $button.find('.tooltip').text(originalTooltip);
-                    },
-                    complete: function() {
-                        $button.prop('disabled', false);
-                    }
-                });
+                    });
             });
 
-        // Function to show notifications
-        function showNotification(message, type) {
-            // Create notification element
-            const notification = $(`
-            <div class="notification notification-${type}" style="
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
-                color: white;
-                padding: 15px 20px;
-                border-radius: 5px;
-                z-index: 9999;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                max-width: 300px;
-                word-wrap: break-word;
-            ">
-                ${message}
-            </div>
-        `);
+        // Wishlist handler is now in product-actions.js
 
-            // Add to body
-            $('body').append(notification);
+        // Compare handler is now in product-actions.js
 
-            // Auto remove after 5 seconds
-            setTimeout(function() {
-                notification.fadeOut(300, function() {
-                    $(this).remove();
-                });
-            }, 5000);
-
-            // Allow manual close on click
-            notification.on('click', function() {
-                $(this).fadeOut(300, function() {
-                    $(this).remove();
-                });
-            });
-        }
-
+        // showNotification function is now global in master layout
         // Wishlist count function is now global in master layout
 
-        // Add to Cart functionality
-        $('.add-to-cart-btn').on('click', function(e) {
-            e.preventDefault();
-
-            const $button = $(this);
-            const productId = $button.data('product-id');
-            const productName = $button.data('product-name');
-
-            // Check if user is authenticated
-            @guest
-            // Show login modal for unauthenticated users
-            showLoginModal();
-            return;
-        @endguest
-
-        // Show loading state
-        const originalText = $button.find('span').text(); $button.find('span').text('Adding...'); $button.prop(
-            'disabled', true);
-
-        // Make AJAX request
-        $.ajax({
-            url: '{{ route('cart.add') }}',
-            method: 'POST',
-            data: {
-                ecommerce_product_id: productId,
-                quantity: 1
-            },
-            success: function(response) {
-                if (response.success) {
-                    showNotification(response.message, 'success');
-
-                    // Update button state
-                    $button.find('span').text('Added to Cart');
-                    $button.addClass('in-cart');
-
-                    // Update cart count and sidebar
-                    updateCartCount();
-                    updateCartSidebar();
-                } else {
-                    showNotification(response.message, 'error');
-                    // Reset button state
-                    $button.find('span').text(originalText);
-                }
-            },
-            error: function(xhr) {
-                if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.requires_auth) {
-                    showLoginModal();
-                } else {
-                    showNotification('Error adding product to cart. Please try again.', 'error');
-                    // Reset button state
-                    $button.find('span').text(originalText);
-                }
-            },
-            complete: function() {
-                $button.prop('disabled', false);
-            }
-        });
-        });
-
+        // Cart handler is now in product-actions.js
         // Cart count function is now global in master layout
+        // updateCartSidebar function is now global in master layout
+        // showLoginModal function is now global in master layout
 
-        // Function to update cart sidebar
-        function updateCartSidebar() {
-            $.ajax({
-                url: '{{ route('cart.data') }}',
-                method: 'GET',
-                success: function(response) {
-                    if (response.success) {
-                        // Update cart sidebar content
-                        updateCartSidebarContent(response);
-                    }
-                },
-                error: function() {
-                    console.log('Error updating cart sidebar');
-                }
-            });
-        }
-
-        // Function to show login modal
-        function showLoginModal() {
-            // Create and show login modal
-            const modalHtml = `
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <p>Please login to add products to your cart.</p>
-                            <div class="d-flex gap-2 justify-content-center">
-                                <a href="{{ route('ecommerce.login') }}" class="btn btn-primary">Login</a>
-                                <a href="{{ route('ecommerce.signup') }}" class="btn btn-outline-primary">Sign Up</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-            // Remove existing modal if any
-            $('#loginModal').remove();
-
-            // Add modal to body and show
-            $('body').append(modalHtml);
-            $('#loginModal').modal('show');
-        }
-
-        // Initialize counts on page load
-        updateWishlistCount();
-        updateCartCount();
+        // Initialize counts on page load (handled by master layout)
+        // Button state initialization is now handled by product-actions.js
 
         // ============================================
         // SHOP FILTER FUNCTIONALITY
@@ -1247,11 +1066,11 @@
                             </li>
                         </ul>
                         ${discountPercent > 0 ? `
-                            <div class="box-sale-wrap pst-default">
-                                <p class="small-text">Sale</p>
-                                <p class="title-sidebar-2">${discountPercent}%</p>
-                            </div>
-                        ` : ''}
+                                <div class="box-sale-wrap pst-default">
+                                    <p class="small-text">Sale</p>
+                                    <p class="title-sidebar-2">${discountPercent}%</p>
+                                </div>
+                            ` : ''}
                     </div>
                     <div class="card-product-info">
                         <div class="box-title">
@@ -1270,8 +1089,8 @@
                             </p>
 
                             ${shortDescription ? `<div class="product-description">
-                                                            <p class="caption">${shortDescription}</p>
-                                                        </div>` : ''}
+                                                                <p class="caption">${shortDescription}</p>
+                                                            </div>` : ''}
                             <div class="box-infor-detail">
                                 <div class="star-review flex-wrap">
                                     <ul class="list-star">

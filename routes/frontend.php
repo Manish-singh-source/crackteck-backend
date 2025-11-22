@@ -91,12 +91,16 @@ Route::controller(WishlistController::class)->group(function () {
     // AJAX routes for wishlist operations (require authentication)
     Route::middleware('auth')->group(function () {
         Route::post('/wishlist/add', 'store')->name('wishlist.add');
+        Route::post('/wishlist/toggle', 'toggleWishlist')->name('wishlist.toggle');
         Route::delete('/wishlist/{id}', 'destroy')->name('wishlist.remove');
         Route::post('/wishlist/{id}/move-to-cart', 'moveToCart')->name('wishlist.move-to-cart');
     });
 
     // Wishlist count (can be accessed without auth, returns 0 for guests)
     Route::get('/wishlist/count', 'getWishlistCount')->name('wishlist.count');
+
+    // Check wishlist status
+    Route::post('/wishlist/check-status', 'checkWishlistStatus')->name('wishlist.check-status');
 });
 
 // Cart Routes
@@ -107,6 +111,7 @@ Route::controller(CartController::class)->group(function () {
     // AJAX routes for cart operations (require authentication)
     Route::middleware('auth')->group(function () {
         Route::post('/cart/add', 'store')->name('cart.add');
+        Route::post('/cart/toggle', 'toggleCart')->name('cart.toggle');
         Route::put('/cart/update/{id}', 'update')->name('cart.update');
         Route::delete('/cart/remove/{id}', 'destroy')->name('cart.remove');
         Route::get('/cart/data', 'getCartData')->name('cart.data');
