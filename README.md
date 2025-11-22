@@ -34,9 +34,12 @@ This generates a new key in the .env file that is used for encryption.
 php artisan migrate
 ```
 
-This command applies the database migrations and sets up the necessary database structure.
+## Step 5: Set JWT Token Secret:
+```
+php artisan jwt:secret
+```
 
-## Step 5: Serve the application:
+## Step 6: Serve the application:
 ```
 php artisan serve
 ```
