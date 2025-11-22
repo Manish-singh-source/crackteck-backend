@@ -7,8 +7,11 @@ use App\Models\EcommerceProduct;
 use App\Http\Requests\StoreWishlistRequest;
 use COM;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class WishlistController extends Controller
 {
@@ -183,6 +186,120 @@ class WishlistController extends Controller
         } catch (\Exception $e) {
             Log::error('Error getting wishlist count: ' . $e->getMessage());
             return response()->json(['count' => 0]);
+        }
+    }
+
+    /**
+     * Check if product is in user's wishlist.
+     */
+    public function checkWishlistStatus(Request $request): JsonResponse
+    {
+        if (!Auth::check()) {
+            return response()->json(['in_wishlist' => false]);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'ecommerce_product_id' => 'required|exists:ecommerce_products,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['in_wishlist' => false]);
+        }
+
+        $inWishlist = Wishlist::isInWishlist(Auth::id(), $request->ecommerce_product_id);
+
+        return response()->json(['in_wishlist' => $inWishlist]);
+    }
+
+    /**
+     * Toggle product in wishlist (add if not exists, remove if exists).
+     */
+    public function toggleWishlist(Request $request): JsonResponse
+    {
+        // Check authentication
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please login to manage your wishlist.',
+                'requires_auth' => true
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'ecommerce_product_id' => 'required|exists:ecommerce_products,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $userId = Auth::id();
+            $ecommerceProductId = $request->ecommerce_product_id;
+
+            // Check if the e-commerce product exists and is active
+            $ecommerceProduct = EcommerceProduct::active()->find($ecommerceProductId);
+            if (!$ecommerceProduct) {
+                DB::rollBack();
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found or is not available.'
+                ], 404);
+            }
+
+            // Check if product is already in wishlist
+            $existingWishlistItem = Wishlist::where('user_id', $userId)
+                ->where('ecommerce_product_id', $ecommerceProductId)
+                ->first();
+
+            if ($existingWishlistItem) {
+                // Remove from wishlist
+                $existingWishlistItem->delete();
+                DB::commit();
+
+                activity()
+                    ->performedOn($existingWishlistItem)
+                    ->causedBy(Auth::user())
+                    ->log('Removed product from wishlist');
+
+                return response()->json([
+                    'success' => true,
+                    'action' => 'removed',
+                    'message' => 'Product removed from wishlist.',
+                    'wishlist_count' => Wishlist::where('user_id', $userId)->count()
+                ]);
+            } else {
+                // Add to wishlist
+                $wishlistItem = Wishlist::create([
+                    'user_id' => $userId,
+                    'ecommerce_product_id' => $ecommerceProductId
+                ]);
+                DB::commit();
+
+                activity()
+                    ->performedOn($wishlistItem)
+                    ->causedBy(Auth::user())
+                    ->log('Added product to wishlist');
+
+                return response()->json([
+                    'success' => true,
+                    'action' => 'added',
+                    'message' => 'Product added to wishlist successfully!',
+                    'wishlist_item_id' => $wishlistItem->id,
+                    'wishlist_count' => Wishlist::where('user_id', $userId)->count()
+                ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error toggling wishlist: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
         }
     }
 }

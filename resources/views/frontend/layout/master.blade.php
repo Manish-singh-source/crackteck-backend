@@ -1557,6 +1557,7 @@
     <script src="{{ asset('frontend-assets/js/infinityslide.js') }}"></script>
     <script src="{{ asset('frontend-assets/js/simpleParallaxVanilla.umd.js') }}"></script>
     <script src="{{ asset('frontend-assets/js/main.js') }}"></script>
+    <script src="{{ asset('frontend-assets/js/product-actions.js') }}"></script>
 
     <script src="{{ asset('js/drift.min.js') }}"></script>
     <script type="module" src="{{ asset('js/zoom.js') }}"></script>
@@ -1598,6 +1599,84 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        // Global function to show notifications
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = $(`
+                <div class="notification notification-${type}" style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    z-index: 9999;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    max-width: 300px;
+                    word-wrap: break-word;
+                ">
+                    ${message}
+                </div>
+            `);
+
+            // Add to body
+            $('body').append(notification);
+
+            // Auto remove after 3 seconds
+            setTimeout(function() {
+                notification.fadeOut(300, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        // Global function to show login modal
+        function showLoginModal() {
+            // Create and show login modal
+            const modalHtml = `
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>Please login to continue.</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="{{ route('ecommerce.login') }}" class="btn btn-primary">Login</a>
+                                    <a href="{{ route('ecommerce.signup') }}" class="btn btn-outline-primary">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove existing modal if any
+            $('#loginModal').remove();
+
+            // Add modal to body
+            $('body').append(modalHtml);
+
+            // Show modal
+            $('#loginModal').modal('show');
+        }
+
+        // Global function to update cart sidebar
+        function updateCartSidebar() {
+            $.ajax({
+                url: '{{ route("cart.data") }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        updateCartSidebarContent(response);
+                    }
+                }
+            });
+        }
 
         // Global function to update cart count
         function updateCartCount() {
@@ -1806,58 +1885,7 @@
             }
         }
 
-        // Compare functionality - Add to compare
-        $(document).on('click', '.compare-btn', function(e) {
-            e.preventDefault();
-            const productId = $(this).data('product-id');
-            const $button = $(this);
-            $button.prop('disabled', true);
-
-            $.ajax({
-                url: '{{ route("compare.add") }}',
-                method: 'POST',
-                data: {
-                    ecommerce_product_id: productId
-                },
-                success: function(response) {
-                    if (response.success) {
-                        updateCompareCount();
-                        updateCompareSidebar();
-                        $button.addClass('in-compare');
-                        $button.find('.tooltip').text('In Compare');
-
-                        // Show notification
-                        if (typeof showNotification === 'function') {
-                            showNotification(response.message, 'success');
-                        } else {
-                            alert(response.message);
-                        }
-
-                        // Show compare modal
-                        $('#compare').offcanvas('show');
-                    } else {
-                        if (typeof showNotification === 'function') {
-                            showNotification(response.message, 'error');
-                        } else {
-                            alert(response.message);
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    const response = xhr.responseJSON;
-                    if (response && response.message) {
-                        if (typeof showNotification === 'function') {
-                            showNotification(response.message, 'error');
-                        } else {
-                            alert(response.message);
-                        }
-                    }
-                },
-                complete: function() {
-                    $button.prop('disabled', false);
-                }
-            });
-        });
+        // Compare button handler is now in product-actions.js
 
         // Remove from compare
         $(document).on('click', '.compare-remove-btn', function(e) {
@@ -1941,8 +1969,7 @@
             }
             updateCompareSidebar();
 
-            // Update compare button states
-            updateCompareButtonStates();
+            // Button states are now handled by product-actions.js
         });
     </script>
 
