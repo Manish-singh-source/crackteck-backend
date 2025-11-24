@@ -15,28 +15,30 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Support',
-        //     'email' => 'support@technofra.com',
-        //     'password' => '123456'
-        // ]);
+        User::factory()->create([
+            'name' => 'Support',
+            'email' => 'support@technofra.com',
+            'password' => '123456'
+        ]);
 
         $this->call([
-            // ProductVariantAttributesSeeder::class,
-            // ProductVariantAttributeValuesSeeder::class,
-            // BrandsSeeder::class,
-            // ParentCategoriesSeeder::class,
-            // WebsiteBannersSeeder::class,
-            // WarehousesSeeder::class,
-            // WarehouseRacksSeeder::class,
-            // SubCategoriesSeeder::class,
-            // ProductsSeeder::class,
-            // EcommerceProductsSeeder::class,
-            // // ContactSeeder::class,
-            // EngineerSeeder::class,
-            // PlansTableSeeder::class,
-            // CustomerSeeder::class,
             LeadTableSeeder::class,
+            ProductVariantAttributesSeeder::class,
+            ProductVariantAttributeValuesSeeder::class,
+            BrandsSeeder::class,
+            ParentCategoriesSeeder::class,
+            WebsiteBannersSeeder::class,
+            WarehousesSeeder::class,
+            WarehouseRacksSeeder::class,
+            SubCategoriesSeeder::class,
+            ProductsSeeder::class,
+            EcommerceProductsSeeder::class,
+            // ContactSeeder::class,
+            EngineerSeeder::class,
+            PlansTableSeeder::class,
+            CustomerSeeder::class,
+            DeliveryMenSeeder::class,
+            SalesPeopleSeeder::class,
         ]);
       
     }
