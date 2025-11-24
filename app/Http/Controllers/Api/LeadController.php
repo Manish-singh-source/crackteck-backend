@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\LeadResource;
 
 class LeadController extends Controller
 {
@@ -30,28 +31,65 @@ class LeadController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $leads = Lead::where('user_id', $validated['user_id'])->get();
+        $leads = Lead::where('user_id', $validated['user_id'])->paginate();
 
-        return response()->json(['leads' => $leads], 200);
+        // return response()->json(['leads' => $leads], 200);
+        return LeadResource::collection($leads);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
+            'company_name' => 'nullable',
+            'designation' => 'nullable',
             'phone' => 'required',
-            'message' => 'required',
+            'email' => 'required|email',
+            
+            'dob' => 'nullable|date',
+            'gender' => 'nullable',
+
+            'address' => 'nullable',
+
+            'budget_range' => 'required',
+            'source' => 'required',
+            'urgency' => 'required',
+            'requirement_type' => 'required',
+            'industry_type' => 'required',
+            'status' => 'required',
+
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
         ]);
 
-        $lead = Lead::create($validated);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
 
-        return response()->json(['lead' => $lead], 200);
+            $file->move(public_path('uploads/crm/lead/file'), $filename);
+            $validated['file'] = 'uploads/crm/lead/file/' . $filename;
+        }
+
+        if ($request->name) {
+            $full_name = explode(' ', $request->name);
+            $request->merge(['first_name' => $full_name[0]]);
+            $request->merge(['last_name' => $full_name[1]]);
+
+            unset($request['name']);
+        }
+
+        $lead = Lead::create($request->all());
+
+        if (!$lead) {
+            return response()->json(['message' => 'Lead not created'], 500);
+        }
+        return new LeadResource($lead);
     }
 
 
-    public function show(Request $request, $lead_id) {
+    public function show(Request $request, $lead_id)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -61,13 +99,17 @@ class LeadController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $leads = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
+        $lead = Lead::where('user_id', $validated['user_id'])->find($lead_id);
 
-        return response()->json(['leads' => $leads], 200);
+        if (!$lead) {
+            return response()->json(['message' => 'Lead not found'], 404);
+        }
+        return new LeadResource($lead);
     }
 
 
-    public function update(Request $request, $lead_id) {
+    public function update(Request $request, $lead_id)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -77,7 +119,7 @@ class LeadController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        if($request->full_name){
+        if ($request->full_name) {
             $full_name = explode(' ', $request->full_name);
             $request->merge(['first_name' => $full_name[0]]);
             $request->merge(['last_name' => $full_name[1]]);
@@ -85,12 +127,18 @@ class LeadController extends Controller
             unset($request['full_name']);
         }
 
-        $lead = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->update($request->all());
+        $lead = Lead::find($lead_id);
 
-        return response()->json(['lead' => $lead], 200);
+        if (!$lead) {
+            return response()->json(['message' => 'Lead not found'], 404);
+        }
+
+        $lead->update($request->all());
+        return new LeadResource($lead);
     }
 
-    public function destroy(Request $request, $lead_id) {
+    public function destroy(Request $request, $lead_id)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -100,8 +148,12 @@ class LeadController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+        $lead = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
 
+        if (!$lead) {
+            return response()->json(['message' => 'Lead not found'], 404);
+        }
         return response()->json(['message' => 'Lead deleted successfully'], 200);
     }
 }
+

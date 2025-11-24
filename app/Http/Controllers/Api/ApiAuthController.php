@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Engineer;
 use App\Models\DeliveryMan;
 use App\Models\SalesPerson;
 use Illuminate\Http\Request;
+use App\Services\Fast2smsService;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
-use App\Services\Fast2smsService;
 
 class ApiAuthController extends Controller
 {
@@ -29,9 +30,18 @@ class ApiAuthController extends Controller
     protected function getModelByRoleId($roleId)
     {
         return [
-            1 => SalesPerson::class,
-            2 => Engineer::class,
-            3 => DeliveryMan::class,
+            1 => Engineer::class,
+            2 => DeliveryMan::class,
+            3 => SalesPerson::class,
+        ][$roleId] ?? null;
+    }
+
+    protected function getRoleId($roleId)
+    {
+        return [
+            1 => 'engineer',
+            2 => 'delivery_man',
+            3 => 'sales_person',
         ][$roleId] ?? null;
     }
 
@@ -79,6 +89,74 @@ class ApiAuthController extends Controller
     }
 
 
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'role_id' => 'required|in:1,2,3',
+        ]);
+
+        // split name in first_name and last_name
+        $names = explode(' ', $request->name);
+        $request->merge(['first_name' => $names[0]]);
+        $request->merge(['last_name' => $names[1]]);
+        
+        $staffRole = $this->getRoleId($request->role_id);
+
+        if (!$staffRole) {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+        
+        if ($request->filled('pan_card')) {
+            $request->validate([
+                'pan_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        }
+
+        if ($request->filled('aadhar_card')) {
+            $request->validate([
+                'aadhar_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        }
+
+        if ($request->hasFile('aadhar_card')) {
+
+            $aadharCard = $request->file('aadhar_card');
+            $ext = $aadharCard->getClientOriginalExtension();
+            $aadharCardName = time() . '.' . $ext;
+
+            // Store original image
+            $aadharCard->move(public_path('uploads/aadhar_card'), $aadharCardName);
+        }
+
+        if ($request->hasFile('pan_card')) {
+            $panCard = $request->file('pan_card');
+            $ext = $panCard->getClientOriginalExtension();
+            $panCardName = time() . '.' . $ext;
+
+            // Store original image
+            $panCard->move(public_path('uploads/pan_card'), $panCardName);
+        }       
+
+        $staff = Staff::create([
+            'staff_role' => $staffRole,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'current_address' => $request->current_address,
+            'pan_no' => $request->pan_no,
+            'aadhar_no' => $request->aadhar_no,
+            'pan_card' => $panCardName,
+            'aadhar_card' => $aadharCardName,
+        ]);
+
+        if (!$staff) {
+            return response()->json(['success' => false, 'message' => 'Failed to create staff.'], 500);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Staff created successfully.']);
+    }
+    
     /**
      * Handle user login and return access token
      *
@@ -116,8 +194,6 @@ class ApiAuthController extends Controller
             // Template ID from .env (191040) - DLT approved template
             // Template message: "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK"
             $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
-
-            // https://www.fast2sms.com/dev/bulkV2?authorization=gpSmohdctVF0Xh6zoYw6Ovi5mCufhKeXwA9BFiwWjWtkm6nRdlNXJ9JeFURv&route=dlt&sender_id=CRCTK&message=191040&variables_values=1234&flash=0&numbers=9876543210
 
             $success = $this->sendDltSms(
                 $user->phone,           // Phone number

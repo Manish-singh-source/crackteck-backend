@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\FollowUp;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\FollowUpResource;
 
 class FollowUpController extends Controller
 {
-    //
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $validated = request()->validate([
-            // validation rules if any
             'user_id' => 'required',
         ]);
 
@@ -19,12 +19,16 @@ class FollowUpController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $followup = FollowUp::where('user_id', $validated['user_id'])->get();
+        $followup = FollowUp::where('user_id', $validated['user_id'])->paginate();
+        if ($followup->isEmpty()) {
+            return response()->json(['message' => 'No followup found'], 404);
+        }
 
-        return response()->json(['followup' => $followup], 200);
+        return FollowUpResource::collection($followup);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -39,7 +43,8 @@ class FollowUpController extends Controller
         return response()->json(['followup' => $followup], 200);
     }
 
-    public function show(Request $request, $lead_id) {
+    public function show(Request $request, $lead_id)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -54,18 +59,8 @@ class FollowUpController extends Controller
         return response()->json(['followup' => $followup], 200);
     }
 
-    public function update(Request $request, $followup_id) {
-        $validated = request()->validate([
-            // validation rules if any
-            'user_id' => 'required',
-        ]);
-
-        $followup = FollowUp::where('user_id', $validated['user_id'])->where('id', $followup_id)->update($request->all());
-
-        return response()->json(['followup' => $followup], 200);
-    }
-
-    public function destroy(Request $request, $lead_id) {
+    public function update(Request $request, $followup_id)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
@@ -75,7 +70,32 @@ class FollowUpController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        FollowUp::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+        $followup = FollowUp::find($followup_id);
+
+        if (!$followup) {
+            return response()->json(['message' => 'Follow Up not found'], 404);
+        }
+
+        $followup->update($request->all());
+        return new FollowUpResource($followup);
+    }
+
+    public function destroy(Request $request, $lead_id)
+    {
+        $validated = request()->validate([
+            // validation rules if any
+            'user_id' => 'required',
+        ]);
+
+        if (!$validated['user_id']) {
+            return response()->json(['message' => 'User ID is required'], 400);
+        }
+
+        $followup = FollowUp::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+
+        if (!$followup) {
+            return response()->json(['message' => 'Follow Up not found'], 404);
+        }
 
         return response()->json(['message' => 'Follow Up deleted successfully'], 200);
     }

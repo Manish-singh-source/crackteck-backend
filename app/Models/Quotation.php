@@ -14,6 +14,7 @@ class Quotation extends Model
     use LogsActivity;
 
     protected $fillable = [
+        'user_id',
         'lead_id',
         'quote_id',
         'quote_date',
@@ -65,7 +66,7 @@ class Quotation extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['lead_id', 'quotation_number', 'amount', 'status'])
+            ->logOnly(['user_id', 'lead_id', 'quote_id', 'quote_date', 'expiry_date'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn(string $eventName) => "Quotation {$eventName}");

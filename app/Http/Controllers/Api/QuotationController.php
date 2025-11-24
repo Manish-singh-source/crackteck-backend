@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuotationResource;
 use Illuminate\Http\Request;
 use App\Models\Quotation;
 
@@ -19,29 +20,35 @@ class QuotationController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $Quotation = Quotation::where('user_id', $validated['user_id'])->get();
+        $Quotation = Quotation::where('user_id', $validated['user_id'])->paginate();
 
-        return response()->json(['Quotation' => $Quotation], 200);
+        return QuotationResource::collection($Quotation);
     }
 
     public function store(Request $request) {
         $validated = request()->validate([
-            // validation rules if any
             'user_id' => 'required',
             'lead_id' => 'required',
-            'client_name' => 'required',
-            'contact' => 'required',
-            'email' => 'required',
+            'quote_id' => 'required',
+            'quote_date' => 'required',
+            'expiry_date' => 'required',
         ]);
+
+        if (!$validated['user_id']) {
+            return response()->json(['message' => 'User ID is required'], 400);
+        }
 
         $Quotation = Quotation::create($validated);
 
-        return response()->json(['Quotation' => $Quotation], 200);
+        if (!$Quotation) {
+            return response()->json(['message' => 'Quotation not created'], 500);
+        }
+
+        return new QuotationResource($Quotation);
     }
 
     public function show(Request $request, $lead_id) {
         $validated = request()->validate([
-            // validation rules if any
             'user_id' => 'required',
         ]);
 
@@ -49,9 +56,13 @@ class QuotationController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $Quotation = Quotation::where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
+        $Quotation = Quotation::where('user_id', $validated['user_id'])->find($lead_id);
 
-        return response()->json(['Quotation' => $Quotation], 200);
+        if (!$Quotation) {
+            return response()->json(['message' => 'Quotation not found'], 404);
+        }
+
+        return new QuotationResource($Quotation);
     }
 
     public function update(Request $request, $Quotation_id) {
