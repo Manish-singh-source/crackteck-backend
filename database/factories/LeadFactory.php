@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Lead;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
+use App\Models\Engineer;
 
 
 /**
@@ -19,8 +20,12 @@ class LeadFactory extends Factory
      */
     public function definition(): array
     {
+        // 
+        $usersCount = Engineer::count();
+
         return [
             //	
+            'user_id' => rand(1, $usersCount),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'phone' => $this->faker->numerify('##########'),

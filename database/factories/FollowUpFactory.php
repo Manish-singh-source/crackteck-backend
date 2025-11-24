@@ -17,8 +17,11 @@ class FollowUpFactory extends Factory
      */
     public function definition(): array
     {
+        $leadsCount = Lead::count();
+
         return [
             //
+            'lead_id' => rand(1, $leadsCount),
             // 'lead_id' => Lead::inRandomOrder()->first()->id,
             // 'client_name' => function (array $attributes) {
             //     return Lead::find($attributes['lead_id'])->first_name . ' ' . Lead::find($attributes['lead_id'])->last_name;
