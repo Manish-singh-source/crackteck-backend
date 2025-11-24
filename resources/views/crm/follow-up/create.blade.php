@@ -77,10 +77,12 @@
                                                 @include('components.form.input', [
                                                     'label' => 'Client Name',
                                                     'name' => 'client_name',
+                                                    'id' => 'client_name', // ← MUST ADD THIS
                                                     'type' => 'text',
                                                     'placeholder' => 'Select Lead',
                                                     'readonly' => true,
                                                 ])
+
                                             </div>
 
                                             <div class="col-6">
@@ -146,10 +148,10 @@
 
 
                                 <!-- <div class="text-start mb-3">
-                                                <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                                    Submit
-                                                </button>
-                                            </div> -->
+                                                            <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                                                Submit
+                                                            </button>
+                                                        </div> -->
                             </div>
 
 
@@ -193,9 +195,9 @@
                     .then(data => {
                         console.log(data)
                         if (!data.error) {
-                            document.getElementById('client_name').value = data.client_name ?? '';
-                            document.getElementById('email').value = data.email ?? '';
-                            document.getElementById('contact').value = data.phone ?? '';
+                            document.querySelector('[name="client_name"]').value = data.client_name ?? '';
+                            document.querySelector('[name="email"]').value = data.email ?? '';
+                            document.querySelector('[name="contact"]').value = data.phone ?? '';
                         }
                     })
                     .catch(error => console.error('Error:', error));

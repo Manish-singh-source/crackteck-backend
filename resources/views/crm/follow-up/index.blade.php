@@ -77,9 +77,9 @@
                                                                             {{ $followup->lead_id }}
                                                                         </a>
                                                                     </td>
-                                                                    <td>{{ $followup->client_name }}</td>
-                                                                    <td>{{ $followup->contact }}</td>
-                                                                    <td>{{ $followup->email }}</td>
+                                                                    <td>{{ $followup->lead->first_name }} {{ $followup->lead->last_name }}</td>
+                                                                    <td>{{ $followup->lead->phone }}</td>
+                                                                    <td>{{ $followup->lead->email }}</td>
                                                                     <td>{{ $followup->followup_date }}</td>
                                                                     <td>{{ $followup->followup_time }}</td>
                                                                     <td>
