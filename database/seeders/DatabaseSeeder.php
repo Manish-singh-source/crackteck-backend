@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             EngineerSeeder::class,
             PlansTableSeeder::class,
             CustomerSeeder::class,
+            DeliveryMenSeeder::class,
+            SalesPeopleSeeder::class,
         ]);
       
     }
