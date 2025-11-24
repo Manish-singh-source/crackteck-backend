@@ -44,10 +44,10 @@ class EngineerSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'first_name' => 'Priya',
-                'last_name' => 'Patel',
-                'phone' => '9123456789',
-                'email' => 'priya.patel@example.com',
+                'first_name' => 'Saurabh',
+                'last_name' => 'Damale',
+                'phone' => '7709131547',
+                'email' => 'saurabh.damale@example.com',
                 'dob' => '1992-09-10',
                 'gender' => 'Female',
                 'address' => '45 Park Street',
@@ -72,10 +72,10 @@ class EngineerSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'first_name' => 'Amit',
-                'last_name' => 'Kumar',
-                'phone' => '9988776655',
-                'email' => 'amit.kumar@example.com',
+                'first_name' => 'Mayur',
+                'last_name' => 'Satam',
+                'phone' => '8591483531',
+                'email' => 'mayur.satam@example.com',
                 'dob' => '1988-12-25',
                 'gender' => 'Male',
                 'address' => '78 Nehru Nagar',
@@ -100,10 +100,10 @@ class EngineerSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'first_name' => 'Sneha',
-                'last_name' => 'Reddy',
-                'phone' => '9012345678',
-                'email' => 'sneha.reddy@example.com',
+                'first_name' => 'Manish',
+                'last_name' => 'Singh',
+                'phone' => '7039553407',
+                'email' => 'manish.singh@example.com',
                 'dob' => '1995-07-30',
                 'gender' => 'Female',
                 'address' => '56 MG Road',
