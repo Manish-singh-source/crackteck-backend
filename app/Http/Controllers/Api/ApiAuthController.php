@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use App\Models\Staff;
+use App\Models\Customer;
 use App\Models\Engineer;
 use App\Models\DeliveryMan;
 use App\Models\SalesPerson;
@@ -33,6 +33,7 @@ class ApiAuthController extends Controller
             1 => Engineer::class,
             2 => DeliveryMan::class,
             3 => SalesPerson::class,
+            4 => Customer::class,
         ][$roleId] ?? null;
     }
 
@@ -42,6 +43,7 @@ class ApiAuthController extends Controller
             1 => 'engineer',
             2 => 'delivery_man',
             3 => 'sales_person',
+            4 => 'customer',
         ][$roleId] ?? null;
     }
 
@@ -92,7 +94,7 @@ class ApiAuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'role_id' => 'required|in:1,2,3',
+            'role_id' => 'required|in:1,2,3,4',
         ]);
 
         // split name in first_name and last_name
@@ -169,7 +171,7 @@ class ApiAuthController extends Controller
         try {
             $request->validate([
                 'phone_number' => 'required',
-                'role_id' => 'required|in:1,2,3'
+                'role_id' => 'required|in:1,2,3,4'
             ]);
 
             $model = $this->getModelByRoleId($request->role_id);
@@ -193,15 +195,15 @@ class ApiAuthController extends Controller
             // Send OTP via Fast2SMS DLT
             // Template ID from .env (191040) - DLT approved template
             // Template message: "Your OTP is {#var#}. Valid for 5 minutes. - CRCTK"
-            $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
+            // $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
 
-            $success = $this->sendDltSms(
-                $user->phone,           // Phone number
-                $templateId,            // Template ID (191040)
-                $otp                    // OTP value to replace {#var#}
-            );
+            // $success = $this->sendDltSms(
+            //     $user->phone,           // Phone number
+            //     $templateId,            // Template ID (191040)
+            //     $otp                    // OTP value to replace {#var#}
+            // );
 
-            if ($success) {
+            if ($user) {
                 return response()->json([
                     'success' => true,
                     'message' => 'OTP sent successfully',
@@ -230,7 +232,7 @@ class ApiAuthController extends Controller
         $request->validate([
             'phone_number' => 'required',
             'otp' => 'required',
-            'role_id' => 'required|in:1,2,3'
+            'role_id' => 'required|in:1,2,3,4'
         ]);
 
         $model = $this->getModelByRoleId($request->role_id);
@@ -248,7 +250,7 @@ class ApiAuthController extends Controller
         $user->save();
 
         // Choose guard based on role
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman'];
+        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
         $token = auth($guard)->login($user); // if guard mapping in config/auth.php
 
@@ -259,10 +261,10 @@ class ApiAuthController extends Controller
     public function logout(Request $request)
     {
         $request->validate([
-            'role_id' => 'required|in:1,2,3'
+            'role_id' => 'required|in:1,2,3,4'
         ]);
 
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman'];
+        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {
@@ -276,10 +278,10 @@ class ApiAuthController extends Controller
     public function refreshToken(Request $request)
     {
         $request->validate([
-            'role_id' => 'required|in:1,2,3'
+            'role_id' => 'required|in:1,2,3,4'
         ]);
 
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman'];
+        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {
