@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            LeadTableSeeder::class,
             ProductVariantAttributesSeeder::class,
             ProductVariantAttributeValuesSeeder::class,
             BrandsSeeder::class,
