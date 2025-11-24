@@ -250,7 +250,7 @@ class ApiAuthController extends Controller
         $user->save();
 
         // Choose guard based on role
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
         $token = auth($guard)->login($user); // if guard mapping in config/auth.php
 
@@ -264,7 +264,7 @@ class ApiAuthController extends Controller
             'role_id' => 'required|in:1,2,3,4'
         ]);
 
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {
@@ -281,7 +281,7 @@ class ApiAuthController extends Controller
             'role_id' => 'required|in:1,2,3,4'
         ]);
 
-        $guards = ['1' => 'salesperson', '2' => 'engineer', '3' => 'deliveryman', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {

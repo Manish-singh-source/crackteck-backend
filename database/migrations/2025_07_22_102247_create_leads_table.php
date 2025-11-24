@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone',10);
             $table->string('email')->unique();
             $table->date('dob')->nullable();
-            $table->enum('gender', ['Male', 'Female']);
+            $table->enum('gender', ['male', 'female']);
             
             $table->string('company_name');
             $table->string('designation');
