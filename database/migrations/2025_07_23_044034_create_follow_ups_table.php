@@ -16,9 +16,9 @@ return new class extends Migration
             
             // $table->enum('lead_id', ['L-001', 'L-002', 'L-003', 'L-004']);
             $table->string('lead_id');
-            $table->string('client_name');
-            $table->string('contact');
-            $table->string('email')->unique();
+            // $table->string('client_name');
+            // $table->string('contact');
+            // $table->string('email');
             $table->date('followup_date')->nullable();
             $table->time('followup_time')->nullable();
             $table->enum('status', ['Pending', 'Done', 'Rescheduled', 'Cancelled']);

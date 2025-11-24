@@ -12,7 +12,7 @@ class FollowUpController extends Controller
     //
     public function index()
     {
-        $followup = FollowUp::all();
+        $followup = FollowUp::with('lead')->get();
         return view('/crm/follow-up/index', compact('followup'));
     }
 
