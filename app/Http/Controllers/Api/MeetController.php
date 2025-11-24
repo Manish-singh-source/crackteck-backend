@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Meet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MeetResource;
 
 class MeetController extends Controller
 {
@@ -20,9 +21,12 @@ class MeetController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $meets = Meet::where('user_id', $validated['user_id'])->get();
+        $meets = Meet::where('user_id', $validated['user_id'])->paginate();
 
-        return response()->json(['meets' => $meets], 200);
+        if ($meets->isEmpty()) {
+            return response()->json(['message' => 'No meets found'], 404);
+        }
+        return MeetResource::collection($meets);
     }
 
     public function store(Request $request)
@@ -44,13 +48,20 @@ class MeetController extends Controller
             'status' => 'nullable',
         ]);
 
+        if (!$validated['user_id']) {
+            return response()->json(['message' => 'User ID is required'], 400);
+        }
+
         $meet = Meet::create($validated);
 
-        return response()->json(['meet' => $meet], 200);
+        if (!$meet) {
+            return response()->json(['message' => 'Meet not created'], 500);
+        }
+        return new MeetResource($meet);
     }
 
 
-    public function show(Request $request, $lead_id)
+    public function show(Request $request, $meet_id)
     {
         $validated = request()->validate([
             // validation rules if any
@@ -61,24 +72,40 @@ class MeetController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        $meets = Meet::where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
+        $meets = Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->first();
 
-        return response()->json(['meets' => $meets], 200);
+        if (!$meets) {
+            return response()->json(['message' => 'Meet not found'], 404);
+        }
+        return new MeetResource($meets);
     }
 
-    public function update(Request $request, $lead_id)
+    public function update(Request $request, $meet_id)
     {
-        $validated = request()->validate([
-            // validation rules if any
+        $validated = $request->validate([
             'user_id' => 'required',
         ]);
 
-        $meet = Meet::where('user_id', $validated['user_id'])->where('id', $lead_id)->update($request->all());
+        if (!$validated['user_id']) {
+            return response()->json(['message' => 'User ID is required'], 400);
+        }
 
-        return response()->json(['meet' => $meet], 200);
+        // Find the meeting record
+        $meet = Meet::find($meet_id);
+
+        if (!$meet) {
+            return response()->json(['message' => 'Meeting not found'], 404);
+        }
+
+        // Update the model
+        $meet->update($request->all());
+
+        // Return updated resource
+        return new MeetResource($meet);
     }
 
-    public function destroy(Request $request, $lead_id)
+
+    public function destroy(Request $request, $meet_id)
     {
         $validated = request()->validate([
             // validation rules if any
@@ -89,7 +116,7 @@ class MeetController extends Controller
             return response()->json(['message' => 'User ID is required'], 400);
         }
 
-        Meet::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+        Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->delete();
 
         return response()->json(['message' => 'Meet deleted successfully'], 200);
     }
