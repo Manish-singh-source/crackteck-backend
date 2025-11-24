@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             // ContactSeeder::class,
             EngineerSeeder::class,
             PlansTableSeeder::class,
+            CustomerSeeder::class,
         ]);
       
     }
