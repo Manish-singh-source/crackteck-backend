@@ -258,3 +258,75 @@ final_price = 1000 + (1000 × 0 / 100) = ₹1000.00
 **Last Updated:** 2025-10-01
 **Version:** 1.0
 
+
+
+
+To create a Google Play Console **organization** account, you need documents for both the company and an authorized person. Below is a practical checklist, focusing on India.
+
+## 1. Organization documents (business proof)
+
+Google needs official proof that your organization exists and is registered. 
+Any **one or more** of these is usually acceptable for India:
+
+- Certificate of Incorporation (for company)  
+- Articles / Memorandum of Association  
+- GST Registration Certificate  
+- Partnership Deed Registration Certificate (for partnership firms)  
+- Registration of Society / Trust Deed (for NGOs, societies, trusts)  
+- Udyam (MSME) Registration Certificate  
+- VAT / other state business registration certificate  
+- Corporate Identification Number (CIN) details (for companies)  
+
+These documents must:
+- Show the **legal name** of the organization  
+- Show the **registered address**  
+- Be issued by a **government / official business registry**
+
+## 2. Authorized representative’s ID
+
+You must also verify a person who legally represents the organization (director, partner, owner, etc.). 
+Any **one** valid government photo ID is needed:
+
+- Passport  
+- Driving licence  
+- National ID / Identification card  
+- Permanent residence card  
+
+For India, Google also lists these as acceptable IDs for individuals, and they are typically used for the representative as well:
+
+- Indian Passport  
+- Driving Licence  
+- Voter ID  
+- PAN card  
+
+Make sure the name on the ID matches the person’s name you enter as the authorized representative.[4][1]
+
+## 3. Payments profile details
+
+While creating the Play Console account, you must link or create a **payments profile** for the business:
+
+- Legal business name (exactly as in registration documents)  
+- Legal business address (same as official documents)  
+- Business country (must match bank account country)  
+- Business phone number and email  
+- Valid payment method to pay the one‑time **USD 25** registration fee (credit/debit card)  
+
+## 4. Optional but recommended information
+
+Google may ask for or strongly prefer:
+
+- Organization website (which you may need to verify with Google Search Console)  
+- Number of employees  
+- Main business contact details (phone, email)  
+- D‑U‑N‑S number in some regions (unique business identifier used for verification)  
+
+## 5. Quick checklist for you (India, Pvt Ltd / LLP / Firm)
+
+Before starting Play Console sign‑up, keep ready:
+
+- Company registration proof (e.g., **Certificate of Incorporation** or **GST certificate**)  
+- PAN card of the company (good to have, sometimes needed for tax)  
+- Authorized representative’s ID (e.g., **Aadhaar not listed, so better use Passport / DL / Voter ID / PAN**)  
+- Official registered address proof if not clearly shown in main registration document (utility bill, bank statement, etc., if requested)
+- Company website URL and access to verify it  
+- Card to pay USD 25  

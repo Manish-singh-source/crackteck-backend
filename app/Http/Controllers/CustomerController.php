@@ -15,8 +15,9 @@ class CustomerController extends Controller
     {
         // Filter to show only CRM customers (Retail, Wholesale, Corporate, AMC Customer)
         $customers = Customer::with('branches')
-            ->crm()
+            // ->crm()
             ->get();
+        // dd($customers);
         return view('/crm/customer/index', compact('customers'));
     }
 
@@ -60,7 +61,7 @@ class CustomerController extends Controller
         $customer->dob = $request->dob;
         $customer->gender = $request->gender;
         // Set customer type based on request, defaulting to AMC Customer if not specified
-        $customer->customer_type = $request->customer_type ?: 'AMC Customer';
+        $customer->customer_type = $request->customer_type ? $request->customer_type : 'AMC Customer';
         $customer->company_name = $request->company_name;
         $customer->company_addr = $request->company_addr;
         $customer->gst_no = $request->gst_no;
@@ -238,7 +239,7 @@ class CustomerController extends Controller
             'phone' => 'nullable|min:10',
             'email' => 'required|email|unique:customers,email',
             'dob' => 'nullable|date',
-            'gender' => 'nullable|in:male,female',
+            'gender' => 'nullable|in:0,1',
 
             // Address details (optional for e-commerce customers)
             'address' => 'nullable',
@@ -265,7 +266,7 @@ class CustomerController extends Controller
         $customer->phone = $request->phone;
         $customer->email = $request->email;
         $customer->dob = $request->dob;
-        $customer->gender = $request->gender;
+        $customer->gender = $request->gender == '1' ? 'male' : 'female';
         $customer->customer_type = 'E-commerce Customer'; // Fixed customer type for e-commerce
         $customer->company_name = $request->company_name;
         $customer->company_addr = $request->company_addr;
