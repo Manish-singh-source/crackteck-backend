@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class ApiAuthController extends Controller
@@ -93,9 +94,13 @@ class ApiAuthController extends Controller
 
     public function signup(Request $request)
     {
-        $request->validate([
+        $roleValidated = Validator::make($request->all(),([
             'role_id' => 'required|in:1,2,3,4',
-        ]);
+        ]));
+        
+        if ($roleValidated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $roleValidated->errors()], 422);
+        }
 
         $staffRole = $this->getRoleId($request->role_id);
 
@@ -104,12 +109,16 @@ class ApiAuthController extends Controller
         }
 
         if ($staffRole == 'customer') {
-            $request->validate([
+            $customerValidated = Validator::make($request->all(),([
                 'name' => 'required',
                 'phone' => 'required|numeric|digits:10|unique:customers',
                 'email' => 'required|email|unique:customers',
                 'current_address' => 'required',
-            ]);
+            ]));
+
+            if ($customerValidated->fails()) {
+                return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $customerValidated->errors()], 422);
+            }
 
             // split name in first_name and last_name
             $names = explode(' ', $request->name);
@@ -196,10 +205,14 @@ class ApiAuthController extends Controller
     public function login(Request $request)
     {
         try {
-            $request->validate([
+            $validated = Validator::make($request->all(),([
                 'phone_number' => 'required',
                 'role_id' => 'required|in:1,2,3,4'
-            ]);
+            ]));
+
+            if ($validated->fails()) {
+                return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+            }
 
             $model = $this->getModelByRoleId($request->role_id);
             if (!$model) {
@@ -256,11 +269,15 @@ class ApiAuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        $request->validate([
+        $validated = Validator::make($request->all(),([
             'phone_number' => 'required',
             'otp' => 'required',
             'role_id' => 'required|in:1,2,3,4'
-        ]);
+        ]));
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
 
         $model = $this->getModelByRoleId($request->role_id);
         if (!$model) {
@@ -287,9 +304,13 @@ class ApiAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->validate([
+        $validated = Validator::make($request->all(),([
             'role_id' => 'required|in:1,2,3,4'
-        ]);
+        ]));
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
 
         $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';
@@ -304,9 +325,13 @@ class ApiAuthController extends Controller
 
     public function refreshToken(Request $request)
     {
-        $request->validate([
+        $validated = Validator::make($request->all(),([
             'role_id' => 'required|in:1,2,3,4'
-        ]);
+        ]));
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
 
         $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
         $guard = $guards[$request->role_id] ?? 'api';

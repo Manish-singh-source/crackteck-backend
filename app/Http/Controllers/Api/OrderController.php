@@ -11,17 +11,18 @@ class OrderController extends Controller
     //
     public function listProducts(Request $request)
     {
-                if($request->filled('search')) {
+        if ($request->filled('search')) {
             $products = Product::where('product_name', 'like', "%{$request->search}%")->get();
-        }else {            
+        } else {
             $products = Product::get();
         }
 
         return response()->json(['products' => $products], 200);
     }
 
-    public function product(Request $request, $product_id) {
-        
+    public function product(Request $request, $product_id)
+    {
+
         $product = Product::find($product_id);
 
         if (!$product) {

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Lead;
 use App\Models\Meet;
+use App\Models\Task;
 use App\Models\FollowUp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -16,13 +17,13 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
         
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
         
         $meets = Meet::where('user_id', $validated['user_id'])->where('date', today())->get();
@@ -33,15 +34,15 @@ class DashboardController extends Controller
 
     public function salesOverview(Request $request)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
         
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
-
+        
         $lostLeads = Lead::where('user_id', $validated['user_id'])->where('status', 'Lost')->count();
         $newLeads = Lead::where('user_id', $validated['user_id'])->where('status', 'New')->count();
         $contactedLeads = Lead::where('user_id', $validated['user_id'])->where('status', 'Contacted')->count();

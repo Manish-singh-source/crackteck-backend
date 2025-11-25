@@ -6,6 +6,7 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LeadResource;
+use Illuminate\Support\Facades\Validator;
 
 class LeadController extends Controller
 {
@@ -22,13 +23,13 @@ class LeadController extends Controller
      */
     public function index(Request $request)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
-
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        ]));
+        
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $leads = Lead::where('user_id', $validated['user_id'])->paginate();
@@ -39,7 +40,7 @@ class LeadController extends Controller
 
     public function store(Request $request)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
             'name' => 'required',
@@ -61,7 +62,11 @@ class LeadController extends Controller
             'status' => 'required',
 
             'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
-        ]);
+        ]));
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -90,13 +95,13 @@ class LeadController extends Controller
 
     public function show(Request $request, $lead_id)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $lead = Lead::where('user_id', $validated['user_id'])->find($lead_id);
@@ -110,13 +115,13 @@ class LeadController extends Controller
 
     public function update(Request $request, $lead_id)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         if ($request->full_name) {
@@ -139,13 +144,13 @@ class LeadController extends Controller
 
     public function destroy(Request $request, $lead_id)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $lead = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();

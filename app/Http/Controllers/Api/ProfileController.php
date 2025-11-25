@@ -37,7 +37,7 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
 
-        $user = $model::where('id', $validated['user_id'])->first();
+        $user = $model::where('id', $validated['user_id'])->with('roles')->first();
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User not found with the provided phone number.'], 404);
         }
