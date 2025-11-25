@@ -6,19 +6,20 @@ use App\Models\Meet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MeetResource;
+use Illuminate\Support\Facades\Validator;
 
 class MeetController extends Controller
 {
     //
     public function index(Request $request)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $meets = Meet::where('user_id', $validated['user_id'])->paginate();
@@ -31,25 +32,24 @@ class MeetController extends Controller
 
     public function store(Request $request)
     {
-
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
             'lead_id' => 'required',
-            'meet_title' => 'nullable',
-            'client_name' => 'nullable',
-            'meeting_type' => 'nullable',
-            'date' => 'nullable',
-            'time' => 'nullable',
-            'location' => 'nullable',
+            'meet_title' => 'required',
+            'client_name' => 'required',
+            'meeting_type' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'location' => 'required',
             'attachment' => 'nullable',
             'meetAgenda' => 'nullable',
             'followUp' => 'nullable',
             'status' => 'nullable',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $meet = Meet::create($validated);
@@ -63,13 +63,13 @@ class MeetController extends Controller
 
     public function show(Request $request, $meet_id)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         $meets = Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->first();
@@ -82,12 +82,13 @@ class MeetController extends Controller
 
     public function update(Request $request, $meet_id)
     {
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(),([
+            // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         // Find the meeting record
@@ -107,13 +108,13 @@ class MeetController extends Controller
 
     public function destroy(Request $request, $meet_id)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
-        ]);
+        ]));
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
         Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->delete();
