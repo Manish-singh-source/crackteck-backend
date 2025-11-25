@@ -2,34 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Meet;
+use App\Models\FollowUp;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
     //
     //Calender wise Task Filtering
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $validated = request()->validate([
             // validation rules if any
             'user_id' => 'required',
         ]);
+
         if (!$validated['user_id']) {
             return response()->json(['message' => 'User ID is required'], 400);
         }
-        //Filter By date wise all as per calender user Requested 
-        $date = $request->date?? today();
-        $tasks = Meet::where('user_id', $validated['user_id'])
-            ->whereDate('created_at', date($date))
 
-            ->get();
+        $meets = Meet::where('user_id', $validated['user_id'])->where('date', today())->get();
+        $followup = FollowUp::where('user_id', $validated['user_id'])->where('followup_date', today())->get();
 
-        return response()->json(['tasks' => $tasks], 200);
-       
-        
-
-       
+        return response()->json(['meets' => $meets, 'followup' => $followup], 200);
     }
-    
 }

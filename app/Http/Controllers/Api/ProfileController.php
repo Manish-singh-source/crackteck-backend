@@ -24,7 +24,7 @@ class ProfileController extends Controller
     {
         $validated = request()->validate([
             // validation rules if any
-            'role_id' => 'required|in:1,2,3',
+            'role_id' => 'required|in:1,2,3,4',
             'user_id' => 'required',
         ]);
 

@@ -97,17 +97,44 @@ class ApiAuthController extends Controller
             'role_id' => 'required|in:1,2,3,4',
         ]);
 
-        // split name in first_name and last_name
-        $names = explode(' ', $request->name);
-        $request->merge(['first_name' => $names[0]]);
-        $request->merge(['last_name' => $names[1]]);
-        
         $staffRole = $this->getRoleId($request->role_id);
 
         if (!$staffRole) {
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
-        
+
+        if ($staffRole == 'customer') {
+            $request->validate([
+                'name' => 'required',
+                'phone' => 'required|numeric|digits:10|unique:customers',
+                'email' => 'required|email|unique:customers',
+                'current_address' => 'required',
+            ]);
+
+            // split name in first_name and last_name
+            $names = explode(' ', $request->name);
+            $request->merge(['first_name' => $names[0]]);
+            $request->merge(['last_name' => $names[1]]);
+
+
+            $customer = Customer::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+
+                'company_addr' => $request->current_address,
+                'customer_type' => 'Both',
+            ]);
+
+            return response()->json(['success' => true, 'message' => 'Customer created successfully.']);
+        }
+
+        // split name in first_name and last_name
+        $names = explode(' ', $request->name);
+        $request->merge(['first_name' => $names[0]]);
+        $request->merge(['last_name' => $names[1]]);
+
         if ($request->filled('pan_card')) {
             $request->validate([
                 'pan_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -137,7 +164,7 @@ class ApiAuthController extends Controller
 
             // Store original image
             $panCard->move(public_path('uploads/pan_card'), $panCardName);
-        }       
+        }
 
         $staff = Staff::create([
             'staff_role' => $staffRole,
@@ -158,7 +185,7 @@ class ApiAuthController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Staff created successfully.']);
     }
-    
+
     /**
      * Handle user login and return access token
      *

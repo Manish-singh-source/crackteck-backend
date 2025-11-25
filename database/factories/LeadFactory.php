@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Lead;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 use App\Models\Engineer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 
 /**

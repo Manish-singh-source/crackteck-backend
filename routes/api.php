@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\MeetController;
 use App\Http\Controllers\Api\SDUIController;
@@ -13,6 +12,8 @@ use App\Http\Controllers\Api\FollowUpController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\OrderController;
+
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
 
@@ -116,6 +117,20 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::post('/logout', [ApiAuthController::class, 'logout']);
     Route::post('/refresh-token', [ApiAuthController::class, 'refreshToken']);
 
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index');
+        Route::get('/sales-overview', 'salesOverview');
+    });
+    
+    Route::controller(TaskController::class)->group(function () {
+        Route::get('/task', 'index');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/product', 'listProducts');
+        Route::get('/product/{id}', 'product');
+    });
+
     Route::controller(LeadController::class)->group(function () {
         Route::get('/leads', 'index');
         Route::post('/lead', 'store');
@@ -158,11 +173,4 @@ Route::middleware(['jwt.verify'])->group(function () {
         Route::post('/attendance', 'store');
     });
 
-    Route::controller(DashboardController::class)->group(function () {
-        Route::get('/dashboard', 'index');
-    });
-    
-    Route::controller(TaskController::class)->group(function () {
-        Route::get('/task', 'index');
-    });
 });
