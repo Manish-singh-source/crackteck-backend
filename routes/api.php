@@ -129,6 +129,8 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/product', 'listProducts');
         Route::get('/product/{id}', 'product');
+        Route::get('/all-product', 'allListProducts');
+        Route::get('/all-product/{id}', 'allProduct');
     });
 
     Route::controller(LeadController::class)->group(function () {
