@@ -6,14 +6,42 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Customer extends Authenticatable implements JWTSubject
 {
-    use SoftDeletes, LogsActivity;
+    // use SoftDeletes, LogsActivity;
+    protected $table = 'customers';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'first_name',
+        'last_name',
+        'phone',    
+        'email',
+        'dob',
+        'gender',
+        'customer_type',
+        'company_name',
+        'company_addr',
+        'gst_no',
+        'pan_no',
+        'pic',
+        'status',
+    ];
 
     protected $dates = ['deleted_at'];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 
     /**
      * Get the user associated with this customer (for e-commerce customers).
