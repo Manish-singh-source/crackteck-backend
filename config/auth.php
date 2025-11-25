@@ -56,6 +56,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'sales_people',
         ],
+        'customers' => [
+            'driver' => 'jwt',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -95,6 +99,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_SALES_PERSON_MODEL', App\Models\SalesPerson::class),
         ],  
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_CUSTOMER_MODEL', App\Models\Customer::class),
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
