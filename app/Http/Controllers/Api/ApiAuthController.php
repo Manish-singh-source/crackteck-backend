@@ -44,7 +44,7 @@ class ApiAuthController extends Controller
             1 => 'engineer',
             2 => 'delivery_man',
             3 => 'sales_person',
-            4 => 'customer',
+            4 => 'customers',
         ][$roleId] ?? null;
     }
 
@@ -108,12 +108,14 @@ class ApiAuthController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
 
-        if ($staffRole == 'customer') {
+        if ($staffRole == 'customers') {
             $customerValidated = Validator::make($request->all(),([
                 'name' => 'required',
                 'phone' => 'required|numeric|digits:10|unique:customers',
                 'email' => 'required|email|unique:customers',
                 'current_address' => 'required',
+                'company_name' => 'nullable',
+                'gst_no' => 'nullable',
             ]));
 
             if ($customerValidated->fails()) {
@@ -122,8 +124,8 @@ class ApiAuthController extends Controller
 
             // split name in first_name and last_name
             $names = explode(' ', $request->name);
-            $request->merge(['first_name' => $names[0]]);
-            $request->merge(['last_name' => $names[1]]);
+            $request->merge(['first_name' => $names[0] ?? '']);
+            $request->merge(['last_name' => $names[1] ?? '']);
 
 
             $customer = Customer::create([
@@ -133,6 +135,8 @@ class ApiAuthController extends Controller
                 'email' => $request->email,
 
                 'company_addr' => $request->current_address,
+                'company_name' => $request->company_name,
+                'gst_no' => $request->gst_no,
                 'customer_type' => 'Both',
             ]);
 
@@ -294,7 +298,7 @@ class ApiAuthController extends Controller
         $user->save();
 
         // Choose guard based on role
-        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customers'];
         $guard = $guards[$request->role_id] ?? 'api';
         $token = auth($guard)->login($user); // if guard mapping in config/auth.php
 
@@ -312,7 +316,7 @@ class ApiAuthController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customers'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {
@@ -333,7 +337,7 @@ class ApiAuthController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customer'];
+        $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customers'];
         $guard = $guards[$request->role_id] ?? 'api';
 
         try {
