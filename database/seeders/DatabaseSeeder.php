@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
             SalesPeopleSeeder::class, 
             LeadTableSeeder::class,
             FollowUpTableSeeder::class,
+            MeetTableSeeder::class,
+            QuotationTableSeeder::class,
+            QuotationProductTableSeeder::class,
         ]);
       
     }
