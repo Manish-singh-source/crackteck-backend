@@ -23,7 +23,7 @@ class QuickServiceController extends Controller
                 $query->where('name', 'like', "%{$search}%");
             }
 
-            $quickServices = $query->orderBy('created_at', 'desc')->paginate(15);
+            $quickServices = $query->orderBy('created_at', 'desc')->get();
 
             return view('/crm/app/quick-services/index', compact('quickServices'));
         } catch (\Exception $e) {
