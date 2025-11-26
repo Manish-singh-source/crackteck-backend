@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\QuickServiceController;
 
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
@@ -175,6 +176,11 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::controller(AttendanceController::class)->group(function () {
         Route::get('/attendance', 'index');
         Route::post('/attendance', 'store');
+    });
+
+    Route::controller(QuickServiceController::class)->group(function () {
+        Route::get('/quick-service', 'index');
+        Route::post('/quick-service/{id}', 'store');
     });
 
 });
