@@ -23,24 +23,33 @@ class LeadController extends Controller
      */
     public function index(Request $request)
     {
-        $validated = Validator::make($request->all(),([
-            // validation rules if any
+        // Create validator
+        $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-        ]));
-        
-        if ($validated->fails()) {
-            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        ]);
+
+        // Check for validation errors
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $leads = Lead::where('user_id', $validated['user_id'])->paginate();
+        // Get validated data as array
+        $validatedData = $validator->validated();
 
-        // return response()->json(['leads' => $leads], 200);
+        // Query leads
+        $leads = Lead::where('user_id', $validatedData['user_id'])->paginate();
+
+        // Return paginated leads as resource collection
         return LeadResource::collection($leads);
     }
 
     public function store(Request $request)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
             'name' => 'required',
@@ -48,7 +57,7 @@ class LeadController extends Controller
             'designation' => 'nullable',
             'phone' => 'required',
             'email' => 'required|email',
-            
+
             'dob' => 'nullable|date',
             'gender' => 'nullable',
 
@@ -95,7 +104,7 @@ class LeadController extends Controller
 
     public function show(Request $request, $lead_id)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -103,6 +112,8 @@ class LeadController extends Controller
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+
+        $validated = $validated->validated();
 
         $lead = Lead::where('user_id', $validated['user_id'])->find($lead_id);
 
@@ -115,7 +126,7 @@ class LeadController extends Controller
 
     public function update(Request $request, $lead_id)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -123,6 +134,8 @@ class LeadController extends Controller
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+
+        $validated = $validated->validated();
 
         if ($request->full_name) {
             $full_name = explode(' ', $request->full_name);
@@ -132,7 +145,7 @@ class LeadController extends Controller
             unset($request['full_name']);
         }
 
-        $lead = Lead::find($lead_id);
+        $lead = Lead::where('user_id', $validated['user_id'])->find($lead_id);
 
         if (!$lead) {
             return response()->json(['message' => 'Lead not found'], 404);
@@ -144,7 +157,7 @@ class LeadController extends Controller
 
     public function destroy(Request $request, $lead_id)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -153,7 +166,7 @@ class LeadController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $lead = Lead::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+        $lead = Lead::where('user_id', $request->user_id)->where('id', $lead_id)->delete();
 
         if (!$lead) {
             return response()->json(['message' => 'Lead not found'], 404);
@@ -161,4 +174,3 @@ class LeadController extends Controller
         return response()->json(['message' => 'Lead deleted successfully'], 200);
     }
 }
-

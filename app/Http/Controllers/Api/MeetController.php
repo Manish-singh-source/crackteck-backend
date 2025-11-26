@@ -13,16 +13,15 @@ class MeetController extends Controller
     //
     public function index(Request $request)
     {
-        $validated = Validator::make($request->all(),([
-            // validation rules if any
+        $validated = Validator::make($request->all(), [
             'user_id' => 'required',
-        ]));
+        ]);
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $meets = Meet::where('user_id', $validated['user_id'])->paginate();
+        $meets = Meet::with('leadDetails')->where('user_id', $request->user_id)->paginate();
 
         if ($meets->isEmpty()) {
             return response()->json(['message' => 'No meets found'], 404);
@@ -37,7 +36,6 @@ class MeetController extends Controller
             'user_id' => 'required',
             'lead_id' => 'required',
             'meet_title' => 'required',
-            'client_name' => 'required',
             'meeting_type' => 'required',
             'date' => 'required',
             'time' => 'required',
@@ -52,7 +50,7 @@ class MeetController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $meet = Meet::create($validated);
+        $meet = Meet::create($request->all());
 
         if (!$meet) {
             return response()->json(['message' => 'Meet not created'], 500);
@@ -64,13 +62,13 @@ class MeetController extends Controller
     public function show(Request $request, $meet_id)
     {
         $validated = Validator::make($request->all(),([
-            // validation rules if any
             'user_id' => 'required',
         ]));
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+        $validated = $validated->validated();
 
         $meets = Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->first();
 
@@ -116,6 +114,8 @@ class MeetController extends Controller
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+        
+        $validated = $validated->validated();
 
         Meet::where('user_id', $validated['user_id'])->where('id', $meet_id)->delete();
 

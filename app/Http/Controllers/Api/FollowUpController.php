@@ -21,6 +21,8 @@ class FollowUpController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
+        $validated = $validated->validated();
+
         $followup = FollowUp::where('user_id', $validated['user_id'])->paginate();
         if ($followup->isEmpty()) {
             return response()->json(['message' => 'No followup found'], 404);
@@ -35,14 +37,16 @@ class FollowUpController extends Controller
             // validation rules if any
             'user_id' => 'required',
             'lead_id' => 'required',
-            'client_name' => 'required',
-            'contact' => 'required',
-            'email' => 'required',
+            'followup_date' => 'required',
+            'followup_time' => 'required',
+            'status' => 'required',
         ]));
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+
+        $validated = $validated->validated();
 
         $followup = FollowUp::create($validated);
 
@@ -51,16 +55,17 @@ class FollowUpController extends Controller
 
     public function show(Request $request, $lead_id)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(),[
             // validation rules if any
             'user_id' => 'required',
-        ]));
+        ]);
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+        $validated = $validated->validated();
 
-        $followup = FollowUp::where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
+        $followup = FollowUp::with('leadDetails')->where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
 
         return response()->json(['followup' => $followup], 200);
     }
@@ -76,7 +81,9 @@ class FollowUpController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $followup = FollowUp::find($followup_id);
+        $validated = $validated->validated();
+
+        $followup = FollowUp::where('user_id', $validated['user_id'])->find($followup_id);
 
         if (!$followup) {
             return response()->json(['message' => 'Follow Up not found'], 404);

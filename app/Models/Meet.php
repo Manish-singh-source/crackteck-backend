@@ -15,7 +15,6 @@ class Meet extends Model
         'user_id',
         'lead_id',
         'meet_title',
-        'client_name',
         'meeting_type',
         'date',
         'time',
@@ -25,6 +24,7 @@ class Meet extends Model
         'followUp',
         'status',
     ];
+
     /**
      * Configure activity logging options.
      */
@@ -35,5 +35,15 @@ class Meet extends Model
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn(string $eventName) => "Meeting {$eventName}");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function leadDetails()
+    {
+        return $this->belongsTo(Lead::class, 'lead_id');
     }
 }

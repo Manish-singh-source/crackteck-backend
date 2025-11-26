@@ -12,16 +12,13 @@ class FollowUp extends Model
     protected $fillable = [	
         'user_id',
         'lead_id',
-        'client_name',
-        'contact',
-        'email',
         'followup_date',
         'followup_time',
         'status',
         'remarks',
     ];
     
-    public function lead()
+    public function leadDetails()
     {
         return $this->belongsTo(Lead::class, 'lead_id');
     }

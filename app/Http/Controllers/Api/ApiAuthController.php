@@ -329,16 +329,18 @@ class ApiAuthController extends Controller
 
     public function refreshToken(Request $request)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(),[
             'role_id' => 'required|in:1,2,3,4'
-        ]));
+        ]);
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
+        $validated = $validated->validated();
+
         $guards = ['1' => 'engineer', '2' => 'delivery_man', '3' => 'sales_person', '4' => 'customers'];
-        $guard = $guards[$request->role_id] ?? 'api';
+        $guard = $guards[$validated['role_id']] ?? 'api';
 
         try {
             $newToken = auth($guard)->refresh();

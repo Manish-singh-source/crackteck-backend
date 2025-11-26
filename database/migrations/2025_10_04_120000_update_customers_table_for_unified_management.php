@@ -39,7 +39,7 @@ return new class extends Migration
         });
 
         // Update the customer_type enum to include new values
-        DB::statement("ALTER TABLE customers MODIFY COLUMN customer_type ENUM('E-commerce Customer', 'AMC Customer', 'Both') NOT NULL");
+        // DB::statement("ALTER TABLE customers MODIFY COLUMN customer_type ENUM('E-commerce Customer', 'AMC Customer', 'Both') NOT NULL");
     }
 
     /**
@@ -71,6 +71,6 @@ return new class extends Migration
         });
 
         // Revert customer_type enum to original values
-        DB::statement("ALTER TABLE customers MODIFY COLUMN customer_type ENUM('Retail', 'Wholesale', 'Corporate') NOT NULL");
+        // DB::statement("ALTER TABLE customers MODIFY COLUMN customer_type ENUM('Retail', 'Wholesale', 'Corporate') NOT NULL");
     }
 };

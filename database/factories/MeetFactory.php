@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Lead;
+use App\Models\Engineer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,12 @@ class MeetFactory extends Factory
     public function definition(): array
     {
         $leadsCount = Lead::count();
+        $usersCount = Engineer::count();
 
         return [
             //
             'lead_id' => rand(1, $leadsCount),  
+            'user_id' => rand(1, $usersCount),
             'meet_title' => fake()->jobTitle(),
             'meeting_type' => fake()->randomElement(['Onsite Demo', 'Virtual Meeting', 'Technical Visit', 'Business Meeting']),
             'date' => fake()->date(),

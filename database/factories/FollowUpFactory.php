@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Lead;
+use App\Models\Engineer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,12 @@ class FollowUpFactory extends Factory
     public function definition(): array
     {
         $leadsCount = Lead::count();
+        $usersCount = Engineer::count();
 
         return [
             //
             'lead_id' => rand(1, $leadsCount),
+            'user_id' => rand(1, $usersCount),
             // 'lead_id' => Lead::inRandomOrder()->first()->id,
             // 'client_name' => function (array $attributes) {
             //     return Lead::find($attributes['lead_id'])->first_name . ' ' . Lead::find($attributes['lead_id'])->last_name;
