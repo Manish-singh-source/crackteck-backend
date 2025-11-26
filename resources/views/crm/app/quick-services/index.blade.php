@@ -55,25 +55,15 @@
                                     </li>
                                 </ul>
 
-                                <!-- Search Form -->
-                                <div class="pt-2">
-                                    <form action="{{ route('quick-services.index') }}" method="GET" class="d-flex">
-                                        <input type="text" name="search" class="form-control me-2" placeholder="Search by name..." value="{{ request('search') }}">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                        @if(request('search'))
-                                            <a href="{{ route('quick-services.index') }}" class="btn btn-secondary ms-2">Clear</a>
-                                        @endif
-                                    </form>
-                                </div>
                             </div>
 
                             <div class="tab-content text-muted">
-                                <div class="tab-pane active show pt-4" id="all_services" role="tabpanel">
+                                <div class="tab-pane active show" id="all_services" role="tabpanel">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card shadow-none">
                                                 <div class="card-body">
-                                                    <table class="table table-striped table-borderless table-hover">
+                                                    <table class="table table-striped table-borderless table-hover" id="datatable">
                                                         <thead>
                                                             <tr>
                                                                 <th style="width:100px;">Service ID</th>
@@ -140,13 +130,6 @@
                                                             @endforelse
                                                         </tbody>
                                                     </table>
-
-                                                    <!-- Pagination -->
-                                                    @if($quickServices->hasPages())
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            {{ $quickServices->links() }}
-                                                        </div>
-                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

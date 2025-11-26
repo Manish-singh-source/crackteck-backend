@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             MeetTableSeeder::class,
             QuotationTableSeeder::class,
             QuotationProductTableSeeder::class,
+            QuickServicesSeeder::class,
         ]);
       
     }
