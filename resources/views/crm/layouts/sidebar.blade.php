@@ -173,6 +173,15 @@
                     </a>
                 </li>
 
+                <li class="menu-title mt-2">Customer App</li>
+
+                <li>
+                    <a class='tp-link' href="{{ route('quick-services.index') }}">
+                        <i class="fas fa-life-ring"></i>
+                        <span class="ps-1"> Quick Services </span>
+                    </a>
+                </li>
+
                 <li class="menu-title mt-2">Operation Managers</li>
 
                 <li>

@@ -41,6 +41,7 @@ use App\Http\Controllers\TrackRequestController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\TrackProductController;
+use App\Http\Controllers\QuickServiceController;
 
 
 Route::controller(AuthController::class)->group(function () {
@@ -731,4 +732,27 @@ Route::prefix('admin/sdui')->middleware(['auth', 'admin'])->name('admin.sdui.')-
     Route::post('settings', [SduiSettingController::class, 'store'])->name('settings.store');
     Route::delete('settings/{id}', [SduiSettingController::class, 'destroy'])->name('settings.destroy');
     Route::get('settings/initialize', [SduiSettingController::class, 'initializeDefaults'])->name('settings.initialize');
+});
+
+
+// *******************************************************************************************************************************************************
+// *******************************************************************************************************************************************************
+// ********************************************************************      Customer App Section       **************************************************
+// *******************************************************************************************************************************************************
+// *******************************************************************************************************************************************************
+
+Route::controller(QuickServiceController::class)->group(function () {
+    // Quick Services Page
+    Route::get('crm/quick-services', 'index')->name('quick-services.index');
+    // Create Quick Services Page
+    Route::get('crm/create-quick-services', 'create')->name('quick-services.create');
+    // Store Quick Services Page
+    Route::post('crm/quick-services', 'store')->name('quick-services.store');
+    // Edit Quick Services Page
+    Route::get('crm/edit-quick-services/{id}', 'edit')->name('quick-services.edit');
+    // Route::get('/quick-services/{id}/edit', 'edit')->name('quick-services.edit');
+    // Update Quick Services Page
+    Route::put('crm/quick-services/{id}', 'update')->name('quick-services.update');
+    // Delete Quick Services Page
+    Route::delete('crm/quick-services/{id}', 'destroy')->name('quick-services.destroy');
 });
