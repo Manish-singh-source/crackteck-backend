@@ -110,34 +110,56 @@ class ApiAuthController extends Controller
 
         if ($staffRole == 'customers') {
             $customerValidated = Validator::make($request->all(),([
-                'name' => 'required',
-                'phone' => 'required|numeric|digits:10|unique:customers',
-                'email' => 'required|email|unique:customers',
-                'current_address' => 'required',
+                'first_name' => 'required|min:3',
+                'last_name' => 'required|min:3',
+                'phone' => 'required|unique:customers,phone|digits:10',
+                'email' => 'required|email|unique:customers,email',
+                'dob' => 'nullable',
+                'gender' => 'required',
+                'pan_no' => 'nullable', 
+
+                'branch_name' => 'nullable',
                 'company_name' => 'nullable',
+                'company_addr' => 'nullable',
                 'gst_no' => 'nullable',
+                'customer_type' => 'required',
+
+                'address' => 'required',
+                'address2' => 'nullable',
+                'city' => 'required',
+                'state' => 'required',
+                'country' => 'required',
+                'pincode' => 'required',
             ]));
 
             if ($customerValidated->fails()) {
                 return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $customerValidated->errors()], 422);
             }
 
-            // split name in first_name and last_name
-            $names = explode(' ', $request->name);
-            $request->merge(['first_name' => $names[0] ?? '']);
-            $request->merge(['last_name' => $names[1] ?? '']);
-
-
             $customer = Customer::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'email' => $request->email,
+                'dob' => $request->dob,
+                'gender' => $request->gender,
+                'pan_no' => $request->pan_no,
 
-                'company_addr' => $request->current_address,
+                'branch_name' => $request->branch_name,
                 'company_name' => $request->company_name,
+                'company_addr' => $request->company_addr,
                 'gst_no' => $request->gst_no,
-                'customer_type' => 'Both',
+                'customer_type' => $request->customer_type,
+            ]);
+
+            $customer->branches()->create([
+                'branch_name' => $request->branch_name,
+                'address' => $request->address,
+                'address2' => $request->address2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'country' => $request->country,
+                'pincode' => $request->pincode,
             ]);
 
             return response()->json(['success' => true, 'message' => 'Customer created successfully.']);

@@ -97,9 +97,11 @@ class OrderController extends Controller
     // role_id, product_id, quantity
     public function buyProduct(Request $request, $product_id)
     {
+        // return response()->json(['message' => $request->all()], 501);
         $roleValidated = Validator::make($request->all(), ([
-            'role_id' => 'required|in:3,4',
+            'role_id' => 'required|in:4',
             'quantity' => 'required|integer|min:1',
+            'customer_id' => 'required',
         ]));
 
         if ($roleValidated->fails()) {
@@ -112,28 +114,27 @@ class OrderController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
 
-        if ($staffRole == 'customers' || $staffRole == 'sales_person') {
+        if ($staffRole == 'customers') {
             $product = EcommerceProduct::find($product_id);
 
             if (!$product) {
                 return response()->json(['message' => 'Product not found'], 404);
             }
 
+            // Store Order in Order Table 
+            $customer = Customer::with('address')->where('id', $request->customer_id)->first();
+            if (!$customer) {
+                return response()->json(['message' => 'Customer not found'], 404);
+            }
+
             $quantity = $request->quantity;
             $price = $product->selling_price;
             $total = $quantity * $price;
 
-            // Store Order in Order Table 
-            $customer = Customer::with('address')->where('id', $request->user_id)->first();
-
-            // if ($customer) {
-                
-            //     return response()->json(['message' => 'Customer not found', 'customer' => $customer], 404);
-            // }
             $order = EcommerceOrder::create([
-                'user_id' => $customer->user_id,
-                'customer_id' => $customer->id,
-                'order_number' => 'ORD-' . date('YmdHis') . '-' . $customer->id,
+                'user_id' => 1,
+                'customer_id' => $request->customer_id,
+                'order_number' => 'ORD-' . date('YmdHis') . '-' .$request->customer_id,
                 'order_source' => 'buy_now',
                 'email' => $customer->email,
                 
@@ -186,10 +187,6 @@ class OrderController extends Controller
                 'free_shipping' => true,
             ]);
 
-            if (!$order) {
-                return response()->json(['message' => 'Order not placed'], 500);
-            }
-
             return response()->json([
                 'success' => true,
                 'order_id' => $order->id,
@@ -198,6 +195,28 @@ class OrderController extends Controller
                 'total' => $total,
                 'message' => 'Order placed successfully!'
             ], 200);
+        }
+    }
+
+    public function listOrders(Request $request)
+    {
+        $roleValidated = Validator::make($request->all(), ([
+            'role_id' => 'required|in:4',
+        ]));
+
+        if ($roleValidated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $roleValidated->errors()], 422);
+        }
+
+        $staffRole = $this->getRoleId($request->role_id);
+
+        if (!$staffRole) {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+
+        if ($staffRole == 'customers') {
+            $orders = EcommerceOrder::with('items')->where('user_id', $request->user_id)->get();
+            return response()->json(['orders' => $orders], 200);
         }
     }
 

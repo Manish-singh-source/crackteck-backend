@@ -12,6 +12,7 @@ class EcommerceOrder extends Model
 
     protected $fillable = [
         'user_id',
+        'customer_id',
         'order_number',
         'order_source',
         'email',
