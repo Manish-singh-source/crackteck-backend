@@ -273,8 +273,7 @@ class MyAccountController extends Controller
         $user = Auth::user();
 
         // Get AMC services for the logged-in user (by email)
-        $amcServices = \App\Models\AmcService::where('email', $user->email)
-            ->with(['amcPlan', 'products', 'branches'])
+        $amcServices = \App\Models\AmcService::with(['amcPlan', 'products', 'branches'])
             ->orderBy('created_at', 'desc')
             ->get();
 

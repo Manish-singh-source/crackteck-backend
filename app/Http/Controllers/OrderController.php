@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EcommerceOrder;
-use App\Models\EcommerceOrderItem;
-use App\Models\EcommerceProduct;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\InventoryUpdateLog;
+use App\Models\DeliveryMan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\EcommerceOrder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\EcommerceProduct;
+use App\Models\EcommerceOrderItem;
+use App\Models\InventoryUpdateLog;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -464,11 +465,11 @@ class OrderController extends Controller
     {
         $order = EcommerceOrder::with(['user', 'orderItems.ecommerceProduct.warehouseProduct'])
             ->findOrFail($id);
-
+        $deliveryMen = DeliveryMan::where('status', 'Active')->get();
         // Calculate totals
         $totals = $this->calculateOrderTotals($order);
 
-        return view('e-commerce.order.view', compact('order', 'totals'));
+        return view('e-commerce.order.view', compact('order', 'totals', 'deliveryMen'));
     }
 
     /**
@@ -537,6 +538,40 @@ class OrderController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to update order status'
+            ], 500);
+        }
+    }
+
+    /**
+     * Assign delivery man to an order
+     */
+    public function assignDeliveryMan(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'delivery_man_id' => 'required|exists:delivery_men,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $order = EcommerceOrder::findOrFail($id);
+            $order->delivery_man_id = $request->delivery_man_id;
+            $order->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Delivery man assigned successfully'
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error assigning delivery man: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign delivery man'
             ], 500);
         }
     }

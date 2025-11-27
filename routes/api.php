@@ -6,14 +6,15 @@ use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\MeetController;
 use App\Http\Controllers\Api\SDUIController;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\FollowUpController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\AttendanceController;
-use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\QuickServiceController;
+use App\Http\Controllers\Api\DeliveryOrderController;
 
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
@@ -118,6 +119,9 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout', [ApiAuthController::class, 'logout']);
         Route::post('/refresh-token', [ApiAuthController::class, 'refreshToken']);
 
+
+
+        // Sales Person APIs
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/dashboard', 'index');
             Route::get('/sales-overview', 'salesOverview');
@@ -181,6 +185,23 @@ Route::prefix('v1')->group(function () {
         Route::controller(QuickServiceController::class)->group(function () {
             Route::get('/quick-service', 'index');
             Route::post('/quick-service/{id}', 'store');
+        });
+
+
+
+
+
+
+        // Delivery Man APIs
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('/orders', 'allOrders');
+            Route::post('/orders', 'store');
+        });
+        
+        Route::controller(DeliveryOrderController::class)->group(function () {
+            Route::get('/accept-order', 'acceptOrder');
+            Route::post('/delivery-orders', 'store');
+            Route::get('/order/{order_id}', 'orderDetails');
         });
     });
 });
