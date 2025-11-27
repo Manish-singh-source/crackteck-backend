@@ -109,78 +109,78 @@ use App\Http\Controllers\Api\QuickServiceController;
 
 
 
+Route::prefix('v1')->group(function () {
+    Route::post('/signup', [ApiAuthController::class, 'signup']);
+    Route::post('/send-otp', [ApiAuthController::class, 'login']);
+    Route::post('/verify-otp', [ApiAuthController::class, 'verifyOtp']);
 
-Route::post('/signup', [ApiAuthController::class, 'signup']);
-Route::post('/send-otp', [ApiAuthController::class, 'login']);
-Route::post('/verify-otp', [ApiAuthController::class, 'verifyOtp']);
+    Route::middleware(['jwt.verify'])->group(function () {
+        Route::post('/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/refresh-token', [ApiAuthController::class, 'refreshToken']);
 
-Route::middleware(['jwt.verify'])->group(function () {
-    Route::post('/logout', [ApiAuthController::class, 'logout']);
-    Route::post('/refresh-token', [ApiAuthController::class, 'refreshToken']);
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index');
+            Route::get('/sales-overview', 'salesOverview');
+        });
 
-    Route::controller(DashboardController::class)->group(function () {
-        Route::get('/dashboard', 'index');
-        Route::get('/sales-overview', 'salesOverview');
+        Route::controller(TaskController::class)->group(function () {
+            Route::get('/task', 'index');
+        });
+
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('/product', 'listProducts'); // Sales Person and Customer
+            Route::get('/product/{id}', 'product'); // Sales Person and Customer
+            Route::post('/buy-product/{id}', 'buyProduct'); // Sales Person and Customer
+
+            Route::get('/all-product', 'allListProducts'); // Engineer
+            Route::get('/all-product/{id}', 'allProduct'); // Engineer
+        });
+
+        Route::controller(LeadController::class)->group(function () {
+            Route::get('/leads', 'index');
+            Route::post('/lead', 'store');
+            Route::get('/lead/{id}', 'show');
+            Route::put('/lead/{id}', 'update');
+            Route::delete('/lead/{id}', 'destroy');
+        });
+
+        Route::controller(FollowUpController::class)->group(function () {
+            Route::get('/follow-up', 'index');
+            Route::post('/follow-up', 'store');
+            Route::get('/follow-up/{id}', 'show');
+            Route::put('/follow-up/{id}', 'update');
+            Route::delete('/follow-up/{id}', 'destroy');
+        });
+
+        Route::controller(MeetController::class)->group(function () {
+            Route::get('/meets', 'index');
+            Route::post('/meet', 'store');
+            Route::get('/meet/{id}', 'show');
+            Route::put('/meet/{id}', 'update');
+            Route::delete('/meet/{id}', 'destroy');
+        });
+
+        Route::controller(QuotationController::class)->group(function () {
+            Route::get('/quotation', 'index');
+            Route::post('/quotation', 'store');
+            Route::get('/quotation/{id}', 'show');
+            Route::put('/quotation/{id}', 'update');
+            Route::delete('/quotation/{id}', 'destroy');
+        });
+
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('/profile', 'index');
+            Route::put('/profile', 'update');
+        });
+
+        Route::controller(AttendanceController::class)->group(function () {
+            Route::get('/attendance', 'index');
+            Route::post('/attendance', 'store');
+        });
+
+        Route::controller(QuickServiceController::class)->group(function () {
+            Route::get('/quick-service', 'index');
+            Route::post('/quick-service/{id}', 'store');
+        });
     });
-    
-    Route::controller(TaskController::class)->group(function () {
-        Route::get('/task', 'index');
-    });
-
-    Route::controller(OrderController::class)->group(function () {
-        Route::get('/product', 'listProducts'); // Sales Person and Customer
-        Route::get('/product/{id}', 'product'); // Sales Person and Customer
-        Route::post('/buy-product/{id}', 'buyProduct'); // Sales Person and Customer
-
-        Route::get('/all-product', 'allListProducts'); // Engineer
-        Route::get('/all-product/{id}', 'allProduct'); // Engineer
-    });
-
-    Route::controller(LeadController::class)->group(function () {
-        Route::get('/leads', 'index');
-        Route::post('/lead', 'store');
-        Route::get('/lead/{id}', 'show');
-        Route::put('/lead/{id}', 'update');
-        Route::delete('/lead/{id}', 'destroy');
-    });
-
-    Route::controller(FollowUpController::class)->group(function () {
-        Route::get('/follow-up', 'index');
-        Route::post('/follow-up', 'store');
-        Route::get('/follow-up/{id}', 'show');
-        Route::put('/follow-up/{id}', 'update');
-        Route::delete('/follow-up/{id}', 'destroy');
-    });
-
-    Route::controller(MeetController::class)->group(function () {
-        Route::get('/meets', 'index');
-        Route::post('/meet', 'store');
-        Route::get('/meet/{id}', 'show');
-        Route::put('/meet/{id}', 'update');
-        Route::delete('/meet/{id}', 'destroy');
-    });
-
-    Route::controller(QuotationController::class)->group(function () {
-        Route::get('/quotation', 'index');
-        Route::post('/quotation', 'store');
-        Route::get('/quotation/{id}', 'show');
-        Route::put('/quotation/{id}', 'update');
-        Route::delete('/quotation/{id}', 'destroy');
-    });
-
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile', 'index');
-        Route::put('/profile', 'update');
-    });
-
-    Route::controller(AttendanceController::class)->group(function () {
-        Route::get('/attendance', 'index');
-        Route::post('/attendance', 'store');
-    });
-
-    Route::controller(QuickServiceController::class)->group(function () {
-        Route::get('/quick-service', 'index');
-        Route::post('/quick-service/{id}', 'store');
-    });
-
 });
