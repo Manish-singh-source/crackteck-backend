@@ -131,6 +131,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/product', 'listProducts'); // Sales Person and Customer
             Route::get('/product/{id}', 'product'); // Sales Person and Customer
             Route::post('/buy-product/{id}', 'buyProduct'); // Sales Person and Customer
+            Route::get('/order', 'listOrders'); // Sales Person and Customer
 
             Route::get('/all-product', 'allListProducts'); // Engineer
             Route::get('/all-product/{id}', 'allProduct'); // Engineer
