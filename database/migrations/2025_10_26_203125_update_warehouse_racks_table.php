@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('filled_quantity')->default(0)->after('quantity'); 
         });
 
-        // DB::statement('ALTER TABLE warehouse_racks ADD CONSTRAINT chk_filled_quantity CHECK (filled_quantity <= quantity)');
+        DB::statement('ALTER TABLE warehouse_racks ADD CONSTRAINT chk_filled_quantity CHECK (filled_quantity <= quantity)');
     }
 
     /**
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // DB::statement('ALTER TABLE warehouse_racks DROP CONSTRAINT chk_filled_quantity');
+        DB::statement('ALTER TABLE warehouse_racks DROP CONSTRAINT chk_filled_quantity');
         
         Schema::table('warehouse_racks', function (Blueprint $table) {
             //

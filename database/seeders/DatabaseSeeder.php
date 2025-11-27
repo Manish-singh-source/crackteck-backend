@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             PlansTableSeeder::class,
             CustomerSeeder::class,
             DeliveryMenSeeder::class,
-            // SalesPeopleSeeder::class, 
+            SalesPeopleSeeder::class, 
             LeadTableSeeder::class,
             FollowUpTableSeeder::class,
             MeetTableSeeder::class,
