@@ -201,6 +201,7 @@ class OrderController extends Controller
     public function listOrders(Request $request)
     {
         $roleValidated = Validator::make($request->all(), ([
+            'customer_id' => 'required',
             'role_id' => 'required|in:4',
         ]));
 
@@ -215,7 +216,7 @@ class OrderController extends Controller
         }
 
         if ($staffRole == 'customers') {
-            $orders = EcommerceOrder::with('items')->where('user_id', $request->user_id)->get();
+            $orders = EcommerceOrder::with('orderItems')->where('customer_id', $request->customer_id)->get();
             return response()->json(['orders' => $orders], 200);
         }
     }
