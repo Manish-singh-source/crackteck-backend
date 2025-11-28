@@ -90,6 +90,10 @@
                                             <span>{{ $amcService->plan_start_date ? $amcService->plan_start_date->format('d M Y') : 'N/A' }}</span>
                                         </li>
                                         <li class="list-group-item border-0 d-flex gap-3">
+                                            <span class="fw-semibold">Plan Type:</span>
+                                            <span>{{ $amcService->amcPlan->plan_type ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="list-group-item border-0 d-flex gap-3">
                                             <span class="fw-semibold">Priority Level:</span>
                                             <span>{{ $amcService->priority_level ?? 'N/A' }}</span>
                                         </li>
@@ -129,6 +133,10 @@
                                             </span>
                                         </li>
                                         <li class="list-group-item border-0 d-flex gap-3">
+                                            <span class="fw-semibold">Total Visits:</span>
+                                            <span>{{ $amcService->amcPlan->total_visits ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="list-group-item border-0 d-flex gap-3">
                                             <span class="fw-semibold">Total Amount:</span>
                                             <span
                                                 class="fw-bold text-success">₹{{ number_format($amcService->total_amount, 2) }}</span>
@@ -144,152 +152,52 @@
                             <div class="d-flex flex-row justify-content-between align-items-center">
                                 <div>
                                     <h5 class="card-title flex-grow-1 mb-0">
-                                        Service History Details
+                                        Service Upcoming/History Details
                                     </h5>
                                 </div>
                                 <div class="d-flex flex-row justify-content-between align-items-center gap-2">
-                                    <div>
-                                        <span>
-                                            Next Visit Date:
-                                        </span>
-                                        <span
-                                            class="p-1 rounded bg-warning-subtle text-warning fw-semibold">2025-07-16</span>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#addVisitModal2">Add Visit</button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="addVisitModal2" tabindex="-1"
-                                            aria-labelledby="addVisitModalLabel2" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form action="#">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="addVisitModalLabel2">Reschedule
-                                                                Appointment</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
+                                    @php
+                                        $totalVisits = $amcService->amcPlan->total_visits ?? 0;
+                                        $completedVisits = $amcService->visits()->where('status', 'Completed')->count();
+                                        $remainingVisits = $totalVisits - $completedVisits;
+                                        $nextVisit = $amcService->visits()->whereIn('status', ['Pending', 'Upcoming'])->orderBy('scheduled_date')->first();
+                                    @endphp
 
-                                                        <div class="modal-body p-2">
-                                                            <div class="card">
-                                                                <div class="card-header border-bottom-dashed">
-                                                                    <div class="d-flex">
-                                                                        <h5 class="card-title flex-grow-1 mb-0">
-                                                                            Engineer Location
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="card-body">
-                                                                    <div>
-                                                                        <select required="" name="eng-location2"
-                                                                            id="eng-location2" class="form-select w-100">
-                                                                            <option value="0" selected=""
-                                                                                disabled="">---- Select Location ----
-                                                                            </option>
-                                                                            <option value="0">Mumbai</option>
-                                                                            <option value="0">Delhi</option>
-                                                                            <option value="0">Kolkata</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="card hide-assign-eng-section2" id="mySection2"
-                                                                style="display: none;">
-                                                                <div class="card-header border-bottom-dashed">
-                                                                    <div class="d-flex pb-3">
-                                                                        <h5 class="card-title flex-grow-1 mb-0">Assign
-                                                                            Engineer</h5>
-                                                                    </div>
-                                                                    <div class="col-sm-10 d-flex gap-2">
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input eng-assign2"
-                                                                                type="radio" name="gridRadios2"
-                                                                                id="individualRadio2" value="individual"
-                                                                                checked="">
-                                                                            <label class="form-check-label"
-                                                                                for="individualRadio2">
-                                                                                Individual Engineer
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input eng-assign2"
-                                                                                type="radio" name="gridRadios2"
-                                                                                id="groupRadio2" value="group">
-                                                                            <label class="form-check-label"
-                                                                                for="groupRadio2">
-                                                                                Group Engineer
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="card-body">
-                                                                    <!-- Individual Engineer Dropdown -->
-                                                                    <div id="individualDropdown2">
-                                                                        <select required="" name="status2"
-                                                                            class="form-select w-100">
-                                                                            <option value="" selected=""
-                                                                                disabled="">---- Select Individual
-                                                                                Engineer ----</option>
-                                                                            <option value="engineer1">Engineer 1</option>
-                                                                            <option value="engineer2">Engineer 2</option>
-                                                                            <option value="engineer3">Engineer 3</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <!-- Group Engineer Dropdown -->
-                                                                    <div id="groupDropdown2" style="display: none;">
-                                                                        <select id="groupDropdownSelect2"
-                                                                            class="form-select w-100">
-                                                                            <option value="" selected=""
-                                                                                disabled="">---- Select Group Engineer
-                                                                                ----</option>
-                                                                            <option value="group1">Engineer 1</option>
-                                                                            <option value="group2">Engineer 2</option>
-                                                                            <option value="group3">Engineer 3</option>
-                                                                        </select>
-
-                                                                        <!-- Button to display selected options -->
-                                                                        <button
-                                                                            class="btn btn-primary mt-2 add-engineer2">Add
-                                                                            Engineer</button>
-
-                                                                        <!-- Table to display selected values with checkboxes -->
-                                                                        <table class="table mt-4" id="selectedTable2">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Group Name</th>
-                                                                                    <th>Admin</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <!-- Selected values will appear here -->
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-success">Submit</button>
-                                                        </div>
-                                                    </form>
-
-                                                </div>
+                                    @if($amcService->visits->count() == 0)
+                                        <button class="btn btn-sm btn-primary" onclick="generateVisits({{ $amcService->id }})">
+                                            <i class="bx bx-plus"></i> Generate Visits
+                                        </button>
+                                    @else
+                                        @if($nextVisit)
+                                            <div>
+                                                <span>Next Visit Date:</span>
+                                                <span class="p-1 rounded bg-warning-subtle text-warning fw-semibold">
+                                                    {{ $nextVisit->scheduled_date->format('d M Y') }}
+                                                </span>
                                             </div>
-                                        </div>
+                                        @endif
 
-                                    </div>
+                                        @if($remainingVisits > 0)
+                                            <div>
+                                                <span>Remaining Visits:</span>
+                                                <span class="p-1 rounded bg-warning-subtle text-warning fw-semibold">
+                                                    {{ $remainingVisits }}
+                                                </span>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <span>Our Visits:</span>
+                                                <span class="p-1 rounded bg-success-subtle text-success fw-semibold">
+                                                    Completed
+                                                </span>
+                                            </div>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Assign Engineer --}}
+                        {{-- Upcoming/History Details Table --}}
                         <div class="card-body">
                             <table class="table table-striped table-borderless dt-responsive nowrap">
                                 <thead>
@@ -300,100 +208,90 @@
                                         <th>Issue Type</th>
                                         <th>Report</th>
                                         <th>Status</th>
-                                        <th>Action </th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    <tr class="align-middle">
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            Chris Doe
-                                        </td>
-                                        <td>2025-07-16 12:09 PM</td>
-                                        <td>
-                                            Maintanance
-                                        </td>
-                                        <td>
-                                            NA
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-warning-subtle text-warning fw-semibold">Upcoming</span>
-                                        </td>
-                                        <td>
-                                            <!-- Re-Scheduled Button -->
-                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#rescheduleModal">
-                                                Re-Scheduled
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="rescheduleModal" tabindex="-1"
-                                                aria-labelledby="rescheduleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form action="#">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="rescheduleModalLabel">
-                                                                    Reschedule Appointment</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-
-                                                            <div class="modal-body p-2">
-                                                                <p>Please enter new schedule date:</p>
-                                                                <input type="date" id="newSchedule"
-                                                                    class="form-control"
-                                                                    placeholder="Enter new date/time">
-                                                            </div>
-
-                                                            <div class="modal-footer">
-                                                                <button type="button"
-                                                                    class="btn btn-success">Submit</button>
-                                                            </div>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                        </td>
-                                    </tr>
-
-                                    <tr class="align-middle">
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            John Doe
-                                        </td>
-                                        <td>2025-04-04 06:09 PM</td>
-                                        <td>
-                                            Maintanance
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="./view-detailed-service-history.php">View Report</a>
-                                            <!-- <div id="popupOverlay">
-                                                            <span class="closeBtn hide-report">&times;</span>
-                                                            <img id="popupImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevxmRXifnbO19nrfkzha4QLipReqGMcM33g&s" alt="Popup Image">
-                                                        </div> -->
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary disabled">Re-Scheduled</button>
-
-                                        </td>
-                                    </tr>
-
+                                    @forelse($amcService->visits()->orderBy('visit_number')->get() as $index => $visit)
+                                        <tr class="align-middle">
+                                            <td>{{ $visit->visit_number }}</td>
+                                            <td>
+                                                @php
+                                                    $activeAssignment = $visit->activeAssignment;
+                                                @endphp
+                                                @if($activeAssignment)
+                                                    @if($activeAssignment->assignment_type == 'Individual')
+                                                        <div>
+                                                            <span class="badge bg-info-subtle text-info mb-1">Individual</span><br>
+                                                            <strong>{{ $activeAssignment->engineer->first_name ?? '' }} {{ $activeAssignment->engineer->last_name ?? '' }}</strong>
+                                                        </div>
+                                                    @else
+                                                        <div>
+                                                            <span class="badge bg-primary-subtle text-primary mb-1">Group</span><br>
+                                                            <strong>{{ $activeAssignment->group_name }}</strong><br>
+                                                            <small class="text-muted">Supervisor: {{ $activeAssignment->supervisor->first_name ?? '' }} {{ $activeAssignment->supervisor->last_name ?? '' }}</small><br>
+                                                            <small class="text-muted">Members: {{ $activeAssignment->groupMembers->count() }}</small>
+                                                        </div>
+                                                    @endif
+                                                @elseif($visit->engineer)
+                                                    {{ $visit->engineer->first_name }} {{ $visit->engineer->last_name }}
+                                                @else
+                                                    <span class="text-muted">N/A</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $visit->scheduled_date->format('d M Y h:i A') }}</td>
+                                            <td>
+                                                @if($visit->issue_type)
+                                                    {{ $visit->issue_type }}
+                                                @else
+                                                    <span class="text-muted">N/A</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($visit->report)
+                                                    <button class="btn btn-sm btn-primary">View Report</button>
+                                                @else
+                                                    <span class="text-muted">N/A</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($visit->status == 'Completed')
+                                                    <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                @elseif($visit->status == 'Upcoming')
+                                                    <span class="badge bg-warning-subtle text-warning fw-semibold">Upcoming</span>
+                                                @elseif($visit->status == 'Cancelled')
+                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Cancelled</span>
+                                                @else
+                                                    <span class="badge bg-secondary-subtle text-secondary fw-semibold">Pending</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($visit->status != 'Completed')
+                                                    @if($visit->engineer_id)
+                                                        <button class="btn btn-sm btn-info"
+                                                            onclick="openEditVisitModal({{ $visit->id }}, {{ $visit->engineer_id }}, '{{ $visit->scheduled_date->format('Y-m-d\TH:i') }}')">
+                                                            <i class="bx bx-edit"></i> Edit
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-sm btn-primary"
+                                                            onclick="openAssignVisitModal({{ $visit->id }}, '{{ $visit->scheduled_date->format('Y-m-d\TH:i') }}')">
+                                                            <i class="bx bx-user-plus"></i> Assign Engineer
+                                                        </button>
+                                                    @endif
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                No visits generated yet. Click "Generate Visits" button above.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
 
@@ -488,7 +386,7 @@
 
                 <div class="col-xl-4">
                     <!-- Assign Engineer Card -->
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header border-bottom-dashed">
                             <h5 class="card-title mb-0">Assign Engineer</h5>
                         </div>
@@ -569,7 +467,7 @@
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Assigned Engineers History -->
                     <div class="card mt-3">
@@ -671,6 +569,103 @@
         </div>
     </div>
 
+    <!-- Assign/Edit Visit Engineer Modal -->
+    <div class="modal fade" id="assignVisitEngineerModal" tabindex="-1" aria-labelledby="assignVisitEngineerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="assignVisitEngineerForm">
+                    @csrf
+                    <input type="hidden" id="visit_id" name="visit_id">
+                    <input type="hidden" id="is_edit" name="is_edit" value="0">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="assignVisitEngineerModalLabel">Assign Engineer to Visit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-3">
+                        <div class="mb-3">
+                            <label for="modal_scheduled_date" class="form-label">Visit Date <span class="text-danger">*</span></label>
+                            <input type="datetime-local" name="scheduled_date" id="modal_scheduled_date" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Assignment Type <span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="assignment_type"
+                                        id="modal_typeIndividual" value="Individual" checked>
+                                    <label class="form-check-label" for="modal_typeIndividual">Individual</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="assignment_type"
+                                        id="modal_typeGroup" value="Group">
+                                    <label class="form-check-label" for="modal_typeGroup">Group</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Individual Assignment -->
+                        <div id="modal_individualSection">
+                            <div class="mb-3">
+                                <label for="modal_engineer_id" class="form-label">Select Engineer <span class="text-danger">*</span></label>
+                                <select name="engineer_id" id="modal_engineer_id" class="form-select">
+                                    <option value="">--Select Engineer--</option>
+                                    @foreach ($engineers as $engineer)
+                                        <option value="{{ $engineer->id }}">
+                                            {{ $engineer->first_name }} {{ $engineer->last_name }} - {{ $engineer->designation }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Group Assignment -->
+                        <div id="modal_groupSection" style="display: none;">
+                            <div class="mb-3">
+                                <label for="modal_group_name" class="form-label">Group Name <span class="text-danger">*</span></label>
+                                <input type="text" name="group_name" id="modal_group_name" class="form-control"
+                                    placeholder="Enter Group Name">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Select Engineers <span class="text-danger">*</span></label>
+                                <div class="border rounded p-3" style="max-height: 300px; overflow-y: auto;">
+                                    @foreach ($engineers as $engineer)
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input modal-engineer-checkbox" type="checkbox"
+                                                name="engineer_ids[]" value="{{ $engineer->id }}"
+                                                id="modal_eng_{{ $engineer->id }}">
+                                            <label class="form-check-label" for="modal_eng_{{ $engineer->id }}">
+                                                {{ $engineer->first_name }} {{ $engineer->last_name }} -
+                                                {{ $engineer->designation }}
+                                            </label>
+                                            <input class="form-check-input ms-3" type="radio"
+                                                name="supervisor_id" value="{{ $engineer->id }}"
+                                                id="modal_sup_{{ $engineer->id }}">
+                                            <label class="form-check-label small text-muted"
+                                                for="modal_sup_{{ $engineer->id }}">
+                                                (Supervisor)
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <small class="text-muted">Check engineers to add to group, select one as supervisor</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bx bx-save"></i> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -679,7 +674,7 @@
 
 <script>
     $(document).ready(function() {
-        // Toggle between Individual and Group assignment
+        // Toggle between Individual and Group assignment (Sidebar form)
         $('input[name="assignment_type"]').change(function() {
             if ($(this).val() === 'Individual') {
                 $('#individualSection').show();
@@ -687,6 +682,17 @@
             } else {
                 $('#individualSection').hide();
                 $('#groupSection').show();
+            }
+        });
+
+        // Toggle between Individual and Group assignment (Modal)
+        $('input[name="assignment_type"]').change(function() {
+            if ($(this).val() === 'Individual') {
+                $('#modal_individualSection').show();
+                $('#modal_groupSection').hide();
+            } else {
+                $('#modal_individualSection').hide();
+                $('#modal_groupSection').show();
             }
         });
 
@@ -774,6 +780,172 @@
                 }
             });
         });
+
+        // Handle visit engineer assignment form
+        $('#assignVisitEngineerForm').submit(function(e) {
+            e.preventDefault();
+
+            let assignmentType = $('input[name="assignment_type"]:checked').val();
+
+            // Validation
+            if (assignmentType === 'Individual') {
+                if (!$('#modal_engineer_id').val()) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please select an engineer'
+                    });
+                    return;
+                }
+            } else {
+                if (!$('#modal_group_name').val()) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please enter group name'
+                    });
+                    return;
+                }
+
+                let checkedEngineers = $('.modal-engineer-checkbox:checked').length;
+                if (checkedEngineers === 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please select at least one engineer'
+                    });
+                    return;
+                }
+
+                if (!$('input[name="supervisor_id"]:checked').val()) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please select a supervisor'
+                    });
+                    return;
+                }
+            }
+
+            let formData = new FormData(this);
+            let isEdit = $('#is_edit').val() === '1';
+            let url = isEdit ? '{{ route('amc-services.update-visit-engineer') }}' : '{{ route('amc-services.assign-visit-engineer') }}';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    let errorMessage = 'An error occurred';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    } else if (xhr.responseJSON && xhr.responseJSON.errors) {
+                        errorMessage = Object.values(xhr.responseJSON.errors).flat().join('<br>');
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        html: errorMessage
+                    });
+                }
+            });
+        });
     });
+
+    // Generate visits function
+    function generateVisits(amcServiceId) {
+        Swal.fire({
+            title: 'Generate Visits?',
+            text: 'This will create visit schedules based on the AMC plan duration and total visits.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, generate!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ url('/crm/amc-service-generate-visits') }}/' + amcServiceId,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                location.reload();
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'An error occurred';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: errorMessage
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // Open assign visit modal
+    function openAssignVisitModal(visitId, scheduledDate) {
+        $('#visit_id').val(visitId);
+        $('#is_edit').val('0');
+        $('#modal_engineer_id').val('');
+        $('#modal_scheduled_date').val(scheduledDate);
+        $('#modal_group_name').val('');
+        $('.modal-engineer-checkbox').prop('checked', false);
+        $('input[name="supervisor_id"]').prop('checked', false);
+        $('#modal_typeIndividual').prop('checked', true);
+        $('#modal_individualSection').show();
+        $('#modal_groupSection').hide();
+        $('#assignVisitEngineerModalLabel').text('Assign Engineer to Visit');
+        $('#assignVisitEngineerModal').modal('show');
+    }
+
+    // Open edit visit modal
+    function openEditVisitModal(visitId, engineerId, scheduledDate) {
+        $('#visit_id').val(visitId);
+        $('#is_edit').val('1');
+        $('#modal_engineer_id').val(engineerId);
+        $('#modal_scheduled_date').val(scheduledDate);
+        $('#modal_group_name').val('');
+        $('.modal-engineer-checkbox').prop('checked', false);
+        $('input[name="supervisor_id"]').prop('checked', false);
+        $('#modal_typeIndividual').prop('checked', true);
+        $('#modal_individualSection').show();
+        $('#modal_groupSection').hide();
+        $('#assignVisitEngineerModalLabel').text('Edit Visit Engineer');
+        $('#assignVisitEngineerModal').modal('show');
+    }
 </script>
 @endsection
