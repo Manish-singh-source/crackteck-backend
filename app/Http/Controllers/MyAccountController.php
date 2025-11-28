@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, DB, Log, Hash, Validator};
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
 
 class MyAccountController extends Controller
 {
@@ -278,6 +275,39 @@ class MyAccountController extends Controller
             ->get();
 
         return view('frontend.my-account-amc', compact('amcServices'));
+    }
+
+    /**
+     * Display detailed view of a specific AMC service
+     */
+    public function viewAmcService($id)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to access your account.');
+        }
+
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:amc_services,id'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('my-account-amc')->with('error', 'AMC service not found.');
+        }
+
+        try {
+            $amcService = \App\Models\AmcService::with([
+                'amcPlan',
+                'branches',
+                'products.type',
+                'products.brand',
+                'creator'
+            ])->findOrFail($id);
+
+            return view('frontend.my-account-amc-view', compact('amcService'));
+        } catch (\Exception $e) {
+            Log::error('Error viewing AMC service: ' . $e->getMessage());
+            return redirect()->route('my-account-amc')->with('error', 'Error loading AMC service details.');
+        }
     }
 
     /**
