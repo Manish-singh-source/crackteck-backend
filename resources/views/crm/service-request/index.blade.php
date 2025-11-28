@@ -475,9 +475,33 @@
                                                                     </td>
                                                                     <td>{{ $service->amcPlan->plan_name ?? 'N/A' }}</td>
                                                                     <td>{{ $service->plan_duration ?? 'N/A' }}</td>
-                                                                    <td>{{ $service->plan_start_date ? $service->plan_start_date->format('d M Y') : 'N/A' }}
+                                                                    <td>
+                                                                        @php
+                                                                            $startDate = \Carbon\Carbon::parse($service->plan_start_date);
+                                                                        @endphp
+                                                                        {{ $startDate->format('d M Y') }}
                                                                     </td>
-                                                                    <td>{{ $service->plan_end_date ? $service->plan_end_date->format('d M Y') : 'N/A' }}
+                                                                    <td>
+                                                                        @php
+                                                                            $endDate = null;
+                                                                            if ($service->plan_start_date && $service->plan_duration) {
+                                                                                $startDate = \Carbon\Carbon::parse($service->plan_start_date);
+                                                                                $duration = $service->plan_duration;
+
+                                                                                // Extract number from duration string
+                                                                                preg_match('/\d+/', $duration, $matches);
+                                                                                $number = isset($matches[0]) ? (int) $matches[0] : 0;
+
+                                                                                if (stripos($duration, 'month') !== false) {
+                                                                                    $endDate = $startDate->copy()->addMonths($number);
+                                                                                } elseif (stripos($duration, 'year') !== false) {
+                                                                                    $endDate = $startDate->copy()->addYears($number);
+                                                                                } elseif (stripos($duration, 'day') !== false) {
+                                                                                    $endDate = $startDate->copy()->addDays($number);
+                                                                                }
+                                                                            }
+                                                                        @endphp
+                                                                        {{ $endDate ? $endDate->format('d M Y') : 'N/A' }}
                                                                     </td>
                                                                     <td>₹{{ number_format($service->total_amount, 2) }}
                                                                     </td>

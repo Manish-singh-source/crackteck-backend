@@ -6,13 +6,13 @@
         <div class="container-fluid">
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Edit AMC</h4>
+                    <h4 class="fs-18 fw-semibold m-0">Edit AMC Service</h4>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('service-request.update-amc', $amcService->id) }}" method="POST"
+                    <form action="{{ route('amc-services.update', $amcService->id) }}" method="POST"
                         enctype="multipart/form-data" id="amcEditForm">
                         @csrf
                         @method('PUT')
@@ -443,9 +443,9 @@
                                     <div class="col-12">
                                         <div class="text-start">
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="mdi mdi-content-save"></i> Update AMC Request
+                                                <i class="mdi mdi-content-save"></i> Update AMC Service
                                             </button>
-                                            <a href="{{ route('service-request.index') }}" class="btn btn-secondary">
+                                            <a href="{{ route('amc-services.index') }}" class="btn btn-secondary">
                                                 <i class="mdi mdi-arrow-left"></i> Cancel
                                             </a>
                                         </div>

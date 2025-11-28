@@ -191,6 +191,15 @@
                         <span class="ps-1"> AMC Plans </span>
                     </a>
                 </li>
+                @if(\App\Models\AmcService::active()->exists())
+                <li>
+                    <a class='tp-link' href="{{ route('amc-services.index') }}">
+                        <i class="fas fa-clipboard-check"></i>
+
+                        <span class="ps-1"> AMC Services </span>
+                    </a>
+                </li>
+                @endif
                 <li>
                     <a class='tp-link' href="{{ route('covered-items.index') }}">
                         <i class="fas fa-project-diagram"></i>

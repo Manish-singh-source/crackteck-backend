@@ -100,5 +100,21 @@ class AmcService extends Model
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    /**
+     * Scope a query to only include active AMC services.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'Active');
+    }
+
+    /**
+     * Scope a query to only include pending AMC services.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('status', 'Pending');
+    }
 }
 

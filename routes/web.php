@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AmcController;
+use App\Http\Controllers\AmcServicesController;
 use App\Http\Controllers\AssignedJobController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CallLogController;
@@ -492,6 +493,21 @@ Route::controller(AmcController::class)->group(function () {
     Route::get('/crm/edit-covered-items/{id}', 'editCoveredItems')->name('covered-items.edit');
     Route::put('/crm/update-covered-items/{id}', 'updateCoveredItems')->name('covered-items.update');
     Route::delete('/crm/delete-covered-items/{id}', 'deleteCoveredItems')->name('covered-items.delete');
+});
+
+// ------------------------------------------------------------ AMC Services Page (Active AMC Services) -------------------------------------------------------------
+
+Route::controller(AmcServicesController::class)->group(function () {
+    // AMC Services Index Page (Active AMC Services only)
+    Route::get('/crm/amc-services', 'index')->name('amc-services.index');
+    // View AMC Service Page
+    Route::get('/crm/view-amc-service/{id}', 'view')->name('amc-services.view');
+    // Edit AMC Service Page
+    Route::get('/crm/edit-amc-service/{id}', 'edit')->name('amc-services.edit');
+    // Update AMC Service
+    Route::put('/crm/update-amc-service/{id}', 'update')->name('amc-services.update');
+    // Assign Engineer to AMC Service
+    Route::post('/crm/assign-amc-service-engineer', 'assignEngineer')->name('amc-services.assign-engineer');
 });
 
 // ------------------------------------------------------------ Service Request Page -------------------------------------------------------------
