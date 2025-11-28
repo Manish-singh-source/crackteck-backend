@@ -94,6 +94,14 @@ class AmcService extends Model
     }
 
     /**
+     * Get service visits for this AMC service
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(AmcServiceVisit::class, 'amc_service_id');
+    }
+
+    /**
      * Get the full name of the customer.
      */
     public function getFullNameAttribute(): string

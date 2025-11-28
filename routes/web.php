@@ -508,6 +508,12 @@ Route::controller(AmcServicesController::class)->group(function () {
     Route::put('/crm/update-amc-service/{id}', 'update')->name('amc-services.update');
     // Assign Engineer to AMC Service
     Route::post('/crm/assign-amc-service-engineer', 'assignEngineer')->name('amc-services.assign-engineer');
+    // Generate Visits for AMC Service
+    Route::post('/crm/amc-service-generate-visits/{id}', 'generateVisits')->name('amc-services.generate-visits');
+    // Assign Engineer to Visit
+    Route::post('/crm/amc-service-assign-visit-engineer', 'assignVisitEngineer')->name('amc-services.assign-visit-engineer');
+    // Update Visit Engineer
+    Route::post('/crm/amc-service-update-visit-engineer', 'updateVisitEngineer')->name('amc-services.update-visit-engineer');
 });
 
 // ------------------------------------------------------------ Service Request Page -------------------------------------------------------------
