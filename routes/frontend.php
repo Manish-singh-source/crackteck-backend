@@ -229,6 +229,10 @@ Route::get('/my-account-password', [MyAccountController::class, 'changePassword'
 Route::get('/my-account-amc', [MyAccountController::class, 'amcServices'])
     ->name('my-account-amc')->middleware('auth');
 
+// My Account AMC Service Details
+Route::get('/my-account-amc/{id}', [MyAccountController::class, 'viewAmcService'])
+    ->name('my-account-amc.view')->middleware('auth');
+
 // My Account Non-AMC
 Route::get('/my-account-non-amc', [MyAccountController::class, 'nonAmcServices'])
     ->name('my-account-non-amc')->middleware('auth');
