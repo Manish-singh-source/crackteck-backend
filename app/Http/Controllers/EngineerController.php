@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Engineer;
 use App\Models\AmcVisitEngineerAssignment;
 use App\Models\AmcServiceVisit;
+use App\Models\QuickServiceEngineerAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -123,7 +124,28 @@ class EngineerController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return view('crm/engineers/view', compact('engineer', 'visitAssignments'));
+        // Get all Quick Service Request assignments for this engineer
+        $quickServiceAssignments = QuickServiceEngineerAssignment::with([
+            'quickServiceRequest.quickService',
+            'quickServiceRequest.customer',
+            'engineer',
+            'supervisor',
+            'groupEngineers'
+        ])
+        ->where(function($query) use ($id) {
+            // Individual assignments
+            $query->where('engineer_id', $id)
+                  ->where('assignment_type', 'Individual');
+        })
+        ->orWhereHas('groupEngineers', function($query) use ($id) {
+            // Group assignments where engineer is a member
+            $query->where('engineer_id', $id);
+        })
+        ->whereIn('status', ['Active', 'Transferred', 'Completed'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('crm/engineers/view', compact('engineer', 'visitAssignments', 'quickServiceAssignments'));
     }
 
     /**

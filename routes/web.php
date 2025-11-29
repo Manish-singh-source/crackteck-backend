@@ -43,6 +43,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\TrackProductController;
 use App\Http\Controllers\QuickServiceController;
+use App\Http\Controllers\QuickServiceRequestController;
 
 
 Route::controller(AuthController::class)->group(function () {
@@ -531,6 +532,12 @@ Route::controller(ServiceRequestController::class)->group(function () {
     // Edit Service Request Page
     Route::get('/crm/edit-service-request', 'edit')->name('service-request.edit-service');
 
+    // Quick Service Request Routes (in service-request directory)
+    Route::get('/crm/service-request/view-quick-service-request/{id}', 'viewQuickServiceRequest')->name('service-request.view-quick-service-request');
+    Route::get('/crm/service-request/edit-quick-service-request/{id}', 'editQuickServiceRequest')->name('service-request.edit-quick-service-request');
+    Route::put('/crm/service-request/update-quick-service-request/{id}', 'updateQuickServiceRequest')->name('service-request.update-quick-service-request');
+    Route::delete('/crm/service-request/destroy-quick-service-request/{id}', 'destroyQuickServiceRequest')->name('service-request.destroy-quick-service-request');
+
     // AMC Request CRUD Routes
     // Create AMC Request Page
     Route::get('/crm/create-amc-request', 'create_amc')->name('service-request.create-amc');
@@ -779,4 +786,21 @@ Route::controller(QuickServiceController::class)->group(function () {
     Route::put('crm/quick-services/{id}', 'update')->name('quick-services.update');
     // Delete Quick Services Page
     Route::delete('crm/quick-services/{id}', 'destroy')->name('quick-services.destroy');
+});
+
+// ------------------------------------------------------------ Quick Service Requests -------------------------------------------------------------
+
+Route::controller(QuickServiceRequestController::class)->group(function () {
+    // Quick Service Requests Index Page
+    Route::get('crm/quick-service-requests', 'index')->name('quick-service-requests.index');
+    // View Quick Service Request Page
+    Route::get('crm/quick-service-requests/{id}', 'view')->name('quick-service-requests.view');
+    // Edit Quick Service Request Page
+    Route::get('crm/quick-service-requests/{id}/edit', 'edit')->name('quick-service-requests.edit');
+    // Update Quick Service Request
+    Route::put('crm/quick-service-requests/{id}', 'update')->name('quick-service-requests.update');
+    // Delete Quick Service Request
+    Route::delete('crm/quick-service-requests/{id}', 'destroy')->name('quick-service-requests.destroy');
+    // Assign Engineer to Quick Service Request
+    Route::post('crm/quick-service-requests/assign-engineer', 'assignEngineer')->name('quick-service-requests.assign-engineer');
 });
