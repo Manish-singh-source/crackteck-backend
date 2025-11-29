@@ -243,6 +243,13 @@
                                             <span class="d-none d-sm-block">Login Logs</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-2" id="taskdetails_tab" data-bs-toggle="tab"
+                                            href="#taskdetails" role="tab">
+                                            <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
+                                            <span class="d-none d-sm-block">Task Details</span>
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div class="tab-content text-muted">
@@ -593,6 +600,108 @@
                                                                                         </td>
                                                                                     </tr>
 
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="taskdetails" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-md-12 mb-4">
+
+                                                <div class="card shadow-none p-lg-3">
+
+
+                                                    <div class="tab-content text-muted">
+                                                        <div class="tab-pane active show" id="all_customer"
+                                                            role="tabpanel">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="card shadow-none">
+                                                                        <div class="card-body">
+                                                                            <table id="responsive-datatable"
+                                                                                class="table table-striped table-borderless dt-responsive nowrap">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Service ID</th>
+                                                                                        <th>Customer Name</th>
+                                                                                        <th>Assigned Date</th>
+                                                                                        <th>Visit Date</th>
+                                                                                        <th>Assignment Type</th>
+                                                                                        <th>Issue Type</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @forelse($visitAssignments as $assignment)
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a href="{{ route('amc-services.view', $assignment->visit->amc_service_id) }}">
+                                                                                                    #{{ $assignment->visit->amcService->id ?? 'N/A' }}
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                @if($assignment->visit->amcService->branches->first())
+                                                                                                    {{ $assignment->visit->amcService->branches->first()->customer_name ?? 'N/A' }}
+                                                                                                @else
+                                                                                                    N/A
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td>{{ $assignment->assigned_at ? $assignment->assigned_at->format('d M Y h:i A') : 'N/A' }}</td>
+                                                                                            <td>{{ $assignment->visit->scheduled_date ? $assignment->visit->scheduled_date->format('d M Y h:i A') : 'N/A' }}</td>
+                                                                                            <td>
+                                                                                                @if($assignment->assignment_type == 'Individual')
+                                                                                                    <span class="badge bg-info-subtle text-info">Individual</span>
+                                                                                                @else
+                                                                                                    <span class="badge bg-primary-subtle text-primary">Group - {{ $assignment->group_name }}</span>
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td>{{ $assignment->visit->issue_type ?? 'N/A' }}</td>
+                                                                                            <td>
+                                                                                                @if($assignment->status == 'Transferred')
+                                                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                                                                                        <i class="bx bx-transfer me-1"></i>Transferred
+                                                                                                    </span>
+                                                                                                    @if($assignment->transferredToAssignment)
+                                                                                                        <div class="small text-muted mt-1">
+                                                                                                            To:
+                                                                                                            @if($assignment->transferredToAssignment->assignment_type == 'Individual')
+                                                                                                                {{ $assignment->transferredToAssignment->engineer->first_name ?? '' }} {{ $assignment->transferredToAssignment->engineer->last_name ?? '' }}
+                                                                                                            @else
+                                                                                                                {{ $assignment->transferredToAssignment->group_name }}
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @elseif($assignment->visit->status == 'Completed')
+                                                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                                                                @elseif($assignment->visit->status == 'Upcoming')
+                                                                                                    <span class="badge bg-warning-subtle text-warning fw-semibold">Upcoming</span>
+                                                                                                @else
+                                                                                                    <span class="badge bg-secondary-subtle text-secondary fw-semibold">{{ $assignment->visit->status }}</span>
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <a aria-label="anchor" href="{{ route('engineers.visit-detail', $assignment->visit->id) }}"
+                                                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @empty
+                                                                                        <tr>
+                                                                                            <td colspan="8" class="text-center text-muted py-4">No tasks assigned yet</td>
+                                                                                        </tr>
+                                                                                    @endforelse
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>

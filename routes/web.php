@@ -310,11 +310,11 @@ Route::controller(CustomerController::class)->group(function () {
 // ------------------------------------------------------------ Engineers Page -------------------------------------------------------------
 
 Route::controller(EngineerController::class)->group(function () {
-    // Engineers Page 
+    // Engineers Page
     Route::get('/crm/engineers', 'index')->name('engineers.index');
-    // Create Engineer Page 
+    // Create Engineer Page
     Route::get('/crm/create-engineers', 'create')->name('engineer.create');
-    // Store Engineer Page 
+    // Store Engineer Page
     Route::post('/crm/store-engineers', 'store')->name('engineer.store');
     // View Engineer Page
     Route::get('/crm/view-engineer/{id}', 'view')->name('engineer.view');
@@ -322,8 +322,10 @@ Route::controller(EngineerController::class)->group(function () {
     Route::get('/crm/edit-engineer/{id}', 'edit')->name('engineer.edit');
     // Update Engineer Page
     Route::put('/crm/update-engineer/{id}', 'update')->name('engineer.update');
-    // Delete Engineer Page 
+    // Delete Engineer Page
     Route::delete('/crm/delete-engineer/{id}', 'delete')->name('engineer.delete');
+    // Visit Detail Page
+    Route::get('/crm/engineer-visit-detail/{id}', 'visitDetail')->name('engineers.visit-detail');
 });
 
 // Task Engineer Page

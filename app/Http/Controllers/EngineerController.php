@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Engineer;
+use App\Models\AmcVisitEngineerAssignment;
+use App\Models\AmcServiceVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 
 class EngineerController extends Controller
 {
@@ -97,7 +98,54 @@ class EngineerController extends Controller
     public function view($id)
     {
         $engineer = Engineer::find($id);
-        return view('crm/engineers/view', compact('engineer'));
+
+        // Get all visit assignments for this engineer (Active, Transferred, and Completed)
+        $visitAssignments = AmcVisitEngineerAssignment::with([
+            'visit.amcService.amcPlan',
+            'visit.amcService.branches',
+            'engineer',
+            'supervisor',
+            'groupMembers.engineer',
+            'transferredToAssignment.engineer',
+            'transferredToAssignment.supervisor',
+            'transferredToAssignment.groupMembers.engineer'
+        ])
+        ->where(function($query) use ($id) {
+            // Individual assignments
+            $query->where('engineer_id', $id)
+                  ->where('assignment_type', 'Individual');
+        })
+        ->orWhereHas('groupMembers', function($query) use ($id) {
+            // Group assignments where engineer is a member
+            $query->where('engineer_id', $id);
+        })
+        ->whereIn('status', ['Active', 'Transferred', 'Completed'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('crm/engineers/view', compact('engineer', 'visitAssignments'));
+    }
+
+    /**
+     * Display visit detail page
+     */
+    public function visitDetail($id)
+    {
+        $visit = AmcServiceVisit::with([
+            'amcService.amcPlan',
+            'amcService.branches',
+            'amcService.products.type',
+            'amcService.products.brand',
+            'engineer',
+            'activeAssignment.engineer',
+            'activeAssignment.supervisor',
+            'activeAssignment.groupMembers.engineer',
+            'engineerAssignments.engineer',
+            'engineerAssignments.supervisor',
+            'engineerAssignments.groupMembers.engineer'
+        ])->findOrFail($id);
+
+        return view('crm/engineers/visit-detail', compact('visit'));
     }
 
     public function edit($id)

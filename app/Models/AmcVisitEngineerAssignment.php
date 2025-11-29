@@ -19,11 +19,14 @@ class AmcVisitEngineerAssignment extends Model
         'supervisor_id',
         'status',
         'assigned_at',
+        'transferred_to',
+        'transferred_at',
         'notes',
     ];
 
     protected $casts = [
         'assigned_at' => 'datetime',
+        'transferred_at' => 'datetime',
     ];
 
     /**
@@ -66,6 +69,22 @@ class AmcVisitEngineerAssignment extends Model
     public function groupMembers(): HasMany
     {
         return $this->hasMany(AmcVisitGroupEngineer::class, 'assignment_id');
+    }
+
+    /**
+     * Get the new assignment this was transferred to
+     */
+    public function transferredToAssignment(): BelongsTo
+    {
+        return $this->belongsTo(AmcVisitEngineerAssignment::class, 'transferred_to');
+    }
+
+    /**
+     * Get assignments that were transferred from this assignment
+     */
+    public function transferredFromAssignments(): HasMany
+    {
+        return $this->hasMany(AmcVisitEngineerAssignment::class, 'transferred_to');
     }
 }
 
