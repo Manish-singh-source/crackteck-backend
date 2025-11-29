@@ -291,6 +291,14 @@
                                             <span class="d-none d-sm-block">NON AMC Call Services</span>
                                         </a>
                                     </li>
+                                    {{-- Quick Services --}}
+                                    <li class="nav-item">
+                                        <a class="nav-link p-2" onclick="quickService()" id="quick_services_tab"
+                                            data-bs-toggle="tab" href="#quick_services" role="tab">
+                                            <span class="d-block d-sm-none"><i class="mdi mdi-sitemap-outline"></i></span>
+                                            <span class="d-none d-sm-block">Quick Services</span>
+                                        </a>
+                                    </li>
                                 </ul>
                                 <div>
                                     <a href="{{ route('service-request.create-amc') }}" id="mySection1"
@@ -477,27 +485,53 @@
                                                                     <td>{{ $service->plan_duration ?? 'N/A' }}</td>
                                                                     <td>
                                                                         @php
-                                                                            $startDate = \Carbon\Carbon::parse($service->plan_start_date);
+                                                                            $startDate = \Carbon\Carbon::parse(
+                                                                                $service->plan_start_date,
+                                                                            );
                                                                         @endphp
                                                                         {{ $startDate->format('d M Y') }}
                                                                     </td>
                                                                     <td>
                                                                         @php
                                                                             $endDate = null;
-                                                                            if ($service->plan_start_date && $service->plan_duration) {
-                                                                                $startDate = \Carbon\Carbon::parse($service->plan_start_date);
+                                                                            if (
+                                                                                $service->plan_start_date &&
+                                                                                $service->plan_duration
+                                                                            ) {
+                                                                                $startDate = \Carbon\Carbon::parse(
+                                                                                    $service->plan_start_date,
+                                                                                );
                                                                                 $duration = $service->plan_duration;
 
                                                                                 // Extract number from duration string
-                                                                                preg_match('/\d+/', $duration, $matches);
-                                                                                $number = isset($matches[0]) ? (int) $matches[0] : 0;
+                                                                                preg_match(
+                                                                                    '/\d+/',
+                                                                                    $duration,
+                                                                                    $matches,
+                                                                                );
+                                                                                $number = isset($matches[0])
+                                                                                    ? (int) $matches[0]
+                                                                                    : 0;
 
-                                                                                if (stripos($duration, 'month') !== false) {
-                                                                                    $endDate = $startDate->copy()->addMonths($number);
-                                                                                } elseif (stripos($duration, 'year') !== false) {
-                                                                                    $endDate = $startDate->copy()->addYears($number);
-                                                                                } elseif (stripos($duration, 'day') !== false) {
-                                                                                    $endDate = $startDate->copy()->addDays($number);
+                                                                                if (
+                                                                                    stripos($duration, 'month') !==
+                                                                                    false
+                                                                                ) {
+                                                                                    $endDate = $startDate
+                                                                                        ->copy()
+                                                                                        ->addMonths($number);
+                                                                                } elseif (
+                                                                                    stripos($duration, 'year') !== false
+                                                                                ) {
+                                                                                    $endDate = $startDate
+                                                                                        ->copy()
+                                                                                        ->addYears($number);
+                                                                                } elseif (
+                                                                                    stripos($duration, 'day') !== false
+                                                                                ) {
+                                                                                    $endDate = $startDate
+                                                                                        ->copy()
+                                                                                        ->addDays($number);
                                                                                 }
                                                                             }
                                                                         @endphp
@@ -580,28 +614,136 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane show pt-4" id="quick_services" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card shadow-none">
+                                                <div class="card-body">
+                                                    <table id="quick-service-datatable"
+                                                        class="table table-striped table-borderless dt-responsive nowrap">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Request ID</th>
+                                                                <th>Quick Service Name</th>
+                                                                <th>Customer Name</th>
+                                                                <th>Product Name / Model No</th>
+                                                                <th>Status</th>
+                                                                <th>Created At</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse($quickServiceRequests as $request)
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="{{ route('quick-service-requests.view', $request->id) }}">
+                                                                            #QSR-{{ str_pad($request->id, 4, '0', STR_PAD_LEFT) }}
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="fw-semibold">{{ $request->quickService->name ?? 'N/A' }}</div>
+                                                                        <div class="text-muted small">₹{{ number_format($request->quickService->service_price ?? 0, 2) }}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="fw-semibold">{{ $request->customer->first_name ?? '' }} {{ $request->customer->last_name ?? '' }}</div>
+                                                                        <div class="text-muted small">{{ $request->customer->phone ?? 'N/A' }}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div>{{ $request->product_name }}</div>
+                                                                        @if($request->model_no)
+                                                                            <div class="text-muted small">Model: {{ $request->model_no }}</div>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if ($request->status == 'completed')
+                                                                            <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                                        @elseif($request->status == 'processing')
+                                                                            <span class="badge bg-info-subtle text-info fw-semibold">Processing</span>
+                                                                        @elseif($request->status == 'active')
+                                                                            <span class="badge bg-primary-subtle text-primary fw-semibold">Active</span>
+                                                                        @elseif($request->status == 'pending')
+                                                                            <span class="badge bg-warning-subtle text-warning fw-semibold">Pending</span>
+                                                                        @elseif($request->status == 'cancel')
+                                                                            <span class="badge bg-danger-subtle text-danger fw-semibold">Cancelled</span>
+                                                                        @else
+                                                                            <span class="badge bg-secondary-subtle text-secondary fw-semibold">{{ ucfirst($request->status) }}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        <div>{{ $request->created_at->format('d M Y') }}</div>
+                                                                        <div class="text-muted small">{{ $request->created_at->diffForHumans() }}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a aria-label="anchor"
+                                                                            href="{{ route('service-request.view-quick-service-request', $request->id) }}"
+                                                                            class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="View">
+                                                                            <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                        </a>
+                                                                        <a aria-label="anchor"
+                                                                            href="{{ route('service-request.edit-quick-service-request', $request->id) }}"
+                                                                            class="btn btn-icon btn-sm bg-warning-subtle me-1"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="Edit">
+                                                                            <i class="mdi mdi-pencil-outline fs-14 text-warning"></i>
+                                                                        </a>
+                                                                        <form
+                                                                            action="{{ route('service-request.destroy-quick-service-request', $request->id) }}"
+                                                                            method="POST" class="d-inline"
+                                                                            onsubmit="return confirm('Are you sure you want to delete this quick service request?');">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" aria-label="anchor"
+                                                                                class="btn btn-icon btn-sm bg-danger-subtle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-original-title="Delete">
+                                                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="7" class="text-center text-muted py-4">
+                                                                        <div class="text-muted">
+                                                                            <i class="mdi mdi-information-outline fs-1"></i>
+                                                                            <p class="mt-2">No Quick Service requests found.</p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> <!-- container-fluid -->
-        </div> <!-- content -->
+                </div> <!-- container-fluid -->
+            </div> <!-- content -->
 
 
 
 
-        <script>
-            function hideSection() {
-                document.getElementById("mySection1").style.display = "block";
+            <script>
+                function hideSection() {
+                    document.getElementById("mySection1").style.display = "block";
+                    document.getElementById("mySection").style.display = "none";
+                }
+                
+                function showSection() {
+                    document.getElementById("mySection").style.display = "block";
+                    document.getElementById("mySection1").style.display = "none";
+                }
+                function quickService() {
+                    document.getElementById("mySection").style.display = "none";
+                    document.getElementById("mySection1").style.display = "none";
+                }
                 document.getElementById("mySection").style.display = "none";
-
-            }
-
-            function showSection() {
-                document.getElementById("mySection").style.display = "block";
-                document.getElementById("mySection1").style.display = "none";
-
-            }
-            document.getElementById("mySection").style.display = "none";
-        </script>
-    @endsection
+            </script>
+        @endsection

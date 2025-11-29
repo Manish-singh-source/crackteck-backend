@@ -698,10 +698,62 @@
                                                                                             </td>
                                                                                         </tr>
                                                                                     @empty
+                                                                                    @endforelse
+
+                                                                                    {{-- Quick Service Request Assignments --}}
+                                                                                    @forelse($quickServiceAssignments as $assignment)
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a href="{{ route('service-request.view-quick-service-request', $assignment->quick_service_request_id) }}">
+                                                                                                    #QSR-{{ str_pad($assignment->quick_service_request_id, 4, '0', STR_PAD_LEFT) }}
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                {{ $assignment->quickServiceRequest->customer->first_name ?? '' }}
+                                                                                                {{ $assignment->quickServiceRequest->customer->last_name ?? '' }}
+                                                                                            </td>
+                                                                                            <td>{{ $assignment->assigned_at ? $assignment->assigned_at->format('d M Y h:i A') : 'N/A' }}</td>
+                                                                                            <td>
+                                                                                                <span class="badge bg-info-subtle text-info">Quick Service</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                @if($assignment->assignment_type == 'Individual')
+                                                                                                    <span class="badge bg-info-subtle text-info">Individual</span>
+                                                                                                @else
+                                                                                                    <span class="badge bg-primary-subtle text-primary">Group - {{ $assignment->group_name }}</span>
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td>{{ $assignment->quickServiceRequest->issue ?? 'N/A' }}</td>
+                                                                                            <td>
+                                                                                                @if($assignment->status == 'Transferred')
+                                                                                                    <span class="badge bg-danger-subtle text-danger fw-semibold">
+                                                                                                        <i class="bx bx-transfer me-1"></i>Transferred
+                                                                                                    </span>
+                                                                                                @elseif($assignment->status == 'Completed')
+                                                                                                    <span class="badge bg-success-subtle text-success fw-semibold">Completed</span>
+                                                                                                @elseif($assignment->status == 'Active')
+                                                                                                    <span class="badge bg-primary-subtle text-primary fw-semibold">Assigned</span>
+                                                                                                @else
+                                                                                                    <span class="badge bg-secondary-subtle text-secondary fw-semibold">{{ $assignment->status }}</span>
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <a aria-label="anchor" href="{{ route('service-request.view-quick-service-request', $assignment->quick_service_request_id) }}"
+                                                                                                    class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                                                    data-bs-toggle="tooltip" data-bs-original-title="View">
+                                                                                                    <i class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @empty
+                                                                                    @endforelse
+
+                                                                                    {{-- Show "No tasks" message only if both are empty --}}
+                                                                                    @if($visitAssignments->isEmpty() && $quickServiceAssignments->isEmpty())
                                                                                         <tr>
                                                                                             <td colspan="8" class="text-center text-muted py-4">No tasks assigned yet</td>
                                                                                         </tr>
-                                                                                    @endforelse
+                                                                                    @endif
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>

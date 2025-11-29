@@ -178,9 +178,18 @@
                 <li>
                     <a class='tp-link' href="{{ route('quick-services.index') }}">
                         <i class="fas fa-life-ring"></i>
-                        <span class="ps-1"> Quick Services </span>
+                        <span class="ps-1"> Quick Services List </span>
                     </a>
                 </li>
+
+                @if(\App\Models\QuickServiceRequest::processingOrActive()->exists())
+                <li>
+                    <a class='tp-link' href="{{ route('quick-service-requests.index') }}">
+                        <i class="fas fa-life-ring"></i>
+                        <span class="ps-1"> Quick Services Request </span>
+                    </a>
+                </li>
+                @endif
 
                 <li class="menu-title mt-2">Operation Managers</li>
 

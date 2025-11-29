@@ -15,6 +15,7 @@ use App\Models\NonAmcEngineerAssignment;
 use App\Models\NonAmcGroupEngineer;
 use App\Models\ParentCategorie;
 use App\Models\Brand;
+use App\Models\QuickServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,11 @@ class ServiceRequestController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('/crm/service-request/index', compact('amcServices', 'nonAmcServices'));
+        $quickServiceRequests = QuickServiceRequest::with(['quickService', 'customer', 'activeAssignment.engineer', 'activeAssignment.groupEngineers'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('/crm/service-request/index', compact('amcServices', 'nonAmcServices', 'quickServiceRequests'));
     }
 
     public function create()
@@ -945,6 +950,150 @@ class ServiceRequestController extends Controller
             return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request deleted successfully.');
         } catch (\Exception $e) {
             return back()->with('error', 'Error deleting service request: ' . $e->getMessage());
+        }
+    }
+
+    // ------------------------------------------------------------ Quick Service Request Methods -------------------------------------------------------------
+
+    /**
+     * View Quick Service Request
+     */
+    public function viewQuickServiceRequest($id)
+    {
+        try {
+            $request = QuickServiceRequest::with([
+                'quickService',
+                'customer',
+                'activeAssignment.engineer',
+                'activeAssignment.supervisor',
+                'activeAssignment.groupEngineers'
+            ])->findOrFail($id);
+
+            return view('crm/service-request/view-quick-service-request', compact('request'));
+        } catch (\Exception $e) {
+            return redirect()->route('service-request.index')->with('error', 'Quick Service Request not found: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit Quick Service Request
+     */
+    public function editQuickServiceRequest($id)
+    {
+        try {
+            $request = QuickServiceRequest::with([
+                'quickService',
+                'customer',
+                'activeAssignment'
+            ])->findOrFail($id);
+
+            return view('crm/service-request/edit-quick-service-request', compact('request'));
+        } catch (\Exception $e) {
+            return redirect()->route('service-request.index')->with('error', 'Quick Service Request not found: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Update Quick Service Request
+     */
+    public function updateQuickServiceRequest(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:pending,processing,active,completed,cancel',
+            'product_name' => 'nullable|string|max:255',
+            'model_no' => 'nullable|string|max:255',
+            'sku' => 'nullable|string|max:255',
+            'hsn' => 'nullable|string|max:255',
+            'brand' => 'nullable|string|max:255',
+            'issue' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
+        try {
+            $quickServiceRequest = QuickServiceRequest::findOrFail($id);
+
+            // Handle image upload
+            $imagePath = $quickServiceRequest->image;
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($imagePath && File::exists(public_path($imagePath))) {
+                    File::delete(public_path($imagePath));
+                }
+
+                $image = $request->file('image');
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/quick-service-requests'), $imageName);
+                $imagePath = 'uploads/quick-service-requests/' . $imageName;
+            }
+
+            // Update the request
+            $quickServiceRequest->update([
+                'status' => $request->status,
+                'product_name' => $request->product_name,
+                'model_no' => $request->model_no,
+                'sku' => $request->sku,
+                'hsn' => $request->hsn,
+                'brand' => $request->brand,
+                'issue' => $request->issue,
+                'image' => $imagePath
+            ]);
+
+            DB::commit();
+
+            activity()
+                ->performedOn($quickServiceRequest)
+                ->causedBy(Auth::user())
+                ->log('Updated Quick Service Request #' . $quickServiceRequest->id);
+
+            return redirect()->route('service-request.view-quick-service-request', $quickServiceRequest->id)
+                ->with('success', 'Quick Service Request updated successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error updating Quick Service Request: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    /**
+     * Delete Quick Service Request
+     */
+    public function destroyQuickServiceRequest($id)
+    {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:quick_service_requests,id'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Invalid Quick Service Request ID.');
+        }
+
+        DB::beginTransaction();
+        try {
+            $quickServiceRequest = QuickServiceRequest::findOrFail($id);
+
+            // Delete image if exists
+            if ($quickServiceRequest->image && File::exists(public_path($quickServiceRequest->image))) {
+                File::delete(public_path($quickServiceRequest->image));
+            }
+
+            // Delete the request (engineer assignments will be cascade deleted)
+            $quickServiceRequest->delete();
+
+            DB::commit();
+
+            activity()
+                ->performedOn($quickServiceRequest)
+                ->causedBy(Auth::user())
+                ->log('Deleted Quick Service Request #' . $quickServiceRequest->id);
+
+            return redirect()->route('service-request.index')->with('success', 'Quick Service Request deleted successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error deleting Quick Service Request: ' . $e->getMessage());
         }
     }
 }
