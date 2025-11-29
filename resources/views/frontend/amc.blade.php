@@ -474,7 +474,7 @@
                                             @endif
                                         @endif
                                     </div>
-                                    <button class="btn btn-outline-dark w-100">Get Started</button>
+                                    {{-- <button class="btn btn-outline-dark w-100">Get Started</button> --}}
                                 </div>
                             </div>
                         @endforeach
@@ -520,7 +520,7 @@
                                             @endif
                                         @endif
                                     </div>
-                                    <button class="btn btn-outline-dark w-100">Get Started</button>
+                                    {{-- <button class="btn btn-outline-dark w-100">Get Started</button> --}}
                                 </div>
                             </div>
                         @endforeach

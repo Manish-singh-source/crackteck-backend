@@ -556,10 +556,10 @@ class AmcServicesController extends Controller
             $visit = AmcServiceVisit::findOrFail($request->visit_id);
             $visit->scheduled_date = $request->scheduled_date;
 
-            // Deactivate previous assignments for this visit
-            AmcVisitEngineerAssignment::where('visit_id', $request->visit_id)
+            // Get previous active assignment to mark as transferred
+            $previousAssignment = AmcVisitEngineerAssignment::where('visit_id', $request->visit_id)
                 ->where('status', 'Active')
-                ->update(['status' => 'Inactive']);
+                ->first();
 
             if ($request->assignment_type === 'Individual') {
                 // Individual assignment
@@ -600,6 +600,15 @@ class AmcServicesController extends Controller
                 }
 
                 $message = 'Group "' . $request->group_name . '" updated successfully with ' . count($request->engineer_ids) . ' engineers';
+            }
+
+            // Mark previous assignment as transferred if exists
+            if ($previousAssignment) {
+                $previousAssignment->update([
+                    'status' => 'Transferred',
+                    'transferred_to' => $assignment->id,
+                    'transferred_at' => now(),
+                ]);
             }
 
             DB::commit();
