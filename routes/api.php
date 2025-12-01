@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\QuickServiceController;
 use App\Http\Controllers\Api\DeliveryOrderController;
 use App\Http\Controllers\Api\AmcServicesController;
+use App\Http\Controllers\Api\NonAmcServicesController;
 use App\Http\Controllers\FrontendController;
 
 
@@ -197,10 +198,11 @@ Route::prefix('v1')->group(function () {
             Route::post('/create-amc-request', 'store');
         });
         
-        // Installation Customer APIs
-        Route::controller(FrontendController::class)->group(function () {
-            // submitNonAmcRequest
-            Route::post('/installation-request', 'submitNonAmcRequest');
+        Route::controller(NonAmcServicesController::class)->group(function () {
+            // Installation Request APIs
+            Route::post('/installation-request', 'installationStore');
+            // Repair Request APIs
+            Route::post('/repair-request', 'repairStore');
         });
 
 

@@ -65,45 +65,6 @@ class AmcServicesController extends Controller
         }
     }
 
-    // $validator = Validator::make($request->all(), [
-    //         // Step 1: Customer Details
-    //         'first_name' => 'required|string|max:255',
-    //         'last_name' => 'required|string|max:255',
-    //         'phone' => 'required|string|max:15',
-    //         'email' => 'required|email|max:255',
-    //         'pan_no' => 'required|string|max:20',
-    //         'customer_type' => 'required|string',
-
-    //         // Step 2: Company/Branch Details (if applicable)
-    //         'company_name' => 'nullable|string|max:255',
-    //         'branch_name' => 'nullable|string|max:255',
-    //         'address_line1' => 'nullable|string|max:255',
-    //         'address_line2' => 'nullable|string|max:255',
-    //         'city' => 'nullable|string|max:100',
-    //         'state' => 'nullable|string|max:100',
-    //         'country' => 'nullable|string|max:100',
-    //         'pin_code' => 'nullable|string|max:20',
-    //         'gst_no' => 'nullable|string|max:20',
-
-    //         // Step 3: Product Information (Multiple Products)
-    //         'products' => 'required|array|min:1',
-    //         'products.*.product_name' => 'required|string|max:255',
-    //         'products.*.product_type' => 'required|string',
-    //         'products.*.brand_name' => 'required|string',
-    //         'products.*.model_number' => 'required|string|max:255',
-    //         'products.*.serial_number' => 'required|string|max:255',
-    //         'products.*.purchase_date' => 'required|date',
-
-    //         // Step 4: AMC Plan Selection
-    //         'plan_type' => 'required|in:Monthly,Annually',
-    //         'amc_plan_id' => 'required|exists:a_m_c_s,id',
-    //         'plan_duration' => 'required|string',
-    //         'preferred_start_date' => 'required|date',
-
-    //         // Step 5: Additional Information
-    //         'additional_notes' => 'nullable|string',
-    //         'terms_agreed' => 'required|accepted',
-    //     ]);
 
     public function generateServiceId()
     {

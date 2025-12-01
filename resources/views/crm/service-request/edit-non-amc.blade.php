@@ -149,8 +149,8 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-6">
                                     <div>
-                                        <label for="company_address" class="form-label">Company Address</label>
-                                        <input type="text" name="company_address" id="company_address" class="form-control" value="{{ old('company_address', $service->company_address) }}" placeholder="Enter Company Address">
+                                        <label for="branch_name" class="form-label">Branch Name</label>
+                                        <input type="text" name="branch_name" id="branch_name" class="form-control" value="{{ old('branch_name', $service->branch_name) }}" placeholder="Enter Branch Name">
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6">

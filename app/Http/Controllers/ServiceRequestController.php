@@ -633,7 +633,7 @@ class ServiceRequestController extends Controller
 
             // Company Information
             $nonAmcService->company_name = $request->company_name;
-            $nonAmcService->company_address = $request->company_address;
+            $nonAmcService->branch_name = $request->branch_name;
             $nonAmcService->gst_no = $request->gst_no;
             $nonAmcService->pan_no = $request->pan_no;
 
@@ -817,7 +817,7 @@ class ServiceRequestController extends Controller
 
             // Company Information
             $nonAmcService->company_name = $request->company_name;
-            $nonAmcService->company_address = $request->company_address;
+            $nonAmcService->branch_name = $request->branch_name;
             $nonAmcService->gst_no = $request->gst_no;
             $nonAmcService->pan_no = $request->pan_no;
 
