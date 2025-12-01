@@ -35,6 +35,7 @@
                                 <th style="width:40px;"><input type="checkbox" id="selectAll"></th>
                                 <th>Service ID</th>
                                 <th>Customer Name</th>
+                                <th>Source</th>
                                 <th>AMC Plan</th>
                                 <th>Duration</th>
                                 <th>Start Date</th>
@@ -58,6 +59,15 @@
                                         <div class="fw-semibold">{{ $service->full_name }}</div>
                                         <div class="text-muted small">{{ $service->email }}</div>
                                         <div class="text-muted small">{{ $service->phone }}</div>
+                                    </td>
+                                    <td>
+                                        @if ($service->source_type == 'ecommerce_amc_page')
+                                            <span class="badge bg-primary">E-commerce AMC Page</span>
+                                        @elseif($service->source_type == 'Customer App Amc')
+                                            <span class="badge bg-success">Customer App AMC</span>
+                                        @elseif($service->source_type == 'admin_panel')
+                                            <span class="badge bg-secondary">Admin Panel</span>
+                                        @endif
                                     </td>
                                     <td>{{ $service->amcPlan->plan_name ?? 'N/A' }}</td>
                                     <td>{{ $service->plan_duration ?? 'N/A' }}</td>
