@@ -149,6 +149,7 @@ class ServiceRequestController extends Controller
             $amcService->total_amount = $request->total_amount ?? 0;
             $amcService->status = 'Pending';
             $amcService->created_by = Auth::id();
+            $amcService->source_type = $request->source_type_label;
             $amcService->save();
 
             // Create Branches
