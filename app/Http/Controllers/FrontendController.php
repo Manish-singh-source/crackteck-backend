@@ -174,7 +174,19 @@ class FrontendController extends Controller
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'email' => 'required|email|max:255',
+            'pan_no' => 'required|string|max:20',
             'customer_type' => 'required|string',
+
+            // Step 2: Company/Branch Details (if applicable)
+            'company_name' => 'nullable|string|max:255',
+            'branch_name' => 'nullable|string|max:255',
+            'address_line1' => 'nullable|string|max:255',
+            'address_line2' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'pin_code' => 'nullable|string|max:20',
+            'gst_no' => 'nullable|string|max:20',
 
             // Step 3: Product Information (Multiple Products)
             'products' => 'required|array|min:1',

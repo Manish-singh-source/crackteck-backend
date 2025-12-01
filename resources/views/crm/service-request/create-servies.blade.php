@@ -188,6 +188,12 @@
                                         ])
                                     </div>
                                 </div>
+                                {{-- Source Type --}}
+                                <div class="col-xl-4 col-lg-6">
+                                    <div>
+                                        <input type="hidden" name="source_type_label" value="admin_panel" readonly>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                     <div class="card-body">

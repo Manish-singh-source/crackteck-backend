@@ -621,6 +621,7 @@ class ServiceRequestController extends Controller
             $nonAmcService->dob = $request->dob;
             $nonAmcService->gender = $request->gender;
             $nonAmcService->customer_type = $request->customer_type ?? 'Individual';
+            $nonAmcService->source_type = $request->source_type_label ?? 'admin_panel';
 
             // Address Information
             $nonAmcService->address_line1 = $request->address_line1;
