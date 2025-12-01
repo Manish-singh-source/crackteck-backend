@@ -19,6 +19,7 @@ use App\Models\QuickServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 
@@ -43,7 +44,7 @@ class ServiceRequestController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $nonAmcServices = NonAmcService::with(['products', 'creator'])
+        $nonAmcServices = NonAmcService::with(['products', 'creator', 'assignedEngineer'])
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -702,20 +703,14 @@ class ServiceRequestController extends Controller
             return view('/crm/service-request/view-non-amc', compact('service', 'engineers'));
     }
 
+    /**
+     * Assign engineer to NON AMC service (single engineer only)
+     */
     public function assignNonAmcEngineer(Request $request)
     {
-        // Remove engineer_id if assignment_type is Group to avoid validation error
-        if ($request->assignment_type === 'Group') {
-            $request->request->remove('engineer_id');
-        }
         $validator = Validator::make($request->all(), [
             'non_amc_service_id' => 'required|exists:non_amc_services,id',
-            'assignment_type' => 'required|in:Individual,Group',
-            'engineer_id' => 'required_if:assignment_type,Individual|exists:engineers,id',
-            'group_name' => 'required_if:assignment_type,Group',
-            'engineer_ids' => 'required_if:assignment_type,Group|array',
-            'engineer_ids.*' => 'exists:engineers,id',
-            'supervisor_id' => 'required_if:assignment_type,Group|exists:engineers,id',
+            'engineer_id' => 'required|exists:engineers,id',
         ]);
 
         if ($validator->fails()) {
@@ -725,57 +720,52 @@ class ServiceRequestController extends Controller
             ], 422);
         }
 
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
+            $nonAmcService = NonAmcService::findOrFail($request->non_amc_service_id);
+
+            // Check if status is pending
+            if (!$nonAmcService->canAssignEngineer()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Engineer cannot be assigned while status is Pending. Please change the status first.'
+                ], 422);
+            }
 
             // Deactivate previous assignments
             NonAmcEngineerAssignment::where('non_amc_service_id', $request->non_amc_service_id)
+                ->where('status', 'Active')
                 ->update(['status' => 'Inactive']);
 
-            if ($request->assignment_type === 'Individual') {
-                // Individual assignment
-                $assignment = NonAmcEngineerAssignment::create([
-                    'non_amc_service_id' => $request->non_amc_service_id,
-                    'assignment_type' => 'Individual',
-                    'engineer_id' => $request->engineer_id,
-                    'status' => 'Active',
-                    'assigned_at' => now(),
-                ]);
+            // Create new assignment (Individual only, no group support for NON AMC)
+            $assignment = NonAmcEngineerAssignment::create([
+                'non_amc_service_id' => $request->non_amc_service_id,
+                'assignment_type' => 'Individual',
+                'engineer_id' => $request->engineer_id,
+                'status' => 'Active',
+                'assigned_at' => now(),
+            ]);
 
-                $engineer = Engineer::find($request->engineer_id);
-                $message = 'Engineer ' . $engineer->first_name . ' ' . $engineer->last_name . ' assigned successfully';
-            } else {
-                // Group assignment
-                $assignment = NonAmcEngineerAssignment::create([
-                    'non_amc_service_id' => $request->non_amc_service_id,
-                    'assignment_type' => 'Group',
-                    'group_name' => $request->group_name,
-                    'supervisor_id' => $request->supervisor_id,
-                    'status' => 'Active',
-                    'assigned_at' => now(),
-                ]);
-
-                // Add group members
-                foreach ($request->engineer_ids as $engineerId) {
-                    NonAmcGroupEngineer::create([
-                        'assignment_id' => $assignment->id,
-                        'engineer_id' => $engineerId,
-                        'is_supervisor' => ($engineerId == $request->supervisor_id),
-                    ]);
-                }
-
-                $message = 'Group "' . $request->group_name . '" assigned successfully with ' . count($request->engineer_ids) . ' engineers';
-            }
+            // Update the service with assigned engineer
+            $nonAmcService->assigned_engineer_id = $request->engineer_id;
+            $nonAmcService->save();
 
             DB::commit();
 
+            // Load relationships for response
+            $assignment->load('engineer');
+
+            activity()->performedOn($assignment)->causedBy(Auth::user())->log('Engineer assigned to NON AMC service');
+
+            $engineer = Engineer::find($request->engineer_id);
             return response()->json([
                 'success' => true,
-                'message' => $message,
+                'message' => 'Engineer ' . $engineer->first_name . ' ' . $engineer->last_name . ' assigned successfully',
                 'assignment' => $assignment
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Error assigning engineer: ' . $e->getMessage()
@@ -859,7 +849,32 @@ class ServiceRequestController extends Controller
             $nonAmcService->priority_level = $request->priority_level;
             $nonAmcService->additional_notes = $request->additional_notes;
             $nonAmcService->total_amount = $request->total_amount ?? 0;
-            $nonAmcService->status = $request->status ?? $nonAmcService->status;
+
+            // Handle status change
+            $oldStatus = $nonAmcService->status;
+            $newStatus = $request->status ?? $nonAmcService->status;
+
+            // If changing status from Pending to something else, clear assigned engineer
+            if ($oldStatus === 'Pending' && $newStatus !== 'Pending') {
+                // Status is being changed from Pending - engineer can now be assigned
+                // But don't auto-assign, just allow it
+            }
+
+            // If changing status back to Pending, clear engineer assignment
+            if ($oldStatus !== 'Pending' && $newStatus === 'Pending') {
+                // Clear engineer assignment when status changes to Pending
+                if ($nonAmcService->assigned_engineer_id) {
+                    $nonAmcService->previous_engineer_id = $nonAmcService->assigned_engineer_id;
+                    $nonAmcService->assigned_engineer_id = null;
+
+                    // Mark active assignments as inactive
+                    NonAmcEngineerAssignment::where('non_amc_service_id', $nonAmcService->id)
+                        ->where('status', 'Active')
+                        ->update(['status' => 'Inactive']);
+                }
+            }
+
+            $nonAmcService->status = $newStatus;
             $nonAmcService->save();
 
             // Update Products - keep existing, add new
@@ -950,6 +965,83 @@ class ServiceRequestController extends Controller
             return redirect()->route('service-request.index')->with('success', 'Non-AMC Service Request deleted successfully.');
         } catch (\Exception $e) {
             return back()->with('error', 'Error deleting service request: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Update/Transfer engineer for NON AMC service
+     */
+    public function updateNonAmcEngineer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'non_amc_service_id' => 'required|exists:non_amc_services,id',
+            'engineer_id' => 'required|exists:engineers,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $nonAmcService = NonAmcService::findOrFail($request->non_amc_service_id);
+
+            // Check if status is pending
+            if (!$nonAmcService->canAssignEngineer()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Engineer cannot be assigned while status is Pending. Please change the status first.'
+                ], 422);
+            }
+
+            // Get previous active assignment to mark as transferred
+            $previousAssignment = NonAmcEngineerAssignment::where('non_amc_service_id', $request->non_amc_service_id)
+                ->where('status', 'Active')
+                ->first();
+
+            // Create new assignment
+            $assignment = NonAmcEngineerAssignment::create([
+                'non_amc_service_id' => $request->non_amc_service_id,
+                'assignment_type' => 'Individual',
+                'engineer_id' => $request->engineer_id,
+                'status' => 'Active',
+                'assigned_at' => now(),
+            ]);
+
+            // Mark previous assignment as transferred if exists
+            if ($previousAssignment) {
+                $previousAssignment->update([
+                    'status' => 'Transferred',
+                    'transferred_to' => $assignment->id,
+                    'transferred_at' => now(),
+                ]);
+
+                // Update previous_engineer_id in service
+                $nonAmcService->previous_engineer_id = $previousAssignment->engineer_id;
+            }
+
+            // Update the service with new assigned engineer
+            $nonAmcService->assigned_engineer_id = $request->engineer_id;
+            $nonAmcService->save();
+
+            DB::commit();
+            activity()->performedOn($nonAmcService)->causedBy(Auth::user())->log('NON AMC engineer updated/transferred');
+
+            $engineer = Engineer::find($request->engineer_id);
+            return response()->json([
+                'success' => true,
+                'message' => 'Engineer ' . $engineer->first_name . ' ' . $engineer->last_name . ' updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
         }
     }
 

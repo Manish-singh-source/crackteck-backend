@@ -389,6 +389,10 @@
                                 <option value="SME">SME</option>
                             </select>
                         </div>
+                        {{-- Source Type  --}}
+                        <div class="col-md-6">
+                            <input type="hidden" class="form-control form-control-lg" id="source_type_label" name="source_type_label" value="ecommerce_non_amc_page" readonly>
+                        </div>
                     </div>
                 </div>
 

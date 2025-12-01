@@ -288,7 +288,7 @@
                                         <a class="nav-link p-2" onclick="showSection()" id="pending_services_tab"
                                             data-bs-toggle="tab" href="#pending_services" role="tab">
                                             <span class="d-block d-sm-none"><i class="mdi mdi-sitemap-outline"></i></span>
-                                            <span class="d-none d-sm-block">NON AMC Call Services</span>
+                                            <span class="d-none d-sm-block">NON AMC Services</span>
                                         </a>
                                     </li>
                                     {{-- Quick Services --}}
@@ -322,11 +322,13 @@
                                                             <tr>
                                                                 <th>Service Id</th>
                                                                 <th>Customer Name</th>
+                                                                <th>Source</th>
                                                                 <th>Service Type</th>
                                                                 <th>Priority</th>
                                                                 <th>Products</th>
                                                                 <th>Total Amount</th>
                                                                 <th>Status</th>
+                                                                <th>Assigned Engineer</th>
                                                                 <th>Created By</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -347,6 +349,11 @@
                                                                         </div>
                                                                         <div class="text-muted small">{{ $service->phone }}
                                                                         </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-secondary-subtle text-secondary">
+                                                                            {{ $service->source_type_label ?? 'Admin Panel' }}
+                                                                        </span>
                                                                     </td>
                                                                     <td>
                                                                         <span
@@ -380,6 +387,14 @@
                                                                         @else
                                                                             <span
                                                                                 class="badge bg-secondary-subtle text-secondary fw-semibold">{{ $service->status }}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($service->assignedEngineer)
+                                                                            <div class="fw-semibold">{{ $service->assignedEngineer->first_name }} {{ $service->assignedEngineer->last_name }}</div>
+                                                                            <div class="text-muted small">{{ $service->assignedEngineer->phone }}</div>
+                                                                        @else
+                                                                            <span class="text-muted">Not assigned</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>
@@ -424,7 +439,7 @@
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="9" class="text-center py-4">
+                                                                    <td colspan="11" class="text-center py-4">
                                                                         <div class="text-muted">
                                                                             <i
                                                                                 class="mdi mdi-information-outline fs-1"></i>

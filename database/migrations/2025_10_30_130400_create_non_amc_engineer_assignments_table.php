@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreignId('engineer_id')->nullable()->constrained('engineers')->onDelete('cascade'); // For individual assignment
             $table->string('group_name')->nullable(); // For group assignment
             $table->foreignId('supervisor_id')->nullable()->constrained('engineers')->onDelete('set null'); // Supervisor for group
-            $table->enum('status', ['Active', 'Inactive', 'Completed'])->default('Active');
+            $table->enum('status', ['Active', 'Inactive', 'Transferred', 'Completed'])->default('Active');
             $table->timestamp('assigned_at')->useCurrent();
+            $table->foreignId('transferred_to')->nullable()->constrained('non_amc_engineer_assignments')->onDelete('set null');
+            $table->timestamp('transferred_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
 

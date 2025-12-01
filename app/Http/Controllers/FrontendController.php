@@ -227,6 +227,7 @@ class FrontendController extends Controller
             $amcService->additional_notes = $request->additional_notes;
             $amcService->terms_agreed = $request->terms_agreed;
             $amcService->status = 'Pending';
+            $amcService->source_type = $request->source_type_label;
 
             // Calculate plan end date based on duration
             $startDate = \Carbon\Carbon::parse($request->preferred_start_date);
@@ -286,12 +287,12 @@ class FrontendController extends Controller
     public function submitNonAmcRequest(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'phone' => 'required|string|digits:10',
-            'email' => 'required|email',
-            'pan_no' => 'required|string',
-            'customer_type' => 'required|string',
+            'email' => 'required|email|max:255',
+            'pan_no' => 'required|string|max:20',
+            'customer_type' => 'required|in:Individual,Business,Corporate,SME',
 
             'products' => 'nullable|array|min:1',
             'products.*.product_name' => 'nullable|string',
@@ -322,6 +323,7 @@ class FrontendController extends Controller
             $nonAmcService->dob = $request->dob;
             $nonAmcService->gender = $request->gender;
             $nonAmcService->customer_type = $request->customer_type;
+            $nonAmcService->source_type = $request->source_type_label;
 
             // Customer Address Information
             $nonAmcService->address_line1 = $request->address_line1;

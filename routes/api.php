@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AmcServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LeadController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Api\QuotationController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\QuickServiceController;
 use App\Http\Controllers\Api\DeliveryOrderController;
+use App\Http\Controllers\FrontendController;
 
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
@@ -186,6 +188,18 @@ Route::prefix('v1')->group(function () {
         Route::controller(QuickServiceController::class)->group(function () {
             Route::get('/quick-service', 'index');
             Route::post('/quick-service/{id}', 'store');
+        });
+
+        // AMC Request APIs
+        Route::controller(FrontendController::class)->group(function () {
+            Route::get('/amc-plans', 'getAmcPlansData');
+            Route::post('/create-amc-request', 'submitAmcRequest');
+        });
+        
+        // Installation Customer APIs
+        Route::controller(FrontendController::class)->group(function () {
+            // submitNonAmcRequest
+            Route::post('/installation-request', 'submitNonAmcRequest');
         });
 
 
