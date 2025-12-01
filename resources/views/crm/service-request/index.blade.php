@@ -350,11 +350,23 @@
                                                                         <div class="text-muted small">{{ $service->phone }}
                                                                         </div>
                                                                     </td>
+                                                                    {{-- ecommerce_non_amc_page
+                                                                    customer_installation_page
+                                                                    customer_repairing_page
+                                                                    admin_panel --}}
                                                                     <td>
-                                                                        <span
-                                                                            class="badge bg-secondary-subtle text-secondary">
-                                                                            {{ $service->source_type_label ?? 'Admin Panel' }}
-                                                                        </span>
+                                                                        @if ($service->source_type == 'ecommerce_non_amc_page')
+                                                                            <span class="badge bg-primary">E-commerce NON
+                                                                                AMC</span>
+                                                                        @elseif($service->source_type == 'customer_installation_page')
+                                                                            <span class="badge bg-success">Customer
+                                                                                Installation</span>
+                                                                        @elseif($service->source_type == 'customer_repairing_page')
+                                                                            <span class="badge bg-warning">Customer
+                                                                                Repairing</span>
+                                                                        @elseif($service->source_type == 'admin_panel')
+                                                                            <span class="badge bg-secondary">Admin Panel</span>
+                                                                        @endif
                                                                     </td>
                                                                     <td>
                                                                         <span
