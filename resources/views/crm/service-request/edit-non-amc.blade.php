@@ -89,6 +89,8 @@
                                             <option value="">--Select--</option>
                                             <option value="Individual" {{ old('customer_type', $service->customer_type) == 'Individual' ? 'selected' : '' }}>Individual</option>
                                             <option value="Business" {{ old('customer_type', $service->customer_type) == 'Business' ? 'selected' : '' }}>Business</option>
+                                            <option value="Corporate" {{ old('customer_type', $service->customer_type) == 'Corporate' ? 'selected' : '' }}>Corporate</option>
+                                            <option value="SME" {{ old('customer_type', $service->customer_type) == 'SME' ? 'selected' : '' }}>SME</option>
                                         </select>
                                     </div>
                                 </div>

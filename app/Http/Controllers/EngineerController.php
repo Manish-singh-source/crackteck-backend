@@ -145,7 +145,30 @@ class EngineerController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return view('crm/engineers/view', compact('engineer', 'visitAssignments', 'quickServiceAssignments'));
+        // Get all NON AMC Service assignments for this engineer
+        $nonAmcAssignments = \App\Models\NonAmcEngineerAssignment::with([
+            'nonAmcService',
+            'engineer',
+            'supervisor',
+            'groupMembers.engineer',
+            'transferredToAssignment.engineer',
+            'transferredToAssignment.supervisor',
+            'transferredToAssignment.groupMembers.engineer'
+        ])
+        ->where(function($query) use ($id) {
+            // Individual assignments
+            $query->where('engineer_id', $id)
+                  ->where('assignment_type', 'Individual');
+        })
+        ->orWhereHas('groupMembers', function($query) use ($id) {
+            // Group assignments where engineer is a member
+            $query->where('engineer_id', $id);
+        })
+        ->whereIn('status', ['Active', 'Transferred', 'Completed'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('crm/engineers/view', compact('engineer', 'visitAssignments', 'quickServiceAssignments', 'nonAmcAssignments'));
     }
 
     /**
