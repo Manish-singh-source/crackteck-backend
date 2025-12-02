@@ -59,9 +59,9 @@ class AmcServicesController extends Controller
         }
 
         if ($staffRole == 'customers') {
-            $quickServices = QuickService::active()->get();
+            $amcPlans = \App\Models\AMC::where('status', 'Active')->get();
 
-            return response()->json(['amc_plans' => $quickServices], 200);
+            return response()->json(['amc_plans' => $amcPlans], 200);
         }
     }
 
