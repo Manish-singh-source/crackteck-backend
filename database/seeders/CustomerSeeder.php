@@ -44,7 +44,7 @@ class CustomerSeeder extends Seeder
                 'first_name' => 'Roshan',
                 'last_name' => 'Yadav',
                 'phone' => '8928339535',
-                'email' => 'roshan.yadav@example.com',
+                'email' => 'support@technofra.com',
                 'username' => 'roshanyadav',
                 'dob' => '1988-11-20',
                 'branch_name' => 'Bengaluru',

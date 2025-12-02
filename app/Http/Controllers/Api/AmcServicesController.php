@@ -117,7 +117,7 @@ class AmcServicesController extends Controller
             $validator = Validator::make($request->all(), [
                 // Step 1: Customer Details
                 'role_id' => 'required|in:4',
-                'created_by' => 'nullable|integer',
+                'customer_id' => 'nullable|integer',
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'phone' => 'required|string|max:15',
@@ -168,6 +168,7 @@ class AmcServicesController extends Controller
 
             $amcService = new AmcService();
             $amcService->service_id = $this->generateServiceId();
+            $amcService->customer_id = $validated['customer_id'] ?? null;
             $amcService->first_name = $validated['first_name'];
             $amcService->last_name = $validated['last_name'];
             $amcService->phone = $validated['phone'];
