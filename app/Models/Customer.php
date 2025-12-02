@@ -80,7 +80,39 @@ class Customer extends Authenticatable implements JWTSubject
      */
     public function ecommerceOrders()
     {
-        return $this->hasMany(EcommerceOrder::class, 'user_id', 'user_id');
+        return $this->hasMany(EcommerceOrder::class, 'customer_id', 'id');
+    }
+
+    /**
+     * Get all e-commerce orders for this customer (by customer_id).
+     */
+    public function allEcommerceOrders()
+    {
+        return $this->hasMany(EcommerceOrder::class, 'customer_id');
+    }
+
+    /**
+     * Get AMC services for this customer.
+     */
+    public function amcServices()
+    {
+        return $this->hasMany(AmcService::class, 'customer_id');
+    }
+
+    /**
+     * Get Non-AMC services for this customer.
+     */
+    public function nonAmcServices()
+    {
+        return $this->hasMany(NonAmcService::class, 'customer_id');
+    }
+
+    /**
+     * Get Quick service requests for this customer.
+     */
+    public function quickServiceRequests()
+    {
+        return $this->hasMany(QuickServiceRequest::class, 'customer_id');
     }
 
     /**

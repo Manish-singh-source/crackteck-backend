@@ -165,7 +165,7 @@
                                                                     <td>{{ $customer->display_username }}</td>
                                                                     <td>{{ $customer->email }}</td>
                                                                     <td>{{ $customer->phone }}</td>
-                                                                    <td>
+                                                                    {{-- <td>
                                                                         @if($customer->branches && $customer->branches->count() > 0)
                                                                             <div class="d-flex flex-column gap-1">
                                                                                 @foreach($customer->branches->take(2) as $branch)
@@ -184,8 +184,9 @@
                                                                         @else
                                                                             <span class="text-muted">No branches</span>
                                                                         @endif
-                                                                    </td>
-                                                                    <td>{{ $customer->total_orders_count }}</td>
+                                                                    </td> --}}
+                                                                    <td>{{ $customer->branches_count }}</td>
+                                                                    <td>{{ $customer->ecommerce_orders_count }}</td>
                                                                     <td>
                                                                         <div class="form-check form-switch mb-2">
                                                                             <input class="form-check-input"

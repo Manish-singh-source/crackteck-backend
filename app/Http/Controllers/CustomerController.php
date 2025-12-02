@@ -14,7 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         // Filter to show only CRM customers (Retail, Wholesale, Corporate, AMC Customer)
-        $customers = Customer::with('branches')
+        $customers = Customer::withCount('branches')->withCount('ecommerceOrders')
             // ->crm()
             ->get();
         // dd($customers);
@@ -101,7 +101,14 @@ class CustomerController extends Controller
 
     public function view($id)
     {
-        $customer = Customer::with('branches')->find($id);
+        $customer = Customer::with([
+            'branches',
+            'amcServices',
+            'nonAmcServices',
+            'quickServiceRequests',
+            'crmOrders.product',
+            'allEcommerceOrders.orderItems'
+        ])->find($id);
         $customer_address = CustomerAddressDetails::where('customer_id', $id)->get();
         return view('/crm/customer/view', compact('customer', 'customer_address'));
     }
