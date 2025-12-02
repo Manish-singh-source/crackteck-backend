@@ -17,8 +17,9 @@ use App\Http\Controllers\Api\QuickServiceController;
 use App\Http\Controllers\Api\DeliveryOrderController;
 use App\Http\Controllers\Api\AmcServicesController;
 use App\Http\Controllers\Api\NonAmcServicesController;
+use App\Http\Controllers\Api\AllServicesController;
 use App\Http\Controllers\FrontendController;
-
+use Hamcrest\Core\AllOf;
 
 // use App\Http\Controllers\AMCRequestController;
 // use App\Http\Controllers\AMCRequestController;
@@ -205,10 +206,20 @@ Route::prefix('v1')->group(function () {
             Route::post('/repair-request', 'repairStore');
         });
 
+        // All Requests APIs AMC and Non-AMC
+        Route::controller(AllServicesController::class)->group(function () {
+            // Customer all requests list and details
+            Route::get('/all-requests', 'allRequests');
+            // AMC 
+            Route::get('/amc-request-details/{id}', 'amcRequestDetails');
+            // Non-AMC
+            Route::get('/non-amc-request-details/{id}', 'nonAmcRequestDetails');  
+            // Quick Service
+            Route::get('/quick-service-request-details/{id}', 'quickServiceRequestDetails');
 
-
-
-
+            // Give Feedback APIs 
+            Route::post('/give-feedback', 'giveFeedback');
+        });
 
         // Delivery Man APIs
         Route::controller(OrderController::class)->group(function () {
