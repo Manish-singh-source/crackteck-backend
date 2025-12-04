@@ -60,29 +60,29 @@ class ProfileController extends Controller
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User not found with the provided phone number.'], 404);
         }
-        
+
         return response()->json(['user' => $user, 'role_id' => $request->role_id], 200);
     }
 
     public function update(Request $request)
     {
 
-        $validated = Validator::make($request->all(),[
+        $validated = Validator::make($request->all(), [
             // validation rules if any
             'role_id' => 'required|in:1,2,3,4',
             'user_id' => 'required',
         ]);
-        
+
         $validated = $validated->validated();
         // return response()->json(['message' => $request->all()], 501);
-        
+
         if (!$validated['user_id']) {
             return response()->json(['message' => 'User ID is required'], 400);
         }
-        if (!$request->role_id) {
+        if (!$validated['role_id']) {
             return response()->json(['message' => 'Role ID is required'], 400);
         }
-        
+
 
         if ($request->role_id == 4) {
             // return  response()->json(['message' => $request->address], 501);
@@ -99,7 +99,7 @@ class ProfileController extends Controller
             $user->company_addr = $request->company_addr;
             $user->gst_no = $request->gst_no;
             $user->customer_type = $request->customer_type;
-            $user->save();  
+            $user->save();
 
             $userAddress = CustomerAddressDetails::where('customer_id', $validated['user_id'])->first();
             if (!$userAddress) {
@@ -126,8 +126,9 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
         
-        $user = $model::findOrFail($validated['user_id']);
-        $user->update($request->all());
+        $user = $model::find($validated['user_id']);
+        $user->last_name = $request->last_name;
+        $user->save();
         
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User not updated.'], 404);
