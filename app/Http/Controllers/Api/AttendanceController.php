@@ -23,6 +23,7 @@ class AttendanceController extends Controller
 
         return response()->json(['attendance' => $attendance], 200);
     }
+    
     public function store(Request $request) {
         $validated = request()->validate([
             // validation rules if any

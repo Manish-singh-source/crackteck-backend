@@ -194,15 +194,40 @@ Route::prefix('v1')->group(function () {
 
 
         // Delivery Man APIs
-        Route::controller(OrderController::class)->group(function () {
-            Route::get('/orders', 'allOrders');
-            Route::post('/orders', 'store');
-        });
-        
         Route::controller(DeliveryOrderController::class)->group(function () {
-            Route::get('/accept-order', 'acceptOrder');
-            Route::post('/delivery-orders', 'store');
+            Route::get('/orders', 'allOrders');
             Route::get('/order/{order_id}', 'orderDetails');
+            // Route::post('/orders', 'store');
+
+            Route::get('/accept-order/{order_id}', 'acceptOrder');
+            Route::post('/order/profile/{order_id}', 'updateOrderProfile');
+            Route::post('/order/{order_id}/otp', 'updateOrderOtp');
+            Route::post('/order/{order_id}/verify-otp', 'verifyOrderOtp');
+
+            Route::get('/delivered-order/{order_id}', 'deliveredOrderDetails');
+
+            Route::post('/delivery-orders', 'store');
+
+            // vehical registration
+            Route::get('/vehicle-registration', 'getVehicleDetails');
+            Route::post('/vehicle-registration', 'vehicleRegistration');
+            Route::put('/update-vehicle-details', 'updateVehicleRegistration');
+
+            // update aadhar 
+            Route::get('/aadhar', 'getAadharDetails');
+            Route::post('/store-aadhar', 'storeAadhar');
+            Route::put('/update-aadhar', 'updateAadhar');
+
+            // pan card
+            Route::get('/pan-card', 'getPanCardDetails');
+            Route::post('/store-pan-card', 'storePanCard');
+            Route::put('/update-pan-card', 'updatePanCard');
+
+            // driving license
+            Route::get('/driving-license', 'getDrivingLicenseDetails');
+            Route::post('/store-driving-license', 'storeDrivingLicense');
+            Route::put('/update-driving-license', 'updateDrivingLicense');
+            
         });
     });
 });
