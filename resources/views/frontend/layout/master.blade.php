@@ -100,6 +100,7 @@
                                 <a href="#log " data-bs-toggle="modal" class="tf-cur-item link">
                                     <!-- <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/person-male.png" alt="person-male" /> -->
                                     <i class="fa-solid fa-user" style="color: #1987ff;"></i>
+                                    {{-- <i class="fa-solid fa-user" style="color: #BCFE09;"></i> --}}
                                     <span class="body-small text-black">My Account:
                                         {{ Auth::user()->name ?? 'Guest' }}</span>
                                     <i class="icon-arrow-down" style="color:rgb(0, 0, 0);"></i>
