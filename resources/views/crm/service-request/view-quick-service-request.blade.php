@@ -132,7 +132,7 @@
                     </div>
 
                     <!-- Product Details Card -->
-                    <div class="card mt-3">
+                    {{-- <div class="card mt-3">
                         <div class="card-header border-bottom-dashed">
                             <h5 class="card-title mb-0">Product Information</h5>
                         </div>
@@ -185,6 +185,39 @@
                                     </div>
                                 </div>
                                 @endif
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    {{-- Product Details Card --}}
+                    <div class="card mt-3">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Product Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr No</th>
+                                            <th>Product Name</th>
+                                            <th>Model No</th>
+                                            <th>SKU</th>
+                                            <th>HSN</th>
+                                            <th>Brand</th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr>    
+                                            <td>{{ $request->id }}</td>
+                                            <td>{{ $request->product_name }}</td>
+                                            <td>{{ $request->model_no }}</td>
+                                            <td>{{ $request->sku }}</td>
+                                            <td>{{ $request->hsn }}</td>
+                                            <td>{{ $request->brand }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
