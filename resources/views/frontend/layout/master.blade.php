@@ -465,7 +465,7 @@
                         <div class="ft-inner flex-wrap flex-xl-nowrap">
                             <div class="ft-logo">
                                 <a href="{{ route('website') }}" class="logo-site">
-                                    <img src="{{ asset('frontend-assets/images/logo/header-logo.png') }}"
+                                    <img src="{{ asset('frontend-assets/images/logo/header-logo-2.png') }}"
                                         alt="Logo">
                                 </a>
                                 <div class="method-payment">

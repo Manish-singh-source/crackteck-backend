@@ -255,17 +255,17 @@ class DeliveryOrderController extends Controller
             }
 
             // Send OTP via Fast2SMS DLT
-            // $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
+            $templateId = env('FAST2SMS_TEMPLATE_ID'); // 191040
 
-            // $success = $this->sendDltSms(
-            //     $user->phone,           // Phone number
-            //     $templateId,            // Template ID (191040)
-            //     $otp                    // OTP value to replace {#var#}
-            // );
+            $success = $this->sendDltSms(
+                $user->phone,           // Phone number
+                $templateId,            // Template ID (191040)
+                $otp                    // OTP value to replace {#var#}
+            );
 
-            // if (!$success) {
-            //     return response()->json(['message' => 'Failed to send OTP'], 500);
-            // }
+            if (!$success) {
+                return response()->json(['message' => 'Failed to send OTP'], 500);
+            }
 
             return response()->json(['message' => 'OTP sent successfully'], 200);
         }
