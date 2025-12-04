@@ -219,6 +219,8 @@ Route::prefix('v1')->group(function () {
 
             // Give Feedback APIs 
             Route::post('/give-feedback', 'giveFeedback');
+            Route::get('/get-all-feedback', 'getAllFeedback');
+            Route::get('/get-feedback', 'getFeedback');
         });
 
         // Delivery Man APIs

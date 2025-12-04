@@ -176,7 +176,7 @@ class AllServicesController extends Controller
 
         $validated = $validated->validated();
         $staffRole = $this->getRoleId($validated['role_id']);
-        
+
         if (!$staffRole || $staffRole !== 'customers') {
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
@@ -209,7 +209,7 @@ class AllServicesController extends Controller
 
         $validated = $validated->validated();
         $staffRole = $this->getRoleId($validated['role_id']);
-        
+
         if (!$staffRole || $staffRole !== 'customers') {
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
@@ -248,7 +248,7 @@ class AllServicesController extends Controller
 
         $validated = $validated->validated();
         $staffRole = $this->getRoleId($validated['role_id']);
-        
+
         if (!$staffRole || $staffRole !== 'customers') {
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
@@ -262,7 +262,7 @@ class AllServicesController extends Controller
         switch ($serviceType) {
             case 'amc':
                 $service = AmcService::where('id', $serviceId)->where('customer_id', $validated['customer_id'])->first();
-                break;  
+                break;
             case 'non_amc':
                 $service = NonAmcService::where('id', $serviceId)->where('customer_id', $validated['customer_id'])->first();
                 break;
@@ -279,7 +279,7 @@ class AllServicesController extends Controller
         $existingFeedback = GiveFeedback::where('customer_id', $validated['customer_id'])
             ->where('service_type', $validated['service_type'])
             ->where('service_id', $validated['service_id'])
-            ->first(); 
+            ->first();
 
         if ($existingFeedback) {
             return response()->json(['success' => false, 'message' => 'Feedback already submitted.'], 400);
@@ -302,12 +302,67 @@ class AllServicesController extends Controller
             'rating'       => $validated['rating'],
             'comments'     => $validated['comments'] ?? null,
         ]);
- 
+
 
         if (!$feedback) {
             return response()->json(['success' => false, 'message' => 'Feedback not submitted.'], 500);
         }
 
         return response()->json(['success' => true, 'message' => 'Feedback submitted successfully.', 'data' => $feedback], 200);
-    } 
+    }
+
+    public function getAllFeedback(Request $request)
+    {
+        $validated = Validator::make($request->all(), [
+            'role_id'     => 'required|in:4',
+            'customer_id' => 'required|integer|exists:customers,id',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
+
+        $validated = $validated->validated();
+        $staffRole = $this->getRoleId($validated['role_id']);
+
+        if (!$staffRole || $staffRole !== 'customers') {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+
+        $feedbacks = GiveFeedback::where('customer_id', $validated['customer_id'])->get();
+
+        return response()->json(['success' => true, 'data' => $feedbacks], 200);
+    }
+
+    public function getFeedback(Request $request)
+    {
+        $validated = Validator::make($request->all(), [
+            'role_id'     => 'required|in:4',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'service_type' => 'required|in:amc,non_amc,quick_service',
+            'service_id'   => 'required|integer',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
+
+        $validated = $validated->validated();
+        $staffRole = $this->getRoleId($validated['role_id']);
+
+        if (!$staffRole || $staffRole !== 'customers') {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+
+        $feedback = GiveFeedback::where('customer_id', $validated['customer_id'])
+            ->where('service_type', $validated['service_type'])
+            ->where('service_id', $validated['service_id'])
+            ->first();
+
+        if (!$feedback) {
+            return response()->json(['success' => false, 'message' => 'Feedback not found.'], 404);
+        }
+
+        return response()->json(['success' => true, 'data' => $feedback], 200);
+    }
 }
