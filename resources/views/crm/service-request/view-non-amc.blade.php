@@ -198,84 +198,90 @@
                     </div>
 
                     <!-- Products Card -->
-                    <div class="card mt-3">
+                    {{-- <div class="card mt-3">
                         <div class="card-header border-bottom-dashed">
-                            <h5 class="card-title mb-0">Products</h5>
+                            <h5 class="card-title mb-0">Product Information</h5>
                         </div>
                         <div class="card-body">
-                            @forelse($service->products as $index => $product)
-                                <div class="border rounded p-3 mb-3">
-                                    <h6 class="fw-semibold mb-3">Product #{{ $index + 1 }}</h6>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Product Name:</span>
-                                                    <span>{{ $product->product_name }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Product Type:</span>
-                                                    <span>{{ $product->product_type ?? 'N/A' }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Brand:</span>
-                                                    <span>{{ $product->product_brand ?? 'N/A' }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Model No:</span>
-                                                    <span>{{ $product->model_no ?? 'N/A' }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Serial No:</span>
-                                                    <span>{{ $product->serial_no ?? 'N/A' }}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Purchase Date:</span>
-                                                    <span>{{ $product->purchase_date ? $product->purchase_date->format('d M Y') : 'N/A' }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Issue Type:</span>
-                                                    <span>{{ $product->issue_type ?? 'N/A' }}</span>
-                                                </li>
-                                                <li class="list-group-item border-0 d-flex gap-3">
-                                                    <span class="fw-semibold">Warranty Status:</span>
-                                                    <span
-                                                        class="badge bg-{{ $product->warranty_status == 'In Warranty' ? 'success' : 'secondary' }}">
-                                                        {{ $product->warranty_status ?? 'Unknown' }}
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product Name</th>
+                                            <th>Type</th>
+                                            <th>Brand</th>
+                                            <th>Model No</th>
+                                            <th>Serial No</th>
+                                            <th>Purchase Date</th>
+                                            <th>Warranty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($amcService->products as $index => $product)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $product->product_name }}</td>
+                                                <td>{{ $product->type->parent_categories ?? '-' }}</td>
+                                                <td>{{ $product->brand->brand_title ?? '-' }}</td>
+                                                <td>{{ $product->model_no ?? '-' }}</td>
+                                                <td>{{ $product->serial_no ?? '-' }}</td>
+                                                <td>{{ $product->purchase_date ? $product->purchase_date->format('d M Y') : '-' }}
+                                                </td>
+                                                <td>{{ $product->warranty_status ?? '-' }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center text-muted">No products added</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> --}}
 
-                                    @if ($product->issue_description)
-                                        <div class="row mt-2">
-                                            <div class="col-12">
-                                                <h6 class="fw-semibold mb-2">Issue Description:</h6>
-                                                <p class="text-muted">{{ $product->issue_description }}</p>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    @if ($product->product_image)
-                                        <div class="row mt-2">
-                                            <div class="col-12">
-                                                <h6 class="fw-semibold mb-2">Product Image:</h6>
-                                                <img src="{{ asset('uploads/crm/non-amc/products/' . $product->product_image) }}"
-                                                    alt="Product" class="img-thumbnail"
-                                                    style="max-width: 200px; cursor: pointer;"
-                                                    onclick="openPopup(this.src)">
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            @empty
-                                <p class="text-muted">No products added yet.</p>
-                            @endforelse
+                    <!-- Products Card -->
+                    <div class="card mt-3">
+                        <div class="card-header border-bottom-dashed">
+                            <h5 class="card-title mb-0">Products Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr No</th>
+                                            <th>Product Name</th>
+                                            <th>Type</th>
+                                            <th>Brand</th>
+                                            <th>Model No</th>
+                                            <th>Serial No</th>
+                                            <th>Purchase Date</th>
+                                            <th>Warranty</th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        @forelse($service->products as $index => $product)
+                                            <tr>    
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $product->product_name }}</td>
+                                                <td>{{ $product->product_type }}</td>
+                                                <td>{{ $product->product_brand }}</td>
+                                                <td>{{ $product->model_no }}</td>
+                                                <td>{{ $product->serial_no }}</td>
+                                                <td>{{ $product->purchase_date ? $product->purchase_date->format('d M Y') : '-' }}
+                                                </td>
+                                                <td>{{ $product->warranty_status }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center text-muted">No products added</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>    
                         </div>
                     </div>
 
@@ -466,7 +472,7 @@
                             
 
                             <!-- Action Buttons -->
-                            <div class="card mt-3">
+                            {{-- <div class="card mt-3">
                                 <div class="card-body text-center">
                                     <a href="{{ route('service-request.edit-non-amc', $service->id) }}"
                                         class="btn btn-warning">
@@ -476,7 +482,7 @@
                                         <i class="mdi mdi-arrow-left"></i> Back to List
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
