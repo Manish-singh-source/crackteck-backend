@@ -599,9 +599,9 @@
         <span class="icon-close btn-close-mb link" data-bs-dismiss="offcanvas"></span>
         <div class="logo-site">
             <a href="{{ route('website') }}">
-                <img class="lazyload" decoding="async" srcset="images/logo/header-logo.png 328w"
+                <img class="lazyload" decoding="async" srcset="frontend-assets/images/logo/header-logo.png"
                     sizes="(max-width: 328px) 100vw, 328px" width="578" height="128"
-                    src="images/logo/header-logo.png" alt="">
+                    src="frontend-assets/images/logo/header-logo.png" alt="">
             </a>
         </div>
         <div class="mb-canvas-content">
