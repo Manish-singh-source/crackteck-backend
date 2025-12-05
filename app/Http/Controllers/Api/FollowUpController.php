@@ -100,10 +100,13 @@ class FollowUpController extends Controller
             'user_id' => 'required',
         ]));
 
+        
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
-
+        
+        $validated = $validated->validated();
+        
         $followup = FollowUp::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
 
         if (!$followup) {
