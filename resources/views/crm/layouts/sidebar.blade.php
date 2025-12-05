@@ -140,6 +140,14 @@
                     </a>
                 </li>
                 {{-- @endcan --}}
+
+                <li>
+                    <a class='tp-link' href="{{ route('sales-person.index') }}">
+                        <i class="fas fa-user-tie"></i>
+                        <span class="ps-1"> Sales Person </span>
+                    </a>
+                </li>
+
                 <li class="menu-title mt-2">Sales Person</li>
 
                 <li>

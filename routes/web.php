@@ -32,6 +32,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReimbursementController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleReportController;
+use App\Http\Controllers\SalesPersonController;
 use App\Http\Controllers\SalesInvoicingController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SparePartController;
@@ -351,6 +352,29 @@ Route::controller(Delivery::class)->group(function () {
     Route::put('/crm/update-delivery-man/{id}', 'update')->name('delivery-man.update');
     // Delete Delivery Man Page 
     Route::delete('/crm/delete-delivery-man/{id}', 'delete')->name('delivery-man.delete');
+});
+
+Route::controller(SalesPersonController::class)->group(function () {
+    // Sales Person Page 
+    Route::get('/crm/sales-person', 'index')->name('sales-person.index');
+    // Create Sales Person Page 
+    Route::get('/crm/create-sales-person', 'create')->name('sales-person.create');
+    // Store Sales Person Page 
+    Route::post('/crm/store-sales-person', 'store')->name('sales-person.store');
+    // View Sales Person Page
+    Route::get('/crm/view-sales-person/{id}', 'view')->name('sales-person.view');
+    // Edit Sales Person Page
+    Route::get('/crm/edit-sales-person/{id}', 'edit')->name('sales-person.edit');
+    // Update Sales Person Page
+    Route::put('/crm/update-sales-person/{id}', 'update')->name('sales-person.update');
+    // Delete Sales Person Page 
+    Route::delete('/crm/delete-sales-person/{id}', 'delete')->name('sales-person.delete');
+    // Sales Person Task Page
+    Route::get('/crm/sales-person-task', 'task')->name('sales-person.task');
+    // Sales Person Task Page
+    Route::get('/crm/sales-person-visit', 'visit')->name('sales-person.visit');
+    // Sales Person Visit Detail Page
+    Route::get('/crm/sales-person-visit-detail/{id}', 'visitDetail')->name('sales-person.visit-detail');
 });
 
 // Order Delivery Page
