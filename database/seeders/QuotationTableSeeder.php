@@ -20,6 +20,7 @@ class QuotationTableSeeder extends Seeder
 
         Quotation::factory()->count(10)->make()->each(function ($quotation) use ($leads) {
             $lead = $leads->random();
+            $quotation->user_id = $lead->user_id;
             $quotation->lead_id = $lead->id;
             $quotation->save();
         });
