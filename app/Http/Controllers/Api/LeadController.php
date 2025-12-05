@@ -25,7 +25,7 @@ class LeadController extends Controller
     {
         // Create validator
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
+            'user_id' => 'required|exists:sales_people,id',
         ]);
 
         // Check for validation errors
