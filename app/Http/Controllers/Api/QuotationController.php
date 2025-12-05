@@ -20,6 +20,8 @@ class QuotationController extends Controller
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
+        
+        $validated = $validated->validated();
 
         $Quotation = Quotation::where('user_id', $validated['user_id'])->paginate();
 
