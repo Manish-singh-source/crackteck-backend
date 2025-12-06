@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Quotation;
+use App\Models\QuotationProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuotationResource;
@@ -10,10 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class QuotationController extends Controller
 {
-      //
+    //
     //   I want quotation list with there products details
-    public function index(Request $request){
-        $validated = Validator::make($request->all(),([
+    public function index(Request $request)
+    {
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -21,10 +23,10 @@ class QuotationController extends Controller
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
-        
+
         $validated = $validated->validated();
 
-        $quotations = Quotation::with('products')->where('user_id', $validated['user_id'])->paginate();
+        $quotations = Quotation::with('products')->where('user_id', $validated['user_id'])->get();
 
         if ($quotations->isEmpty()) {
             return response()->json(['message' => 'No quotations found'], 404);
@@ -33,8 +35,10 @@ class QuotationController extends Controller
         return QuotationResource::collection($quotations);
     }
 
-    public function store(Request $request) {
-        $validated = Validator::make($request->all(),([
+    // I want to create quotation with there products details
+    public function store(Request $request)
+    {
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
             'lead_id' => 'required',
@@ -45,19 +49,40 @@ class QuotationController extends Controller
 
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
-        }        
+        }
+
+        $validated = $validated->validated();
 
         $Quotation = Quotation::create($validated);
+
+        if ($request->has('products')) {
+            foreach ($request->products as $productData) {
+                $quotationProduct = new QuotationProduct();
+                $quotationProduct->quotation_id = $Quotation->id;
+                $quotationProduct->product_name = $productData['product_name'];
+                $quotationProduct->hsn_code = $productData['hsn_code'];
+                $quotationProduct->sku = $productData['sku'];
+                $quotationProduct->price = $productData['price'];
+                $quotationProduct->quantity = $productData['quantity'];
+                $quotationProduct->tax = $productData['tax'];
+                $quotationProduct->total = $productData['total'];
+                $quotationProduct->save();
+            }
+        }
 
         if (!$Quotation) {
             return response()->json(['message' => 'Quotation not created'], 500);
         }
 
+        $Quotation->load('products');
+
         return new QuotationResource($Quotation);
     }
 
-    public function show(Request $request, $lead_id) {
-        $validated = Validator::make($request->all(),([
+    // I want quotation details with there products details
+    public function show(Request $request, $lead_id)
+    {
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -67,9 +92,8 @@ class QuotationController extends Controller
         }
 
         $validated = $validated->validated();
-        
-        $Quotation = Quotation::where('user_id', $validated['user_id'])->find($lead_id);
 
+        $Quotation = Quotation::with('products')->where('user_id', $validated['user_id'])->where('id', $lead_id)->first();
 
         if (!$Quotation) {
             return response()->json(['message' => 'Quotation not found'], 404);
@@ -78,8 +102,10 @@ class QuotationController extends Controller
         return new QuotationResource($Quotation);
     }
 
-    public function update(Request $request, $Quotation_id) {
-        $validated = Validator::make($request->all(),([
+    // I want to update quotation with there products details
+    public function update(Request $request, $Quotation_id)
+    {
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
@@ -88,23 +114,62 @@ class QuotationController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $Quotation = Quotation::where('user_id', $validated['user_id'])->where('id', $Quotation_id)->update($request->all());
+        $validated = $validated->validated();
 
-        return response()->json(['Quotation' => $Quotation], 200);
+        $Quotation = Quotation::where('user_id', $validated['user_id'])->where('id', $Quotation_id)->first();
+
+        if (!$Quotation) {
+            return response()->json(['message' => 'Quotation not found'], 404);
+        }
+
+        $Quotation->update($request->all());
+
+        if ($request->has('products')) {
+            foreach ($request->products as $productData) {
+                if (isset($productData['id'])) {
+                    $quotationProduct = QuotationProduct::find($productData['id']);
+                    if ($quotationProduct) {
+                        $quotationProduct->update($productData);
+                    }
+                } else {
+                    $quotationProduct = new QuotationProduct();
+                    $quotationProduct->quotation_id = $Quotation->id;
+                    $quotationProduct->product_name = $productData['product_name'];
+                    $quotationProduct->hsn_code = $productData['hsn_code'];
+                    $quotationProduct->sku = $productData['sku'];
+                    $quotationProduct->price = $productData['price'];
+                    $quotationProduct->quantity = $productData['quantity'];
+                    $quotationProduct->tax = $productData['tax'];
+                    $quotationProduct->total = $productData['total'];
+                    $quotationProduct->save();
+                }
+            }
+        }   
+
+        $Quotation->load('products');
+
+        return new QuotationResource($Quotation);
     }
 
-    public function destroy(Request $request, $lead_id) {
-        $validated = Validator::make($request->all(),([
+    public function destroy(Request $request, $lead_id)
+    {
+        $validated = Validator::make($request->all(), ([
             // validation rules if any
             'user_id' => 'required',
         ]));
-        
+
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        Quotation::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+        $validated = $validated->validated();
 
-        return response()->json(['message' => 'Follow Up deleted successfully'], 200);
+        $Quotation = Quotation::where('user_id', $validated['user_id'])->where('id', $lead_id)->delete();
+
+        if (!$Quotation) {
+            return response()->json(['message' => 'Quotation not found'], 404);
+        }
+
+        return response()->json(['message' => 'Quotation deleted successfully'], 200);
     }
 }

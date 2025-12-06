@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuotationResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
@@ -21,9 +16,14 @@ class QuotationResource extends JsonResource
             'quote_id' => $this->quote_id,
             'quote_date' => $this->quote_date,
             'expiry_date' => $this->expiry_date,
-            'products' => QuotationProductResource::collection($this->whenLoaded('products')),
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
+
+            // Return product list correctly
+            'products' => QuotationProductResource::collection(
+                $this->whenLoaded('products')
+            ),
         ];
     }
 }
+
