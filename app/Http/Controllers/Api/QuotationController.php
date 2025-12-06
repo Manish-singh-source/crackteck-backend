@@ -61,9 +61,10 @@ class QuotationController extends Controller
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
+        $validated = $validated->validated();
+        
         $Quotation = Quotation::where('user_id', $validated['user_id'])->find($lead_id);
 
-        $validated = $validated->validated();
 
         if (!$Quotation) {
             return response()->json(['message' => 'Quotation not found'], 404);
