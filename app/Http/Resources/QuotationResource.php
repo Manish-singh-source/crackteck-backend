@@ -21,6 +21,7 @@ class QuotationResource extends JsonResource
             'quote_id' => $this->quote_id,
             'quote_date' => $this->quote_date,
             'expiry_date' => $this->expiry_date,
+            'products' => QuotationProductResource::collection($this->whenLoaded('products')),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];
