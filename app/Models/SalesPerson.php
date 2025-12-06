@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class SalesPerson extends Authenticatable implements JWTSubject
 {
     protected $table = 'sales_people';
+    protected $guarded = [];
 
     public function getJWTIdentifier()
     {

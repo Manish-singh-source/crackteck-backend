@@ -36,32 +36,26 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
-        $validated = request()->validate([
+        $validated = Validator::make($request->all(), [
             // validation rules if any
             'role_id' => 'required|in:1,2,3,4',
             'user_id' => 'required',
         ]);
 
-        if (!$validated['user_id']) {
-            return response()->json(['message' => 'User ID is required'], 400);
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
-
-        $model = $this->getModelByRoleId($request->role_id);
-        if (!$model) {
-            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
-        }
-
-        if ($model == Customer::class) {
+        $validated = $validated->validated();
+        if ($validated['role_id'] == 4) {
             $user = Customer::with('address')->where('id', $validated['user_id'])->first();
         } else {
+            $model = $this->getModelByRoleId($validated['role_id']);
             $user = $model::where('id', $validated['user_id'])->first();
         }
-
         if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found with the provided phone number.'], 404);
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
         }
-
-        return response()->json(['user' => $user, 'role_id' => $request->role_id], 200);
+        return response()->json(['user' => $user], 200);
     }
 
     public function update(Request $request)
@@ -126,8 +120,27 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
         
-        $user = $model::find($validated['user_id']);
+        $user = $model::where('id', $validated['user_id'])->first();
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+        
+        $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->dob = $request->dob;
+        $user->gender = $request->gender;
+        $user->current_address = $request->current_address;
+        $user->city = $request->city;
+        $user->state = $request->state;
+        $user->country = $request->country;
+        $user->pincode = $request->pincode;
+        $user->employment_type = $request->employment_type;
+        $user->joining_date = $request->joining_date;
+        $user->police_verification = $request->police_verification;
+        $user->police_verification_status = $request->police_verification_status;
+        $user->police_certificate = $request->police_certificate;
         $user->save();
         
         if (!$user) {
