@@ -11,19 +11,24 @@ use Illuminate\Support\Facades\Validator;
 class QuotationController extends Controller
 {
       //
+    //   I want quotation list with there products details
     public function index(Request $request){
         $validated = Validator::make($request->all(),([
             // validation rules if any
             'user_id' => 'required',
         ]));
-        
+
         if ($validated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
         }
 
-        $Quotation = Quotation::where('user_id', $validated['user_id'])->paginate();
+        $quotations = Quotation::with('products')->where('user_id', $validated['user_id'])->paginate();
 
-        return QuotationResource::collection($Quotation);
+        if ($quotations->isEmpty()) {
+            return response()->json(['message' => 'No quotations found'], 404);
+        }
+
+        return QuotationResource::collection($quotations);
     }
 
     public function store(Request $request) {

@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\AmcServicesController;
 use App\Http\Controllers\Api\NonAmcServicesController;
 use App\Http\Controllers\Api\AllServicesController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\Api\StockinHandController;
 use Hamcrest\Core\AllOf;
 
 // use App\Http\Controllers\AMCRequestController;
@@ -259,6 +260,10 @@ Route::prefix('v1')->group(function () {
             Route::post('/store-driving-license', 'storeDrivingLicense');
             Route::put('/update-driving-license', 'updateDrivingLicense');
             
+        });
+
+        Route::controller(StockinHandController::class)->group(function () {
+            Route::get('/stock-in-hand', 'index');
         });
     });
 });
