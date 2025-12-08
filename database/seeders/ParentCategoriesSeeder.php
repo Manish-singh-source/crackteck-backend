@@ -27,6 +27,7 @@ class ParentCategoriesSeeder extends Seeder
             ['parent_categories' => 'Keyboard', 'category_image' => 'uploads/frontend/category/header-product-10.png', 'category_status_ecommerce' => 1, 'url' => 'https://technofra.com/', 'sort_order' => 10, 'status' => 1],
             ['parent_categories' => 'Mouse', 'category_image' => 'uploads/frontend/category/header-product-11.png', 'category_status_ecommerce' => 1, 'url' => 'https://technofra.com/', 'sort_order' => 11, 'status' => 1],
             ['parent_categories' => 'Webcam', 'category_image' => 'uploads/frontend/category/header-product-12.png', 'category_status_ecommerce' => 1, 'url' => 'https://technofra.com/', 'sort_order' => 12, 'status' => 1],
+            ['parent_categories' => 'Spare Parts', 'category_image' => 'uploads/frontend/category/Spare Part.png', 'category_status_ecommerce' => 1, 'url' => 'https://technofra.com/', 'sort_order' => 13, 'status' => 0],
         ]);
     }
 }
