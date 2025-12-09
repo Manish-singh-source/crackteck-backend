@@ -68,8 +68,15 @@ Route::controller(TrackProductController::class)->group(function () {
 Route::controller(SparePartController::class)->group(function () {
     // Spare Parts Requests
     Route::get('/warehouse/spare-parts', 'index')->name('spare-parts.index');
-    // View Spare Part Requests
-    Route::get('/warehouse/view-spare-part/{id}', 'view')->name('spare-parts.view');
+    // View/Edit Stock Request Page
+    Route::get('/warehouse/spare-parts/{stockRequest}', 'warehouse_show')->name('stock-request.show');
+    
+    // Update Stock Request
+    Route::put('/warehouse/stock-requests/{stockRequest}', 'warehouse_update')->name('stock-request.update');
+    // Remove Product from Stock Request
+    Route::delete('/warehouse/stock-requests/remove-product/{id}', 'removeProduct')->name('stock-request.remove-product');
+
+
     // Assign Delivery Man
     Route::post('/warehouse/assign-delivery-man/{id}', 'assignDeliveryMan')->name('spare-parts.assign-delivery-man');
 });
@@ -140,14 +147,10 @@ Route::controller(StockReportController::class)->group(function () {
     Route::get('/warehouse/create-stock-request', 'warehouse_create')->name('stock-request.create');
     // Store Stock Request
     Route::post('/warehouse/create-stock-request', 'warehouse_store')->name('stock-request.store');
-    // View/Edit Stock Request Page
-    Route::get('/warehouse/stock-requests/{stockRequest}', 'warehouse_show')->name('stock-request.show');
-    // Update Stock Request
-    Route::put('/warehouse/stock-requests/{stockRequest}', 'warehouse_update')->name('stock-request.update');
+    
+    
     // Delete Stock Request
     Route::delete('/warehouse/stock-requests/{stockRequest}', 'delete')->name('stock-request.destroy');
-    // Remove Product from Stock Request
-    Route::delete('/warehouse/stock-requests/remove-product/{id}', 'removeProduct')->name('stock-request.remove-product');
 
     // AJAX Routes for Product Search
     Route::get('/warehouse/search-products', 'searchProducts')->name('stock-request.search-products');

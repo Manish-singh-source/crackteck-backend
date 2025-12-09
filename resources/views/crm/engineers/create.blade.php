@@ -349,6 +349,20 @@
                                                     'type' => 'file',
                                                 ])
                                             </div>
+                                            <div class=" mb-3">
+                                                @include('components.form.input', [
+                                                    'label' => 'Aadhar Card Upload',
+                                                    'name' => 'aadhar_pic',
+                                                    'type' => 'file',
+                                                ])
+                                            </div>
+                                            <div class=" mb-3">
+                                                @include('components.form.input', [
+                                                    'label' => 'Pan Card Upload',
+                                                    'name' => 'pan_card',
+                                                    'type' => 'file',
+                                                ])
+                                            </div>
                                             <div class="mb-3">
                                                 @include('components.form.select', [
                                                     'label' => 'Status',

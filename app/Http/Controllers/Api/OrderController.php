@@ -12,6 +12,9 @@ use App\Models\EcommerceOrder;
 use App\Models\EcommerceOrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SparePartRequest;
+use App\Models\StockRequest;
+use App\Models\StockRequestItem;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -242,9 +245,10 @@ class OrderController extends Controller
 
         if ($staffRole == 'engineer') {
             if ($request->filled('search')) {
-                $products = Product::where('product_name', 'like', "%{$request->search}%")->get();
+                $products = Product::select('id' , 'product_name', 'final_price' )
+                    ->where('product_name', 'like', "%{$request->search}%")->get();
             } else {
-                $products = Product::get();
+                $products = Product::select('id' , 'product_name', 'final_price' )->get();
             }
 
             return response()->json(['products' => $products], 200);
@@ -269,12 +273,59 @@ class OrderController extends Controller
         }
 
         if ($staffRole == 'engineer') {
-            $product = Product::find($product_id);
+            $product = Product::select('id', 'product_name', 'hsn_code', 'sku', 'brand_id', 'model_no', 'serial_no', 'parent_category_id', 'sub_category_id', 'short_description', 'full_description', 'technical_specification', 'brand_warranty', 'cost_price', 'selling_price', 'discount_price', 'tax', 'final_price')->find($product_id);
 
             if (!$product) {
                 return response()->json(['message' => 'Product not found'], 404);
             }
             return response()->json(['product' => $product], 200);
+        }
+    }
+
+    // Product requested by engineer 
+    // in this function engineer can request multiple products at once
+    // and store in stock_requests table
+
+    // but request submit by engineer so in by requested_by field store engineer_id 
+    public function requestProduct(Request $request)
+    {
+        $roleValidated = Validator::make($request->all(), ([
+            'role_id' => 'required|in:1',
+            'user_id' => 'required|exists:engineers,id',
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
+        ]));
+
+        if ($roleValidated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $roleValidated->errors()], 422);
+        }
+
+        $staffRole = $this->getRoleId($request->role_id);
+
+        if (!$staffRole) {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+
+        if ($staffRole == 'engineer') {
+            $stockRequest = StockRequest::create([
+                'requested_by' => $request->user_id,
+                'request_date' => date('Y-m-d'),
+                'reason' => 'Requested by engineer',
+                'urgency_level' => 'High',
+                'approval_status' => 'Pending',
+                'final_status' => 'Pending',
+            ]);
+
+            foreach ($request->products as $product) {
+                StockRequestItem::create([
+                    'stock_request_id' => $stockRequest->id,
+                    'product_id' => $product['product_id'],
+                    'quantity' => $product['quantity'],
+                ]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Product request submitted successfully!', 'data' => $stockRequest]);
         }
     }
 }
