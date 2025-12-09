@@ -167,74 +167,50 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Sr. No.</th>
-                                                                <th>Product Name</th>
-                                                                <th>Type</th>
-                                                                <th>Brand</th>
-                                                                <th>Module Number</th>
-                                                                <th>Serial Number</th>
                                                                 <th>Requested By</th>
-                                                                <th>Request Date</th>
+                                                                <th>Requested Date</th>
+                                                                <th>No of Items</th>
+                                                                <th>Total Quantity</th>
+                                                                <th>Reason</th>
                                                                 <th>Urgency</th>
-                                                                <th>Quantity</th>
-                                                                <th>Status</th>
+                                                                <th>Approval Status</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @forelse($sparePartRequests as $index => $request)
+                                                            @forelse($stockRequests as $index => $request)
                                                                 <tr>
                                                                     <td>{{ $index + 1 }}</td>
-                                                                    <td>
-                                                                        <div>
-                                                                            {{ $request->product->product_name ?? 'N/A' }}
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>{{ $request->product->parent_category_id ? $request->product->parentCategorie->parent_categories ?? 'N/A' : 'N/A' }}
-                                                                    </td>
-                                                                    <td>{{ $request->product->brand_id ? $request->product->brand->brand_title ?? 'N/A' : 'N/A' }}
-                                                                    </td>
-                                                                    <td>{{ $request->product->model_no ?? 'N/A' }}</td>
-                                                                    <td>{{ $request->product->serial_no ?? 'N/A' }}</td>
-                                                                    <td>{{ $request->engineer->first_name ?? 'N/A' }}
-                                                                        {{ $request->engineer->last_name ?? '' }}</td>
-                                                                    <td>{{ $request->request_date->format('d-m-Y') }}</td>
+                                                                    <td>{{ $request->requestedBy->first_name ?? 'N/A' }} {{ $request->requestedBy->last_name ?? 'N/A' }}</td>
+                                                                    <td>{{ $request->request_date->format('Y-m-d') }}</td>
+                                                                    <td>{{ $request->item_count }}</td>
+                                                                    <td>{{ $request->total_quantity }}</td>
+                                                                    <td>{{ Str::limit($request->reason, 50) }}</td>
                                                                     <td>
                                                                         <span
-                                                                            class="badge
-                                                                        @if ($request->urgency_level === 'Critical') bg-danger-subtle text-danger
-                                                                        @elseif($request->urgency_level === 'High') bg-warning-subtle text-warning
-                                                                        @elseif($request->urgency_level === 'Medium') bg-info-subtle text-info
-                                                                        @else bg-success-subtle text-success @endif fw-semibold">
+                                                                            class="badge {{ $request->urgency_badge_class }}">
                                                                             {{ $request->urgency_level }}
                                                                         </span>
                                                                     </td>
-                                                                    <td>{{ $request->quantity }}</td>
                                                                     <td>
                                                                         <span
-                                                                            class="badge
-                                                                        @if ($request->approval_status === 'Pending') bg-danger-subtle text-danger
-                                                                        @elseif($request->approval_status === 'Approved') bg-success-subtle text-success
-                                                                        @else bg-warning-subtle text-warning @endif fw-semibold">
+                                                                            class="badge {{ $request->approval_badge_class }}">
                                                                             {{ $request->approval_status }}
                                                                         </span>
                                                                     </td>
                                                                     <td>
-                                                                        <a aria-label="anchor"
-                                                                            href="{{ route('spare-parts.view', $request->id) }}"
-                                                                            class="btn btn-icon btn-sm bg-primary-subtle me-1"
+                                                                        <a href="{{ route('stock-request.show', $request) }}"
+                                                                            class="btn btn-sm btn-primary"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-original-title="View">
-                                                                            <i
-                                                                                class="mdi mdi-eye-outline fs-14 text-primary"></i>
+                                                                            data-bs-original-title="View/Edit">
+                                                                            <i class="mdi mdi-eye-outline"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="12"
-                                                                        class="text-center text-muted py-4">
-                                                                        No spare part requests found.
-                                                                    </td>
+                                                                    <td colspan="9" class="text-center">No requests
+                                                                        found.</td>
                                                                 </tr>
                                                             @endforelse
                                                         </tbody>

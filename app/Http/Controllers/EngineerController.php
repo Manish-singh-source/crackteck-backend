@@ -88,6 +88,26 @@ class EngineerController extends Controller
             $engineer->pic = 'uploads/crm/engineer/pic/' . $filename;
         }
 
+        // Aadhar Card 
+        if ($request->hasFile('aadhar_pic')) {
+            $file = $request->file('aadhar_pic');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/aadhar_pic'), $filename);
+            $engineer->aadhar_pic = 'uploads/crm/engineer/aadhar_pic/' . $filename;
+        }
+
+        // Pan Card 
+        if ($request->hasFile('pan_card')) {
+            $file = $request->file('pan_card');
+            $filename = time() . '.' . $file->getClientOriginalExtension(); 
+            // dd($filename);
+    
+            $file->move(public_path('uploads/crm/engineer/pan_card'), $filename);
+            $engineer->pan_card = 'uploads/crm/engineer/pan_card/' . $filename;
+        }
+
         $engineer->save();
 
         if (!$engineer) {

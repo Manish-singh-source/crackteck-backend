@@ -94,10 +94,10 @@ class ApiAuthController extends Controller
 
     public function signup(Request $request)
     {
-        $roleValidated = Validator::make($request->all(),([
+        $roleValidated = Validator::make($request->all(), ([
             'role_id' => 'required|in:1,2,3,4',
         ]));
-        
+
         if ($roleValidated->fails()) {
             return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $roleValidated->errors()], 422);
         }
@@ -109,14 +109,14 @@ class ApiAuthController extends Controller
         }
 
         if ($staffRole == 'customers') {
-            $customerValidated = Validator::make($request->all(),([
+            $customerValidated = Validator::make($request->all(), ([
                 'first_name' => 'required|min:3',
                 'last_name' => 'required|min:3',
                 'phone' => 'required|unique:customers,phone|digits:10',
                 'email' => 'required|email|unique:customers,email',
                 'dob' => 'nullable',
                 'gender' => 'required',
-                'pan_no' => 'nullable', 
+                'pan_no' => 'nullable',
 
                 'branch_name' => 'nullable',
                 'company_name' => 'nullable',
@@ -170,51 +170,129 @@ class ApiAuthController extends Controller
         $request->merge(['first_name' => $names[0]]);
         $request->merge(['last_name' => $names[1]]);
 
-        if ($request->filled('pan_card')) {
-            $request->validate([
-                'pan_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+        // if ($request->filled('pan_card')) {
+        //     $request->validate([
+        //         'pan_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]);
+        // }
+
+        // if ($request->filled('aadhar_card')) {
+        //     $request->validate([
+        //         'aadhar_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]);
+        // }
+
+        // if ($request->hasFile('aadhar_card')) {
+
+        //     $aadharCard = $request->file('aadhar_card');
+        //     $ext = $aadharCard->getClientOriginalExtension();
+        //     $aadharCardName = time() . '.' . $ext;
+
+        //     // Store original image
+        //     $aadharCard->move(public_path('uploads/aadhar_card'), $aadharCardName);
+        // }
+
+        // if ($request->hasFile('pan_card')) {
+        //     $panCard = $request->file('pan_card');
+        //     $ext = $panCard->getClientOriginalExtension();
+        //     $panCardName = time() . '.' . $ext;
+
+        //     // Store original image
+        //     $panCard->move(public_path('uploads/pan_card'), $panCardName);
+        // }
+
+        $model = $this->getModelByRoleId($request->role_id);
+        if (!$model) {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
         }
 
-        if ($request->filled('aadhar_card')) {
-            $request->validate([
-                'aadhar_card' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-        }
+        $validated = Validator::make($request->all(),[
+            'primary_skills' => 'nullable|string',
+            'first_name' => 'required|string|min:2',
+            'last_name'  => 'required|string|min:2',
+            'phone'      => 'required|digits:10',
+            'email'      => 'required|email',   
+            'dob'        => 'required|date',
+            'gender'     => 'required|in:male,female',  
 
-        if ($request->hasFile('aadhar_card')) {
+            'address'   => 'required|string',
+            'address2'  => 'nullable|string',
+            'city'      => 'required|string',
+            'state'     => 'required|string',
+            'country'   => 'required|string',
+            'pincode'   => 'required|string',
 
-            $aadharCard = $request->file('aadhar_card');
-            $ext = $aadharCard->getClientOriginalExtension();
-            $aadharCardName = time() . '.' . $ext;
-
-            // Store original image
-            $aadharCard->move(public_path('uploads/aadhar_card'), $aadharCardName);
-        }
-
-        if ($request->hasFile('pan_card')) {
-            $panCard = $request->file('pan_card');
-            $ext = $panCard->getClientOriginalExtension();
-            $panCardName = time() . '.' . $ext;
-
-            // Store original image
-            $panCard->move(public_path('uploads/pan_card'), $panCardName);
-        }
-
-        $staff = Staff::create([
-            'staff_role' => $staffRole,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'current_address' => $request->current_address,
-            'pan_no' => $request->pan_no,
-            'aadhar_no' => $request->aadhar_no,
-            'pan_card' => $panCardName,
-            'aadhar_card' => $aadharCardName,
+            'designation' => 'required|string',
+            'department'  => 'required|string',
+            'aadhar_pic' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'pan_card'   => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if (!$staff) {
+        if ($validated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $validated->errors()], 422);
+        }
+
+        // Handle file uploads
+        $aadharPicPath = null;
+        if ($request->hasFile('aadhar_pic')) {
+            $file = $request->file('aadhar_pic');
+            $filename = time() . '_aadhar.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/aadhar_card'), $filename);
+            $aadharPicPath = 'uploads/aadhar_card/' . $filename;
+        }
+
+        $panCardName = null;
+        if ($request->hasFile('pan_card')) {
+            $file = $request->file('pan_card');
+            $filename = time() . '_pan.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/pan_card'), $filename);
+            $panCardName = 'uploads/pan_card/' . $filename;
+        }
+
+        // $user = new $model();
+        $user = new Engineer();
+
+        $user->primary_skills = $request->primary_skills ?? 'Network Engineer';
+        $user->first_name     = $request->first_name;
+        $user->last_name      = $request->last_name;
+        $user->phone          = $request->phone;
+        $user->email          = $request->email;
+        $user->dob            = $request->dob;
+        $user->gender         = $request->gender;
+
+        $user->address        = $request->address;
+        $user->address2       = $request->address2;
+        $user->city           = $request->city;
+        $user->state          = $request->state;
+        $user->country        = $request->country;
+        $user->pincode        = $request->pincode;
+
+        $user->designation    = $request->designation;
+        $user->department     = $request->department;
+        $user->join_date      = date('Y-m-d');
+        $user->aadhar_pic     = $aadharPicPath;
+        $user->pan_card       = $panCardName;
+
+        $user->save();
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Failed to create user.'], 500);
+        }
+
+        // $staff = Staff::create([
+        //     'staff_role' => $staffRole,
+        //     'first_name' => $request->first_name,
+        //     'last_name' => $request->last_name,
+        //     'phone' => $request->phone,
+        //     'email' => $request->email,
+        //     'current_address' => $request->current_address,
+        //     'pan_no' => $request->pan_no,
+        //     'aadhar_no' => $request->aadhar_no,
+        //     'pan_card' => $panCardName,
+        //     'aadhar_card' => $aadharCardName,
+        // ]);
+
+        if (!$user) {
             return response()->json(['success' => false, 'message' => 'Failed to create staff.'], 500);
         }
 
@@ -231,7 +309,7 @@ class ApiAuthController extends Controller
     public function login(Request $request)
     {
         try {
-            $validated = Validator::make($request->all(),([
+            $validated = Validator::make($request->all(), ([
                 'phone_number' => 'required',
                 'role_id' => 'required|in:1,2,3,4'
             ]));
@@ -295,7 +373,7 @@ class ApiAuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             'phone_number' => 'required',
             'otp' => 'required',
             'role_id' => 'required|in:1,2,3,4'
@@ -330,7 +408,7 @@ class ApiAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $validated = Validator::make($request->all(),([
+        $validated = Validator::make($request->all(), ([
             'role_id' => 'required|in:1,2,3,4'
         ]));
 
@@ -351,7 +429,7 @@ class ApiAuthController extends Controller
 
     public function refreshToken(Request $request)
     {
-        $validated = Validator::make($request->all(),[
+        $validated = Validator::make($request->all(), [
             'role_id' => 'required|in:1,2,3,4'
         ]);
 

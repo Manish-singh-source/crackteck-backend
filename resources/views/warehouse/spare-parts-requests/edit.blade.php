@@ -46,7 +46,7 @@
                                     <div class="col-6">
                                         <label class="form-label">Requested By</label>
                                         <input type="text" class="form-control"
-                                            value="{{ $stockRequest->requestedBy->name ?? 'N/A' }}" readonly>
+                                            value="{{ $stockRequest->requestedBy->first_name ?? 'N/A' }} {{ $stockRequest->requestedBy->last_name ?? '' }}" readonly>
                                     </div>
 
                                     <div class="col-6">
@@ -178,9 +178,7 @@
                                                 <tr data-item-id="{{ $item->id }}">
                                                     <td>{{ $item->product->product_name ?? 'N/A' }}</td>
                                                     <td>{{ $item->product->sku ?? 'N/A' }}</td>
-                                                    <td>{{ $item->product->brand->brand_name ?? 'N/A' }}
-                                                        {{ $item->id }}
-                                                    </td>
+                                                    <td>{{ $item->product->brand->brand_title ?? 'N/A' }}</td>
                                                     <td>
                                                         <input type="number" class="form-control quantity-input"
                                                             value="{{ $item->quantity }}" min="1" max="10000"

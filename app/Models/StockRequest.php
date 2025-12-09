@@ -23,11 +23,11 @@ class StockRequest extends Model
     ];
 
     /**
-     * Get the user who requested the stock.
+     * Get the engineer who requested the stock.
      */
     public function requestedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'requested_by');
+        return $this->belongsTo(Engineer::class, 'requested_by');
     }
 
     /**
@@ -92,5 +92,10 @@ class StockRequest extends Model
             'Pending' => 'bg-secondary',
             default => 'bg-light text-dark',
         };
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

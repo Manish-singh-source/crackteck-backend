@@ -145,6 +145,8 @@ Route::prefix('v1')->group(function () {
 
             Route::get('/all-product', 'allListProducts'); // Engineer
             Route::get('/all-product/{id}', 'allProduct'); // Engineer
+            Route::post('/request-product', 'requestProduct'); // Engineer
+
         });
 
         Route::controller(LeadController::class)->group(function () {
@@ -262,8 +264,13 @@ Route::prefix('v1')->group(function () {
             
         });
 
-        Route::controller(StockinHandController::class)->group(function () {
-            Route::get('/stock-in-hand', 'index');
-        });
+        // Engineer APIs
+        // Route::controller(StockinHandController::class)->group(function () {
+        //     Route::get('/stock-in-hand', 'index');
+        //     Route::get('/stock-in-hand/{id}', 'show');
+        //     Route::post('/stock-in-hand', 'store');
+        // });
+
+
     });
 });
