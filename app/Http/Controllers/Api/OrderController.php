@@ -61,9 +61,13 @@ class OrderController extends Controller
         if ($staffRole == 'customers' || $staffRole == 'sales_person') {
 
             if ($request->filled('search')) {
-                $products = EcommerceProduct::where('product_name', 'like', "%{$request->search}%")->get();
+                $products = EcommerceProduct::whereHas('warehouseProduct', function ($query) use ($request) {
+                    $query->where('product_name', 'like', "%{$request->search}%");
+                })
+                ->with('warehouseProduct')
+                ->get();
             } else {
-                $products = EcommerceProduct::get();
+                $products = EcommerceProduct::with('warehouseProduct')->get();
             }
 
             return response()->json(['products' => $products], 200);
