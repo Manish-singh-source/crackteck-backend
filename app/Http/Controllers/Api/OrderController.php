@@ -137,10 +137,10 @@ class OrderController extends Controller
             $order = EcommerceOrder::create([
                 'user_id' => 1,
                 'customer_id' => $request->customer_id,
-                'order_number' => 'ORD-' . date('YmdHis') . '-' .$request->customer_id,
+                'order_number' => 'ORD-' . date('YmdHis') . '-' . $request->customer_id,
                 'order_source' => 'buy_now',
                 'email' => $customer->email,
-                
+
                 'shipping_first_name' => $customer->first_name,
                 'shipping_last_name' => $customer->last_name,
                 'shipping_country' => $customer->address->country,
@@ -159,7 +159,7 @@ class OrderController extends Controller
                 'billing_zipcode' => $customer->address->pincode,
                 'billing_address_line_1' => $customer->address->address,
                 'billing_address_line_2' => $customer->address->address2,
-                'billing_phone' => $customer->phone, 
+                'billing_phone' => $customer->phone,
                 'payment_method' => 'cod',
                 'card_name' => null,
                 'card_last_four' => null,
@@ -245,10 +245,10 @@ class OrderController extends Controller
 
         if ($staffRole == 'engineer') {
             if ($request->filled('search')) {
-                $products = Product::select('id' , 'product_name', 'final_price' )
+                $products = Product::select('id', 'product_name', 'final_price')
                     ->where('product_name', 'like', "%{$request->search}%")->get();
             } else {
-                $products = Product::select('id' , 'product_name', 'final_price' )->get();
+                $products = Product::select('id', 'product_name', 'final_price')->get();
             }
 
             return response()->json(['products' => $products], 200);
@@ -326,6 +326,32 @@ class OrderController extends Controller
             }
 
             return response()->json(['success' => true, 'message' => 'Product request submitted successfully!', 'data' => $stockRequest]);
+        }
+    }
+
+    public function order(Request $request, $order_id)
+    {
+        $roleValidated = Validator::make($request->all(), ([
+            'role_id' => 'required|in:4',
+        ]));
+
+        if ($roleValidated->fails()) {
+            return response()->json(['success' => false, 'message' => 'Validation failed.', 'errors' => $roleValidated->errors()], 422);
+        }
+
+        $staffRole = $this->getRoleId($request->role_id);
+
+        if (!$staffRole) {
+            return response()->json(['success' => false, 'message' => 'Invalid role_id provided.'], 400);
+        }
+
+        if ($staffRole == 'customers') {
+            $order = EcommerceOrder::with('orderItems')->where('id', $order_id)->first();
+
+            if (!$order) {
+                return response()->json(['message' => 'Order not found'], 404);
+            }
+            return response()->json(['order' => $order], 200);
         }
     }
 }
