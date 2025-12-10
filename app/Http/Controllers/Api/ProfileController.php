@@ -96,7 +96,7 @@ class ProfileController extends Controller
             $user->save();
 
             foreach ($request->branches as $index => $branchData) {
-                $userAddress = CustomerAddressDetails::find($branchData['id']);
+                $userAddress = CustomerAddressDetails::where('customer_id', $branchData['customer_id'])->find($branchData['id']);
                 if (!$userAddress) {
                     $userAddress = new CustomerAddressDetails();
                     $userAddress->customer_id = $validated['user_id'];
