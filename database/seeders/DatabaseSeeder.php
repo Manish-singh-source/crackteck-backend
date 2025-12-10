@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             QuotationTableSeeder::class,
             QuotationProductTableSeeder::class,
             QuickServicesSeeder::class,
+            CustomerAddressDetailsSeeder::class,
         ]);
       
     }

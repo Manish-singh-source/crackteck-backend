@@ -47,7 +47,7 @@ class ProfileController extends Controller
         }
         $validated = $validated->validated();
         if ($validated['role_id'] == 4) {
-            $user = Customer::with('address')->where('id', $validated['user_id'])->first();
+            $user = Customer::with('branches')->where('id', $validated['user_id'])->first();
         } else {
             $model = $this->getModelByRoleId($validated['role_id']);
             $user = $model::where('id', $validated['user_id'])->first();
@@ -60,7 +60,6 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-
         $validated = Validator::make($request->all(), [
             // validation rules if any
             'role_id' => 'required|in:1,2,3,4',
@@ -87,6 +86,7 @@ class ProfileController extends Controller
             $user->email = $request->email;
             $user->dob = $request->dob;
             $user->gender = $request->gender;
+            $user->branch_name = $request->branch_name;
             $user->pan_no = $request->pan_no;
 
             $user->company_name = $request->company_name;
@@ -95,24 +95,26 @@ class ProfileController extends Controller
             $user->customer_type = $request->customer_type;
             $user->save();
 
-            $userAddress = CustomerAddressDetails::where('customer_id', $validated['user_id'])->first();
-            if (!$userAddress) {
-                $userAddress = new CustomerAddressDetails();
-                $userAddress->customer_id = $validated['user_id'];
+            foreach ($request->branches as $index => $branchData) {
+                $userAddress = CustomerAddressDetails::find($branchData['id']);
+                if (!$userAddress) {
+                    $userAddress = new CustomerAddressDetails();
+                    $userAddress->customer_id = $validated['user_id'];
+                }
+                $userAddress->branch_name = $branchData['branch_name'];
+                $userAddress->address = $branchData['address'];
+                $userAddress->address2 = $branchData['address2'] ?? null;
+                $userAddress->city = $branchData['city'];
+                $userAddress->state = $branchData['state'];
+                $userAddress->country = $branchData['country'];
+                $userAddress->pincode = $branchData['pincode'];
+                $userAddress->save();
             }
-            $userAddress->branch_name = $request->branch_name;
-            $userAddress->address = $request->address;
-            $userAddress->address2 = $request->address2;
-            $userAddress->city = $request->city;
-            $userAddress->state = $request->state;
-            $userAddress->country = $request->country;
-            $userAddress->pincode = $request->pincode;
-            $userAddress->save();
 
             if (!$user) {
                 return response()->json(['success' => false, 'message' => 'User not updated.'], 404);
             }
-            return response()->json(['user' => $user], 200);
+            return response()->json(['success' => true, 'message' => 'User updated successfully.'], 200);
         }
         
         $model = $this->getModelByRoleId($request->role_id);
@@ -147,5 +149,6 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'User not updated.'], 404);
         }
         return response()->json(['user' => $user], 200);
-    }
+    
+    }   
 }
