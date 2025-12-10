@@ -40,6 +40,7 @@ class FollowUpController extends Controller
             'followup_date' => 'required',
             'followup_time' => 'required',
             'status' => 'required',
+            'remarks' => 'nullable',
         ]));
 
         if ($validated->fails()) {
@@ -48,9 +49,13 @@ class FollowUpController extends Controller
 
         $validated = $validated->validated();
 
+        // return response()->json(['message' => 'Follow Up created successfully', 'followup' => $validated], 200);
         $followup = FollowUp::create($validated);
+        if (!$followup) {
+            return response()->json(['message' => 'Follow Up not created'], 500);
+        }
 
-        return response()->json(['followup' => $followup], 200);
+        return response()->json(['message' => 'Follow Up created successfully'], 200);
     }
 
     public function show(Request $request, $lead_id)
