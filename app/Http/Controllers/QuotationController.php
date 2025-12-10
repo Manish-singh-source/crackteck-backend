@@ -37,7 +37,7 @@ class QuotationController extends Controller
         $quotations = Quotation::with('lead')->get();
         // dd($quotations);
         // return view('/crm/meets/index', compact('meet'));
-        return view('/crm/Quotation/index', compact('quotations'));
+        return view('/crm/quotation/index', compact('quotations'));
     }
 
     public function create()
@@ -45,7 +45,7 @@ class QuotationController extends Controller
         $leads = Lead::all();
         $quoteId = $this->generateServiceId();
         $amcPlans = AMC::where('status', 'Active')->get();
-        return view('/crm/Quotation/create', compact('leads', 'quoteId', 'amcPlans'));
+        return view('/crm/quotation/create', compact('leads', 'quoteId', 'amcPlans'));
     }
 
 
@@ -246,7 +246,7 @@ class QuotationController extends Controller
 
         $engineers = Engineer::all();
 
-        return view('/crm/Quotation/view', compact('quotation', 'engineers'));
+        return view('/crm/quotation/view', compact('quotation', 'engineers'));
     }
 
     public function edit($id)
@@ -260,7 +260,7 @@ class QuotationController extends Controller
         $leads = Lead::all();
         $amcPlans = AMC::where('status', 'Active')->get();
 
-        return view('/crm/Quotation/edit', compact('quotation', 'leads', 'amcPlans'));
+        return view('/crm/quotation/edit', compact('quotation', 'leads', 'amcPlans'));
     }
 
     public function update(Request $request, $id)
