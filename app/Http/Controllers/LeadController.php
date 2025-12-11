@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use App\Models\LeadBranch;
+use App\Models\SalesPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,13 +13,15 @@ class LeadController extends Controller
     //
     public function index()
     {
-        $lead = Lead::all();
+        $lead = Lead::with('user')->get();
         return view('/crm/leads/index', compact('lead'));
     }
 
     public function create()
     {
-        return view('/crm/leads/create');
+        $salesPersons = SalesPerson::all();
+        // dd($salesPersons);
+        return view('/crm/leads/create', compact('salesPersons'));
     }
 
     public function store(Request $request)
@@ -60,6 +63,7 @@ class LeadController extends Controller
 
         $lead->budget_range = $request->budget_range;
         $lead->urgency = $request->urgency;
+        $lead->user_id = $request->sales_person_id;
         $lead->status = $request->status;
 
         $lead->save();
@@ -88,13 +92,15 @@ class LeadController extends Controller
     public function view($id)
     {
         $lead = Lead::with('branches')->find($id);
-        return view('/crm/leads/view', compact('lead'));
+        $salesPersons = SalesPerson::all();
+        return view('/crm/leads/view', compact('lead', 'salesPersons'));
     }
 
     public function edit($id)
     {
         $lead = Lead::with('branches')->find($id);
-        return view('/crm/leads/edit', compact('lead'));
+        $salesPersons = SalesPerson::all();
+        return view('/crm/leads/edit', compact('lead', 'salesPersons'));
     }
 
     public function update(Request $request, $id)
@@ -104,7 +110,7 @@ class LeadController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
             'phone' => 'required|digits:10',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:leads,email,' . $id,
             'dob' => 'required',
             'gender' => 'required'
         ]);
@@ -130,6 +136,7 @@ class LeadController extends Controller
 
         $lead->budget_range = $request->budget_range;
         $lead->urgency = $request->urgency;
+        $lead->user_id = $request->user_id;
         $lead->status = $request->status;
 
         $lead->save();

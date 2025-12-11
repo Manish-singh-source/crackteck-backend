@@ -184,15 +184,15 @@
                                                 ])
                                             </div>
                                             <!--
-                                            <div class="col-4">
-                                                <label for="region" class="form-label">Region</label>
-                                            <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
-                                        </div> -->
+                                                <div class="col-4">
+                                                    <label for="region" class="form-label">Region</label>
+                                                <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
+                                            </div> -->
 
                                             <!-- <div class="col-4">
-                                            <label for="assigned_to" class="form-label">Assigned To</label>
-                                            <input type="text" name="assigned_to" id="assigned_to" class="form-control" placeholder="Enter Salesperson Name or ID">
-                                        </div> -->
+                                                <label for="assigned_to" class="form-label">Assigned To</label>
+                                                <input type="text" name="assigned_to" id="assigned_to" class="form-control" placeholder="Enter Salesperson Name or ID">
+                                            </div> -->
 
                                             <div class="col-4">
                                                 @include('components.form.select', [
@@ -208,6 +208,15 @@
                                                     ],
                                                 ])
                                             </div>
+
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Sales Person',
+                                                    'name' => 'sales_person_id',
+                                                    'options' => $salesPersons->pluck('first_name', 'id')->prepend('--Select Sales Person--', 0),
+                                                ])
+                                            </div>
+
                                         </div>
                                     </div>
 

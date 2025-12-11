@@ -26,362 +26,378 @@
 
             <div class="row">
                 <div class="col-12">
-                     <form action="{{ route('leads.update', $lead->id) }}" method="POST">
+                    <form action="{{ route('leads.update', $lead->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header border-bottom-dashed">
-                                    <div class="row g-4 align-items-center">
-                                        <div class="col-sm">
-                                            <h5 class="card-title mb-0">
-                                                Personal Information
-                                            </h5>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header border-bottom-dashed">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm">
+                                                <h5 class="card-title mb-0">
+                                                    Personal Information
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="card-body">
-                                    <div class="row g-3">
+                                    <div class="card-body">
+                                        <div class="row g-3">
 
-                                        <!-- Existing Fields -->
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'First Name',
-                                                'name' => 'first_name',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter First Name',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <!-- Existing Fields -->
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'First Name',
+                                                    'name' => 'first_name',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter First Name',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Last Name',
-                                                'name' => 'last_name',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Last Name',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Last Name',
+                                                    'name' => 'last_name',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Last Name',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Phone number',
-                                                'name' => 'phone',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Phone number',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Phone number',
+                                                    'name' => 'phone',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Phone number',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'E-mail address',
-                                                'name' => 'email',
-                                                'type' => 'email',
-                                                'placeholder' => 'Enter E-mail Id',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'E-mail address',
+                                                    'name' => 'email',
+                                                    'type' => 'email',
+                                                    'placeholder' => 'Enter E-mail Id',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Date of Birth',
-                                                'name' => 'dob',
-                                                'type' => 'date',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Date of Birth',
+                                                    'name' => 'dob',
+                                                    'type' => 'date',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Gender',
-                                                'name' => 'gender',
-                                                'options' => ['0' => '--Select--', 'Male' => 'Male', 'Female' => 'Female'],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Gender',
+                                                    'name' => 'gender',
+                                                    'options' => [
+                                                        '0' => '--Select--',
+                                                        'male' => 'Male',
+                                                        'female' => 'Female',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <!-- Lead Management Fields -->
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Company Name',
-                                                'name' => 'company_name',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Company Name',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <!-- Lead Management Fields -->
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Company Name',
+                                                    'name' => 'company_name',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Company Name',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Designation',
-                                                'name' => 'designation',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Designation',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Designation',
+                                                    'name' => 'designation',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Designation',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Industry Type',
-                                                'name' => 'industry_type',
-                                                'options' => [
-                                                    '0' => '--Select Industry Type--',
-                                                    'Pharma' => 'Pharma',
-                                                    'School' => 'School',
-                                                    'Manufacturing' => 'Manufacturing',
-                                                ],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Industry Type',
+                                                    'name' => 'industry_type',
+                                                    'options' => [
+                                                        '0' => '--Select Industry Type--',
+                                                        'pharma' => 'Pharma',
+                                                        'school' => 'School',
+                                                        'manufacturing' => 'Manufacturing',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Source',
-                                                'name' => 'source',
-                                                'options' => [
-                                                    '0' => '--Select Source--',
-                                                    'Referral' => 'Referral',
-                                                    'Website' => 'Website',
-                                                    'Walk-in' => 'Walk-in',
-                                                    'Event' => 'Event',
-                                                ],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Source',
+                                                    'name' => 'source',
+                                                    'options' => [
+                                                        '0' => '--Select Source--',
+                                                        'referral' => 'Referral',
+                                                        'website' => 'Website',
+                                                        'walk_in' => 'Walk-in',
+                                                        'event' => 'Event',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Requirement Type',
-                                                'name' => 'requirement_type',
-                                                'options' => [
-                                                    '0' => '--Select Requirement--',
-                                                    'Servers' => 'Servers',
-                                                    'CCTV' => 'CCTV',
-                                                    'Biometric' => 'Biometric',
-                                                    'Networking' => 'Networking',
-                                                ],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Requirement Type',
+                                                    'name' => 'requirement_type',
+                                                    'options' => [
+                                                        '0' => '--Select Requirement--',
+                                                        'servers' => 'Servers',
+                                                        'cctv' => 'CCTV',
+                                                        'biometric' => 'Biometric',
+                                                        'networking' => 'Networking',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.input', [
-                                                'label' => 'Budget Range',
-                                                'name' => 'budget_range',
-                                                'type' => 'text',
-                                                'placeholder' => 'e.g., 10K-50K',
-                                                'model' => $lead,
-                                            ])
-                                        </div>
+                                            <div class="col-4">
+                                                @include('components.form.input', [
+                                                    'label' => 'Budget Range',
+                                                    'name' => 'budget_range',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'e.g., 10K-50K',
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Urgency',
-                                                'name' => 'urgency',
-                                                'options' => [
-                                                    '0' => '--Select Urgency--',
-                                                    'Low' => 'Low',
-                                                    'Medium' => 'Medium',
-                                                    'High' => 'High',
-                                                ],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
-                                        <!--
-                                                    <div class="col-4">
-                                                        <label for="region" class="form-label">Region</label>
-                                                    <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
-                                                </div> -->
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Urgency',
+                                                    'name' => 'urgency',
+                                                    'options' => [
+                                                        '0' => '--Select Urgency--',
+                                                        'Low' => 'Low',
+                                                        'Medium' => 'Medium',
+                                                        'High' => 'High',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
+                                            <!--
+                                                        <div class="col-4">
+                                                            <label for="region" class="form-label">Region</label>
+                                                        <input type="text" name="region" id="region" class="form-control" placeholder="Enter Region">
+                                                    </div> -->
 
-                                        <!-- <div class="col-4">
-                                                    <label for="assigned_to" class="form-label">Assigned To</label>
-                                                    <input type="text" name="assigned_to" id="assigned_to" class="form-control" placeholder="Enter Salesperson Name or ID">
-                                                </div> -->
+                                            <!-- <div class="col-4">
+                                                        <label for="assigned_to" class="form-label">Assigned To</label>
+                                                        <input type="text" name="assigned_to" id="assigned_to" class="form-control" placeholder="Enter Salesperson Name or ID">
+                                                    </div> -->
 
-                                        <div class="col-4">
-                                            @include('components.form.select', [
-                                                'label' => 'Lead Status',
-                                                'name' => 'status',
-                                                'options' => [
-                                                    '0' => '--Select Status--',
-                                                    'New' => 'New',
-                                                    'Contacted' => 'Contacted',
-                                                    'Qualified' => 'Qualified',
-                                                    'Quoted' => 'Quoted',
-                                                    'Lost' => 'Lost',
-                                                ],
-                                                'model' => $lead,
-                                            ])
-                                        </div>
-                                    </div>
-                                </div>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Lead Status',
+                                                    'name' => 'status',
+                                                    'options' => [
+                                                        '0' => '--Select Status--',
+                                                        'New' => 'New',
+                                                        'Contacted' => 'Contacted',
+                                                        'Qualified' => 'Qualified',
+                                                        'Quoted' => 'Quoted',
+                                                        'Lost' => 'Lost',
+                                                    ],
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
 
-                            </div>
-
-                            <!-- Branch Information Section -->
-                            <div class="card mt-3">
-                                <div class="card-header border-bottom-dashed">
-                                    <div class="row g-4 align-items-center">
-                                        <div class="col-sm">
-                                            <h5 class="card-title mb-0">
-                                                Branch Information
-                                            </h5>
-                                        </div>
-                                        <div class="col-sm-auto">
-                                            <button type="button" class="btn btn-primary btn-sm" id="add-branch-btn">
-                                                <i class="mdi mdi-plus me-1"></i> Add Branch
-                                            </button>
+                                            <div class="col-4">
+                                                @include('components.form.select', [
+                                                    'label' => 'Sales Person',
+                                                    'name' => 'user_id',
+                                                    'options' => $salesPersons->pluck('first_name', 'id')->prepend('--Select Sales Person--', 0),
+                                                    'model' => $lead,
+                                                ])
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
 
-                                <div class="card-body branch-form-section" style="display: none;">
-                                    <input type="hidden" id="edit-branch-id" value="">
-                                    <div class="row g-3">
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'Branch Name',
-                                                'name' => 'branch_name',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Branch Name',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'Address Line 1',
-                                                'name' => 'address_line1',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Address Line 1',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'Address Line 2',
-                                                'name' => 'address_line2',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Address Line 2 (Optional)',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'City',
-                                                'name' => 'city',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter City',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'State',
-                                                'name' => 'state',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter State',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'Country',
-                                                'name' => 'country',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Country',
-                                            ])
-                                        </div>
-
-                                        <div class="col-6">
-                                            @include('components.form.input', [
-                                                'label' => 'Pincode',
-                                                'name' => 'pincode',
-                                                'type' => 'text',
-                                                'placeholder' => 'Enter Pincode',
-                                            ])
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-success" id="save-branch-btn">
-                                                    Save Branch
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" id="cancel-branch-btn">
-                                                    Cancel
+                                <!-- Branch Information Section -->
+                                <div class="card mt-3">
+                                    <div class="card-header border-bottom-dashed">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm">
+                                                <h5 class="card-title mb-0">
+                                                    Branch Information
+                                                </h5>
+                                            </div>
+                                            <div class="col-sm-auto">
+                                                <button type="button" class="btn btn-primary btn-sm" id="add-branch-btn">
+                                                    <i class="mdi mdi-plus me-1"></i> Add Branch
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="card-body branch-form-section" style="display: none;">
+                                        <input type="hidden" id="edit-branch-id" value="">
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Branch Name',
+                                                    'name' => 'branch_name',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Branch Name',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Address Line 1',
+                                                    'name' => 'address_line1',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Address Line 1',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Address Line 2',
+                                                    'name' => 'address_line2',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Address Line 2 (Optional)',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'City',
+                                                    'name' => 'city',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter City',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'State',
+                                                    'name' => 'state',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter State',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Country',
+                                                    'name' => 'country',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Country',
+                                                ])
+                                            </div>
+
+                                            <div class="col-6">
+                                                @include('components.form.input', [
+                                                    'label' => 'Pincode',
+                                                    'name' => 'pincode',
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Enter Pincode',
+                                                ])
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="text-end">
+                                                    <button type="button" class="btn btn-success" id="save-branch-btn">
+                                                        Save Branch
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" id="cancel-branch-btn">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body branch-table-section">
+                                        <table class="table table-striped table-borderless dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Branch Name</th>
+                                                    <th>Address</th>
+                                                    <th>City</th>
+                                                    <th>State</th>
+                                                    <th>Country</th>
+                                                    <th>Pincode</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="branches-table-body">
+                                                @foreach ($lead->branches as $branch)
+                                                    <tr data-branch-id="{{ $branch->id }}">
+                                                        <td>{{ $branch->branch_name }}</td>
+                                                        <td>
+                                                            {{ $branch->address_line1 }}
+                                                            @if ($branch->address_line2)
+                                                                , {{ $branch->address_line2 }}
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $branch->city }}</td>
+                                                        <td>{{ $branch->state }}</td>
+                                                        <td>{{ $branch->country }}</td>
+                                                        <td>{{ $branch->pincode }}</td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="btn btn-icon btn-sm bg-primary-subtle edit-branch"
+                                                                data-id="{{ $branch->id }}"
+                                                                data-branch-name="{{ $branch->branch_name }}"
+                                                                data-address-line1="{{ $branch->address_line1 }}"
+                                                                data-address-line2="{{ $branch->address_line2 }}"
+                                                                data-city="{{ $branch->city }}"
+                                                                data-state="{{ $branch->state }}"
+                                                                data-country="{{ $branch->country }}"
+                                                                data-pincode="{{ $branch->pincode }}">
+                                                                <i class="mdi mdi-pencil fs-14 text-primary"></i>
+                                                            </button>
+                                                            <button type="button"
+                                                                class="btn btn-icon btn-sm bg-danger-subtle delete-branch"
+                                                                data-id="{{ $branch->id }}">
+                                                                <i class="mdi mdi-delete fs-14 text-danger"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
-                                <div class="card-body branch-table-section">
-                                    <table class="table table-striped table-borderless dt-responsive nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Branch Name</th>
-                                                <th>Address</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Country</th>
-                                                <th>Pincode</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="branches-table-body">
-                                            @foreach($lead->branches as $branch)
-                                            <tr data-branch-id="{{ $branch->id }}">
-                                                <td>{{ $branch->branch_name }}</td>
-                                                <td>
-                                                    {{ $branch->address_line1 }}
-                                                    @if($branch->address_line2)
-                                                        , {{ $branch->address_line2 }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $branch->city }}</td>
-                                                <td>{{ $branch->state }}</td>
-                                                <td>{{ $branch->country }}</td>
-                                                <td>{{ $branch->pincode }}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-icon btn-sm bg-primary-subtle edit-branch"
-                                                        data-id="{{ $branch->id }}"
-                                                        data-branch-name="{{ $branch->branch_name }}"
-                                                        data-address-line1="{{ $branch->address_line1 }}"
-                                                        data-address-line2="{{ $branch->address_line2 }}"
-                                                        data-city="{{ $branch->city }}"
-                                                        data-state="{{ $branch->state }}"
-                                                        data-country="{{ $branch->country }}"
-                                                        data-pincode="{{ $branch->pincode }}">
-                                                        <i class="mdi mdi-pencil fs-14 text-primary"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-icon btn-sm bg-danger-subtle delete-branch" data-id="{{ $branch->id }}">
-                                                        <i class="mdi mdi-delete fs-14 text-danger"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="text-start mb-3">
+                                    <button type="submit" class="btn btn-success w-sm waves ripple-light">
+                                        Submit
+                                    </button>
                                 </div>
                             </div>
 
                         </div>
-
-
-                        <div class="col-lg-12">
-                            <div class="text-start mb-3">
-                                <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                     </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -428,9 +444,9 @@
                     return;
                 }
 
-                const url = editingBranchId
-                    ? "{{ url('/crm/leads/branches') }}/" + editingBranchId
-                    : "{{ route('leads.branches.store') }}";
+                const url = editingBranchId ?
+                    "{{ url('/crm/leads/branches') }}/" + editingBranchId :
+                    "{{ route('leads.branches.store') }}";
 
                 const method = editingBranchId ? 'PUT' : 'POST';
 

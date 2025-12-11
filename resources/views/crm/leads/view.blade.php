@@ -176,6 +176,13 @@
                                                 {{ $lead->urgency ?? 'N/A' }}
                                             </span>
                                         </li>
+                                        <li class="list-group-item border-0 d-flex align-items-center gap-3 flex-wrap">
+                                            <span class="fw-semibold text-break">Sales Person :
+                                            </span>
+                                            <span>
+                                                {{ $lead->user->first_name ?? 'N/A' }}
+                                            </span>
+                                        </li>
 
                                     </ul>
                                 </div>
