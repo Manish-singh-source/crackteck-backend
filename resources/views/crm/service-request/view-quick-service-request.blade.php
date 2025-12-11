@@ -205,6 +205,7 @@
                                             <th>SKU</th>
                                             <th>HSN</th>
                                             <th>Brand</th>
+                                            <th>Issue</th>
                                         </tr>    
                                     </thead>
                                     <tbody>
@@ -215,6 +216,7 @@
                                             <td>{{ $request->sku }}</td>
                                             <td>{{ $request->hsn }}</td>
                                             <td>{{ $request->brand }}</td>
+                                            <td>{{ $request->issue }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
