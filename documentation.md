@@ -420,26 +420,165 @@
         - Status: 0 - Inactive, 1 - Active 
 
 8. Variations: 
-    - List of variations available in the system 
+    - Attributes: 
+        - List of attributes available in the system 
+        - Add Attribute 
+        - View Attribute 
+        - Update Attribute 
+        - Delete Attribute 
 
-    - Product Variants: 
+    - Attribute Values: 
+        - List of attribute values available in the system 
+        - Add Attribute Value 
+        - View Attribute Value 
+        - Update Attribute Value 
+        - Delete Attribute Value 
 
-    - 
+    Table: 
+        `product_variant_attributes`: 
+            - id (auto generated) 
+            - name 
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at 
 
-
+        `product_variant_attribute_values`:     
+            - id (auto generated) 
+            - attribute_id (foreign key) 
+            - value 
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at 
 
 (Warehouse)
 9. Vendor: 
-10. Vendor Purchase Order: 
+    - List of vendors available in the system 
+    - Add Vendor 
+    - View Vendor 
+    - Update Vendor 
+    - Delete Vendor 
+    
+    Table: 
+        `vendors`: 
+            - vendor_id (auto generated) 
+            - created by - default null
+            - name  
+            - phone 
+            - email 
+
+            - address1
+            - address2 
+            - city 
+            - state 
+            - country 
+            - pincode 
+
+            - pan_no 
+            - gst_no 
+
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+    Note: 
+        - Created by: default null, only if admin creates vendor, fill created by using login user id
+        - Soft delete 
+        - Status: 0 - Inactive, 1 - Active 
+        - Create Own warehouse for currently available stock
+
+10. Vendor Purchase Order:  
+    - List of vendor purchase orders available in the system 
+    - Add Vendor Purchase Order 
+    - View Vendor Purchase Order 
+    - Update Vendor Purchase Order 
+    - Delete Vendor Purchase Order 
+
+    Table: 
+        `vendor_purchase_orders`: 
+            - vendor_purchase_order_id (auto generated) 
+            - vendor_id (foreign key) 
+            - po_number (unique) 
+            - invoice_number (unique) 
+            - invoice_pdf 
+            - purchase_date 
+            - po_amount_due_date 
+            - po_amount 
+            - po_status (pending, approved, rejected, cancelled) 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+
+    Note: 
+        - PO Number is unique 
+        - Invoice Number is unique 
+        - Soft delete 
+        - PO Status: 0 - Pending, 1 - Approved, 2 - Rejected, 3 - Cancelled  - default: 1 - Approved 
+
+
 
 (CRM)
 11. Manage Pincode: 
+    - List of pincodes available in the system 
+    - Add Pincode 
+    - View Pincode 
+    - Update Pincode 
+    - Delete Pincode 
+
+    Table: 
+        `pincodes`: 
+            - id (auto generated) 
+            - pincode 
+            - delivery_status (active, inactive) 
+            - installation_status (active, inactive) 
+            - repair_status (active, inactive) 
+            - quick_service_status (active, inactive) 
+            - amc_status (active, inactive) 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+    Note: 
+        - Pincode is unique 
+        - All status are active by default 
+        - Soft delete 
+        - Status: 0 - Inactive, 1 - Active 
+
 
 11. Product: 
     (Warehouse)
-    - Warehouse Product 
+    - Warehouse Product: 
+        - List of All products available in the system 
+        - Add Warehouse Product 
+        - View Warehouse Product 
+        - Update Warehouse Product 
+        - Delete Warehouse Product 
+
+    Table: 
+        `products`: 
+            - product_id (auto generated) 
+            - vendor_id (foreign key) 
+            - vendor_purchase_order_id (foreign key) 
+
+            - product_name 
+            - hsn_code 
+            - sku 
+            - brand_id (foreign key) 
+            - model_no 
+            - 
+        
+
+
     (E-commerce)
     - E-commerce Product: 
+
+
+
+
+
 
 (CRM)
 12. Covered Items: 
