@@ -49,4 +49,9 @@ class Lead extends Model
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn(string $eventName) => "Lead {$eventName}");
     }
+
+    public function user()
+    {
+        return $this->belongsTo(SalesPerson::class);
+    }
 }
