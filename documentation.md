@@ -559,23 +559,141 @@
 
     Table: 
         `products`: 
+            <!-- foreign keys -->
             - product_id (auto generated) 
             - vendor_id (foreign key) 
             - vendor_purchase_order_id (foreign key) 
 
-            - product_name 
+            - brand_id (foreign key) 
+            - parent_category_id (foreign key) 
+            - sub_category_id (foreign key) 
+
+            <!-- rack details -->
+            - warehouse_id (foreign key) 
+
+            <!-- product details -->
+            - name 
             - hsn_code 
             - sku 
-            - brand_id (foreign key) 
             - model_no 
-            - 
-        
+            - short_description 
+            - full_description 
+            - technical_specification 
+            - brand_warranty 
+            - company_warranty 
+            
+            - cost_price 
+            - selling_price 
+            - discount_price 
+            - tax 
+            - final_price 
+            
+            - stock_quantity 
+            - stock_status (in stock, low stock, out of stock, scrap) 
+            
+            - main_product_image 
+            - additional_product_images 
+            - datasheet_manual 
+            
+            - variations (json) 
 
+            - status (active, inactive) 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+            
+
+            <!-- pending for future -->
+            - warehouse_rack_id (foreign key) 
+            - rack_zone_area 
+            - rack_no 
+            - level_no 
+            - position_no 
+            - expiry_date 
+            - rack_status (available, blocked, reserved) 
+
+            
+        Note: 
+            - Stock quantity is always greater than or equal to 0 
+            - Stock status is auto generated based on stock quantity 
+            - Soft delete 
+            - Status: 0 - Inactive, 1 - Active 
+
+
+        `product_serials`: 
+            - product_serial_id (auto generated) 
+            - product_id (foreign key) 
+
+            - auto_generated_serial 
+            - manual_serial 
+
+            - cost_price 
+            - selling_price 
+            - discount_price 
+            - tax 
+            - final_price 
+
+            - status (active, inactive, sold, scrap) 
+            
+            - created_at 
+            - updated_at 
+            - deleted_at 
 
     (E-commerce)
     - E-commerce Product: 
+        - List of All products available in the system 
+        - Add E-commerce Product 
+        - View E-commerce Product 
+        - Update E-commerce Product 
+        - Delete E-commerce Product 
 
+        Table: 
+        `ecommerce_products`: 
+            - ecommerce_product_id (auto generated) 
+            - warehouse_product_id (foreign key) 
+            - sku 
 
+            - with_installation (json) 
+
+            <!-- optional fields repeated from warehouse product -->
+            - company_warranty 
+            - short_description 
+            - full_description 
+            - technical_specification 
+
+            - min_order_qty - default 1
+            - max_order_qty 
+
+            - shipping_charges 
+            - shipping_class (light, heavy, fragile) 
+
+            - is_featured 
+            - is_best_seller 
+            - is_suggested 
+            - is_todays_deal 
+
+            - product_tags (json) 
+
+            - status (active, inactive, draft) 
+
+            - meta_title 
+            - meta_description 
+            - meta_keywords 
+            - meta_product_url_slug 
+
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+        Note: 
+            - SKU is unique 
+            - Meta Product URL Slug is unique 
+            - Soft delete 
+            - Status: 0 - Inactive, 1 - Active, 2 - Draft 
+            - Meta Product URL Slug is auto generated from meta title 
+            - This product relates to the warehouse product
+            - Warehouse product can be related to multiple product serials table
 
 
 
