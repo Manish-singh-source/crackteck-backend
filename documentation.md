@@ -628,11 +628,16 @@
             - auto_generated_serial 
             - manual_serial 
 
+            - price ( Fetch from product table and if we want to change for specific serial, we can change )
             - cost_price 
             - selling_price 
             - discount_price 
             - tax 
             - final_price 
+
+            - Images ( Fetch from product table and if we want to change for specific serial, we can change )
+            - main_product_image 
+            - additional_product_images
 
             - status (active, inactive, sold, scrap) 
             
@@ -663,7 +668,7 @@
             - technical_specification 
 
             - min_order_qty - default 1
-            - max_order_qty 
+            - max_order_qty - default : stock quantity
 
             - shipping_charges 
             - shipping_class (light, heavy, fragile) 
@@ -698,30 +703,217 @@
 
 
 
-(CRM)
+    (CRM)
 12. Covered Items: 
-    - List of covered items lists with (service type, covered item name)
     - Add Covered Item 
-        - Add Diagnosis List one by one in single form 
-
-    - View Covered Item 
-    - Update Covered Item 
+    - Edit Covered Item 
     - Delete Covered Item 
+        
+    - List of covered items lists with (service type, covered item name, no of diagonisis)
+    
+
+    Table: 
+        `covered_items`: 
+            - id (auto generated)   
+            - service_type (amc, quick_service, installation, repair) 
+            - service_name 
+            - service_charge ( if service type is amc then not required )
+            - status 
+
+            - diagonisis_list (json) 
+
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+    Note: 
+        - Soft delete 
+        - Status: 0 - Inactive, 1 - Active 
+        - Diagonisis List: json array of diagonisis list
+        - If service type is amc then not required to add service charge
 
 
 13. AMC Plans: List of AMC plans like Yearly, Monthly, etc. with covered items
+    - Add AMC Plan 
+    - View AMC Plan 
+    - Update AMC Plan 
+    - Delete AMC Plan 
+
+    Table: 
+        `amc_plans`: 
+            - id (auto generated)
+            - plan_name 
+            - plan_code 
+
+            - description 
+            - duration  ( If custom, then we will ask for duration as number of years ) - number in months
+            - total_visits 
+
+            - plan_cost 
+            - tax 
+            - total_cost 
+            - pay_terms 
+
+            - support_type 
+            - covered_items (json) ( List of covered items only for AMC include diagnosis )
+
+            - brochure 
+            - tandc 
+            - replacement_policy 
+
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+
+    Note: 
+        - Plan Code is unique 
+        - Duration: 1 - 6 Months, 2 - 12 months, 3 - 24 months, 4 - 36 months, 5 - Custom 
+        - Soft delete 
+        - Status: 0 - Inactive, 1 - Active 
+    
 
 14. Quick Services Plans: List of quick services like Quick Repair, Full Cleaning, etc. with price and covered items
+    - List of quick services available in the system 
+    - No of Diagnosis available for each quick service 
+    - Price for each quick service 
+    - View Quick Service 
+
 15. Installation Services Plans: List of installation services like Home Installation, Office Installation, etc. with price and covered items
+    - List of installation services available in the system 
+    - No of Diagnosis available for each installation service 
+    - Price for each installation service 
+    - View Installation Service 
+    
 16. Repairing Services Plans: List of repairing services like Battery Replacement, Screen Repair, etc. with price and covered items
+    - List of repairing services available in the system 
+    - No of Diagnosis available for each repairing service 
+    - Price for each repairing service 
+    - View Repairing Service 
 
-
-15. Serivice Request: 
+15. Service Request: 
     1. Non-AMC Service: - Installation Services - Repairing Services: List of non amc services requested by customers
     2. AMC Services: List of AMC services requested by customers
     3. Quick Service Requests: List of quick service requests requested by customers
 
+    Table: 
+        For This we need 8 different tables
+        - service_requests: 
+        - products_list:
+        - assigned-engineer:
+        - assigned_group_engineers:
+        - engineer_diagnosis_details:
+        - request_products: 
+        - assigned_delivery_man:
+        - quotation:
+
+        `service_requests`: 
+            - request_id (auto generated) 
+            - request_source (customer, engineer, delivery_man) 
+            - request_plan_id (foreign key) 
+            - customer_id (foreign key) 
+            - request_date 
+            - request_status (pending, approved, rejected, processing, processed, picking, picked, completed) 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+        `products_list`: 
+            - product_list_id (auto generated) 
+            - service_requests_id (foreign key) 
+            - name 
+            - model_no 
+            - sku
+            - hsn
+            - brand
+            - image
+            - description
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+        `assigned-engineer`: 
+            - id (auto generated) 
+            - request_id (foreign key) 
+            - engineer_id (foreign key)    
+            - assignment_type (individual, group) 
+            - group_name (if group assignment) 
+            - supervisor_id (foreign key) 
+            - status (pending, in_progress, completed, cancelled) 
+            - assigned_at 
+            - transferred_to (if transferred) 
+            - transferred_at (if transferred) 
+            - notes 
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+        `assigned_group_engineers`: 
+            - id (auto generated) 
+            - assignment_id (foreign key) 
+            - engineer_id (foreign key) 
+            - is_supervisor (boolean) 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+        `engineer_diagnosis_details`: 
+            - id (auto generated) 
+            - assignment_id (foreign key) 
+            - diagnosis_types (json) 
+            - diagnosis_notes 
+            - completed_at 
+            - created_at 
+            - updated_at 
+            - deleted_at    
+
+        `engineer_product_delivery`: 
+            - id (auto generated) 
+            - request_id (foreign key) 
+            - assignment_id (foreign key) 
+            - product_id (foreign key) 
+            - quantity 
+            - delivered_at 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+        `request_products`: 
+            - id (auto generated) 
+            - request_id (foreign key) 
+            - product_id (foreign key) 
+            - quantity 
+            - price
+            - assigned_delivery_man (delivery man , engineer)
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+        `assigned_delivery_man`: 
+            - id (auto generated) 
+            - request_id (foreign key) 
+            - delivery_man_id (foreign key) 
+            - assigned_at 
+            - created_at 
+            - updated_at 
+            - deleted_at         
+
+        `quotation`: 
+            - id (auto generated) 
+            - request_id (foreign key) 
+            - quotation_from_admin (only price of that services)
+            - quotation_status (pending, approved, rejected) 
+            - quotation_date 
+            - quotation_amount
+            - quotation_file
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
 16. Track Request: (Pending)
+
 17. Case Transfer: List of case transfer requests from engineer 
     - List of case transfer requests 
     - View Case Transfer Request 

@@ -211,7 +211,7 @@
                                             </div>
 
                                             @php
-                                                $items = json_decode($amc->items);
+                                                $items = json_decode($amc->items, true) ?? [];
                                             @endphp
                                             <div class="">
                                                 <h6 class="fs-15">List of Covered Items</h6>
@@ -309,7 +309,7 @@
                                         Submit
                                     </a> --}}
                                     <button type="submit" class="btn btn-success w-sm waves ripple-light">
-                                        Submit
+                                        Update
                                     </button>
                                 </div>
                             </div>
