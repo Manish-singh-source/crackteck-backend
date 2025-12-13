@@ -810,14 +810,19 @@
 
         `service_requests`: 
             - request_id (auto generated) 
-            - request_source (customer, engineer, delivery_man) 
-            - request_plan_id (foreign key) 
+            - request_plan_id (foreign key) - from (covered items table)
             - customer_id (foreign key) 
             - request_date 
             - request_status (pending, approved, rejected, processing, processed, picking, picked, completed) 
+            - request_source (customer, system) 
+            - created_by (if created by system, then show admin) 
+            - assign_status - (0 - Not Assigned, 1 - Assigned)
             - created_at 
             - updated_at 
             - deleted_at 
+
+        Note: 
+            - Request Source: If customer, then store source as customer and id in created_by, if system, then store source as system and id in created_by 
 
         `products_list`: 
             - product_list_id (auto generated) 
@@ -829,34 +834,66 @@
             - brand
             - image
             - description
+            - status (pending, approved, rejected, processing, in_progress, on_hold, diagnosis_completed, processed, picking, picked, completed)
             - created_at 
             - updated_at 
             - deleted_at 
+
+
+        Note: 
+            - Statuses: 
+                - Pending: When request is created 
+                - Approved: When request is approved by customer
+                - Rejected: When request is rejected by customer
+
+                - Processing: When request is assigned to engineer 
+                - In Progress: When engineer starts working on the request 
+                - on Hold: When request is on hold 
+                - diagnosis_completed: When engineer has completed the diagnosis
+                - Processed: When engineer has completed the diagnosis and completed the request 
+                
+                - Picking: When engineer is picking the product from customer 
+                - Picked: When engineer has picked the product from customer 
+                
+                - Completed: When request is completed 
+
 
         `assigned-engineer`: 
             - id (auto generated) 
             - request_id (foreign key) 
             - engineer_id (foreign key)    
             - assignment_type (individual, group) 
-            - group_name (if group assignment) 
-            - supervisor_id (foreign key) 
-            - status (pending, in_progress, completed, cancelled) 
             - assigned_at 
-            - transferred_to (if transferred) 
-            - transferred_at (if transferred) 
-            - notes 
+            - transferred_to (to whom request transferred) 
+            - transferred_at (when request is transferred) 
+            - notes  - (reason)
+            - status (active, inactive) 
             - created_at 
             - updated_at 
             - deleted_at 
 
+        Note: 
+            - status: if active then only that engineer can work on the request. inactive means engineer is not working on the request or previous engineer has transferred the request to another engineer
+            
+
         `assigned_group_engineers`: 
             - id (auto generated) 
-            - assignment_id (foreign key) 
+            - assigned_engineer_id (foreign key) 
             - engineer_id (foreign key) 
+            - group_name (if group assignment) 
             - is_supervisor (boolean) 
             - created_at 
             - updated_at 
             - deleted_at     
+
+
+
+
+
+
+
+
+
 
         `engineer_diagnosis_details`: 
             - id (auto generated) 
