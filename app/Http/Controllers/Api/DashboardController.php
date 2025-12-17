@@ -58,10 +58,10 @@ class DashboardController extends Controller
         }
         $data = [];
         if ($staffRole == 'sales_person') {
-            $meets = Meet::where('user_id', $validated['user_id'])
+            $meets = Meet::with('leadDetails')->where('user_id', $validated['user_id'])
                 // ->where('date', today())
                 ->get();
-            $followup = FollowUp::where('user_id', $validated['user_id'])
+            $followup = FollowUp::with('leadDetails')->where('user_id', $validated['user_id'])
             // ->where('followup_date', today())
             ->get();
             $data = [
