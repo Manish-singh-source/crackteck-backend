@@ -862,6 +862,7 @@
             - id (auto generated) 
             - request_id (foreign key) 
             - engineer_id (foreign key)    
+            
             - assignment_type (individual, group) 
             - assigned_at 
             - transferred_to (to whom request transferred) 
