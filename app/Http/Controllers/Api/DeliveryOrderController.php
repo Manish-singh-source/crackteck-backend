@@ -441,8 +441,8 @@ class DeliveryOrderController extends Controller
             'model' => 'required|string',
             'vehicle_number' => 'required|string',
             'fuel_type' => 'required|string',
-            'license_document_back_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'license_document_front_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'license_document_back_path' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+            'license_document_front_path' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
         ]));
 
         if ($roleValidated->fails()) {

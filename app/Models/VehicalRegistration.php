@@ -22,6 +22,14 @@ class VehicalRegistration extends Model
         'created_by',
     ];
 
+    // protected $hidden = [
+    //     'delivery_man_id',
+    //     'created_by',
+    //     'created_at',
+    //     'updated_at',
+    //     'deleted_at'
+    // ];
+
     public function deliveryMan()
     {
         return $this->belongsTo(DeliveryMan::class, 'delivery_man_id');
