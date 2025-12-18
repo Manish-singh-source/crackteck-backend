@@ -1,5 +1,22 @@
 # Documentation
 
+Laravel Packages: 
+    "php": "^8.2",
+    "barryvdh/laravel-dompdf": "^3.1",
+    "laravel/framework": "^12.0",
+    "laravel/sanctum": "^4.2",
+    "laravel/tinker": "^2.10.1",
+    "laravel/ui": "^4.6",
+    "laravolt/avatar": "^6.2",
+    "php-flasher/flasher-laravel": "^2.1",
+    "spatie/laravel-activitylog": "^4.10",
+    "spatie/laravel-permission": "^6.21",
+    "tymon/jwt-auth": "^2.2"
+,
+Fast2sms sms service,
+phone pe payment gateway,
+social logins, 
+etc.
 
 ## Roles: (same sequence)
 1. Field Executive
@@ -1137,10 +1154,118 @@
         - etc. 
 
 
-25. Leads:
+25. Leads: 
+    - List of leads 
+    - View Lead 
+    - Add Lead 
+    - Update Lead 
+    - Delete Lead 
+
+    Table: 
+        `leads`: 
+            - lead_id (auto generated) 
+            - first_name 
+            - last_name 
+            - phone 
+            - email 
+            - dob 
+            - gender 
+            - company_name 
+            - designation 
+            - industry_type 
+            - source 
+            - requirement_type 
+            - budget_range 
+            - urgency 
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
 26. Follow Up:
+    - List of follow up 
+    - View Follow Up 
+    - Add Follow Up 
+    - Update Follow Up 
+    - Delete Follow Up 
+
+    Table: 
+        `follow_ups`: 
+            - follow_up_id (auto generated) 
+            - lead_id (foreign key) 
+            - user_id (Sales Person) 
+            - followup_date 
+            - followup_time 
+            - status 
+            - remarks 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
 27. Meets:
-28. Quotations:
+    - List of meets 
+    - View Meet 
+    - Add Meet 
+    - Update Meet 
+    - Delete Meet 
+
+    Table: 
+        `meets`: 
+            - meet_id (auto generated) 
+            - lead_id (foreign key) 
+            - user_id (Sales Person) 
+            - meet_title 
+            - meeting_type 
+            - date 
+            - time 
+            - location 
+            - attachment 
+            - meetAgenda 
+            - followUp 
+            - status 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
+28. Quotations: 
+    - List of quotations 
+    - View Quotation 
+    - Add Quotation 
+    - Update Quotation 
+    - Delete Quotation 
+
+    Table: 
+        `quotations`: 
+            - quotation_id (auto generated) 
+            - lead_id (foreign key) 
+            - user_id (Sales Person) 
+            - quote_id 
+            - quote_date 
+            - expiry_date 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
+    Table: 
+        `quotation_products`: 
+            - quotation_product_id (auto generated) 
+            - quotation_id (foreign key) 
+            - product_name 
+            - hsn_code 
+            - sku 
+            - price 
+            - quantity 
+            - tax 
+            - total 
+            - created_at 
+            - updated_at 
+            - deleted_at     
+
+
 
 (Warehouse)
 29. Scrap Items:
