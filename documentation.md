@@ -792,6 +792,12 @@
     - Price for each repairing service 
     - View Repairing Service 
 
+
+
+
+
+
+
 15. Service Request: 
     1. Non-AMC Service: - Installation Services - Repairing Services: List of non amc services requested by customers
     2. AMC Services: List of AMC services requested by customers
@@ -817,6 +823,7 @@
             - request_source (customer, system) 
             - created_by (if created by system, then show admin) 
             - assign_status - (0 - Not Assigned, 1 - Assigned)
+            - status - (0 - pending, 1 - approved, 2 - assigned, 3 - rejected, 4 - in_transfer, 5 - transferred, 6 - in_progress, 7 - completed)
             - created_at 
             - updated_at 
             - deleted_at 
@@ -963,9 +970,8 @@
     Table: 
         `case_transfer_requests`: 
             - request_id (auto generated) 
-            - Service Request Type (AMC, Non-AMC, Quick Service) 
-            - Service Request Id (foreign key) 
-            - Requested By (Engineer)
+            - service_requests_id (AMC, Non-AMC, Quick Service) from service_requests table
+            - engineer_id (Requested By (Engineer))
             - Re-assigned Engineer 
             - Engineer Reason 
             - Admin Reason 
@@ -1015,7 +1021,7 @@
         - Soft delete 
         - Change status to picked for service request when engineer picks the product 
         - Change status to completed/cancelled for service request when delivery man delivers the product 
-        - When product delivered verify customer using otp verification
+        - When product delivered verify customer using otp verification 
 
 20. Remote Jobs: visible to admin, team head 
     - List of requests coming from field executive for remote diagnosis 
@@ -1165,225 +1171,6 @@
 
 
 
-
-1. Warehouses: 
-    - Warehouse List 
-    - Add Warehouse 
-    - View Warehouse 
-    - Edit Warehouse 
-    - Delete Warehouse 
-
-    Table: 
-        id, warehouse_code, warehouse_name, warehouse_type, warehouse_addr1, warehouse_addr2, city, state, country, pincode, contact_person_name, phone_number, alternate_phone_number, email, working_hours, working_days, max_store_capacity, supported_operations, zone_conf, gst_no, licence_no, licence_doc, default_warehouse, status, verification_status, created_at, updated_at, deleted_at
-        - add if something is missing 
-    
-    Note: 
-    - verification_status: 0 - Pending, 1 - Verified, 2 - Rejected 
-    - default_warehouse: 0 - No, 1 - Yes 
-    - status: 0 - Inactive, 1 - Active 
-    - Only one warehouse is default. 
-    - Warehouse code is auto generated. 
-    - Warehouse code is unique. 
-    - Soft delete 
-    - Show Available Stock, low stock, total stock, etc. in the list view 
-
-    Defaults: 
-        - verification_status: 0 
-        - default_warehouse: 0 
-        - status: 1 
-
-    Model Relationships: 
-
-    1. Has Many Warehouse Rack
-        warehousesRacks()
-
-    2. Has Many Product
-        - total products count 
-        - total available stock count 
-        - total low stock count 
-        - total scrap stock count 
-        - etc. 
-        
-        products()
-        
-
-
-2. Warehouse Rack
-    - Rack List 
-    - Add Rack
-    - Edit Rack
-    - Delete Rack
-
-    Table: 
-        id, warehouse_id, rack_name, zone_area, rack_no, level_no, position_no, floor, quantity, filled_quantity, created_at, updated_at, deleted_at
-
-    Note: 
-    - filled_quantity <= quantity (constraint)
-    - Soft delete 
-
-    Model Relationships: 
-    1. Belongs To Warehouse
-        warehouse()
-
-
-3. Product List: 
-    - Vendor Tab: 
-        - Vendor List 
-        - Add Vendor 
-        - Edit Vendor 
-        - Delete Vendor
-        - View Vendor
-
-        - Table: 
-            - Vendor Code
-            - Vendor Name
-            - Vendor Address
-            - Vendor Contact Person
-            - Vendor Contact Number
-            - Vendor Email
-            - Vendor GST Number
-            - Vendor PAN Number
-            - Vendor Profile Image
-        
-        Note: 
-            - Vendor Code is auto generated.
-            - Vendor Code is unique.
-            - Soft delete 
-            - Total Vendor POs, Total Vendor Invoices, Total Vendor Amount, etc. in the list view
-
-        Model Relationships: 
-        1. Has Many Vendor PO
-            vendorPOs()
-
-
-    - Vendor PO Tab: 
-        - Vendor PO List 
-        - Add Vendor PO 
-        - Edit Vendor PO 
-        - Delete Vendor PO 
-        - View Vendor PO
-
-        - Table: 
-            - vendor Id
-            - PO Number
-            - Invoice Number
-            - Invoice PDF/Image
-            - Purchase Date
-            - Bill Due Date
-            - Bill Amount
-            - Payment Status
-            - Payment Date
-            - Payment Mode
-            - Payment Reference
-            - Payment Remarks
-
-        Note: 
-            - Vendor Id is foreign key from Vendors table
-            - PO Number is unique.
-            - Soft delete 
-
-        Model Relationships: 
-
-        1. Belongs To Vendor
-            vendor()
-        2. Has Many Vendor PO Item
-            vendorPOItems()
-        3. Has Many Product
-            products()
-            
-
-    - Product Tab: 
-        - Product List 
-        - Add Product 
-        - Edit Product 
-        - Delete Product 
-        - View Product
-        - Import Product 
-        - Export Product 
-
-        - Product Table: 
-            - Vendor Id
-            - Vendor Order Id 
-            - Warehouse id 
-            - name 
-            - sku 
-            - hsn code
-            - brand (brands table)
-            - model no 
-            - serial no 
-            - category (categories table)
-            - sub category (sub categories table)
-            - short description 
-            - full description 
-            - technical specification 
-            - brand warranty 
-            - company warranty 
-            - cost price 
-            - selling price 
-            - discount price 
-            - tax 
-            - final price (auto calculated)
-            - stock quantity 
-            - primary image 
-            - additional images 
-            - datasheet/manual (pdf/excel)
-            - variations (variants table)
-            - status 
-            - stock status 
-            - warehouse rack 
-            - zone area 
-            - rack no 
-            - level no 
-            - position no 
-            - created at 
-            - updated at 
-            - deleted at 
-            
-        
-        Note: 
-            - Vendor Id is foreign key from Vendors table
-            - Vendor Order Id is foreign key from Vendor Orders table
-            - Warehouse id is foreign key from Warehouses table
-            - Brand is foreign key from Brands table
-            - Category is foreign key from Categories table
-            - Sub Category is foreign key from Sub Categories table
-            - Variations is foreign key from Variants table 
-            - Soft delete 
-            - Stock status: 0 - In Stock, 1 - Low Stock, 2 - Out of Stock, 3 - Scrap
-
-        Model Relationships: 
-            1. Belongs To Vendor
-            2. Belongs To Vendor Order
-            3. Belongs To Warehouse
-            4. Belongs To Brand
-            5. Belongs To Category
-            6. Belongs To Sub Category
-            7. Belongs To Variants
-            8. Has Many Product Serial
-
-        - Product Serial Table: 
-            - Product Id
-            - Auto Generated Serial
-            - Manual Serial
-            - Final Serial (auto generated from auto or manual)
-            - Is Manual (boolean)
-            - Status (active, inactive, sold, scrap)
-            - Created at 
-            - Updated at 
-            - Deleted at 
-
-        Note: 
-            - If manual serial is provided, use it as final serial and mark is_manual as true 
-            - If manual serial is not provided, use auto generated serial as final serial and mark is_manual as false
-            - Status is default active
-            - Soft delete 
-            - If product is scrapped, mark status as scrap and move to scrap items table
-            - If product is sold, mark status as sold
-            - If product is active, mark status as active
-            - If product is inactive, mark status as inactive   
-
-        Model Relationships: 
-            1. Belongs To Product 
 
 
 4. Scrap Items: 
