@@ -29,7 +29,7 @@ etc.
 ## Websites & Apps:
 
 1. Frontend (E-commerce)
-2. Backend (CRM) 
+2. Backend (CRM)
 3. App (Customer, Sales Person, Field Executive, Delivery Man)
 
 # Backend (CRM) 
@@ -469,7 +469,7 @@ etc.
             - updated_at 
             - deleted_at 
 
-(Warehouse)
+    (Warehouse)
 9. Vendor: 
     - List of vendors available in the system 
     - Add Vendor 
@@ -537,7 +537,7 @@ etc.
 
 
 
-(CRM)
+    (CRM)
 11. Manage Pincode: 
     - List of pincodes available in the system 
     - Add Pincode 
@@ -974,7 +974,8 @@ etc.
             - deleted_at     
 
 
-16. Track Request: (Pending)
+16. Track Request: No need of table. 
+    - Search by service request id 
 
 17. Case Transfer: List of case transfer requests from engineer 
     - List of case transfer requests 
@@ -986,13 +987,24 @@ etc.
 
     Table: 
         `case_transfer_requests`: 
-            - request_id (auto generated) 
-            - service_requests_id (AMC, Non-AMC, Quick Service) from service_requests table
-            - engineer_id (Requested By (Engineer))
-            - Re-assigned Engineer 
-            - Engineer Reason 
-            - Admin Reason 
-            - Status (pending, approved, rejected) 
+        
+        Schema::create('case_transfer_requests', function (Blueprint $table) {
+            $table->id();
+            $table->string('transfer_id')->unique();
+            $table->foreignId('service_request_id')->constrained('service_requests')->onDelete('cascade');
+            $table->foreignId('requesting_engineer_id')->constrained('staff')->onDelete('cascade');
+            $table->foreignId('new_engineer_id')->nullable()->constrained('staff')->onDelete('setNull');
+            $table->string('engineer_reason');
+            $table->text('admin_reason')->nullable();
+            $table->string('status')->default('pending'); // pending, approved, rejected
+            $table->timestamp('approved_at')->nullable();
+            $table->timestamp('rejected_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['service_request_id', 'status']);
+        });
+
             
     Note: 
         - Service Request Type: 1 - AMC, 2 - Non-AMC, 3 - Quick Service 
@@ -1007,7 +1019,15 @@ etc.
         2. Belongs To Requested By (Engineer)
         3. Belongs To Re-assigned Engineer (Engineer)
             
-18. Chats Logs
+18. Chats Logs: 
+    - List of all chats 
+    - View Chat 
+    - Add Chat 
+    - Update Chat 
+    - Delete Chat 
+    
+    Table: 
+        `chats`: 
 
 18. Activity Log: List of all activities performed in the system 
 
@@ -1021,16 +1041,42 @@ etc.
 
     Table: 
         `pickup_requests`: 
-            - pickup_request_id (auto generated) 
-            - Service Request Type (AMC, Non-AMC, Quick Service) 
-            - Service Request Id (foreign key) 
-            - Requested By (Engineer)
-            - Assigned Delivery/Engineer Man (For Pickup) 
-            - Assigned At 
-            - Assigned Delivery/Engineer Man (For Delivery) 
-            - Delivered At 
-            - Status (pending, approved, rejected) 
-            - etc. 
+
+        Schema::create('pickup_requests', function (Blueprint $table) {
+            $table->id();
+            $table->string('pickup_request_id')->unique();
+            $table->foreignId('service_request_id')->constrained('service_requests')->onDelete('cascade');
+            $table->foreignId('engineer_id')->constrained('staff')->onDelete('cascade'); // Requested by
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            
+            // Pickup Assignment
+            $table->foreignId('pickup_person_id')->nullable()->constrained('staff')->onDelete('setNull'); // Delivery Man or Engineer
+            $table->timestamp('pickup_assigned_at')->nullable();
+            $table->timestamp('pickup_completed_at')->nullable();
+            
+            // Delivery Assignment
+            $table->foreignId('delivery_person_id')->nullable()->constrained('staff')->onDelete('setNull'); // Delivery Man
+            $table->timestamp('delivery_assigned_at')->nullable();
+            $table->timestamp('delivery_completed_at')->nullable();
+            
+            // Status
+            $table->string('status')->default('pending'); // pending, assigned, in_transit, completed, cancelled, failed
+            $table->text('cancellation_reason')->nullable();
+            
+            // Photos
+            $table->json('before_photos')->nullable();
+            $table->json('after_photos')->nullable();
+            
+            // OTP Verification
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_verified_at')->nullable();
+            
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['service_request_id', 'status']);
+            $table->index('customer_id');
+        });
         
     Note: 
         - Status: pending -> approved -> rejected 
@@ -1050,7 +1096,33 @@ etc.
     - Add Remote Job 
         - Assign Remote Engineer 
 
-21. Assigned Jobs: visible to remote engineers 
+    Table: 
+        `remote_jobs`: 
+
+        
+        // Remote Jobs (For remote engineers)
+        Schema::create('remote_jobs', function (Blueprint $table) {
+            $table->id();
+            $table->string('job_id')->unique();
+            $table->foreignId('service_request_id')->constrained('service_requests')->onDelete('cascade');
+            $table->foreignId('field_executive_id')->nullable()->constrained('staff')->onDelete('setNull'); // Created by
+            $table->foreignId('assigned_engineer_id')->nullable()->constrained('staff')->onDelete('setNull');
+            $table->string('job_type')->default('remote_diagnosis'); // remote_diagnosis, troubleshooting, guidance
+            $table->text('job_description');
+            $table->json('remote_access_details')->nullable();
+            $table->string('status')->default('pending'); // pending, assigned, in_progress, completed, escalated
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
+            $table->text('resolution_notes')->nullable();
+            $table->string('escalation_reason')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('status');
+        });
+
+21. Assigned Jobs: No need of table. 
+    - visible to remote engineers 
     - List of jobs assigned to engineers 
     - View Assigned Job 
         - Start Job 
@@ -1070,7 +1142,31 @@ etc.
     - Update Field Issue 
 
     Note: 
-        - Tab switching: All issues, Pending, In Progress, Completed
+        - Tab switching: All issues, Pending, In Progress, Completed 
+
+
+    Table: 
+        `field_issues`: 
+
+        // Field Issues
+        Schema::create('field_issues', function (Blueprint $table) {
+            $table->id();
+            $table->string('issue_id')->unique();
+            $table->foreignId('field_executive_id')->constrained('staff')->onDelete('cascade');
+            $table->string('issue_type');
+            $table->text('issue_description');
+            $table->string('severity')->default('medium'); // low, medium, high, critical
+            $table->string('status')->default('pending'); // pending, in_progress, resolved, closed
+            $table->foreignId('assigned_remote_engineer_id')->nullable()->constrained('staff')->onDelete('setNull');
+            $table->timestamp('resolved_at')->nullable();
+            $table->text('resolution_notes')->nullable();
+            $table->json('attachments')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('status');
+        });
+
 
 
 23. Stock In Hand: engineer get stock from warehouse and use it for field service 
@@ -1100,6 +1196,43 @@ etc.
             - quantity (requested quantity)
             - delivered_quantity
             - status (pending, approved, rejected, picked, used, returned, cancelled)
+    
+        
+        // Stock In Hand (Engineer field inventory)
+        Schema::create('stock_in_hand', function (Blueprint $table) {
+            $table->id();
+            $table->string('stock_request_id')->unique();
+            $table->foreignId('engineer_id')->constrained('staff')->onDelete('cascade'); // Requested by
+            $table->date('requested_date');
+            $table->integer('requested_quantity');
+            $table->integer('delivered_quantity')->default(0);
+            $table->string('status')->default('pending'); // pending, approved, rejected, picked, used, returned, cancelled
+            $table->text('request_notes')->nullable();
+            $table->timestamp('approved_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['engineer_id', 'status']);
+        });
+
+        // Stock In Hand Products
+        Schema::create('stock_in_hand_products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('stock_in_hand_id')->constrained('stock_in_hand')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_serial_id')->nullable()->constrained('product_serials')->onDelete('setNull');
+            $table->integer('requested_quantity');
+            $table->integer('delivered_quantity')->default(0);
+            $table->decimal('unit_price', 15, 2);
+            $table->string('status')->default('pending'); // pending, approved, rejected, picked, used, returned, cancelled
+            $table->text('notes')->nullable();
+            $table->timestamp('picked_at')->nullable();
+            $table->timestamp('returned_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+
 
     Note: 
         - Requested By is foreign key from Engineers table
@@ -1128,6 +1261,44 @@ etc.
             - etc. 
 
         `stock_in_hand_pivot`:
+        	id	product_id	requested_by	delivery_man_id	request_date	urgency_level	quantity	reason	approval_status	service_request_id	created_at	updated_at	
+
+        
+        // Spare Parts Requests
+        Schema::create('spare_part_requests', function (Blueprint $table) {
+            $table->id();
+            $table->string('request_id')->unique();
+            $table->foreignId('service_request_id')->constrained('service_requests')->onDelete('cascade');
+            $table->foreignId('engineer_id')->constrained('staff')->onDelete('cascade'); // Requested by
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade'); // Requested for
+            $table->timestamp('requested_at');
+            $table->foreignId('assigned_delivery_man_id')->nullable()->constrained('staff')->onDelete('setNull');
+            $table->timestamp('assigned_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
+            $table->string('status')->default('pending'); // pending, in_progress, delivered, cancelled
+            $table->text('request_notes')->nullable();
+            $table->json('delivery_photos')->nullable();
+            $table->text('cancellation_reason')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('status');
+        });
+
+        // Spare Part Request Items
+        Schema::create('spare_part_request_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('spare_part_request_id')->constrained('spare_part_requests')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_serial_id')->nullable()->constrained('product_serials')->onDelete('setNull');
+            $table->integer('quantity');
+            $table->decimal('unit_price', 15, 2);
+            $table->decimal('total_price', 15, 2);
+            $table->string('status')->default('pending'); // pending, approved, rejected, delivered, cancelled
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
 
 
     Note: 
@@ -1140,20 +1311,6 @@ etc.
         - etc. 
         
 
-
-25. Stock Report:    
-    - List of stock report 
-    - View Stock Report 
-    - Add Stock Report 
-    - Update Stock Report 
-    - Delete Stock Report 
-
-    Table: 
-        - Product Id 
-        - Product Serial Id 
-        - etc. 
-
-
 25. Leads: 
     - List of leads 
     - View Lead 
@@ -1163,24 +1320,37 @@ etc.
 
     Table: 
         `leads`: 
-            - lead_id (auto generated) 
-            - first_name 
-            - last_name 
-            - phone 
-            - email 
-            - dob 
-            - gender 
-            - company_name 
-            - designation 
-            - industry_type 
-            - source 
-            - requirement_type 
-            - budget_range 
-            - urgency 
-            - status 
-            - created_at 
-            - updated_at 
-            - deleted_at     
+
+        Schema::create('leads', function (Blueprint $table) {
+            $table->id();
+            <!-- user_id -->
+            $table->foreignId('staff_id')->constrained('staff')->onDelete('cascade'); // Sales Person
+            $table->string('lead_number')->unique();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone', 20)->nullable();
+            $table->string('email')->nullable();
+            $table->date('dob')->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('industry_type')->nullable();
+            $table->string('source')->default('website'); // website, referral, call, event, etc.
+            $table->string('requirement_type')->nullable();
+            $table->string('budget_range')->nullable(); // <1L, 1-5L, 5-10L, 10-20L, 20L+
+            $table->string('urgency')->default('medium'); // low, medium, high, critical
+            $table->string('status')->default('new'); // new, contacted, qualified, proposal, won, lost, nurture
+
+            $table->decimal('estimated_value', 15, 2)->nullable();
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
+            $table->index(['staff_id', 'status']);
+            $table->index('created_at');
+            $table->index('urgency');
+        });
 
 
 26. Follow Up:
@@ -1192,16 +1362,25 @@ etc.
 
     Table: 
         `follow_ups`: 
-            - follow_up_id (auto generated) 
-            - lead_id (foreign key) 
-            - user_id (Sales Person) 
-            - followup_date 
-            - followup_time 
-            - status 
-            - remarks 
-            - created_at 
-            - updated_at 
-            - deleted_at     
+
+        Schema::create('follow_ups', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lead_id')->constrained('leads')->onDelete('cascade');
+            <!-- user_id -->
+            $table->foreignId('staff_id')->constrained('staff')->onDelete('cascade'); // Sales Person
+            $table->date('followup_date');
+            $table->time('followup_time')->nullable();
+            $table->string('followup_type')->default('call'); // call, email, meeting, sms 
+            $table->string('status')->default('pending'); // pending, completed, rescheduled, cancelled
+            $table->text('remarks')->nullable();
+            $table->string('next_action')->nullable();
+            $table->timestamp('next_followup_date')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['lead_id', 'status']);
+            $table->index('followup_date');
+        });
 
 
 27. Meets:
@@ -1213,21 +1392,31 @@ etc.
 
     Table: 
         `meets`: 
-            - meet_id (auto generated) 
-            - lead_id (foreign key) 
-            - user_id (Sales Person) 
-            - meet_title 
-            - meeting_type 
-            - date 
-            - time 
-            - location 
-            - attachment 
-            - meetAgenda 
-            - followUp 
-            - status 
-            - created_at 
-            - updated_at 
-            - deleted_at     
+        
+        // Meetings
+        Schema::create('meets', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lead_id')->constrained('leads')->onDelete('cascade');
+            <!-- user_id -->
+            $table->foreignId('staff_id')->constrained('staff')->onDelete('cascade'); // Sales Person
+            $table->string('meet_title');
+            $table->string('meeting_type')->default('in_person'); // in_person, virtual, phone
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time')->nullable();
+            $table->string('location')->nullable();
+            $table->string('meeting_link')->nullable(); // For virtual meetings
+            $table->json('attendees')->nullable();
+            $table->string('attachment')->nullable();
+            $table->text('meet_agenda')->nullable();
+            $table->text('meeting_notes')->nullable();
+            $table->text('follow_up_action')->nullable();
+            $table->string('status')->default('scheduled'); // scheduled, completed, cancelled, rescheduled
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['lead_id', 'status']);
+        });
 
 
 28. Quotations: 
@@ -1239,190 +1428,636 @@ etc.
 
     Table: 
         `quotations`: 
-            - quotation_id (auto generated) 
-            - lead_id (foreign key) 
-            - user_id (Sales Person) 
-            - quote_id 
-            - quote_date 
-            - expiry_date 
-            - created_at 
-            - updated_at 
-            - deleted_at     
+
+        // Quotations
+        Schema::create('quotations', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lead_id')->constrained('leads')->onDelete('cascade');
+            <!-- user_id -->
+            $table->foreignId('staff_id')->constrained('staff')->onDelete('cascade'); // Sales Person
+            $table->string('quote_id')->unique();
+            $table->string('quote_number')->unique();
+            $table->date('quote_date');
+            $table->date('expiry_date');
+
+            $table->integer('total_items')->default(0);
+            
+            $table->string('currency')->default('INR');
+            $table->decimal('subtotal', 15, 2);
+            $table->decimal('discount_amount', 15, 2)->default(0);
+            $table->decimal('tax_amount', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 2);
+            
+            $table->string('status')->default('draft'); // draft, sent, accepted, rejected, expired, converted
+            $table->text('terms_conditions')->nullable();
+            $table->text('notes')->nullable();
+            $table->timestamp('sent_at')->nullable();
+            $table->timestamp('accepted_at')->nullable();
+            $table->string('quote_document_path')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['lead_id', 'status']);
+        });
 
 
     Table: 
         `quotation_products`: 
-            - quotation_product_id (auto generated) 
-            - quotation_id (foreign key) 
-            - product_name 
-            - hsn_code 
-            - sku 
-            - price 
-            - quantity 
-            - tax 
-            - total 
-            - created_at 
-            - updated_at 
-            - deleted_at     
+        
+         // Quotation Products
+        Schema::create('quotation_products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('quotation_id')->constrained('quotations')->onDelete('cascade');
+            $table->string('product_name');
+            $table->string('hsn_code')->nullable();
+            $table->string('sku')->nullable();
+            $table->text('product_description')->nullable();
+            $table->integer('quantity');
+            $table->decimal('unit_price', 15, 2);
+            $table->decimal('discount_per_unit', 15, 2)->default(0);
+            $table->decimal('tax_rate', 5, 2)->default(0);
+            $table->decimal('line_total', 15, 2);
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
 
 
-(Warehouse)
-29. Scrap Items:
-30. Track Product:
-33. Stock Reports: 
-34. Low Stock Report: 
 
-(E-commerce)
-35. Orders:
-36. Coupons:
-37. Subscribers:
+    (Warehouse)
+
+29. Scrap Items: 
+    - List of scrap items 
+    - View Scrap Item 
+    - Add Scrap Item 
+    - Update Scrap Item 
+    - Delete Scrap Item 
+
+    Table: 
+        `scrap_items`: 
+
+        
+        // Scrap Items
+        Schema::create('scrap_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_serial_id')->nullable()->constrained('product_serials')->onDelete('setNull');
+            $table->integer('quantity_scrapped');
+            $table->string('reason_for_scrap');
+            $table->text('scrap_notes')->nullable();
+            $table->json('photos')->nullable();
+            $table->foreignId('scrapped_by')->nullable()->constrained('users')->onDelete('setNull');
+            $table->timestamp('scrapped_at');
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('product_id');
+        });
+
+
+30. Track Product: No need of table. 
+    - Search Product by SKU or Serial Number
+    - View Product Details
+    - View Serial Numbers
+    - View Warehouse Details
+    - View Rack Details
+    - View Stock Details
+    - View Product History
+    - View Product Images
+    - View Product Documents
+    - View Product Videos
+    - View Product Audits
+    - View Product Actions
+
+
+33. Stock Reports: No need of table. 
+    - List of stock reports 
+    - View Stock Report 
+    - Add Stock Report 
+    - Update Stock Report 
+    - Delete Stock Report 
+    - Export Stock Report 
+    - Import Stock Report 
+
+
+34. Low Stock Report: No need of table. 
+    - List of low stock report 
+    - View Low Stock Report 
+    - Add Low Stock Report 
+    - Update Low Stock Report 
+    - Delete Low Stock Report 
+    - Export Low Stock Report 
+    - Import Low Stock Report 
+
+
+
+
+    (E-commerce)
+35. Orders: 
+    - List of orders 
+    - View Order 
+    - Add Order 
+    - Update Order 
+    - Delete Order 
+    - Print Invoice 
+    - Download Invoice 
+    - Send Invoice Email 
+    - Print Delivery Challan 
+    - Download Delivery Challan 
+    - Send Delivery Challan Email 
+    - Update Order Status 
+    - Update Payment Status 
+    - Update Delivery Status 
+    - Update Delivery Man 
+    - Update Delivery Date 
+    - Update Delivery Time 
+    - Update Delivery Address 
+    - Update Delivery Instructions 
+
+
+    Table: 
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('restrict');
+            $table->string('order_number')->unique();
+            $table->string('order_type')->default('retail'); // retail, wholesale, b2b
+            
+            // Items & Pricing
+            $table->integer('total_items')->default(0);
+            $table->decimal('subtotal', 15, 2);
+            $table->decimal('discount_amount', 15, 2)->default(0);
+            $table->string('coupon_code')->nullable();
+            $table->decimal('tax_amount', 15, 2)->default(0);
+            $table->decimal('shipping_charges', 15, 2)->default(0);
+            $table->decimal('packaging_charges', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 2);
+            
+            // Address
+            $table->foreignId('billing_address_id')->nullable()->constrained('customer_address_details')->onDelete('setNull');
+            $table->foreignId('shipping_address_id')->nullable()->constrained('customer_address_details')->onDelete('setNull');
+            $table->boolean('billing_same_as_shipping')->default(true);
+            
+            // Status
+            $table->string('order_status')->default('pending'); // pending, confirmed, processing, shipped, delivered, cancelled, returned
+            $table->string('payment_status')->default('pending'); // pending, partial, completed, failed, refunded
+            $table->string('delivery_status')->default('pending'); // pending, in_transit, delivered, failed, returned
+            
+            // Dates
+            $table->timestamp('confirmed_at')->nullable();
+            $table->timestamp('shipped_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
+            $table->date('expected_delivery_date')->nullable();
+            
+            // OTP Verification
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expiry')->nullable();
+            $table->timestamp('otp_verified_at')->nullable();
+            
+            // Additional Info
+            $table->text('customer_notes')->nullable();
+            $table->text('admin_notes')->nullable();
+            $table->string('source_platform')->default('website'); // website, mobile_app, admin_panel
+            $table->string('tracking_number')->nullable();
+            $table->string('tracking_url')->nullable();
+            
+            // Return Info
+            $table->boolean('is_returnable')->default(true);
+            $table->integer('return_days')->default(30);
+            $table->string('return_status')->nullable();
+            $table->decimal('refund_amount', 15, 2)->nullable();
+            $table->string('refund_status')->nullable(); // pending, processed, cancelled
+            
+            // Metrics
+            $table->boolean('is_priority')->default(false);
+            $table->boolean('requires_signature')->default(false);
+            $table->boolean('is_gift')->default(false);
+            
+            // Created & Updated By
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('setNull');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('setNull');
+
+            // Timestamps
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['customer_id', 'order_status']);
+            $table->index('order_number');
+            $table->index('created_at');
+            $table->index('delivery_status');
+        });
+
+    
+        // Order Items
+        Schema::create('order_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('restrict');
+            $table->foreignId('product_serial_id')->nullable()->constrained('product_serials')->onDelete('setNull');
+            $table->string('product_name');
+            $table->string('product_sku');
+            $table->string('hsn_code')->nullable();
+            $table->integer('quantity');
+            $table->decimal('unit_price', 15, 2);
+            $table->decimal('discount_per_unit', 15, 2)->default(0);
+            $table->decimal('tax_per_unit', 15, 2)->default(0);
+            $table->decimal('line_total', 15, 2);
+            $table->json('variant_details')->nullable();
+            $table->json('custom_options')->nullable();
+            $table->string('item_status')->default('pending'); // pending, shipped, delivered, cancelled, returned
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['order_id', 'item_status']);
+        });
+
+        
+        // Order Payments
+        Schema::create('order_payments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->string('payment_id')->unique();
+            $table->string('transaction_id')->nullable()->unique();
+            $table->string('payment_method')->default('online'); // online, cod, cheque, bank_transfer
+            $table->string('payment_gateway')->nullable(); // phonepe, razorpay, etc.
+            $table->decimal('amount', 15, 2);
+            $table->string('currency')->default('INR');
+            $table->string('status')->default('pending'); // pending, processing, completed, failed, refunded
+            $table->json('response_data')->nullable();
+            $table->timestamp('processed_at')->nullable();
+            $table->text('failure_reason')->nullable();
+            $table->text('notes')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['order_id', 'status']);
+            $table->index('payment_id');
+        });
+
+
+36. Coupons: 
+    - List of coupons 
+    - View Coupon 
+    - Add Coupon 
+    - Update Coupon 
+    - Delete Coupon 
+
+    Table: 
+        `coupons`: 
+
+        Schema::create('coupons', function (Blueprint $table) {
+            $table->id();
+            $table->string('code')->unique();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('type')->default('percentage'); // percentage, fixed, buy_x_get_y
+            $table->decimal('discount_value', 10, 2);
+            $table->decimal('max_discount', 15, 2)->nullable();
+            $table->decimal('min_purchase_amount', 15, 2)->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('usage_limit')->nullable();
+            $table->integer('used_count')->default(0);
+            $table->integer('usage_per_customer')->default(1);
+            $table->boolean('is_active')->default(true);
+            $table->json('applicable_categories')->nullable();
+            $table->json('applicable_brands')->nullable();
+            $table->json('excluded_products')->nullable();
+            $table->boolean('stackable')->default(false);
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('code');
+            $table->index('is_active');
+        });
+
+    Table: 
+        `coupon_usage`: 
+        	
+        // Coupons Usage History
+        Schema::create('coupon_usage', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('coupon_id')->constrained('coupons')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->decimal('discount_amount', 15, 2);
+            $table->timestamps();
+            
+            $table->index(['coupon_id', 'customer_id']);
+        });
+
+
+37. Subscribers: 
+    - List of subscribers 
+    - Send Mail to all subscribers 
+    - Delete Subscriber 
+
+    Table: 
+        `subscribers`: 
+
+        Schema::create('subscribers', function (Blueprint $table) {
+            $table->id();
+            $table->string('email')->unique();
+            $table->timestamps();
+        });
+
+
 38. Contacts: 
+    - List of contacts 
+    - View Contact 
+    - Add Contact 
+    - Update Contact 
+    - Delete Contact 
+
+    Table: 
+        `contacts`: 
+
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('subject');
+            $table->text('description');
+            $table->timestamps();
+        });
+
+
 39. Banner:
     - Website Banner 
-    - Promotional Banner    
-40. Testimonials:
-41. Product Deal Offers:
-42. Collections:
+        - List of website banners 
+        - View Website Banner 
+        - Add Website Banner 
+        - Update Website Banner 
+        - Delete Website Banner 
+
+        Table: 
+            `website_banners`: 
+
+                
+            return new class extends Migration {
+                public function up(): void
+                {
+                    Schema::create('banners', function (Blueprint $table) {
+                        $table->id();
+
+                        // Core Info
+                        $table->string('title');
+                        $table->string('slug')->unique();
+                        $table->text('description')->nullable();
+                        $table->string('image_url');
+
+                        // Banner Classification
+                        $table->string('type')->default('website');
+                        // website, promotional
+
+                        $table->string('channel')->default('website');
+                        // website, mobile, email
+
+                        // Promotion-Specific Fields
+                        $table->string('promotion_type')->nullable();
+                        // discount, coupon, flash_sale, event
+
+                        $table->decimal('discount_value', 8, 2)->nullable();
+                        $table->string('discount_type')->nullable();
+                        // percentage, fixed
+
+                        $table->string('promo_code')->nullable();
+
+                        // Link & Display
+                        $table->string('link_url')->nullable();
+                        $table->string('link_target')->default('_self');
+                        // _self, _blank
+
+                        $table->string('position')->default('homepage');
+                        // homepage, category, product, slider, checkout, cart
+
+                        $table->integer('display_order')->default(0);
+
+                        // Scheduling
+                        $table->dateTime('start_at');
+                        $table->dateTime('end_at');
+
+                        // Status & Analytics
+                        $table->boolean('is_active')->default(true);
+                        $table->integer('click_count')->default(0);
+                        $table->integer('view_count')->default(0);
+
+                        // Extensibility
+                        $table->json('metadata')->nullable();
+
+                        $table->timestamps();
+                        $table->softDeletes();
+
+                        // Indexes
+                        $table->index('type');
+                        $table->index('channel');
+                        $table->index('position');
+                        $table->index('is_active');
+                        $table->index('promotion_type');
+                    });
+                }
+
+                public function down(): void
+                {
+                    Schema::dropIfExists('banners');
+                }
+            };
+
+
+40. Testimonials: 
+    - List of testimonials 
+    - View Testimonial 
+    - Add Testimonial 
+    - Update Testimonial 
+    - Delete Testimonial 
+
+    Table: 
+        `testimonials`: 
+
+        // Testimonials
+        Schema::create('testimonials', function (Blueprint $table) {
+            $table->id();
+            $table->string('customer_name');
+            $table->string('customer_image')->nullable();
+            $table->string('customer_designation')->nullable();
+            $table->text('testimonial_text');
+            $table->integer('rating')->default(5); // 1-5 stars
+            $table->string('source')->nullable(); // website, app, email, etc.
+            $table->boolean('is_verified')->default(false);
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->integer('display_order')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('is_active');
+        });
+
+
+41. Product Deal Offers: 
+
+
+42. Collections: 
+    - List of collections 
+    - View Collection 
+    - Add Collection 
+    - Update Collection 
+    - Delete Collection 
+
+    Table: 
+        `collections`: 
+
+        Schema::create('collections', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('image_url')->nullable();
+            $table->integer('sort_order')->default(0);
+            $table->boolean('is_active')->default(true);
+            $table->integer('products_count')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('is_active');
+        });
+
+    Table: 
+        `collection_category`: 
+        
+        // Collection Categories
+        Schema::create('collection_category', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('parent_categories')->onDelete('cascade');
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+            
+            $table->unique(['collection_id', 'category_id']);
+        });
+
+
+
 43. Profile: 
 
-(CRM)
-44. Tickets:
-45. Invoices:
+    (CRM)
+44. Tickets: 
+
+    List of tickets 
+    View Ticket 
+    Add Ticket 
+    Update Ticket 
+    Delete Ticket 
+
+    Table: 
+        `tickets`: 
+
+        Schema::create('tickets', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->string('ticket_number')->unique();
+            $table->string('ticket_id')->unique();
+            $table->string('title');
+            $table->longText('description');
+            $table->string('category')->default('general'); // product, service, billing, technical, other
+            $table->string('subcategory')->nullable();
+            $table->string('priority')->default('medium'); // low, medium, high, urgent
+            $table->string('status')->default('open'); // open, in_progress, pending, resolved, closed, reopened
+            $table->unsignedBigInteger('assigned_to')->nullable();
+            $table->integer('response_time_minutes')->nullable(); // SLA
+            $table->integer('resolution_time_minutes')->nullable(); // SLA
+            $table->timestamp('first_response_at')->nullable();
+            $table->timestamp('resolved_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->foreign('assigned_to')->references('id')->on('staff')->onDelete('setNull');
+            $table->index(['customer_id', 'status']);
+            $table->index('priority');
+        });
+
+    Table: 
+        `ticket_comments`: 
+
+        Schema::create('ticket_comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->text('comment');
+            $table->json('attachments')->nullable();
+            $table->boolean('is_internal')->default(false);
+            $table->timestamps();
+            
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('setNull');
+            $table->index('ticket_id');
+        });
+
+
+45. Invoices: 
+
+    List of invoices 
+    View Invoice 
+    Add Invoice 
+    Update Invoice 
+    Delete Invoice 
+    Generate Invoice PDF 
+    Send Invoice Email 
+    Print Invoice 
+
+    Table: 
+        `invoices`: 
+
+        
+        // Invoices
+        Schema::create('invoices', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->nullable()->constrained('orders')->onDelete('setNull');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('restrict');
+            $table->string('invoice_number')->unique();
+            $table->string('invoice_id')->unique();
+            $table->date('invoice_date');
+            $table->date('due_date');
+            $table->string('currency')->default('INR');
+            $table->decimal('subtotal', 15, 2);
+            $table->decimal('discount_amount', 15, 2)->default(0);
+            $table->decimal('tax_amount', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 2);
+            $table->decimal('paid_amount', 15, 2)->default(0);
+            $table->string('status')->default('draft'); // draft, sent, viewed, partially_paid, paid, overdue, cancelled
+            $table->text('notes')->nullable();
+            $table->string('invoice_document_path')->nullable();
+            $table->timestamp('sent_at')->nullable();
+            $table->timestamp('viewed_at')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index(['customer_id', 'status']);
+            $table->index('due_date');
+        });
+    
+    Table: 
+        `invoice_items`: 
+
+        // Invoice Items
+        Schema::create('invoice_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('invoice_id')->constrained('invoices')->onDelete('cascade');
+            $table->string('item_description');
+            $table->integer('quantity');
+            $table->decimal('unit_price', 15, 2);
+            $table->decimal('tax_rate', 5, 2)->default(0);
+            $table->decimal('line_total', 15, 2);
+            $table->timestamps();
+        });
+
 
 (Admin Panel & Website Setting)
 46. Settings:
 
 
 
-
-
-
-4. Scrap Items: 
-
-    - Scrap Items List 
-    - Add Scrap Item 
-    - Restore Scrap Item 
-    - View Scrap Item 
-
-    Table: 
-        - Product Id 
-        - Product Serial Id 
-        - Reason for Scrap
-        - Quantity Scrapped
-        - Scrapped At
-        - Scrapped By
-
-    Note: 
-        - Product Id is foreign key from Products table
-        - Product Serial Id is foreign key from Product Serials table
-        - Quantity Scrapped is always greater than or equal to 1
-        - Reason for Scrap is required
-        - Soft delete 
-        - Scrapped At is auto generated
-        - Scrapped By is auto generated
-
-    Model Relationships: 
-        1. Belongs To Product
-        2. Belongs To Product Serial
-        3. Belongs To User (Scrapped By)
-
-
-
-
-5. Track Product - Pending
-    - Search Product by SKU or Serial Number
-
-    Table: 
-        - Refer Product Table
-        - Refer Product Serial Table
-        - etc. 
-
-
-
-6. Stock In Hand: engineer get stock from warehouse and use it for field service 
-    - List of stock in hand 
-        - All, Available, Used
-    - View Stock In Hand 
-    - Add Stock In Hand 
-    - Update Stock In Hand 
-    - Delete Stock In Hand 
-    - Transfer Stock In Hand return to warehouse 
-
-    Table: 
-        `stock_in_hand`:
-            - stock_in_hand_id (auto generated)
-            <!-- - Product Id  -->
-            - Product Serial Id 
-            - Requested By (Engineer)
-            - Requested Quantity
-            - Delivered Quantity
-            - Status (pending, approved, rejected, picked, used, returned, cancelled)
-            
-        `stock_in_hand_products`:
-            - stock_in_hand_product_id (auto generated)
-            - stock_in_hand_id (foreign key)
-            - product_id (foreign key)
-            - product_serial_id (foreign key)
-            - quantity (requested quantity)
-            - delivered_quantity
-            - status (pending, approved, rejected, picked, used, returned, cancelled)
-
-    Note: 
-        - Requested By is foreign key from Engineers table
-        - Status: pending -> approved -> picked -> used -> returned -> cancelled
-        - Soft delete 
-
-7. Spare Parts Request: List of spare parts request sent by engineers after going to customer site 
-    - List of spare parts request 
-        - All, Pending, Approved, Rejected, Cancelled
-    - View Spare Parts Request 
-    - Add Extra Product 
-    - Remove Product 
-    - Update Product 
-    - Update Status (pending, approved, rejected) 
-
-    Tables: 
-        `spare_part_requests`:
-            - request_id (auto generated)
-            - Requested By (Engineer)
-            - Requested For (Customer)
-            - Requested At
-            - Assigned Delivery Man
-            - Assigned At
-            - Delivered At
-            - Status (pending, in progress, delivered, cancelled)
-            - etc. 
-
-        `stock_in_hand_pivot`:
-
-
-    Note: 
-        - Product Id is foreign key from Products table
-        - Product Serial Id is foreign key from Product Serials table
-        - Requested By is foreign key from Engineers table
-        - Requested For is foreign key from Customers table
-        - Assigned Delivery Man is foreign key from Delivery Men table
-        - Soft delete 
-        - etc. 
-        
-
-
-7. Stock Report:    
-    - List of stock report 
-    - View Stock Report 
-    - Add Stock Report 
-    - Update Stock Report 
-    - Delete Stock Report 
-
-    Table: 
-        - Product Id 
-        - Product Serial Id 
-        - etc. 
-
-8. Low Stock Report
-
-9. Vendor Purchase Bill
 
 
 ## CRM
