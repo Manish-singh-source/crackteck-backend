@@ -33,6 +33,8 @@ etc.
 2. products - serial products variations not changable 
 3. e-commerce product - add packaging charges 
 4. figma: engineer request dignose part: remote support request not added 
+5. AMC Plans - in edit page covered items not auto selected. 
+
 
 ========================================================================================
 
@@ -987,18 +989,19 @@ etc.
             - service_request_id (foreign key) 
             - service_request_product_id (foreign key) 
             - assigned_engineer_id (engineer who sent pickup request)
-            - reason - textarea
+            - reason - textarea (optional)
 
             - assigned_person_type (delivery man , engineer)
             - assigned_person_id (if assigned_person_type is engineer then assigned_person_id is equal to assigned engineer id)
 
-            - status (pending, assigned, approved, picked, received, cancelled) 
+            - status (pending, assigned, approved, picked, received, cancelled, returned) 
             - otp 
             - otp_expiry 
 
             - assigned_at 
             - picked_at 
             - received_at 
+            - returned_at 
 
             - created_at 
             - updated_at 
@@ -1006,7 +1009,13 @@ etc.
 
 
 
-
+        `service_request_product_request_part`: 
+            - id (auto generated) 
+            - service_request_id (foreign key) 
+            - service_request_product_id (foreign key) 
+            - assigned_engineer_id (engineer who sent request part)
+            - requested_part_id (foreign key) 
+            - 
 
 
 

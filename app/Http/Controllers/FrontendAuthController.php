@@ -31,7 +31,7 @@ class FrontendAuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('demo/');
         }
 
         return redirect()->back()->with('success', 'Registration successful.');
@@ -48,7 +48,7 @@ class FrontendAuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('demo/');
         }
 
         return back()->withErrors([
@@ -62,7 +62,7 @@ class FrontendAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->intended('/');
+        return redirect()->intended('demo/');
     }
 
     /**
@@ -105,7 +105,7 @@ class FrontendAuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('shop'));
+            return redirect()->intended(route('demo/shop'));
         }
 
         if ($request->expectsJson()) {
@@ -153,7 +153,7 @@ class FrontendAuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('shop'));
+            return redirect()->intended(route('demo/shop'));
         }
 
         if ($request->expectsJson()) {
