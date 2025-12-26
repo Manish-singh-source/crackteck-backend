@@ -26,6 +26,17 @@ etc.
 5. Admin
 
 
+
+========================================================================================
+
+1. customer - primary address issue 
+2. products - serial products variations not changable 
+3. e-commerce product - add packaging charges 
+4. figma: engineer request dignose part: remote support request not added 
+
+========================================================================================
+
+
 ## Websites & Apps:
 
 1. Frontend (E-commerce)
@@ -833,14 +844,13 @@ etc.
 
         `service_requests`: 
             - request_id (auto generated) 
-            - request_plan_id (foreign key) - from (covered items table)
+            - service_type - (0 - AMC, 1 - Quick Service, 2 - Installation, 3 - Repairing)
             - customer_id (foreign key) 
             - request_date 
             - request_status (pending, approved, rejected, processing, processed, picking, picked, completed) 
             - request_source (customer, system) 
             - created_by (if created by system, then show admin) 
-            - assign_status - (0 - Not Assigned, 1 - Assigned)
-            - status - (0 - pending, 1 - approved, 2 - assigned, 3 - rejected, 4 - in_transfer, 5 - transferred, 6 - in_progress, 7 - completed)
+            - is_engineer_assigned - (0 - Not Assigned, 1 - Assigned)
             - created_at 
             - updated_at 
             - deleted_at 
@@ -852,12 +862,16 @@ etc.
             - product_list_id (auto generated) 
             - service_requests_id (foreign key) 
             - name 
+            - type 
             - model_no 
-            - sku
+            - sku - (optional)
             - hsn
+            - purchase_date 
             - brand
             - image
             - description
+            - item_code_id - (for all service types from covered items table, if AMC then plan id) (1 or more)
+            - service charge 
             - status (pending, approved, rejected, processing, in_progress, on_hold, diagnosis_completed, processed, picking, picked, completed)
             - created_at 
             - updated_at 
@@ -867,13 +881,13 @@ etc.
         Note: 
             - Statuses: 
                 - Pending: When request is created 
-                - Approved: When request is approved by customer
-                - Rejected: When request is rejected by customer
+                - Approved: When request is approved by customer 
+                - Rejected: When request is rejected by customer 
 
                 - Processing: When request is assigned to engineer 
                 - In Progress: When engineer starts working on the request 
                 - on Hold: When request is on hold 
-                - diagnosis_completed: When engineer has completed the diagnosis
+                - diagnosis_completed: When engineer has completed the diagnosis 
                 - Processed: When engineer has completed the diagnosis and completed the request 
                 
                 - Picking: When engineer is picking the product from customer 
@@ -882,16 +896,22 @@ etc.
                 - Completed: When request is completed 
 
 
-        `assigned-engineer`: 
-            - id (auto generated) 
+        `assigned_engineer`: 
             - request_id (foreign key) 
-            - engineer_id (foreign key)    
+            - engineer_id (foreign key) 
             
+            <!-- assignment details --> 
             - assignment_type (individual, group) 
             - assigned_at 
+
+            <!-- transfer details  --> 
             - transferred_to (to whom request transferred) 
             - transferred_at (when request is transferred) 
-            - notes  - (reason)
+            - notes  - (reason) 
+
+            - group_name (if group assignment) 
+            - is_supervisor (boolean) 
+            
             - status (active, inactive) 
             - created_at 
             - updated_at 
@@ -901,41 +921,91 @@ etc.
             - status: if active then only that engineer can work on the request. inactive means engineer is not working on the request or previous engineer has transferred the request to another engineer
             
 
-        `assigned_group_engineers`: 
-            - id (auto generated) 
-            - assigned_engineer_id (foreign key) 
-            - engineer_id (foreign key) 
-            - group_name (if group assignment) 
-            - is_supervisor (boolean) 
-            - created_at 
-            - updated_at 
-            - deleted_at     
-
-
-
-
-
-
-
-
-
-
         `engineer_diagnosis_details`: 
             - id (auto generated) 
-            - assignment_id (foreign key) 
-            - diagnosis_types (json) 
-            - diagnosis_notes 
+            - service_request_id (foreign key) 
+            - service_request_product_id (foreign key) 
+            - assigned_engineer_id (foreign key) 
+
+            - covered_items_id - from service request product table (only 1 from that json) 
+            - diagnosis_list (json) 
+                {
+                    "OS": "working", 
+                    "OS": "not working", 
+                    .
+                    .
+                    .
+                    .
+
+                    "Software": "add to pickup", 
+                    "Batter": "not checked", 
+                }
+            - diagnosis_photos (json) 
+                {
+                    "OS": ["photo1.jpg", "photo2.jpg"], 
+                    "Software": ["photo3.jpg", "photo4.jpg"], 
+                    "Batter": ["photo5.jpg", "photo6.jpg"],
+                } 
+            - diagnosis_videos (json) 
+                {
+                    "OS": ["video1.mp4", "video2.mp4"], 
+                    "Software": ["video3.mp4", "video4.mp4"], 
+                    "Batter": ["video5.mp4", "video6.mp4"],
+                }
+            - diagnosis_notes (json) 
+                {
+                    "OS": "OS is working", 
+                    "Software": "Software is not working", 
+                    "Batter": "Batter is not checked", 
+                }
+            - diagnosis_report 
+            
+            - after_service_photos (json) 
+            - before_service_photos (json) 
+
             - completed_at 
             - created_at 
             - updated_at 
-            - deleted_at    
+            - deleted_at 
+
+
+        `service_request_product_pickup`: 
+            - id (auto generated) 
+            - service_request_id (foreign key) 
+            - service_request_product_id (foreign key) 
+            - assigned_engineer_id (engineer who sent pickup request)
+            - reason - textarea
+
+            - assigned_person_type (delivery man , engineer)
+            - assigned_person_id (if assigned_person_type is engineer then assigned_person_id is equal to assigned engineer id)
+
+            - status (pending, assigned, approved, picked, received, cancelled) 
+            - otp 
+            - otp_expiry 
+
+            - assigned_at 
+            - picked_at 
+            - received_at 
+
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
+
+
+
+
+
+
 
         `engineer_product_delivery`: 
             - id (auto generated) 
-            - request_id (foreign key) 
-            - assignment_id (foreign key) 
-            - product_id (foreign key) 
+            - service_request_id (foreign key) 
+            - service_request_product_id (foreign key) 
+            - product_serial_id (foreign key) 
             - quantity 
+            - unit_price 
+            - notes 
             - delivered_at 
             - created_at 
             - updated_at 
@@ -959,7 +1029,7 @@ etc.
             - assigned_at 
             - created_at 
             - updated_at 
-            - deleted_at         
+            - deleted_at 
 
         `quotation`: 
             - id (auto generated) 
