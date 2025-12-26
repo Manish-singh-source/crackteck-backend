@@ -133,8 +133,8 @@
                 <a href="#"><img src="{{ asset('frontend-assets/images/icons/icon-4.png') }}" alt="social"></a>
             </div> --}}
 
-            <p class="mt-3 small">Prefer to contact us? <a href="mailto:info@crackteck.com"
-                    style="color:#fff;text-decoration:underline;">info@crackteck.com</a></p>
+            {{-- <p class="mt-3 small">Prefer to contact us? <a href="mailto:info@crackteck.com"
+                    style="color:#fff;text-decoration:underline;">info@crackteck.com</a></p> --}}
         </div>
     </section>
 

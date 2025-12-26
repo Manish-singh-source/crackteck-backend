@@ -928,6 +928,19 @@ etc.
             - assigned_engineer_id (foreign key) 
 
             - covered_items_id - from service request product table (only 1 from that json) 
+            <!-- 
+                Request types: 
+                    1. working 
+                    2. not working 
+                        - add to pickup 
+                        - request part 
+                            - stock in hand 
+                            - part request 
+                        - request remote diagnosis
+                        - save and continue  
+                    3. not checked 
+            -->
+
             - diagnosis_list (json) 
                 {
                     "OS": "working", 
@@ -936,8 +949,8 @@ etc.
                     .
                     .
                     .
-
                     "Software": "add to pickup", 
+                    "Software": "part requested", 
                     "Batter": "not checked", 
                 }
             - diagnosis_photos (json) 
