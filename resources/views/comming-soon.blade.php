@@ -117,8 +117,7 @@
             </div>
 
             <h1 class="coming-title">Coming Soon</h1>
-            <p class="coming-subtitle">We're working hard behind the scenes. We'll be ready soon — stay tuned and
-                subscribe for updates.</p>
+            <p class="coming-subtitle">We're working hard behind the scenes. We'll be ready soon — stay tuned.</p>
 
             {{-- <form class="subscribe-form" id="subscribeForm" onsubmit="return subscribe(event)">
                 <input type="email" name="email" id="emailInput" class="form-control" placeholder="Enter your email"
