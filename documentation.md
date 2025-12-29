@@ -1014,13 +1014,30 @@ etc.
             - service_request_id (foreign key) 
             - service_request_product_id (foreign key) 
             - assigned_engineer_id (engineer who sent request part)
-            - requested_part_id (foreign key) 
-            - 
+            - requested_part_id (foreign key)  - (product id)
+            - request_type - (stock_in_hand, part_request) - (already in db stock in hand)
+
+            - assigned_person_type (delivery man , engineer)
+            - assigned_person_id (if assigned_person_type is engineer then assigned_person_id is equal to assigned engineer id)
+
+            - status (pending, approved, rejected, customer_approved, customer_rejected, picked, in_transit, delivered, used) 
+
+            - otp 
+            - otp_expiry 
+
+            - assigned_at 
+            - approved_at 
+            - delivered_at 
+            - used_at 
+            - cancelled_at 
+            
+            - created_at 
+            - updated_at 
+            - deleted_at 
 
 
 
-
-        `engineer_product_delivery`: 
+        `requested_part_delivery`: 
             - id (auto generated) 
             - service_request_id (foreign key) 
             - service_request_product_id (foreign key) 
@@ -1032,38 +1049,42 @@ etc.
             - created_at 
             - updated_at 
             - deleted_at     
-
-        `request_products`: 
-            - id (auto generated) 
-            - request_id (foreign key) 
-            - product_id (foreign key) 
-            - quantity 
-            - price
-            - assigned_delivery_man (delivery man , engineer)
-            - created_at 
-            - updated_at 
-            - deleted_at 
-
-        `assigned_delivery_man`: 
-            - id (auto generated) 
-            - request_id (foreign key) 
-            - delivery_man_id (foreign key) 
-            - assigned_at 
-            - created_at 
-            - updated_at 
-            - deleted_at 
+        
 
         `quotation`: 
             - id (auto generated) 
-            - request_id (foreign key) 
-            - quotation_from_admin (only price of that services)
-            - quotation_status (pending, approved, rejected) 
+            - service_request_id (foreign key) - 
+            - requested_part_id (foreign key)  - service_request_product_request_part
+            - product_price - from product table 
+            - service_charge - from covered items table 
+            - delivery_charge - from delivery man table 
+            - total_amount 
+            - discount 
+            - quotation_file 
+            - quotation_status (pending, approved, rejected)  
             - quotation_date 
-            - quotation_amount
-            - quotation_file
+
             - created_at 
             - updated_at 
-            - deleted_at     
+            - deleted_at 
+
+
+        
+        `service_request_payment`:  
+            - id (auto generated) 
+            - service_request_id (foreign key) 
+
+            - payment_id (foreign key) 
+            - total_amount 
+            - payment_gateway 
+            - payment_method 
+            - payment_date 
+            - payment_status (paid, unpaid, partially_paid) 
+            
+            - created_at 
+            - updated_at 
+            - deleted_at 
+
 
 
 16. Track Request: No need of table. 
@@ -2180,3 +2201,12 @@ etc.
 
 
 # App (Customer, Sales Person, Field Executive, Delivery Man) - APIs
+
+
+
+
+
+
+
+Authentication 
+aminities 
