@@ -154,7 +154,6 @@ class DeliveryOrderController extends Controller
         $roleValidated = Validator::make($request->all(), ([
             'role_id' => 'required|in:2',
             'user_id' => 'required',
-            'order_id' => 'required',
         ]));
 
         if ($roleValidated->fails()) {
