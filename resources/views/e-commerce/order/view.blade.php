@@ -444,7 +444,7 @@
                     '<i class="fas fa-spinner fa-spin me-1"></i> Assigning...');
 
                 $.ajax({
-                    url: `/e-commerce/order/${orderId}/assign-delivery-man`,
+                    url: `{{ route('order.assign-delivery-man', $order->id) }}`,
                     method: 'POST',
                     data: {
                         delivery_man_id: deliveryManId,
